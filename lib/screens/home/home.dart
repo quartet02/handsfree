@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import '../navbar/navBar.dart';
 import '../../services/auth.dart';
 
 class Home extends StatelessWidget {
@@ -10,18 +10,18 @@ class Home extends StatelessWidget {
     final AuthService _auth = AuthService();
 
     return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            Text('Home'),
-            ElevatedButton(
-            onPressed: () {
-              _auth.signOut();
-            },
-            child: Text('Sign Out'),
-          ),]
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+              alignment: Alignment.topCenter,
+              image: AssetImage('assets/image/home.png'),
+              fit: BoxFit.cover),
         ),
       ),
+      floatingActionButton: navBar.Buttons(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      extendBody: true,
+      bottomNavigationBar: navBar.bar(),
     );
   }
 }
