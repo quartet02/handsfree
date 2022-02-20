@@ -1,9 +1,24 @@
+import 'package:flutter/cupertino.dart';
+
+// class Chat extends StatefulWidget {
+//   const Chat({Key? key}) : super(key: key);
+
+//   @override
+//   _ChatState createState() => _ChatState();
+// }
+
+// class _ChatState extends State<Chat> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container();
+//   }
+// }
 import 'package:flutter/material.dart';
 import '../navbar/navBar.dart';
 import '../../services/auth.dart';
 
-class Home extends StatelessWidget {
-  const Home({Key? key}) : super(key: key);
+class Chat extends StatelessWidget {
+  const Chat({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
