@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:handsfree/utils/miscellaneous.dart';
 import '../../services/auth.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:handsfree/utils/constants.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -32,61 +34,83 @@ class _SignUpState extends State<SignUp> {
           key: _signUpFormKey,
           child: Column(
             children: [
-              Container(alignment: Alignment.centerLeft, child: Text('Email')),
+              Container(
+                alignment: Alignment.centerLeft,
+                margin: const EdgeInsets.only(bottom: 10),
+                child: buildText.labelText("Email"),
+              ),
               buildTextBox.textBox(emailController, 'Enter your email', false,
                   false, 'Please enter some text'),
               Container(
-                  alignment: Alignment.centerLeft,
-                  margin: const EdgeInsets.only(top: 20),
-                  child: Text('Password')),
+                alignment: Alignment.centerLeft,
+                margin: const EdgeInsets.only(top: 20, bottom: 10),
+                child: buildText.labelText("Password"),
+              ),
               buildTextBox.textBox(passwordController, 'Enter your password',
                   true, false, 'Please enter some password'),
               Container(
-                  alignment: Alignment.centerLeft,
-                  margin: const EdgeInsets.only(top: 20),
-                  child: Text('Confirm Password')),
+                alignment: Alignment.centerLeft,
+                margin: const EdgeInsets.only(top: 20, bottom: 10),
+                child: buildText.labelText("Confirm Password"),
+              ),
               buildTextBox.textBox(passwordController, 'Retype your password',
                   true, false, 'Please retype your password'),
-              TextFormField(
-                controller: repasswordController,
-                obscureText: true,
-                autocorrect: false,
-                decoration: const InputDecoration(
-                  hintText: 'Retype your password',
-                ),
-                validator: (String? value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please retype your password';
-                  } else if (passwordController.text !=
-                      repasswordController.text) {
-                    return 'Password not same';
-                  }
-                  return null;
-                },
-              ),
               Padding(
-                padding: const EdgeInsets.only(top: 20),
-                child: ElevatedButton(
-                  onPressed: () async {
-                    if (_signUpFormKey.currentState!.validate()) {
-                      dynamic results = await _auth.signUpWithEmailAndPassword(
-                          emailController.text, passwordController.text);
-                      if (results[0] == 1) {
-                        // sign up fail
-                        var snackBar = SnackBar(
-                          content: Text(results[1]),
-                        );
+                padding: const EdgeInsets.only(top: 30),
+                child: GestureDetector(
+                    onTap: () async {
+                      if (_signUpFormKey.currentState!.validate()) {
+                        dynamic results =
+                            await _auth.signUpWithEmailAndPassword(
+                                emailController.text, passwordController.text);
+                        if (results[0] == 1) {
+                          // sign up fail
+                          var snackBar = SnackBar(
+                            content: Text(results[1]),
+                          );
 
-                        // Find the ScaffoldMessenger in the widget tree
-                        // and use it to show a SnackBar.
-                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                      } else {
-                        Navigator.pop(context);
+                          // Find the ScaffoldMessenger in the widget tree
+                          // and use it to show a SnackBar.
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        } else {
+                          Navigator.pop(context);
+                        }
                       }
-                    }
-                  },
-                  child: Text("Sign up"),
-                ),
+                    },
+                    child: Stack(children: <Widget>[
+                      Center(
+                        child: Container(
+                            alignment: Alignment.center,
+                            width: 200,
+                            decoration: const BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20)),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: kButtonShadow,
+                                    offset: Offset(6, 6),
+                                    blurRadius: 6,
+                                  ),
+                                ]),
+                            child: Image.asset(
+                              'assets/image/magenta_button.png',
+                              scale: 4,
+                            )),
+                      ),
+                      Container(
+                        height: 40,
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.only(top: 10),
+                        child: Text(
+                          'Sign Up',
+                          style: GoogleFonts.montserrat(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: kTextLight,
+                          ),
+                        ),
+                      ),
+                    ])),
               ),
             ],
           ),

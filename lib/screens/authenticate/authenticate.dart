@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:handsfree/screens/authenticate/signIn.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:handsfree/utils/constants.dart';
@@ -32,19 +33,24 @@ class Authenticate extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 5),
+                  padding: const EdgeInsets.only(bottom: 10),
                   child: buildButton(
-                      text: 'Sign in', word: 'signIn', style: 'white'),
+                      text: 'Sign in', word: 'signIn', buttonColor: 'white'),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: buildButton(
+                      text: 'Sign up', word: 'signUp', buttonColor: 'purple'),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 5),
-                  child: buildButton(
-                      text: 'Sign up', word: 'signUp', style: 'purple'),
-                ),
-                const Padding(
-                  padding: EdgeInsets.only(bottom: 5),
                   child: Text(
                     'Sign in/up with',
+                    style: GoogleFonts.montserrat(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.black,
+                    ),
                   ),
                 ),
                 Row(

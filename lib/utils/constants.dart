@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 //Colors
 const kBackgroundColour = Color.fromARGB(255, 240, 245, 255);
 const kShadow = Color.fromARGB(255, 97, 97, 97);
+const kButtonShadow = Color.fromARGB(255, 172, 172, 172);
 
 const kPurpleNav = Color.fromARGB(255, 91, 56, 216);
 
