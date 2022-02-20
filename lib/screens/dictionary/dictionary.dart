@@ -99,10 +99,10 @@ class _DictionaryState extends State<Dictionary> {
           ),
         ),
       ),
-      floatingActionButton: navBar.Buttons(),
+      floatingActionButton: navBar.Buttons(context),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       extendBody: true,
-      bottomNavigationBar: navBar.bar(),
+      bottomNavigationBar: navBar.bar(context),
     );
   }
 }
