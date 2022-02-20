@@ -83,8 +83,8 @@ class buildTextBox extends StatelessWidget {
           boxShadow: const [
             BoxShadow(
               color: kTextShadow,
-              offset: Offset(10, 10),
-              blurRadius: 20,
+              offset: Offset(6, 6),
+              blurRadius: 6,
             ),
           ]),
       child: TextFormField(
@@ -137,8 +137,8 @@ class buildTextBox extends StatelessWidget {
           boxShadow: const [
             BoxShadow(
               color: kTextShadow,
-              offset: Offset(10, 10),
-              blurRadius: 20,
+              offset: Offset(6, 6),
+              blurRadius: 6,
             ),
           ]),
       child: TextFormField(
@@ -197,6 +197,18 @@ class buildText extends StatelessWidget {
           fontWeight: FontWeight.w600,
           color: kText,
         ),
+      ),
+    );
+  }
+
+  static Widget headingText(String text) {
+    return Text(
+      text,
+      style: GoogleFonts.montserrat(
+        letterSpacing: 2,
+        fontSize: 25,
+        fontWeight: FontWeight.w800,
+        color: kTextLight,
       ),
     );
   }

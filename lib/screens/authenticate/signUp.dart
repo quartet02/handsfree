@@ -94,7 +94,7 @@ class _SignUpState extends State<SignUp> {
                                 ]),
                             child: Image.asset(
                               'assets/image/magenta_button.png',
-                              scale: 4,
+                              scale: 1,
                             )),
                       ),
                       Container(

@@ -41,6 +41,7 @@ dependencies:
   flutter_svg: ^1.0.3
   simple_shadow: ^0.3.0
   google_fonts: ^2.3.1
+  percent_indicator: ^3.4.0
 
 dev_dependencies:
   flutter_test:
