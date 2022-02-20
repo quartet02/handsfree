@@ -37,7 +37,7 @@ class navBar extends StatelessWidget {
                     child: MaterialButton(
                       onPressed: () {
                         if (index != 0) {
-                          Navigator.pushNamed(context, "/home/home");
+                          Navigator.pushReplacementNamed(context, "/home/home");
                         }
                         index = 0;
                       },
@@ -56,7 +56,8 @@ class navBar extends StatelessWidget {
                     child: MaterialButton(
                       onPressed: () {
                         if (index != 1) {
-                          Navigator.pushNamed(context, "/home/dictionary");
+                          Navigator.pushReplacementNamed(
+                              context, "/dictionary/dictionary");
                         }
                         index = 1;
                       },
@@ -94,7 +95,7 @@ class navBar extends StatelessWidget {
                     child: MaterialButton(
                       onPressed: () {
                         if (index != 3) {
-                          Navigator.pushNamed(context, "/home/chat");
+                          Navigator.pushReplacementNamed(context, "/home/chat");
                         }
                         index = 3;
                       },
@@ -113,7 +114,8 @@ class navBar extends StatelessWidget {
                     child: MaterialButton(
                       onPressed: () {
                         if (index != 4) {
-                          Navigator.pushNamed(context, "/home/profile");
+                          Navigator.pushReplacementNamed(
+                              context, "/home/profile");
                         }
                         index = 4;
                       },
@@ -141,7 +143,7 @@ class navBar extends StatelessWidget {
       backgroundColor: Colors.transparent,
       onPressed: () {
         if (index != 2) {
-          Navigator.pushNamed(context, "/home/learn");
+          Navigator.pushReplacementNamed(context, "/learn/learn");
         }
         index = 2;
       },

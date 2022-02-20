@@ -17,7 +17,7 @@ class Wrapper extends StatelessWidget {
     if (user != null) {
       return const Authenticate();
     } else {
-      return const Learn();
+      return const Home();
     }
   }
 }

@@ -71,10 +71,13 @@ class buildTextBox extends StatelessWidget {
   }
 
   static Widget textBox(TextEditingController controllers, String hint,
-      bool blockText, bool autoCorrect, String errorMessage) {
+      bool blockText, bool autoCorrect, String errorMessage,
+      {EdgeInsets margins = const EdgeInsets.all(0)}) {
     double radius = 25;
     return Container(
+      margin: margins,
       decoration: BoxDecoration(
+          color: Colors.transparent,
           image: const DecorationImage(
             image: AssetImage('assets/image/text_field.png'),
             fit: BoxFit.cover,
