@@ -15,8 +15,6 @@ class Learn extends StatefulWidget {
 }
 
 class _LearnState extends State<Learn> {
-  final searchController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +37,8 @@ class _LearnState extends State<Learn> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           'Basic Text',
@@ -92,39 +91,57 @@ class _LearnState extends State<Learn> {
                 ),
               ),
               const Padding(
-                padding: EdgeInsets.only(bottom: 20),
-              ),
-              const Padding(
-                padding: EdgeInsets.only(bottom: 50),
+                padding: EdgeInsets.only(bottom: 80),
               ),
               Container(
-                height: 100,
+                height: 400,
                 child: ListView.builder(
                   scrollDirection: Axis.vertical,
-                  padding: EdgeInsets.only(left: 16, right: 6),
+                  padding: EdgeInsets.symmetric(horizontal: 60),
                   itemCount: lessons.length,
                   itemBuilder: (context, index) {
-                    print(
-                        index.toString() + "ahhahahha" + lessons[index].images);
-                    return Container(
-                      height: 100,
-                      width: 200,
-                      child: Row(
-                        children: <Widget>[
-                          Container(
-                              child: Image.asset(
-                            lessons[index].images,
-                            scale: 4,
-                          )),
-                          Padding(padding: EdgeInsets.only(right: 30)),
-                          Column(
-                            children: [
-                              Text(lessons[index].lessonName),
-                              Padding(padding: EdgeInsets.only(top: 5)),
-                              Text(lessons[index].lessonDesc),
-                            ],
-                          ),
-                        ],
+                    return GestureDetector(
+                      onTap: () async {
+                        //check index and go the the respective place
+                      },
+                      child: Container(
+                        height: 100,
+                        width: 200,
+                        child: Row(
+                          children: <Widget>[
+                            Container(
+                                child: Image.asset(
+                              lessons[index].images,
+                              scale: 4,
+                            )),
+                            const Padding(padding: EdgeInsets.only(right: 10)),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Padding(
+                                    padding: EdgeInsets.only(top: 20)),
+                                Text(
+                                  lessons[index].lessonName,
+                                  style: GoogleFonts.montserrat(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                    color: kText,
+                                  ),
+                                ),
+                                const Padding(padding: EdgeInsets.only(top: 5)),
+                                Text(
+                                  lessons[index].lessonDesc,
+                                  style: GoogleFonts.montserrat(
+                                    fontSize: 12.8,
+                                    fontWeight: FontWeight.w400,
+                                    color: kText,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     );
                   },

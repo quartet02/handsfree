@@ -1,14 +1,14 @@
-class lessonModel {
+class subLevelModel {
   String lessonName;
   String lessonDesc;
   String images;
 
-  lessonModel(this.lessonName, this.lessonDesc, this.images);
+  subLevelModel(this.lessonName, this.lessonDesc, this.images);
 }
 
-List<lessonModel> lessons = lessonData
+List<subLevelModel> sublevels = sublevelData
     .map(
-      (item) => lessonModel(
+      (item) => subLevelModel(
         item['lessonName'] ?? "",
         item['lessonDesc'] ?? "",
         item['images'] ?? "",
@@ -16,7 +16,7 @@ List<lessonModel> lessons = lessonData
     )
     .toList();
 
-var lessonData = [
+var sublevelData = [
   {
     "lessonName": "Lesson 1",
     "lessonDesc": "haha",
