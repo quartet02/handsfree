@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:handsfree/models/newUser.dart';
 import 'package:handsfree/screens/authenticate/authenticate.dart';
 import 'package:handsfree/screens/home/home.dart';
+import 'package:handsfree/screens/dictionary/dictionary.dart';
 import 'package:provider/provider.dart';
 
 class Wrapper extends StatelessWidget {
@@ -9,14 +10,13 @@ class Wrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final user = Provider.of<NewUser?>(context);
 
     // return either Home or Authenticate widget
-    if(user == null){
+    if (user != null) {
       return const Authenticate();
-    }else{
-      return const Home();
+    } else {
+      return const Dictionary();
     }
   }
 }
