@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:handsfree/utils/miscellaneous.dart';
 import '../../services/auth.dart';
 
 class SignUp extends StatefulWidget {
@@ -33,40 +33,20 @@ class _SignUpState extends State<SignUp> {
           child: Column(
             children: [
               Container(alignment: Alignment.centerLeft, child: Text('Email')),
-              TextFormField(
-                controller: emailController,
-                decoration: const InputDecoration(
-                  hintText: 'Enter your email',
-                ),
-                validator: (String? value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter some text';
-                  }
-                  return null;
-                },
-              ),
+              buildTextBox.textBox(emailController, 'Enter your email', false,
+                  false, 'Please enter some text'),
               Container(
                   alignment: Alignment.centerLeft,
                   margin: const EdgeInsets.only(top: 20),
                   child: Text('Password')),
-              TextFormField(
-                controller: passwordController,
-                obscureText: true,
-                autocorrect: false,
-                decoration: const InputDecoration(
-                  hintText: 'Enter your password',
-                ),
-                validator: (String? value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter some password';
-                  }
-                  return null;
-                },
-              ),
+              buildTextBox.textBox(passwordController, 'Enter your password',
+                  true, false, 'Please enter some password'),
               Container(
                   alignment: Alignment.centerLeft,
                   margin: const EdgeInsets.only(top: 20),
                   child: Text('Confirm Password')),
+              buildTextBox.textBox(passwordController, 'Retype your password',
+                  true, false, 'Please retype your password'),
               TextFormField(
                 controller: repasswordController,
                 obscureText: true,
