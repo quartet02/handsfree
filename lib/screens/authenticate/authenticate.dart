@@ -22,10 +22,9 @@ class Authenticate extends StatelessWidget {
               image: AssetImage('assets/image/greeting_page.png'),
               fit: BoxFit.cover),
         ),
-        margin: const EdgeInsets.only(bottom: 40),
+        margin: const EdgeInsets.only(bottom: 0),
         child: Stack(
           fit: StackFit.expand,
-
           // clipBehavior: Clip.antiAliasWithSaveLayer,
           // overflow: Overflow.visible,
           children: [
@@ -53,22 +52,25 @@ class Authenticate extends StatelessWidget {
                     ),
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    GestureDetector(
-                        onTap: () {
-                          // _auth.signInWithFacebook();
-                        },
-                        child: Image.asset('assets/image/facebook_icon.png',
-                            scale: 4)),
-                    GestureDetector(
-                        onTap: () {
-                          _auth.signInWithGoogle();
-                        },
-                        child: Image.asset('assets/image/google_icon.png',
-                            scale: 4)),
-                  ],
+                Container(
+                  margin: EdgeInsets.only(bottom: 40),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      GestureDetector(
+                          onTap: () {
+                            // _auth.signInWithFacebook();
+                          },
+                          child: Image.asset('assets/image/facebook_icon.png',
+                              scale: 4)),
+                      GestureDetector(
+                          onTap: () {
+                            _auth.signInWithGoogle();
+                          },
+                          child: Image.asset('assets/image/google_icon.png',
+                              scale: 4)),
+                    ],
+                  ),
                 )
               ],
             ),
