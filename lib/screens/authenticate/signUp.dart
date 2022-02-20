@@ -19,11 +19,20 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Form(
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+              alignment: Alignment.topCenter,
+              image: AssetImage('assets/image/sign_up.png'),
+              fit: BoxFit.cover),
+        ),
+        child: Container(
+          margin: const EdgeInsets.only(top: 200),
+          padding: const EdgeInsets.only(left: 40, bottom: 5, right: 40),
           key: _signUpFormKey,
           child: Column(
             children: [
+              Container(alignment: Alignment.centerLeft, child: Text('Email')),
               TextFormField(
                 controller: emailController,
                 decoration: const InputDecoration(
@@ -36,6 +45,10 @@ class _SignUpState extends State<SignUp> {
                   return null;
                 },
               ),
+              Container(
+                  alignment: Alignment.centerLeft,
+                  margin: const EdgeInsets.only(top: 20),
+                  child: Text('Password')),
               TextFormField(
                 controller: passwordController,
                 obscureText: true,
@@ -50,6 +63,10 @@ class _SignUpState extends State<SignUp> {
                   return null;
                 },
               ),
+              Container(
+                  alignment: Alignment.centerLeft,
+                  margin: const EdgeInsets.only(top: 20),
+                  child: Text('Confirm Password')),
               TextFormField(
                 controller: repasswordController,
                 obscureText: true,
@@ -60,33 +77,36 @@ class _SignUpState extends State<SignUp> {
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
                     return 'Please retype your password';
-                  }
-                  else if(passwordController.text != repasswordController.text){
+                  } else if (passwordController.text !=
+                      repasswordController.text) {
                     return 'Password not same';
                   }
                   return null;
                 },
               ),
-              ElevatedButton(
-                onPressed: () async {
-                  if (_signUpFormKey.currentState!.validate()) {
-                    dynamic results = await _auth.signUpWithEmailAndPassword(
-                        emailController.text, passwordController.text);
-                    if (results[0] == 1) {
-                      // sign up fail
-                      var snackBar = SnackBar(
-                        content: Text(results[1]),
-                      );
+              Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: ElevatedButton(
+                  onPressed: () async {
+                    if (_signUpFormKey.currentState!.validate()) {
+                      dynamic results = await _auth.signUpWithEmailAndPassword(
+                          emailController.text, passwordController.text);
+                      if (results[0] == 1) {
+                        // sign up fail
+                        var snackBar = SnackBar(
+                          content: Text(results[1]),
+                        );
 
-                      // Find the ScaffoldMessenger in the widget tree
-                      // and use it to show a SnackBar.
-                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                    } else {
-                      Navigator.pop(context);
+                        // Find the ScaffoldMessenger in the widget tree
+                        // and use it to show a SnackBar.
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      } else {
+                        Navigator.pop(context);
+                      }
                     }
-                  }
-                },
-                child: Text("Sign up"),
+                  },
+                  child: Text("Sign up"),
+                ),
               ),
             ],
           ),
