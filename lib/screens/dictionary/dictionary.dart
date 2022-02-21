@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:handsfree/screens/dictionary/searchBar.dart';
+import 'package:handsfree/screens/dictionary/searchGroup.dart';
 import 'package:handsfree/utils/miscellaneous.dart';
 import 'package:handsfree/utils/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../navbar/navBar.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
+import '../../services/getData.dart';
 
 class Dictionary extends StatefulWidget {
   const Dictionary({Key? key}) : super(key: key);
@@ -12,9 +16,11 @@ class Dictionary extends StatefulWidget {
 
 class _DictionaryState extends State<Dictionary> {
   final searchController = TextEditingController();
-
+  static bool searchOnFocus = false;
   @override
   Widget build(BuildContext context) {
+    getData.load();
+    final isVisible = MediaQuery.of(context).viewInsets.bottom != 0;
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -32,74 +38,90 @@ class _DictionaryState extends State<Dictionary> {
               const Padding(
                 padding: EdgeInsets.only(bottom: 20),
               ),
-              buildTextBox.textBox(
-                  searchController, 'Search', false, false, ''),
+              Stack(
+                children: [
+                  isVisible ? const SearchGroup() : Container(),
+                  const SearchBar()
+                ],
+              ),
               const Padding(
                 padding: EdgeInsets.only(bottom: 80),
               ),
-              GestureDetector(
-                  onTap: () {
-                    // Navigator.pushNamed(context, '/auth/' + word);
-                  },
-                  child: Stack(children: <Widget>[
-                    Center(
-                      child: Container(
-                          alignment: Alignment.center,
-                          width: 200,
-                          decoration: const BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20)),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: kTextDeep,
-                                  offset: Offset(6, 6),
-                                  blurRadius: 6,
-                                ),
-                              ]),
-                          child: Image.asset(
-                            'assets/image/translator.png',
-                            scale: 4,
-                          )),
-                    ),
-                  ])),
+              !isVisible
+                  ? GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, '/home/home');
+                      },
+                      child: Stack(
+                        children: <Widget>[
+                          Center(
+                            child: Container(
+                              alignment: Alignment.center,
+                              width: 200,
+                              decoration: const BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20)),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: kTextDeep,
+                                      offset: Offset(6, 6),
+                                      blurRadius: 6,
+                                    ),
+                                  ]),
+                              child: Image.asset(
+                                'assets/image/translator.png',
+                                scale: 4,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  : Container(),
               const Padding(
                 padding: EdgeInsets.only(bottom: 5),
               ),
-              Text(
-                'Text-to-Sign',
-                style: GoogleFonts.montserrat(
-                  fontSize: 25,
-                  fontWeight: FontWeight.w700,
-                  color: kText,
-                ),
-              ),
+              !isVisible
+                  ? Text(
+                      'Text-to-Sign',
+                      style: GoogleFonts.montserrat(
+                        fontSize: 25,
+                        fontWeight: FontWeight.w700,
+                        color: kText,
+                      ),
+                    )
+                  : Container(),
               const Padding(
                 padding: EdgeInsets.only(bottom: 5),
               ),
-              Text(
-                'Translator',
-                style: GoogleFonts.montserrat(
-                  fontSize: 25,
-                  fontWeight: FontWeight.w700,
-                  color: kText,
-                ),
-              ),
+              !isVisible
+                  ? Text(
+                      'Translator',
+                      style: GoogleFonts.montserrat(
+                        fontSize: 25,
+                        fontWeight: FontWeight.w700,
+                        color: kText,
+                      ),
+                    )
+                  : Container(),
               const Padding(
                 padding: EdgeInsets.only(bottom: 5),
               ),
-              Text(
-                'Now in BETA!',
-                style: GoogleFonts.montserrat(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w400,
-                  color: kText,
-                ),
-              ),
+              !isVisible
+                  ? Text(
+                      'Now in BETA!',
+                      style: GoogleFonts.montserrat(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w400,
+                        color: kText,
+                      ),
+                    )
+                  : Container(),
             ],
           ),
         ),
       ),
-      floatingActionButton: navBar.Buttons(context),
+      floatingActionButton: isVisible ? SizedBox() : navBar.Buttons(context),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       extendBody: true,
       bottomNavigationBar: navBar.bar(context),

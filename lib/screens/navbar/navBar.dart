@@ -8,7 +8,7 @@ class navBar extends StatelessWidget {
   static int index = 0;
 
   static BottomAppBar bar(BuildContext context) {
-    const double RADIUS = 25;
+    const double RADIUS = 23;
     return BottomAppBar(
       color: Colors.transparent,
       shape: CircularNotchedRectangle(),
