@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:handsfree/main.dart';
 import 'package:handsfree/utils/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 
 String title = "HELLO";
 
@@ -92,53 +93,67 @@ class _learningPageState extends State<learningPage> {
                     image: AssetImage('assets/image/learning_small_rect.png'),
                   ),
                 ),
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 40),
-                  margin: EdgeInsets.only(top: 8),
-                  child: Row(
-                    // mainAxisAlignment: MainAxisAlignment.center,
-                    // crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Container(
-                        width: 130,
-                        height: 200,
-                        alignment: Alignment.center,
-                        decoration: const BoxDecoration(
-                          image: DecorationImage(
-                            alignment: Alignment.topCenter,
-                            image: AssetImage(
-                                'assets/image/lesson_2_thumbnail.png'),
-                          ),
-                        ),
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Padding(padding: EdgeInsets.only(top: 28)),
-                          Text(
-                            "afasdhfsd",
-                            style: GoogleFonts.montserrat(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: kText,
+                child: Stack(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 40),
+                      margin: EdgeInsets.only(top: 8),
+                      child: Row(
+                        // mainAxisAlignment: MainAxisAlignment.center,
+                        // crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Container(
+                            width: 130,
+                            height: 200,
+                            alignment: Alignment.center,
+                            decoration: const BoxDecoration(
+                              image: DecorationImage(
+                                alignment: Alignment.topCenter,
+                                image: AssetImage(
+                                    'assets/image/lesson_2_thumbnail.png'),
+                              ),
                             ),
                           ),
-                          const Padding(
-                            padding: EdgeInsets.only(bottom: 7),
-                          ),
-                          Text(
-                            "afasdhfsd",
-                            style: GoogleFonts.montserrat(
-                              fontSize: 12.8,
-                              fontWeight: FontWeight.w400,
-                              color: kText,
-                            ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Padding(padding: EdgeInsets.only(top: 28)),
+                              Text(
+                                "afasdhfsd",
+                                style: GoogleFonts.montserrat(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                  color: kText,
+                                ),
+                              ),
+                              const Padding(
+                                padding: EdgeInsets.only(bottom: 7),
+                              ),
+                              Text(
+                                "afasdhfsd",
+                                style: GoogleFonts.montserrat(
+                                  fontSize: 12.8,
+                                  fontWeight: FontWeight.w400,
+                                  color: kText,
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
-                    ],
-                  ),
+                    ),
+                    Container(
+                      alignment: Alignment.bottomCenter,
+                      margin: EdgeInsets.only(bottom: 15),
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      child: LinearPercentIndicator(
+                          percent: 0.5,
+                          lineHeight: 8,
+                          progressColor: kOrangeDeep,
+                          animation: true),
+                    ),
+                  ],
                 ),
               ),
               Padding(

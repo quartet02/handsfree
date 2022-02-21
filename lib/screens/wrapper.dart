@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:handsfree/models/newUser.dart';
 import 'package:handsfree/screens/authenticate/authenticate.dart';
 import 'package:handsfree/screens/home/home.dart';
-import 'package:handsfree/screens/dictionary/dictionary.dart';
-import 'package:handsfree/screens/learn/learn.dart';
-import 'package:handsfree/screens/learn/sublevel.dart';
+import 'package:handsfree/screens/social/social.dart';
 import 'package:provider/provider.dart';
 
 import 'learn/learningpage.dart';
@@ -20,7 +18,9 @@ class Wrapper extends StatelessWidget {
     if (user != null) {
       return const Authenticate();
     } else {
-      return const Dictionary();
+      // change to dictionary to view bug [From wei xin]
+     //return const Dictionary();
+      return const Social();
     }
   }
 }
