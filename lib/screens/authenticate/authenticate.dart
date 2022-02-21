@@ -33,12 +33,16 @@ class Authenticate extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 10),
                   child: buildButton(
-                      text: 'Sign in', word: 'signIn', buttonColor: 'white'),
+                      text: 'Sign in',
+                      word: '/auth/signIn',
+                      buttonColor: 'white'),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 10),
                   child: buildButton(
-                      text: 'Sign up', word: 'signUp', buttonColor: 'purple'),
+                      text: 'Sign up',
+                      word: '/auth/signUp',
+                      buttonColor: 'purple'),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 5),

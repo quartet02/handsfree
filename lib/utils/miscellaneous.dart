@@ -6,12 +6,13 @@ class buildButton extends StatelessWidget {
   final String text;
   final String word;
   String buttonColor;
+  Color buttonShadow;
 
-  buildButton({
-    required this.text,
-    required this.word,
-    required this.buttonColor,
-  });
+  buildButton(
+      {required this.text,
+      required this.word,
+      required this.buttonColor,
+      this.buttonShadow = kButtonShadow});
 
   @override
   Widget build(BuildContext context) {
@@ -26,18 +27,18 @@ class buildButton extends StatelessWidget {
 
     return GestureDetector(
         onTap: () {
-          Navigator.pushNamed(context, '/auth/' + word);
+          Navigator.pushReplacementNamed(context, word);
         },
         child: Stack(children: <Widget>[
           Center(
             child: Container(
                 alignment: Alignment.center,
                 width: 200,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(20)),
                     boxShadow: [
                       BoxShadow(
-                        color: kButtonShadow,
+                        color: buttonShadow,
                         offset: Offset(6, 6),
                         blurRadius: 6,
                       ),
@@ -211,6 +212,19 @@ class buildText extends StatelessWidget {
         letterSpacing: 2,
         fontSize: 25,
         fontWeight: FontWeight.w800,
+        color: kTextLight,
+      ),
+    );
+  }
+
+  static Widget text(
+      String text, double spacing, double size, FontWeight weight) {
+    return Text(
+      text,
+      style: GoogleFonts.montserrat(
+        letterSpacing: spacing,
+        fontSize: size,
+        fontWeight: weight,
         color: kTextLight,
       ),
     );
