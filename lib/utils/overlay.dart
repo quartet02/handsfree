@@ -3,12 +3,14 @@ import 'package:handsfree/utils/constants.dart';
 import 'package:flutter/material.dart';
 
 bool isShowing = false;
-OverlayEntry? overlayEntry;
+OverlayEntry overlayEntry = OverlayEntry(builder: (context) => Container());
 
 class Overlays extends StatelessWidget {
+  const Overlays({Key? key}) : super(key: key);
+
   static showOverlay(BuildContext context) async {
     OverlayState? overlayState = Overlay.of(context);
-    OverlayEntry overlayEntry = OverlayEntry(
+    overlayEntry = OverlayEntry(
       builder: (context) => Center(
         child: ClipRect(
           child: BackdropFilter(
@@ -19,8 +21,9 @@ class Overlays extends StatelessWidget {
               decoration:
                   BoxDecoration(color: Colors.grey.shade200.withOpacity(0.5)),
               child: GestureDetector(
-                onTap: () async {
-                  isShowing = true;
+                onTap: () {
+                  print("here failed");
+                  dismissMenu();
                 },
                 child: Container(
                   margin: const EdgeInsets.symmetric(vertical: 50),
@@ -53,11 +56,16 @@ class Overlays extends StatelessWidget {
     );
 
     overlayState?.insert(overlayEntry);
-    await close();
-    await Future.delayed(Duration(seconds: 2));
+    // await close();
+    // await Future.delayed(Duration(seconds: 2));
     // if (isShowing) {
-    overlayEntry.remove();
+    // overlayEntry.remove();
+
     // }
+  }
+
+  static void dismissMenu() {
+    overlayEntry.remove();
   }
 
   static Future close() async {
@@ -65,7 +73,7 @@ class Overlays extends StatelessWidget {
       await Future.delayed(const Duration(milliseconds: 12));
       return close();
     } else {
-      overlayEntry?.remove();
+      overlayEntry.remove();
     }
   }
 

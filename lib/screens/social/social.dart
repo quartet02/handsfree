@@ -16,6 +16,7 @@ class Social extends StatefulWidget {
 }
 
 class _SocialState extends State<Social> {
+  var overlayState = Overlays();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -146,6 +147,9 @@ class _SocialState extends State<Social> {
                               itemBuilder: (context, index) {
                                 return GestureDetector(
                                   onTap: () async {
+                                    //
+                                    //Overlay cant fix
+                                    //
                                     Overlays.showOverlay(
                                       context,
                                     );
