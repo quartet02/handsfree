@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:handsfree/models/userActivity.dart';
 import 'package:handsfree/screens/authenticate/signIn.dart';
 import 'package:handsfree/screens/authenticate/signUp.dart';
 import 'package:handsfree/screens/dictionary/dictionary.dart';
@@ -21,8 +22,8 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
-  runApp(const MyApp());
+  ChangeNotifierProvider(
+      create: (context) => UserActivity(), child: const MyApp());
 }
 
 ThemeManager _themeManager = ThemeManager();

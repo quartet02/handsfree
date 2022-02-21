@@ -18,6 +18,8 @@ class Wrapper extends StatelessWidget {
     if (user != null) {
       return const Authenticate();
     } else {
+      // change to dictionary to view bug [From wei xin]
+     //return const Dictionary();
       return const Social();
     }
   }
