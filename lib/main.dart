@@ -9,6 +9,7 @@ import 'package:handsfree/screens/learn/learn.dart';
 import 'package:handsfree/screens/home/profile.dart';
 import 'package:handsfree/screens/wrapper.dart';
 import 'package:handsfree/services/auth.dart';
+import 'package:handsfree/utils/userPreference.dart';
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 import 'package:handsfree/models/newUser.dart';
@@ -21,7 +22,8 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
+  await UserPreference.init();
+  UserPreference.clearAll();
   runApp(const MyApp());
 }
 
@@ -45,11 +47,11 @@ class MyApp extends StatelessWidget {
         routes: {
           "/auth/signIn": (context) => const SignIn(),
           "/auth/signUp": (context) => const SignUp(),
-          "/home/chat": (context) => const Chat(),
-          "/dictionary/dictionary": (context) => const Dictionary(),
-          "/home/profile": (context) => const Profile(),
-          "/home/home": (context) => const Home(),
-          "/learn/learn": (context) => const Learn()
+          "/chat": (context) => const Chat(),
+          "/dictionary": (context) => const Dictionary(),
+          "/profile": (context) => const Profile(),
+          "/home": (context) => const Home(),
+          "/learn": (context) => const Learn()
         },
       ),
     );

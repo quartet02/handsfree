@@ -8,7 +8,7 @@ class navBar extends StatelessWidget {
   static int index = 0;
 
   static BottomAppBar bar(BuildContext context) {
-    const double RADIUS = 25;
+    const double RADIUS = 23;
     return BottomAppBar(
       color: Colors.transparent,
       shape: CircularNotchedRectangle(),
@@ -37,7 +37,7 @@ class navBar extends StatelessWidget {
                     child: MaterialButton(
                       onPressed: () {
                         if (index != 0) {
-                          Navigator.pushReplacementNamed(context, "/home/home");
+                          Navigator.pushReplacementNamed(context, "/home");
                         }
                         index = 0;
                       },
@@ -57,7 +57,7 @@ class navBar extends StatelessWidget {
                       onPressed: () {
                         if (index != 1) {
                           Navigator.pushReplacementNamed(
-                              context, "/dictionary/dictionary");
+                              context, "/dictionary");
                         }
                         index = 1;
                       },
@@ -95,7 +95,7 @@ class navBar extends StatelessWidget {
                     child: MaterialButton(
                       onPressed: () {
                         if (index != 3) {
-                          Navigator.pushReplacementNamed(context, "/home/chat");
+                          Navigator.pushReplacementNamed(context, "/chat");
                         }
                         index = 3;
                       },
@@ -115,7 +115,7 @@ class navBar extends StatelessWidget {
                       onPressed: () {
                         if (index != 4) {
                           Navigator.pushReplacementNamed(
-                              context, "/home/profile");
+                              context, "/profile");
                         }
                         index = 4;
                       },
@@ -143,7 +143,7 @@ class navBar extends StatelessWidget {
       backgroundColor: Colors.transparent,
       onPressed: () {
         if (index != 2) {
-          Navigator.pushReplacementNamed(context, "/learn/learn");
+          Navigator.pushReplacementNamed(context, "/learn");
         }
         index = 2;
       },
