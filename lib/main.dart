@@ -23,7 +23,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await UserPreference.init();
-
+  UserPreference.clearAll();
   runApp(const MyApp());
 }
 

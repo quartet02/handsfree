@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:handsfree/models/userActivity.dart';
+import 'package:handsfree/utils/dictionaryProvider.dart';
 import 'package:provider/provider.dart';
 import '../../utils/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -63,8 +63,8 @@ class _SearchBarState extends State<SearchBar> {
         obscureText: false,
         autocorrect: false,
         onChanged: (txt) {
-          final userQuery = context.read<UserActivity>();
-          userQuery.updateQuery(txt);
+          final userQuery = context.read<DictionaryProvider>();
+          userQuery.query = txt;
         },
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),

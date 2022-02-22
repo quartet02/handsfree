@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:handsfree/models/userActivity.dart';
+import 'package:handsfree/utils/dictionaryProvider.dart';
 import 'package:handsfree/screens/dictionary/searchBar.dart';
 import 'package:handsfree/screens/dictionary/searchGroup.dart';
 import 'package:handsfree/utils/miscellaneous.dart';
@@ -8,7 +8,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../navbar/navBar.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:handsfree/services/dictionaryData.dart';
 
 class Dictionary extends StatefulWidget {
   const Dictionary({Key? key}) : super(key: key);
@@ -18,21 +17,13 @@ class Dictionary extends StatefulWidget {
 
 class _DictionaryState extends State<Dictionary> {
   final searchController = TextEditingController();
-  static final DictionaryData _dictionaryData = DictionaryData(phrases: [
-    "hi",
-    "hello",
-    "nice to meet you",
-    "you",
-    "where",
-    "what to do",
-  ]);
 
   @override
   Widget build(BuildContext context) {
     final isVisible = MediaQuery.of(context).viewInsets.bottom != 0;
 
-    return ChangeNotifierProvider<UserActivity>(
-      create: (context) => UserActivity(),
+    return ChangeNotifierProvider<DictionaryProvider>(
+      create: (context) => DictionaryProvider(),
       child: Scaffold(
         body: Container(
           decoration: const BoxDecoration(
@@ -52,7 +43,7 @@ class _DictionaryState extends State<Dictionary> {
                 ),
                 Stack(
                   children: [
-                    isVisible ? SearchGroup(dictionaryData: _dictionaryData,) : Container(),
+                    isVisible ? const SearchGroup() : Container(),
                     const SearchBar()
                   ],
                 ),

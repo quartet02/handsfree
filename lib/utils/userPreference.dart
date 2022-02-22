@@ -14,6 +14,10 @@ class UserPreference {
   }
 
   static getRecentSearch(){
-    _prefs.getStringList('recentSearch');
+    if (_prefs.containsKey('recentSearch')) {
+      return _prefs.getStringList('recentSearch');
+    } else {
+      return [];
+    }
   }
 }
