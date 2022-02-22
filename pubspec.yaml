@@ -45,6 +45,8 @@ dependencies:
   firebase_database: ^9.0.6
   flutter_cube: ^0.1.1
   confetti: ^0.6.0
+  shared_preferences: ^2.0.13
+  autocomplete_textfield: ^1.6.4
 
 dev_dependencies:
   flutter_test:

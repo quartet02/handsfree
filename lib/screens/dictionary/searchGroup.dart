@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:handsfree/models/userActivity.dart';
-import 'package:handsfree/screens/dictionary/searchBar.dart';
-import 'package:handsfree/services/getData.dart';
+import 'package:handsfree/services/dictionaryData.dart';
 import 'package:provider/provider.dart';
-import '../../utils/constants.dart';
+import 'package:handsfree/utils/constants.dart';
 
-class SearchGroup extends StatefulWidget {
-  const SearchGroup({Key? key}) : super(key: key);
+class SearchGroup extends StatelessWidget {
+  final DictionaryData dictionaryData;
 
-  @override
-  _SearchGroupState createState() => _SearchGroupState();
-}
+  const SearchGroup({Key? key, required this.dictionaryData}) : super(key: key);
 
-class _SearchGroupState extends State<SearchGroup> {
   @override
   Widget build(BuildContext context) {
-    List<String> suggest = getData.getSuggestions(
-        Provider.of<UserActivity>(context, listen: false).getQuery());
+    List<String> suggest = dictionaryData.getSuggestions(
+        Provider.of<UserActivity>(context, listen: true).getQuery());
+    final suggestionLength = suggest.length > 5 ? 5 : suggest.length;
+
     return Stack(
       children: [
         Container(
+          padding: const EdgeInsets.fromLTRB(0, 20, 0,0),
           decoration: BoxDecoration(
             color: kTextLight,
             borderRadius: BorderRadius.circular(18),
@@ -31,23 +30,18 @@ class _SearchGroupState extends State<SearchGroup> {
               ),
             ],
           ),
-          height: 230,
-          child: ListView.builder(
-            itemCount: suggest.length + 1,
+          height: suggestionLength == 1 ? suggestionLength * 80 + 20 : suggestionLength * 60,
+          child:ListView.builder(
+            itemCount: suggestionLength,
             itemBuilder: (context, index) {
-              if (index == 0) {
-                return ListTile(
-                  contentPadding: EdgeInsets.only(left: 20),
-                  enabled: false,
-                  title: Text(""),
-                );
-              } else {
-                return ListTile(
-                  contentPadding: EdgeInsets.only(left: 20),
-                  textColor: kTextFieldText,
-                  title: Text(suggest[index - 1]),
-                );
-              }
+              return ListTile(
+                contentPadding: const EdgeInsets.only(left: 20),
+                textColor: kTextFieldText,
+                title: Text(suggest[index]),
+                onTap: (){
+                  dictionaryData.addSearchTerm(suggest[index]);
+                },
+              );
             },
           ),
         ),
