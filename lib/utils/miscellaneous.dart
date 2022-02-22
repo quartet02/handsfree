@@ -252,6 +252,7 @@ class buildText extends StatelessWidget {
       ),
     );
   }
+
   static Widget heading5Text(String text) {
     return Text(
       text,

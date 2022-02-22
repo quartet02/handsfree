@@ -8,7 +8,7 @@ OverlayEntry overlayEntry = OverlayEntry(builder: (context) => Container());
 class Overlays extends StatelessWidget {
   const Overlays({Key? key}) : super(key: key);
 
-  static showOverlay(BuildContext context) async {
+  static showOverlay(BuildContext context, int id) async {
     OverlayState? overlayState = Overlay.of(context);
     overlayEntry = OverlayEntry(
       builder: (context) => Center(
@@ -23,6 +23,7 @@ class Overlays extends StatelessWidget {
               child: GestureDetector(
                 onTap: () {
                   print("here failed");
+
                   dismissMenu();
                 },
                 child: Container(
@@ -56,25 +57,10 @@ class Overlays extends StatelessWidget {
     );
 
     overlayState?.insert(overlayEntry);
-    // await close();
-    // await Future.delayed(Duration(seconds: 2));
-    // if (isShowing) {
-    // overlayEntry.remove();
-
-    // }
   }
 
   static void dismissMenu() {
     overlayEntry.remove();
-  }
-
-  static Future close() async {
-    if (!isShowing) {
-      await Future.delayed(const Duration(milliseconds: 12));
-      return close();
-    } else {
-      overlayEntry.remove();
-    }
   }
 
   @override
