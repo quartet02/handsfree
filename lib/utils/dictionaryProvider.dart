@@ -56,7 +56,7 @@ class DictionaryProvider extends ChangeNotifier {
     }).toList();
 
     var k = UserPreference.getRecentSearch();
-    if (k.length >= 1){
+    if (k.length >= 1) {
       _history = k;
     }
   }
@@ -104,16 +104,29 @@ class DictionaryProvider extends ChangeNotifier {
 
   void updateSuggestion(String query) {
     if (query.isEmpty) {
-      if(_history.isNotEmpty) {
+      if (_history.isNotEmpty) {
         _suggestion =
             _history.map((e) => _wordList[_wordCode[e] as int]).toList();
       } else {
         _suggestion = [];
       }
     } else {
-      _suggestion =
-          _wordList.where((element) => element.word.startsWith(query)).toList();
-      if (_suggestion.length > 5){
+      _suggestion = _wordList
+          .map((wordObject) {
+            // case insensitive search
+            if (wordObject.word.toUpperCase().startsWith(query.toUpperCase())) {
+              return wordObject;
+            } else {
+              // return empty Word
+              return WordModel(
+                  word: "", imgUrl: "", definition: "", phoneticSymbol: "");
+            }
+          })
+          .toList()
+          .cast<WordModel>();
+      // clean up the list
+      _suggestion.removeWhere((element) => element.word == "");
+      if (_suggestion.length > 5) {
         _suggestion = _suggestion.sublist(0, _historyLength);
       }
     }

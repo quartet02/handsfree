@@ -4,6 +4,7 @@ import 'package:handsfree/models/friends.dart';
 import 'package:handsfree/models/community.dart';
 import 'package:handsfree/models/newsFeed.dart';
 import 'package:handsfree/utils/overlay.dart';
+import 'package:handsfree/screens/navbar/navBar.dart';
 
 double friendSize = 70;
 double coumminitySize = 150;
@@ -18,6 +19,7 @@ class Social extends StatefulWidget {
 class _SocialState extends State<Social> {
   @override
   Widget build(BuildContext context) {
+    final isVisible = MediaQuery.of(context).viewInsets.bottom != 0;
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -283,6 +285,10 @@ class _SocialState extends State<Social> {
               ],
             )),
       ),
+      floatingActionButton: isVisible ? SizedBox() : navBar.Buttons(context),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      extendBody: true,
+      bottomNavigationBar: navBar.bar(context),
     );
   }
 }
