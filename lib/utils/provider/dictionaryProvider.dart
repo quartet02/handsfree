@@ -111,8 +111,21 @@ class DictionaryProvider extends ChangeNotifier {
         _suggestion = [];
       }
     } else {
-      _suggestion =
-          _wordList.where((element) => element.word.startsWith(query)).toList();
+      _suggestion = _wordList
+          .map((wordObject) {
+            // case insensitive search
+            if (wordObject.word.toUpperCase().startsWith(query.toUpperCase())) {
+              return wordObject;
+            } else {
+              // return empty Word
+              return WordModel(
+                  word: "", imgUrl: "", definition: "", phoneticSymbol: "");
+            }
+          })
+          .toList()
+          .cast<WordModel>();
+      // clean up the list
+      _suggestion.removeWhere((element) => element.word == "");
       if (_suggestion.length > 5) {
         _suggestion = _suggestion.sublist(0, _historyLength);
       }

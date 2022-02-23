@@ -28,6 +28,7 @@ class SearchGroup extends StatelessWidget {
                 ? dict.suggestion.length * 80 + 20
                 : dict.suggestion.length * 60,
             child: ListView.builder(
+              physics: BouncingScrollPhysics(),
               itemCount: dict.suggestion.length,
               itemBuilder: (context, index) {
                 return ListTile(
