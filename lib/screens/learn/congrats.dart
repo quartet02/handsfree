@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:handsfree/utils/miscellaneous.dart';
+import 'package:handsfree/utils/buildButton.dart';
 import 'package:handsfree/utils/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:handsfree/utils/buildConfetti.dart';
+import 'package:handsfree/utils/buildText.dart';
 
 class Congratulation extends StatefulWidget {
   const Congratulation({Key? key}) : super(key: key);

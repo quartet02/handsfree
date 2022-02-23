@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:handsfree/utils/miscellaneous.dart';
+import 'package:handsfree/utils/buildButton.dart';
 import 'package:handsfree/models/friends.dart';
 import 'package:handsfree/utils/overlay.dart';
 import 'package:handsfree/screens/navbar/navBar.dart';
 import 'package:handsfree/widgets/smallCard.dart';
 import 'package:provider/provider.dart';
+import 'package:handsfree/utils/buildText.dart';
 
 import '../../utils/provider/communityProvider.dart';
 import '../../utils/provider/newsFeedProvider.dart';

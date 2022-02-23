@@ -37,8 +37,12 @@ class buildText extends StatelessWidget {
     );
   }
 
-  static Widget headingText(String text) {
+  static Widget bigTitle(String text) {
     return textBox(text, 2, 25, FontWeight.w800);
+  }
+
+  static Widget heading1Text(String text) {
+    return textBox(text, 2, 25, FontWeight.w800, kText);
   }
 
   static Widget heading2Text(String text) {
@@ -50,7 +54,7 @@ class buildText extends StatelessWidget {
   }
 
   static Widget heading4Text(String text) {
-    return textBox(text, 0, 10.24, FontWeight.w400);
+    return textBox(text, 0, 10.24, FontWeight.w400, kText);
   }
 
   static Widget heading5Text(String text) {

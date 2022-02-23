@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:handsfree/services/auth.dart';
-import 'package:handsfree/utils/miscellaneous.dart';
+import 'package:handsfree/utils/buildButton.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:handsfree/utils/constants.dart';
+import 'package:handsfree/utils/buildText.dart';
+import 'package:handsfree/utils/buildTextBox.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
