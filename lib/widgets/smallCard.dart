@@ -46,7 +46,8 @@ class SmallCard extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  Overlays.showOverlay(context, id);
+                  Overlays.showOverlay(context, id, communityImage,
+                      communityTitle, communityDesc);
                 },
               ),
               Container(

@@ -1,6 +1,6 @@
 import 'package:handsfree/utils/userPreference.dart';
 
-import '../models/wordModel.dart';
+import '../../models/wordModel.dart';
 import 'package:flutter/material.dart';
 
 var wordData = [
@@ -56,7 +56,7 @@ class DictionaryProvider extends ChangeNotifier {
     }).toList();
 
     var k = UserPreference.getRecentSearch();
-    if (k.length >= 1){
+    if (k.length >= 1) {
       _history = k;
     }
   }
@@ -104,7 +104,7 @@ class DictionaryProvider extends ChangeNotifier {
 
   void updateSuggestion(String query) {
     if (query.isEmpty) {
-      if(_history.isNotEmpty) {
+      if (_history.isNotEmpty) {
         _suggestion =
             _history.map((e) => _wordList[_wordCode[e] as int]).toList();
       } else {
@@ -113,7 +113,7 @@ class DictionaryProvider extends ChangeNotifier {
     } else {
       _suggestion =
           _wordList.where((element) => element.word.startsWith(query)).toList();
-      if (_suggestion.length > 5){
+      if (_suggestion.length > 5) {
         _suggestion = _suggestion.sublist(0, _historyLength);
       }
     }

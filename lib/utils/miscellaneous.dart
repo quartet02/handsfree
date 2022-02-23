@@ -205,76 +205,41 @@ class buildText extends StatelessWidget {
     );
   }
 
-  static Widget headingText(String text) {
-    return Text(
-      text,
-      style: GoogleFonts.montserrat(
-        letterSpacing: 2,
-        fontSize: 25,
-        fontWeight: FontWeight.w800,
-        color: kTextLight,
-      ),
-    );
-  }
-
-  static Widget heading2Text(String text) {
-    return Text(
-      text,
-      style: GoogleFonts.montserrat(
-        letterSpacing: 0,
-        fontSize: 20,
-        fontWeight: FontWeight.w600,
-        color: kText,
-      ),
-    );
-  }
-
-  static Widget heading3Text(String text) {
-    return Text(
-      text,
-      style: GoogleFonts.montserrat(
-        letterSpacing: 0,
-        fontSize: 16,
-        fontWeight: FontWeight.w500,
-        color: kText,
-      ),
-    );
-  }
-
-  static Widget heading4Text(String text) {
-    return Text(
-      text,
-      style: GoogleFonts.montserrat(
-        letterSpacing: 0,
-        fontSize: 10.24,
-        fontWeight: FontWeight.w400,
-        color: kText,
-      ),
-    );
-  }
-
-  static Widget heading5Text(String text) {
-    return Text(
-      text,
-      style: GoogleFonts.montserrat(
-        letterSpacing: 0,
-        fontSize: 10.24,
-        fontWeight: FontWeight.w300,
-        color: kText,
-      ),
-    );
-  }
-
-  static Widget text(
-      String text, double spacing, double size, FontWeight weight) {
+  static Widget textBox(
+      String text, double spacing, double size, FontWeight weight,
+      [Color colour = kTextLight]) {
     return Text(
       text,
       style: GoogleFonts.montserrat(
         letterSpacing: spacing,
         fontSize: size,
         fontWeight: weight,
-        color: kTextLight,
+        color: colour,
       ),
     );
+  }
+
+  static Widget bigTitle(String text) {
+    return textBox(text, 2, 25, FontWeight.w800);
+  }
+
+  static Widget heading1Text(String text) {
+    return textBox(text, 2, 25, FontWeight.w800, kText);
+  }
+
+  static Widget heading2Text(String text) {
+    return textBox(text, 0, 20, FontWeight.w600, kText);
+  }
+
+  static Widget heading3Text(String text) {
+    return textBox(text, 0, 16, FontWeight.w500, kText);
+  }
+
+  static Widget heading4Text(String text) {
+    return textBox(text, 0, 10.24, FontWeight.w400, kText);
+  }
+
+  static Widget heading5Text(String text) {
+    return textBox(text, 0, 10.24, FontWeight.w300, kText);
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:handsfree/utils/dictionaryProvider.dart';
+import 'package:handsfree/utils/provider/dictionaryProvider.dart';
 import 'package:handsfree/screens/dictionary/searchBar.dart';
 import 'package:handsfree/screens/dictionary/searchGroup.dart';
 import 'package:handsfree/utils/miscellaneous.dart';
@@ -37,7 +37,7 @@ class _DictionaryState extends State<Dictionary> {
             margin: const EdgeInsets.only(top: 60),
             child: Column(
               children: [
-                buildText.headingText("Dictionary"),
+                buildText.bigTitle("Dictionary"),
                 const Padding(
                   padding: EdgeInsets.only(bottom: 20),
                 ),

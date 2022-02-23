@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:handsfree/utils/miscellaneous.dart';
 import 'package:handsfree/models/friends.dart';
-import 'package:handsfree/models/communityModel.dart';
-import 'package:handsfree/models/newsFeed.dart';
 import 'package:handsfree/utils/overlay.dart';
 import 'package:handsfree/widgets/smallCard.dart';
 import 'package:provider/provider.dart';
 
-import '../../utils/CommunityProvider.dart';
+import '../../utils/provider/communityProvider.dart';
+import '../../utils/provider/newsFeedProvider.dart';
 
 double friendSize = 70;
 double coumminitySize = 150;
@@ -23,8 +22,11 @@ class _SocialState extends State<Social> {
   var overlayState = Overlays();
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<CommunityProvider>(
-      create: (context) => CommunityProvider(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => CommunityProvider()),
+        ChangeNotifierProvider(create: (_) => newsFeedProvider()),
+      ],
       child: Scaffold(
         body: Container(
           decoration: const BoxDecoration(
@@ -39,7 +41,7 @@ class _SocialState extends State<Social> {
               margin: const EdgeInsets.only(top: 60),
               child: Column(
                 children: [
-                  buildText.headingText("Social"),
+                  buildText.bigTitle("Social"),
                   Padding(padding: EdgeInsets.only(top: 100)),
                   Container(
                     height: 450,
@@ -144,26 +146,30 @@ class _SocialState extends State<Social> {
                             ),
                           ],
                         ),
-                        Consumer<CommunityProvider>(
-                            builder: (context, card, child) {
-                          return Container(
-                              height: coumminitySize + 100,
-                              child: ListView.builder(
-                                  physics: BouncingScrollPhysics(),
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: 5,
-                                  itemBuilder: (context, index) {
-                                    return SmallCard(
-                                        id: card.cardDetails[index].id,
-                                        communitySize: coumminitySize,
-                                        communityImage:
-                                            card.cardDetails[index].images,
-                                        communityTitle: card
-                                            .cardDetails[index].communityTitle,
-                                        communityDesc: card
-                                            .cardDetails[index].communityDesc);
-                                  }));
-                        }),
+                        Container(
+                          child: Consumer<CommunityProvider>(
+                              builder: (context, card, child) {
+                            return Container(
+                                width: MediaQuery.of(context).size.width,
+                                height: coumminitySize + 100,
+                                child: ListView.builder(
+                                    physics: BouncingScrollPhysics(),
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: 5,
+                                    itemBuilder: (context, index) {
+                                      return SmallCard(
+                                          id: card.cardDetails[index].id,
+                                          communitySize: coumminitySize,
+                                          communityImage:
+                                              card.cardDetails[index].images,
+                                          communityTitle: card
+                                              .cardDetails[index]
+                                              .communityTitle,
+                                          communityDesc: card.cardDetails[index]
+                                              .communityDesc);
+                                    }));
+                          }),
+                        ),
                         //News Feed
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -189,59 +195,30 @@ class _SocialState extends State<Social> {
                             ),
                           ],
                         ),
-                        // Container(
-                        //     height: coumminitySize + 100,
-                        //     child: ListView.builder(
-                        //         physics: BouncingScrollPhysics(),
-                        //         scrollDirection: Axis.horizontal,
-                        //         itemCount: communities.length,
-                        //         itemBuilder: (context, index) {
-                        //           return Container(
-                        //               margin: EdgeInsets.only(right: 10),
-                        //               height: coumminitySize,
-                        //               width: coumminitySize,
-                        //               decoration: const BoxDecoration(
-                        //                 image: DecorationImage(
-                        //                   alignment: Alignment.center,
-                        //                   image: AssetImage(
-                        //                       'assets/image/medium_rect.png'),
-                        //                 ),
-                        //               ),
-                        //               child: Stack(
-                        //                 children: [
-                        //                   Container(
-                        //                     height: coumminitySize,
-                        //                     width: coumminitySize,
-                        //                     alignment: Alignment.topCenter,
-                        //                     margin:
-                        //                         const EdgeInsets.only(top: 5.0),
-                        //                     decoration: BoxDecoration(
-                        //                       image: DecorationImage(
-                        //                         alignment: Alignment.center,
-                        //                         image: AssetImage(newsFeeds[index]
-                        //                             .newsFeedImages),
-                        //                         scale: 4,
-                        //                       ),
-                        //                     ),
-                        //                   ),
-                        //                   Container(
-                        //                     height: coumminitySize,
-                        //                     width: coumminitySize,
-                        //                     alignment: Alignment.bottomCenter,
-                        //                     child: buildText.heading3Text(
-                        //                         newsFeeds[index].newsFeedTitle),
-                        //                   ),
-                        //                   Container(
-                        //                     padding: EdgeInsets.only(top: 120),
-                        //                     height: coumminitySize + 70,
-                        //                     width: coumminitySize,
-                        //                     alignment: Alignment.center,
-                        //                     child: buildText.heading5Text(
-                        //                         newsFeeds[index].newsFeedDesc),
-                        //                   ),
-                        //                 ],
-                        //               ));
-                        //         })),
+                        Container(
+                          child: Consumer<newsFeedProvider>(
+                              builder: (context, news, child) {
+                            return Container(
+                                width: MediaQuery.of(context).size.width,
+                                height: coumminitySize + 100,
+                                child: ListView.builder(
+                                    physics: BouncingScrollPhysics(),
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: 5,
+                                    itemBuilder: (context, index) {
+                                      return SmallCard(
+                                          id: news.cardDetails[index].id,
+                                          communitySize: coumminitySize,
+                                          communityImage: news
+                                              .cardDetails[index]
+                                              .newsFeedImages,
+                                          communityTitle: news
+                                              .cardDetails[index].newsFeedTitle,
+                                          communityDesc: news
+                                              .cardDetails[index].newsFeedDesc);
+                                    }));
+                          }),
+                        ),
                       ],
                     ),
                   ),
