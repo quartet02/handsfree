@@ -17,7 +17,7 @@ class LessonProvider with ChangeNotifier {
     return [...lessons];
   }
 
-  late LessonModel clickedLesson = LessonModel(
+  LessonModel clickedLesson = LessonModel(
       lessonId: 000, lessonName: "HAHA", lessonDesc: "haha", lessonImage: "");
 
   LessonModel get getClickedLesson {
@@ -26,6 +26,7 @@ class LessonProvider with ChangeNotifier {
 
   set setClickLesson(LessonModel newClickedLesson) {
     clickedLesson = newClickedLesson;
+    print(clickedLesson.lessonName);
     notifyListeners();
   }
 }
