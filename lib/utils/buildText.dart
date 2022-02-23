@@ -37,8 +37,8 @@ class buildText extends StatelessWidget {
     );
   }
 
-  static Widget bigTitle(String text) {
-    return textBox(text, 2, 25, FontWeight.w800);
+  static Widget bigTitle(String text, [Color colour = kTextLight]) {
+    return textBox(text, 2, 25, FontWeight.w800, colour);
   }
 
   static Widget heading1Text(String text) {

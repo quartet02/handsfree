@@ -3,8 +3,11 @@ import 'package:handsfree/models/newUser.dart';
 import 'package:handsfree/screens/authenticate/authenticate.dart';
 import 'package:handsfree/screens/home/home.dart';
 import 'package:handsfree/screens/social/social.dart';
+import 'package:handsfree/screens/terms.dart';
 import 'package:provider/provider.dart';
 import 'package:handsfree/screens/settings.dart';
+
+import 'acknowledgement.dart';
 
 class Wrapper extends StatelessWidget {
   const Wrapper({Key? key}) : super(key: key);
@@ -17,7 +20,7 @@ class Wrapper extends StatelessWidget {
     if (user != null) {
       return const Authenticate();
     } else {
-      return const Settings();
+      return Terms();
     }
   }
 }
