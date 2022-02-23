@@ -21,8 +21,7 @@ class SubLevel extends StatefulWidget {
 class _LearnState extends State<SubLevel> {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<LessonProvider>.value(
-      value: lessonProvider,
+    return ChangeNotifierProvider<LessonProvider>(
       create: (context) => LessonProvider(),
       child: Consumer<LessonProvider>(builder: (context, lesson, child) {
         return Scaffold(
