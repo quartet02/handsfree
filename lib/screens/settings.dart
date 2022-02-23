@@ -43,7 +43,7 @@ class _SettingsState extends State<Settings> {
               fit: BoxFit.cover),
         ),
         child: Container(
-          margin: const EdgeInsets.only(left: 20, bottom: 5, right: 30),
+          margin: const EdgeInsets.only(left: 30, bottom: 5, right: 30),
           padding: const EdgeInsets.only(top: 60),
           child: Column(
             children: [
@@ -71,251 +71,259 @@ class _SettingsState extends State<Settings> {
                 blendMode: BlendMode.dstOut,
                 child: Container(
                   alignment: Alignment.centerLeft,
-                  padding:
-                      const EdgeInsets.only(left: 10, bottom: 5, right: 10),
+                  padding: const EdgeInsets.only(left: 0, bottom: 5, right: 0),
                   height: 500,
-                  child: ListView(
-                    scrollDirection: Axis.vertical,
-                    physics: BouncingScrollPhysics(),
-                    children: [
-                      ///Your profile
-                      breaker(10),
-                      buildText.heading2Text("Your Profile"),
-                      breaker(20),
-                      subTitle("Name"),
-                      textBox(nameController, "name"),
-                      subTitle("Username"),
-                      textBox(usernameController, "username"),
-                      subTitle("Email"),
-                      textBox(emailController, "email"),
-                      subTitle("Password"),
-                      textBox(passwordController, "password"),
-                      breaker(20),
-                      buildButton(
-                          text: "Sign Out",
-                          word: "home",
-                          buttonColor: "purple"),
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 0),
+                    child: ListView(
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      scrollDirection: Axis.vertical,
+                      physics: BouncingScrollPhysics(),
+                      children: [
+                        ///Your profile
+                        breaker(10),
+                        buildText.heading2Text("Your Profile"),
+                        breaker(20),
+                        subTitle("Name"),
+                        textBox(nameController, "name"),
+                        subTitle("Username"),
+                        textBox(usernameController, "username"),
+                        subTitle("Email"),
+                        textBox(emailController, "email"),
+                        subTitle("Password"),
+                        textBox(passwordController, "password"),
+                        breaker(20),
+                        buildButton(
+                            text: "Sign Out",
+                            word: "home",
+                            buttonColor: "purple"),
 
-                      ///General Setttings
-                      breaker(50),
-                      buildText.heading2Text("General"),
-                      breaker(20),
-                      Container(
-                        height: 150,
-                        decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            image: const DecorationImage(
-                              image: AssetImage('assets/image/rect_row_3.png'),
-                              fit: BoxFit.cover,
+                        ///General Setttings
+                        breaker(50),
+                        buildText.heading2Text("General"),
+                        breaker(20),
+                        Container(
+                          height: 150,
+                          decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              image: const DecorationImage(
+                                image:
+                                    AssetImage('assets/image/rect_row_3.png'),
+                                fit: BoxFit.cover,
+                              ),
+                              borderRadius: BorderRadius.circular(15),
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: kTextShadow,
+                                  offset: Offset(6, 6),
+                                  blurRadius: 6,
+                                ),
+                              ]),
+                          child: Container(
+                            margin: EdgeInsets.symmetric(horizontal: 15),
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    buildText.heading3Text("Sound Effects"),
+                                    toggleSwitch(isSoundEffectOn),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    buildText.heading3Text("Dark Mode"),
+                                    toggleSwitch(isDarkModeOn),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    buildText
+                                        .heading3Text("Motivational message"),
+                                    toggleSwitch(isMotivationalMessageOn),
+                                  ],
+                                ),
+                              ],
                             ),
-                            borderRadius: BorderRadius.circular(15),
-                            boxShadow: const [
-                              BoxShadow(
-                                color: kTextShadow,
-                                offset: Offset(6, 6),
-                                blurRadius: 6,
-                              ),
-                            ]),
-                        child: Container(
-                          margin: EdgeInsets.symmetric(horizontal: 15),
-                          child: Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  buildText.heading3Text("Sound Effects"),
-                                  toggleSwitch(isSoundEffectOn),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  buildText.heading3Text("Dark Mode"),
-                                  toggleSwitch(isDarkModeOn),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  buildText
-                                      .heading3Text("Motivational message"),
-                                  toggleSwitch(isMotivationalMessageOn),
-                                ],
-                              ),
-                            ],
                           ),
                         ),
-                      ),
-                      breaker(20),
-                      buildButton(
-                          text: "Helpdesk",
-                          word: "home",
-                          buttonColor: "purple"),
-                      breaker(10),
-                      buildButton(
-                          text: "Feedback",
-                          word: "home",
-                          buttonColor: "purple"),
-                      breaker(50),
+                        breaker(20),
+                        buildButton(
+                            text: "Helpdesk",
+                            word: "home",
+                            buttonColor: "purple"),
+                        breaker(10),
+                        buildButton(
+                            text: "Feedback",
+                            word: "home",
+                            buttonColor: "purple"),
+                        breaker(50),
 
-                      ///Notification
-                      buildText.heading2Text("Notification"),
-                      breaker(20),
-                      Container(
-                        height: 100,
-                        decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            image: const DecorationImage(
-                              image: AssetImage('assets/image/rect_row_2.png'),
-                              fit: BoxFit.cover,
+                        ///Notification
+                        buildText.heading2Text("Notification"),
+                        breaker(20),
+                        Container(
+                          height: 100,
+                          decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              image: const DecorationImage(
+                                image:
+                                    AssetImage('assets/image/rect_row_2.png'),
+                                fit: BoxFit.cover,
+                              ),
+                              borderRadius: BorderRadius.circular(15),
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: kTextShadow,
+                                  offset: Offset(6, 6),
+                                  blurRadius: 6,
+                                ),
+                              ]),
+                          child: Container(
+                            margin: EdgeInsets.symmetric(horizontal: 15),
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    buildText.heading3Text("Practice Reminder"),
+                                    toggleSwitch(isPracticeReminderOn),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    buildText.heading3Text("Smart Scheduling"),
+                                    toggleSwitch(isSmartSchedulingOn),
+                                  ],
+                                ),
+                              ],
                             ),
-                            borderRadius: BorderRadius.circular(15),
-                            boxShadow: const [
-                              BoxShadow(
-                                color: kTextShadow,
-                                offset: Offset(6, 6),
-                                blurRadius: 6,
-                              ),
-                            ]),
-                        child: Container(
-                          margin: EdgeInsets.symmetric(horizontal: 15),
-                          child: Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  buildText.heading3Text("Practice Reminder"),
-                                  toggleSwitch(isPracticeReminderOn),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  buildText.heading3Text("Smart Scheduling"),
-                                  toggleSwitch(isSmartSchedulingOn),
-                                ],
-                              ),
-                            ],
                           ),
                         ),
-                      ),
-                      breaker(20),
-                      Container(
-                        height: 250,
-                        decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            image: const DecorationImage(
-                              image: AssetImage('assets/image/rect_row_5.png'),
-                              fit: BoxFit.cover,
+                        breaker(20),
+                        Container(
+                          height: 250,
+                          decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              image: const DecorationImage(
+                                image:
+                                    AssetImage('assets/image/rect_row_5.png'),
+                                fit: BoxFit.cover,
+                              ),
+                              borderRadius: BorderRadius.circular(15),
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: kTextShadow,
+                                  offset: Offset(6, 6),
+                                  blurRadius: 6,
+                                ),
+                              ]),
+                          child: Container(
+                            margin: EdgeInsets.symmetric(horizontal: 15),
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    buildText.heading3Text("Weekly Progress"),
+                                    toggleSwitch(isWeeklyProgressOn),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    buildText.heading3Text("New Friend"),
+                                    toggleSwitch(isNewFriendsOn),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    buildText.heading3Text("Friend Activity"),
+                                    toggleSwitch(isFriendActivityOn),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    buildText.heading3Text("Leaderboards"),
+                                    toggleSwitch(isLeaderboardsOn),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    buildText.heading3Text("News"),
+                                    toggleSwitch(isNewsOn),
+                                  ],
+                                ),
+                              ],
                             ),
-                            borderRadius: BorderRadius.circular(15),
-                            boxShadow: const [
-                              BoxShadow(
-                                color: kTextShadow,
-                                offset: Offset(6, 6),
-                                blurRadius: 6,
-                              ),
-                            ]),
-                        child: Container(
-                          margin: EdgeInsets.symmetric(horizontal: 15),
-                          child: Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  buildText.heading3Text("Weekly Progress"),
-                                  toggleSwitch(isWeeklyProgressOn),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  buildText.heading3Text("New Friend"),
-                                  toggleSwitch(isNewFriendsOn),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  buildText.heading3Text("Friend Activity"),
-                                  toggleSwitch(isFriendActivityOn),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  buildText.heading3Text("Leaderboards"),
-                                  toggleSwitch(isLeaderboardsOn),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  buildText.heading3Text("News"),
-                                  toggleSwitch(isNewsOn),
-                                ],
-                              ),
-                            ],
                           ),
                         ),
-                      ),
-                      breaker(50),
+                        breaker(50),
 
-                      ///Privacy
-                      buildText.heading2Text("Privacy"),
-                      breaker(20),
-                      Container(
-                        height: 50,
-                        decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            image: const DecorationImage(
-                              image: AssetImage('assets/image/rect_row_1.png'),
+                        ///Privacy
+                        buildText.heading2Text("Privacy"),
+                        breaker(20),
+                        Container(
+                          height: 50,
+                          decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              image: const DecorationImage(
+                                image:
+                                    AssetImage('assets/image/text_field.png'),
+                                fit: BoxFit.cover,
+                              ),
+                              borderRadius: BorderRadius.circular(15),
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: kTextShadow,
+                                  offset: Offset(6, 6),
+                                  blurRadius: 6,
+                                ),
+                              ]),
+                          child: Container(
+                            margin: EdgeInsets.symmetric(horizontal: 15),
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    buildText.heading3Text(
+                                        "Tracking for Advertisement"),
+                                    toggleSwitch(isTrackingForAdvertisingOn),
+                                  ],
+                                ),
+                              ],
                             ),
-                            borderRadius: BorderRadius.circular(15),
-                            boxShadow: const [
-                              BoxShadow(
-                                color: kTextShadow,
-                                offset: Offset(6, 6),
-                                blurRadius: 6,
-                              ),
-                            ]),
-                        child: Container(
-                          margin: EdgeInsets.symmetric(horizontal: 15),
-                          child: Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  buildText.heading3Text(
-                                      "Tracking for Advertisement"),
-                                  toggleSwitch(isTrackingForAdvertisingOn),
-                                ],
-                              ),
-                            ],
                           ),
                         ),
-                      ),
-                      breaker(20),
-                      buildButton(
-                          text: "Terms", word: "home", buttonColor: "purple"),
-                      breaker(10),
-                      buildButton(
-                          text: "Acknowledgement",
-                          word: "home",
-                          buttonColor: "purple"),
-                      breaker(40),
-                    ],
+                        breaker(20),
+                        buildButton(
+                            text: "Terms", word: "home", buttonColor: "purple"),
+                        breaker(10),
+                        buildButton(
+                            text: "Acknowledgement",
+                            word: "home",
+                            buttonColor: "purple"),
+                        breaker(40),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -335,7 +343,7 @@ class _SettingsState extends State<Settings> {
 
   Widget textBox(TextEditingController controller, String name) {
     return Container(
-      padding: EdgeInsets.only(bottom: 10),
+      padding: EdgeInsets.only(bottom: 10, right: 10, left: 10),
       child: buildTextBox.textBox(controller, name),
     );
   }
