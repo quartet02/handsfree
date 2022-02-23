@@ -48,15 +48,19 @@ class _SignInState extends State<SignIn> {
                 margin: const EdgeInsets.only(bottom: 10),
                 child: buildText.labelText("Email"),
               ),
-              buildTextBox.textBox(emailController, 'Enter your email', false,
-                  false, 'Please enter some text'),
+              buildTextBox.authenticateTextBox(emailController,
+                  'Enter your email', false, false, 'Please enter some text'),
               Container(
                 alignment: Alignment.centerLeft,
                 margin: const EdgeInsets.only(top: 20, bottom: 10),
                 child: buildText.labelText("Password"),
               ),
-              buildTextBox.textBox(passwordController, 'Enter your password',
-                  true, false, 'Please enter some password'),
+              buildTextBox.authenticateTextBox(
+                  passwordController,
+                  'Enter your password',
+                  true,
+                  false,
+                  'Please enter some password'),
               Padding(
                 padding: const EdgeInsets.only(top: 30),
                 child: GestureDetector(

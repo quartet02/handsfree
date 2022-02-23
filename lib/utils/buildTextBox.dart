@@ -8,8 +8,8 @@ class buildTextBox extends StatelessWidget {
     return Container();
   }
 
-  static Widget textBox(TextEditingController controllers, String hint,
-      bool blockText, bool autoCorrect, String errorMessage,
+  static Widget authenticateTextBox(TextEditingController controllers,
+      String hint, bool blockText, bool autoCorrect, String errorMessage,
       {EdgeInsets margins = const EdgeInsets.all(0)}) {
     double radius = 25;
     return Container(
@@ -61,6 +61,54 @@ class buildTextBox extends StatelessWidget {
           }
           return null;
         },
+      ),
+    );
+  }
+
+  static Widget textBox(TextEditingController controllers, String hint,
+      {EdgeInsets margins = const EdgeInsets.all(0)}) {
+    double radius = 25;
+    return Container(
+      margin: margins,
+      decoration: BoxDecoration(
+          color: Colors.transparent,
+          image: const DecorationImage(
+            image: AssetImage('assets/image/text_field.png'),
+            fit: BoxFit.cover,
+          ),
+          borderRadius: BorderRadius.circular(radius),
+          boxShadow: const [
+            BoxShadow(
+              color: kTextShadow,
+              offset: Offset(6, 6),
+              blurRadius: 6,
+            ),
+          ]),
+      child: TextFormField(
+        controller: controllers,
+        decoration: InputDecoration(
+          contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(radius),
+            borderSide: const BorderSide(
+              width: 0,
+              style: BorderStyle.none,
+            ),
+          ),
+          hintText: hint,
+          labelStyle: GoogleFonts.montserrat(
+            fontSize: 12.8,
+            fontWeight: FontWeight.w400,
+            color: kTextFieldText,
+          ),
+          hintStyle: GoogleFonts.montserrat(
+            fontSize: 12.8,
+            fontWeight: FontWeight.w400,
+            color: kTextFieldText,
+          ),
+          fillColor: kTextLight,
+          filled: false,
+        ),
       ),
     );
   }
