@@ -6,7 +6,7 @@ import 'package:handsfree/utils/buildButton.dart';
 import 'package:handsfree/utils/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import '../navbar/navBar.dart';
+import '../../widgets/navBar.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:handsfree/utils/buildText.dart';
 

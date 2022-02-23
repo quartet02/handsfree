@@ -1,9 +1,9 @@
-class newsFeedModel {
+class NewsFeedModel {
   final id;
   final newsFeedTitle;
   final newsFeedDesc;
   final newsFeedImages;
 
-  newsFeedModel(
+  NewsFeedModel(
       this.id, this.newsFeedTitle, this.newsFeedDesc, this.newsFeedImages);
 }

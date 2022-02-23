@@ -14,7 +14,7 @@ import 'package:flutter/cupertino.dart';
 //   }
 // }
 import 'package:flutter/material.dart';
-import '../navbar/navBar.dart';
+import '../../widgets/navBar.dart';
 import '../../services/auth.dart';
 
 class Chat extends StatelessWidget {

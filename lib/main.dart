@@ -7,6 +7,7 @@ import 'package:handsfree/screens/home/chat.dart';
 import 'package:handsfree/screens/home/home.dart';
 import 'package:handsfree/screens/learn/learn.dart';
 import 'package:handsfree/screens/home/profile.dart';
+import 'package:handsfree/screens/learn/sublevel.dart';
 import 'package:handsfree/screens/social/social.dart';
 import 'package:handsfree/screens/wrapper.dart';
 import 'package:handsfree/services/auth.dart';
@@ -52,7 +53,8 @@ class MyApp extends StatelessWidget {
           "/dictionary": (context) => const Dictionary(),
           "/profile": (context) => const Profile(),
           "/home": (context) => const Home(),
-          "/learn": (context) => const Learn()
+          "/learn": (context) => const Learn(),
+          "/sublevel": (context) => const SubLevel(),
         },
       ),
     );

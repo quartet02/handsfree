@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import '../../models/newsFeedModel.dart';
 
-class newsFeedProvider with ChangeNotifier {
-  List<newsFeedModel> newsFeeds = newsFeedData
+class NewsFeedProvider with ChangeNotifier {
+  List<NewsFeedModel> newsFeeds = newsFeedData
       .map(
-        (item) => newsFeedModel(
+        (item) => NewsFeedModel(
           item['newsFeedId'],
           item['newsFeedTitle'] ?? "",
           item['newsFeedDesc'] ?? "",
@@ -14,7 +13,7 @@ class newsFeedProvider with ChangeNotifier {
       )
       .toList();
 
-  List<newsFeedModel> get cardDetails {
+  List<NewsFeedModel> get cardDetails {
     return [...newsFeeds];
   }
 }

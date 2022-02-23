@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../navbar/navBar.dart';
+import '../../widgets/navBar.dart';
 import '../../services/auth.dart';
 import '../../utils/buildButton.dart';
 import 'package:handsfree/utils/constants.dart';

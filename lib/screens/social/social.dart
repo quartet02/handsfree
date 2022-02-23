@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:handsfree/utils/buildButton.dart';
 import 'package:handsfree/models/friends.dart';
 import 'package:handsfree/utils/overlay.dart';
-import 'package:handsfree/screens/navbar/navBar.dart';
+import 'package:handsfree/widgets/navBar.dart';
 import 'package:handsfree/widgets/smallCard.dart';
 import 'package:provider/provider.dart';
 import 'package:handsfree/utils/buildText.dart';
@@ -28,7 +28,7 @@ class _SocialState extends State<Social> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => CommunityProvider()),
-        ChangeNotifierProvider(create: (_) => newsFeedProvider()),
+        ChangeNotifierProvider(create: (_) => NewsFeedProvider()),
       ],
       child: Scaffold(
         body: Container(
@@ -199,7 +199,7 @@ class _SocialState extends State<Social> {
                           ],
                         ),
                         Container(
-                          child: Consumer<newsFeedProvider>(
+                          child: Consumer<NewsFeedProvider>(
                               builder: (context, news, child) {
                             return Container(
                                 width: MediaQuery.of(context).size.width,
@@ -228,12 +228,11 @@ class _SocialState extends State<Social> {
                 ],
               )),
         ),
+        floatingActionButton: isVisible ? SizedBox() : navBar.Buttons(context),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        extendBody: true,
+        bottomNavigationBar: navBar.bar(context),
       ),
     );
-    //   floatingActionButton: isVisible ? SizedBox() : navBar.Buttons(context),
-    //   floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-    //   extendBody: true,
-    //   bottomNavigationBar: navBar.bar(context),
-    // );
   }
 }
