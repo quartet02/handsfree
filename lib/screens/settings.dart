@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:handsfree/utils/buildButton.dart';
-import 'package:handsfree/utils/buildText.dart';
-import 'package:handsfree/utils/buildTextBox.dart';
-import 'package:handsfree/utils/constants.dart';
+import 'package:handsfree/widgets/buildButton.dart';
+import 'package:handsfree/widgets/buildText.dart';
+import 'package:handsfree/widgets/buildTextBox.dart';
+import 'package:handsfree/widgets/constants.dart';
 
 class Settings extends StatefulWidget {
   const Settings({Key? key}) : super(key: key);

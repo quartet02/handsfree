@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:handsfree/utils/provider/dictionaryProvider.dart';
+import 'package:handsfree/provider/dictionaryProvider.dart';
 import 'package:provider/provider.dart';
-import '../../utils/constants.dart';
+import '../../widgets/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SearchBar extends StatefulWidget {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../models/newsFeedModel.dart';
+import '../models/newsFeedModel.dart';
 
 class NewsFeedProvider with ChangeNotifier {
   List<NewsFeedModel> newsFeeds = newsFeedData

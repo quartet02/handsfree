@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:handsfree/utils/provider/dictionaryProvider.dart';
+import 'package:handsfree/provider/dictionaryProvider.dart';
 import 'package:handsfree/screens/dictionary/searchBar.dart';
 import 'package:handsfree/screens/dictionary/searchGroup.dart';
-import 'package:handsfree/utils/buildButton.dart';
-import 'package:handsfree/utils/constants.dart';
+import 'package:handsfree/widgets/buildButton.dart';
+import 'package:handsfree/widgets/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../../widgets/navBar.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:handsfree/utils/buildText.dart';
+import 'package:handsfree/widgets/buildText.dart';
 import 'package:handsfree/widgets/navBar.dart';
 
 class Dictionary extends StatefulWidget {

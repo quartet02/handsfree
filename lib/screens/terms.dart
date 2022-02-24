@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:handsfree/utils/buildText.dart';
+import 'package:handsfree/widgets/buildText.dart';
 
 class Terms extends StatelessWidget {
   @override

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:handsfree/screens/learn/sublevel.dart';
-import 'package:handsfree/utils/provider/lessonProvider.dart';
+import 'package:handsfree/provider/lessonProvider.dart';
 import 'package:provider/provider.dart';
 
 import '../models/lessonModel.dart';
-import '../utils/constants.dart';
+import 'constants.dart';
 
 class ColumnList extends StatelessWidget {
   final LessonModel lesson;

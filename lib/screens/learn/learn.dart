@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:handsfree/utils/buildButton.dart';
-import 'package:handsfree/utils/constants.dart';
+import 'package:handsfree/widgets/buildButton.dart';
+import 'package:handsfree/widgets/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:handsfree/utils/provider/lessonProvider.dart';
+import 'package:handsfree/provider/lessonProvider.dart';
 import 'package:handsfree/widgets/columnList.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:handsfree/models/lessonModel.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:handsfree/utils/buildText.dart';
-import 'package:handsfree/utils/constants.dart';
+import 'package:handsfree/widgets/buildText.dart';
+import 'package:handsfree/widgets/constants.dart';
 
 class Acknowledgement extends StatelessWidget {
   const Acknowledgement({Key? key}) : super(key: key);

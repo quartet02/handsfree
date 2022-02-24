@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:handsfree/utils/overlay.dart';
-import 'package:handsfree/utils/buildButton.dart';
-import 'package:handsfree/utils/buildText.dart';
+import 'package:handsfree/widgets/overlay.dart';
+import 'package:handsfree/widgets/buildButton.dart';
+import 'package:handsfree/widgets/buildText.dart';
 
 class SmallCard extends StatelessWidget {
   final id;

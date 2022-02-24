@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:handsfree/utils/constants.dart';
+import 'package:handsfree/widgets/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class buildTextBox extends StatelessWidget {

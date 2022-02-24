@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:handsfree/main.dart';
-import 'package:handsfree/utils/constants.dart';
+import 'package:handsfree/widgets/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 

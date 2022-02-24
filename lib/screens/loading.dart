@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:handsfree/utils/buildText.dart';
+import 'package:handsfree/widgets/buildText.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
-import '../utils/constants.dart';
+import '../widgets/constants.dart';
 
 class Loading extends StatelessWidget {
   const Loading({Key? key}) : super(key: key);

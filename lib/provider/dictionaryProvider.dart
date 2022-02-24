@@ -1,6 +1,6 @@
-import 'package:handsfree/utils/userPreference.dart';
+import 'package:handsfree/widgets/userPreference.dart';
 
-import '../../models/wordModel.dart';
+import '../models/wordModel.dart';
 import 'package:flutter/material.dart';
 
 var wordData = [

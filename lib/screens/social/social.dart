@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:handsfree/utils/buildButton.dart';
+import 'package:handsfree/widgets/buildButton.dart';
 import 'package:handsfree/models/friends.dart';
-import 'package:handsfree/utils/overlay.dart';
+import 'package:handsfree/widgets/overlay.dart';
 import 'package:handsfree/widgets/navBar.dart';
 import 'package:handsfree/widgets/smallCard.dart';
 import 'package:provider/provider.dart';
-import 'package:handsfree/utils/buildText.dart';
+import 'package:handsfree/widgets/buildText.dart';
 
-import '../../utils/provider/communityProvider.dart';
-import '../../utils/provider/newsFeedProvider.dart';
+import '../../provider/communityProvider.dart';
+import '../../provider/newsFeedProvider.dart';
 import 'package:handsfree/widgets/navBar.dart';
 
 double friendSize = 70;

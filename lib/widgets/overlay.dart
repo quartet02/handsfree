@@ -1,7 +1,7 @@
 import 'dart:ui';
-import 'package:handsfree/utils/constants.dart';
+import 'package:handsfree/widgets/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:handsfree/utils/buildText.dart';
+import 'package:handsfree/widgets/buildText.dart';
 
 bool isShowing = false;
 OverlayEntry overlayEntry = OverlayEntry(builder: (context) => Container());

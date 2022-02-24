@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:handsfree/utils/provider/dictionaryProvider.dart';
+import 'package:handsfree/provider/dictionaryProvider.dart';
 import 'package:provider/provider.dart';
-import 'package:handsfree/utils/constants.dart';
+import 'package:handsfree/widgets/constants.dart';
 
 class SearchGroup extends StatelessWidget {
   const SearchGroup({Key? key}) : super(key: key);
