@@ -34,10 +34,10 @@ class Chat extends StatelessWidget {
               fit: BoxFit.cover),
         ),
       ),
-      floatingActionButton: navBar.Buttons(context),
+      floatingActionButton: NavBar.Buttons(context),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       extendBody: true,
-      bottomNavigationBar: navBar.bar(context),
+      bottomNavigationBar: NavBar.bar(context),
     );
   }
 }

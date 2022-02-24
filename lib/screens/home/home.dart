@@ -96,10 +96,10 @@ class _HomeState extends State<Home> {
           ],
         ),
       ),
-      floatingActionButton: isVisible ? SizedBox() : navBar.Buttons(context),
+      floatingActionButton: isVisible ? SizedBox() : NavBar.Buttons(context),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       extendBody: true,
-      bottomNavigationBar: navBar.bar(context),
+      bottomNavigationBar: NavBar.bar(context),
     );
   }
 }

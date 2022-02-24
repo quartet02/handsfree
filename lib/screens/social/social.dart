@@ -229,10 +229,10 @@ class _SocialState extends State<Social> {
                 ],
               )),
         ),
-        floatingActionButton: isVisible ? SizedBox() : navBar.Buttons(context),
+        floatingActionButton: isVisible ? SizedBox() : NavBar.Buttons(context),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         extendBody: true,
-        bottomNavigationBar: navBar.bar(context),
+        bottomNavigationBar: NavBar.bar(context),
       ),
     );
   }

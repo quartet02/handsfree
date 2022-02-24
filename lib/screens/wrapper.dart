@@ -6,6 +6,7 @@ import 'package:handsfree/screens/learn/learn.dart';
 import 'package:handsfree/screens/loading.dart';
 import 'package:handsfree/screens/social/social.dart';
 import 'package:handsfree/screens/terms.dart';
+import 'package:handsfree/widgets/navBar.dart';
 import 'package:provider/provider.dart';
 import 'package:handsfree/screens/settings.dart';
 
