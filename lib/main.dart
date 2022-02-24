@@ -3,11 +3,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:handsfree/screens/authenticate/signIn.dart';
 import 'package:handsfree/screens/authenticate/signUp.dart';
 import 'package:handsfree/screens/dictionary/dictionary.dart';
-import 'package:handsfree/screens/home/chat.dart';
 import 'package:handsfree/screens/home/home.dart';
 import 'package:handsfree/screens/learn/learn.dart';
-import 'package:handsfree/screens/home/profile.dart';
 import 'package:handsfree/screens/learn/sublevel.dart';
+import 'package:handsfree/screens/profile/profile.dart';
+import 'package:handsfree/screens/settings.dart';
 import 'package:handsfree/screens/social/social.dart';
 import 'package:handsfree/screens/wrapper.dart';
 import 'package:handsfree/services/auth.dart';
@@ -59,6 +59,7 @@ class MyApp extends StatelessWidget {
             "/home": (context) => const Home(),
             "/learn": (context) => const Learn(),
             "/sublevel": (context) => const SubLevel(),
+            "/settings": (context) => const Settings(),
           },
         ));
   }
