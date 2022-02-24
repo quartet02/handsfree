@@ -18,8 +18,9 @@ class Profile extends StatelessWidget {
       backgroundColor: const Color(0xFFF0F5FF),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 30.0),
+          padding: const EdgeInsets.fromLTRB(30, 0, 30, 50),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Align(
                 alignment: Alignment.topRight,
@@ -36,9 +37,6 @@ class Profile extends StatelessWidget {
                       username: 'Mickie',
                       email: 'mickie@gmail.com',
                       experience: 12)),
-              const SizedBox(
-                height: 30,
-              ),
               Align(
                 alignment: Alignment.centerLeft,
                 child: Column(
@@ -65,9 +63,6 @@ class Profile extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 20,
-              ),
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
@@ -78,9 +73,6 @@ class Profile extends StatelessWidget {
                     color: const Color(0xff1D283F),
                   ),
                 ),
-              ),
-              const SizedBox(
-                height: 10,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -94,10 +86,10 @@ class Profile extends StatelessWidget {
           ),
         ),
       ),
-      floatingActionButton: navBar.Buttons(context),
+      floatingActionButton: NavBar.Buttons(context),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       extendBody: true,
-      bottomNavigationBar: navBar.bar(context),
+      bottomNavigationBar: NavBar.bar(context),
     );
   }
 }
