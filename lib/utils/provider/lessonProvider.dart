@@ -17,7 +17,7 @@ class LessonProvider with ChangeNotifier {
     return [...lessons];
   }
 
-  static LessonModel _clickedLesson = LessonModel(
+  LessonModel _clickedLesson = LessonModel(
       lessonId: 000, lessonName: "bruh", lessonDesc: "wa", lessonImage: "");
 
   void setClickLesson(LessonModel newClickedLesson) {
