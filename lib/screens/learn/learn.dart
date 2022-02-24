@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:handsfree/utils/buildButton.dart';
 import 'package:handsfree/utils/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../navbar/navBar.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:handsfree/models/lessonModel.dart';
+import '../../widgets/navBar.dart';
 
 double progress = 0.21;
 
@@ -98,7 +98,7 @@ class _LearnState extends State<Learn> {
                 child: ListView.builder(
                   scrollDirection: Axis.vertical,
                   padding: EdgeInsets.symmetric(horizontal: 60),
-                  itemCount: lessons.length,
+                  itemCount: 5,
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: () async {
@@ -111,7 +111,8 @@ class _LearnState extends State<Learn> {
                           children: <Widget>[
                             Container(
                                 child: Image.asset(
-                              lessons[index].images,
+                              // lessons[index].images,
+                              "",
                               scale: 4,
                             )),
                             const Padding(padding: EdgeInsets.only(right: 10)),
@@ -122,7 +123,8 @@ class _LearnState extends State<Learn> {
                                 const Padding(
                                     padding: EdgeInsets.only(top: 20)),
                                 Text(
-                                  lessons[index].lessonName,
+                                  // lessons[index].lessonName,
+                                  "",
                                   style: GoogleFonts.montserrat(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w600,
@@ -131,7 +133,8 @@ class _LearnState extends State<Learn> {
                                 ),
                                 const Padding(padding: EdgeInsets.only(top: 5)),
                                 Text(
-                                  lessons[index].lessonDesc,
+                                  // lessons[index].lessonDesc,
+                                  "",
                                   style: GoogleFonts.montserrat(
                                     fontSize: 12.8,
                                     fontWeight: FontWeight.w400,
