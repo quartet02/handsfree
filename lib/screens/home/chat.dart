@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:handsfree/widgets/navBar.dart';
 
 // class Chat extends StatefulWidget {
 //   const Chat({Key? key}) : super(key: key);

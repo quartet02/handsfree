@@ -14,11 +14,9 @@ class ColumnList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<LessonProvider>(builder: (context, lessoned, child) {
       return GestureDetector(
         onTap: () {
-          lessoned.setClickLesson = lesson;
-          print("$lesson is sohai");
+          context.read<LessonProvider>().setClickLesson = lesson;
           Navigator.pushNamed(context, "/sublevel");
         },
         child: Container(
@@ -60,6 +58,5 @@ class ColumnList extends StatelessWidget {
           ),
         ),
       );
-    });
   }
 }

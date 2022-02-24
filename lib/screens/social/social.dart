@@ -9,6 +9,7 @@ import 'package:handsfree/utils/buildText.dart';
 
 import '../../utils/provider/communityProvider.dart';
 import '../../utils/provider/newsFeedProvider.dart';
+import 'package:handsfree/widgets/navBar.dart';
 
 double friendSize = 70;
 double coumminitySize = 150;

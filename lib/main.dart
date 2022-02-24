@@ -11,6 +11,7 @@ import 'package:handsfree/screens/learn/sublevel.dart';
 import 'package:handsfree/screens/social/social.dart';
 import 'package:handsfree/screens/wrapper.dart';
 import 'package:handsfree/services/auth.dart';
+import 'package:handsfree/utils/provider/lessonProvider.dart';
 import 'package:handsfree/utils/userPreference.dart';
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
@@ -25,8 +26,11 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await UserPreference.init();
-  UserPreference.clearAll();
-  runApp(const MyApp());
+
+  runApp(ChangeNotifierProvider<LessonProvider>(
+    create: (_) => LessonProvider(),
+    child: const MyApp(),
+  ));
 }
 
 ThemeManager _themeManager = ThemeManager();
@@ -38,25 +42,24 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamProvider<NewUser?>.value(
-      value: AuthService().user,
-      initialData: null,
-      child: MaterialApp(
-        title: 'Flutter Demo',
-        theme: lightTheme,
-        darkTheme: darkTheme,
-        themeMode: _themeManager.themeMode,
-        home: const Wrapper(),
-        routes: {
-          "/auth/signIn": (context) => const SignIn(),
-          "/auth/signUp": (context) => const SignUp(),
-          "/social": (context) => const Social(),
-          "/dictionary": (context) => const Dictionary(),
-          "/profile": (context) => const Profile(),
-          "/home": (context) => const Home(),
-          "/learn": (context) => const Learn(),
-          "/sublevel": (context) => const SubLevel(),
-        },
-      ),
-    );
+        value: AuthService().user,
+        initialData: null,
+        child: MaterialApp(
+          title: 'Flutter Demo',
+          theme: lightTheme,
+          darkTheme: darkTheme,
+          themeMode: _themeManager.themeMode,
+          home: const Wrapper(),
+          routes: {
+            "/auth/signIn": (context) => const SignIn(),
+            "/auth/signUp": (context) => const SignUp(),
+            "/social": (context) => const Social(),
+            "/dictionary": (context) => const Dictionary(),
+            "/profile": (context) => const Profile(),
+            "/home": (context) => const Home(),
+            "/learn": (context) => const Learn(),
+            "/sublevel": (context) => const SubLevel(),
+          },
+        ));
   }
 }

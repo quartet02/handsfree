@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import '../../widgets/navBar.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:handsfree/utils/buildText.dart';
+import 'package:handsfree/widgets/navBar.dart';
 
 class Dictionary extends StatefulWidget {
   const Dictionary({Key? key}) : super(key: key);
