@@ -12,18 +12,12 @@ import 'package:percent_indicator/percent_indicator.dart';
 import 'package:handsfree/models/subLevelModel.dart';
 import 'package:handsfree/models/lessonModel.dart';
 
-class SubLevel extends StatefulWidget {
+class SubLevel extends StatelessWidget {
   const SubLevel({Key? key}) : super(key: key);
 
   @override
-  _LearnState createState() => _LearnState();
-}
-
-class _LearnState extends State<SubLevel> {
-  @override
   Widget build(BuildContext context) {
     LessonModel lesson = context.read<LessonProvider>().getClickedLesson;
-    print(lesson.lessonName);
     return Scaffold(
         body: Container(
       decoration: const BoxDecoration(
@@ -36,19 +30,20 @@ class _LearnState extends State<SubLevel> {
         padding: const EdgeInsets.only(left: 40, bottom: 5, right: 40),
         margin: const EdgeInsets.only(top: 50),
         child: ListView(
-          physics: const ClampingScrollPhysics(),
+          physics: NeverScrollableScrollPhysics(),
           children: [
             Stack(
               children: [
                 Container(
                   alignment: Alignment.center,
                   width: MediaQuery.of(context).size.width,
-                  height: 100,
+                  height: 80,
                   decoration: const BoxDecoration(
                     image: DecorationImage(
                         alignment: Alignment.topCenter,
-                        image: AssetImage('assets/image/white.png'),
-                        scale: 1),
+                        image:
+                            AssetImage('assets/image/sublevel_container.png'),
+                        scale: 2),
                   ),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 60),
@@ -107,6 +102,7 @@ class _LearnState extends State<SubLevel> {
             Container(
               height: 300,
               child: ListView.builder(
+                physics: BouncingScrollPhysics(),
                 scrollDirection: Axis.vertical,
                 padding: EdgeInsets.symmetric(horizontal: 60),
                 itemCount: sublevels.length,

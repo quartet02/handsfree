@@ -17,17 +17,16 @@ class LessonProvider with ChangeNotifier {
     return [...lessons];
   }
 
-  LessonModel clickedLesson = LessonModel(
-      lessonId: 000, lessonName: "HAHA", lessonDesc: "haha", lessonImage: "");
+  static LessonModel _clickedLesson = LessonModel(
+      lessonId: 000, lessonName: "bruh", lessonDesc: "wa", lessonImage: "");
 
-  LessonModel get getClickedLesson {
-    return clickedLesson;
+  void setClickLesson(LessonModel newClickedLesson) {
+    _clickedLesson = newClickedLesson;
+    notifyListeners();
   }
 
-  set setClickLesson(LessonModel newClickedLesson) {
-    clickedLesson = newClickedLesson;
-    print(clickedLesson.lessonName);
-    notifyListeners();
+  LessonModel get getClickedLesson {
+    return _clickedLesson;
   }
 }
 
