@@ -38,8 +38,17 @@ class SubLevel extends StatelessWidget {
                   alignment: Alignment.center,
                   width: MediaQuery.of(context).size.width,
                   height: 80,
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    boxShadow: const [
+                      BoxShadow(
+                        // blurStyle: BlurStyle(9),
+                        color: kShadow,
+                        offset: Offset(6, 6),
+                        blurRadius: 6,
+                      ),
+                    ],
+                    image: const DecorationImage(
                         alignment: Alignment.topCenter,
                         image:
                             AssetImage('assets/image/sublevel_container.png'),
@@ -100,7 +109,7 @@ class SubLevel extends StatelessWidget {
               padding: EdgeInsets.only(bottom: 80),
             ),
             Container(
-              height: 300,
+              height: 350,
               child: ListView.builder(
                 physics: BouncingScrollPhysics(),
                 scrollDirection: Axis.vertical,

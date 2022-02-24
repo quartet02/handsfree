@@ -10,7 +10,7 @@ class NavBar extends StatelessWidget {
     const double RADIUS = 23;
     return BottomAppBar(
       color: Colors.transparent,
-      // shape: CircularNotchedRectangle(),
+      shape: CircularNotchedRectangle(),
       notchMargin: 8,
       clipBehavior: Clip.antiAlias,
       child: Container(
@@ -19,7 +19,6 @@ class NavBar extends StatelessWidget {
               image: AssetImage("assets/image/nav_bar_bottom.png"),
               fit: BoxFit.cover),
         ),
-        // width: MediaQuery.of(context).size.width - 20,
         height: 74,
         child: Expanded(
           flex: 5,
@@ -79,6 +78,14 @@ class NavBar extends StatelessWidget {
         height: 70,
         alignment: Alignment.center,
         decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(25),
+          boxShadow: const [
+            BoxShadow(
+              color: Color.fromARGB(255, 172, 172, 172),
+              offset: Offset(10, 10),
+              blurRadius: 15,
+            ),
+          ],
           image: DecorationImage(
             image: index == 2
                 ? AssetImage("assets/image/purple_nav_button.png")
