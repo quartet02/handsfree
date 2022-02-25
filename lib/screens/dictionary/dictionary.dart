@@ -49,9 +49,11 @@ class _DictionaryState extends State<Dictionary> {
                     const SearchBar()
                   ],
                 ),
-                const Padding(
-                  padding: EdgeInsets.only(bottom: 80),
-                ),
+                !isVisible
+                    ? const Padding(
+                        padding: EdgeInsets.only(bottom: 80),
+                      )
+                    : Container(),
                 !isVisible
                     ? GestureDetector(
                         onTap: () {
@@ -83,9 +85,11 @@ class _DictionaryState extends State<Dictionary> {
                         ),
                       )
                     : Container(),
-                const Padding(
-                  padding: EdgeInsets.only(bottom: 5),
-                ),
+                !isVisible
+                    ? const Padding(
+                        padding: EdgeInsets.only(bottom: 5),
+                      )
+                    : Container(),
                 !isVisible
                     ? Text(
                         'Text-to-Sign',
@@ -96,9 +100,11 @@ class _DictionaryState extends State<Dictionary> {
                         ),
                       )
                     : Container(),
-                const Padding(
-                  padding: EdgeInsets.only(bottom: 5),
-                ),
+                !isVisible
+                    ? const Padding(
+                        padding: EdgeInsets.only(bottom: 5),
+                      )
+                    : Container(),
                 !isVisible
                     ? Text(
                         'Translator',
@@ -109,9 +115,11 @@ class _DictionaryState extends State<Dictionary> {
                         ),
                       )
                     : Container(),
-                const Padding(
-                  padding: EdgeInsets.only(bottom: 5),
-                ),
+                !isVisible
+                    ? const Padding(
+                        padding: EdgeInsets.only(bottom: 5),
+                      )
+                    : Container(),
                 !isVisible
                     ? Text(
                         'Now in BETA!',

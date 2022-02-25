@@ -35,7 +35,7 @@ class ProfileCard extends StatelessWidget {
           ),
         ),
         const SizedBox(
-          height: 10,
+          height: 5,
         ),
         Text(
           profile.email,
@@ -46,13 +46,14 @@ class ProfileCard extends StatelessWidget {
           ),
         ),
         const SizedBox(
-          height: 5,
+          height: 10,
         ),
         const ExperienceCard(
           title: 'Fluent Speaker',
           lvl: '30',
           currentExp: 50,
         ),
+
       ],
     );
   }
