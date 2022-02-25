@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:handsfree/screens/learn/sublevel.dart';
+import 'package:handsfree/screens/learn/subLesson.dart';
 import 'package:handsfree/provider/lessonProvider.dart';
 import 'package:provider/provider.dart';
 

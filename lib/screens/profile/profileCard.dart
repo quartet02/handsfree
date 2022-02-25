@@ -17,14 +17,14 @@ class ProfileCard extends StatelessWidget {
         SizedBox(
           width: 163,
           height: 163,
-          child: ClipPolygon(
-            sides: 6,
-            borderRadius: 5.0,
-            child: Image.asset(
-              profile.imageUrl,
-              fit: BoxFit.contain,
-            ),
-          ),
+          // child: ClipPolygon(
+          //   sides: 6,
+          //   borderRadius: 5.0,
+          //   child: Image.asset(
+          //     profile.imageUrl,
+          //     fit: BoxFit.contain,
+          //   ),
+          // ),
         ),
         Text(
           profile.username,
@@ -53,6 +53,7 @@ class ProfileCard extends StatelessWidget {
           lvl: '30',
           currentExp: 50,
         ),
+
       ],
     );
   }
