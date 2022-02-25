@@ -106,7 +106,7 @@ class _LearnState extends State<Learn> {
                   child: ListView.builder(
                     physics: BouncingScrollPhysics(),
                     scrollDirection: Axis.vertical,
-                    padding: EdgeInsets.symmetric(horizontal: 60),
+                    padding: EdgeInsets.only(right: 60, left: 60, bottom: 80),
                     itemCount: lessons.length,
                     itemBuilder: (context, index) {
                       return ColumnList(lesson: lessons[index]);

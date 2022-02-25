@@ -40,7 +40,7 @@ dependencies:
   google_sign_in: ^5.2.3
   simple_shadow: ^0.3.0
   google_fonts: ^2.3.1
-  polygon_clipper: ^1.0.2
+  flutter_polygon: ^0.2.0
   percent_indicator: ^4.0.0
   flutter_typeahead: ^3.2.4
   firebase_database: ^9.0.6

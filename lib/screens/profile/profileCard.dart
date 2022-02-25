@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:polygon_clipper/polygon_clipper.dart';
+import 'package:flutter_polygon/flutter_polygon.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'profileDetails.dart';
 import 'experienceCard.dart';
@@ -17,14 +17,18 @@ class ProfileCard extends StatelessWidget {
         SizedBox(
           width: 163,
           height: 163,
-          // child: ClipPolygon(
-          //   sides: 6,
-          //   borderRadius: 5.0,
-          //   child: Image.asset(
-          //     profile.imageUrl,
-          //     fit: BoxFit.contain,
-          //   ),
-          // ),
+          child: ClipPolygon(
+            sides: 6,
+            borderRadius: 5.0,
+            boxShadows: [
+              PolygonBoxShadow(color: Colors.white, elevation: 1.0),
+              PolygonBoxShadow(color: Color(0xff9e84fd), elevation: 3.0),
+            ],
+            child: Image.asset(
+              profile.imageUrl,
+              fit: BoxFit.contain,
+            ),
+          ),
         ),
         Text(
           profile.username,
@@ -53,7 +57,6 @@ class ProfileCard extends StatelessWidget {
           lvl: '30',
           currentExp: 50,
         ),
-
       ],
     );
   }
