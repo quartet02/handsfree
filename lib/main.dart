@@ -5,7 +5,7 @@ import 'package:handsfree/screens/authenticate/signUp.dart';
 import 'package:handsfree/screens/dictionary/dictionary.dart';
 import 'package:handsfree/screens/home/home.dart';
 import 'package:handsfree/screens/learn/learn.dart';
-import 'package:handsfree/screens/learn/sublevel.dart';
+import 'package:handsfree/screens/learn/subLesson.dart';
 import 'package:handsfree/screens/profile/profile.dart';
 import 'package:handsfree/screens/settings.dart';
 import 'package:handsfree/screens/social/social.dart';
