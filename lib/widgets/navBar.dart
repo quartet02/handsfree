@@ -20,22 +20,21 @@ class NavBar extends StatelessWidget {
               fit: BoxFit.cover),
         ),
         height: 74,
-        child: Expanded(
-          flex: 5,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              circle(context, 0, "assets/svg/home.svg", "/home"),
-              circle(context, 1, "assets/svg/dictionary.svg", "/dictionary"),
-              const CircleAvatar(
-                radius: RADIUS,
-                backgroundColor: Colors.transparent,
-              ),
-              circle(context, 3, "assets/svg/social.svg", "/social"),
-              circle(context, 4, "assets/svg/user.svg", "/profile"),
-            ],
-          ),
+
+        // flex: 5,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            circle(context, 0, "assets/svg/home.svg", "/home"),
+            circle(context, 1, "assets/svg/dictionary.svg", "/dictionary"),
+            const CircleAvatar(
+              radius: RADIUS,
+              backgroundColor: Colors.transparent,
+            ),
+            circle(context, 3, "assets/svg/social.svg", "/social"),
+            circle(context, 4, "assets/svg/user.svg", "/profile"),
+          ],
         ),
       ),
     );

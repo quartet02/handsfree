@@ -46,7 +46,7 @@ class _SocialState extends State<Social> {
               child: Column(
                 children: [
                   buildText.bigTitle("Social"),
-                  Padding(padding: EdgeInsets.only(top: 100)),
+                  Padding(padding: EdgeInsets.only(top: 80)),
                   ShaderMask(
                     shaderCallback: (Rect rect) {
                       return const LinearGradient(
@@ -68,12 +68,10 @@ class _SocialState extends State<Social> {
                     },
                     blendMode: BlendMode.dstOut,
                     child: Container(
-                      height: 450,
+                      height: MediaQuery.of(context).size.height / 1.4,
                       child: ListView(
                         physics: BouncingScrollPhysics(),
-
                         scrollDirection: Axis.vertical,
-                        // crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,

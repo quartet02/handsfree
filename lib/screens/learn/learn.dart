@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:handsfree/screens/learn/subLesson.dart';
 import 'package:handsfree/widgets/buildButton.dart';
 import 'package:handsfree/widgets/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:handsfree/provider/lessonProvider.dart';
 import 'package:handsfree/widgets/columnList.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:handsfree/models/lessonModel.dart';
 import 'package:handsfree/widgets/navBar.dart';
@@ -96,24 +98,56 @@ class _LearnState extends State<Learn> {
                 ),
               ),
               const Padding(
-                padding: EdgeInsets.only(bottom: 80),
+                padding: EdgeInsets.only(bottom: 60),
               ),
-              Consumer<LessonProvider>(
-                  builder: (context, providerLesson, child) {
-                var lessons = providerLesson.lessons;
-                return Container(
-                  height: 400,
-                  child: ListView.builder(
-                    physics: BouncingScrollPhysics(),
-                    scrollDirection: Axis.vertical,
-                    padding: EdgeInsets.only(right: 60, left: 60, bottom: 80),
-                    itemCount: lessons.length,
-                    itemBuilder: (context, index) {
-                      return ColumnList(lesson: lessons[index]);
-                    },
-                  ),
-                );
-              }),
+              ShaderMask(
+                shaderCallback: (Rect rect) {
+                  return const LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Colors.purple,
+                      Colors.transparent,
+                      Colors.transparent,
+                      Colors.purple
+                    ],
+                    stops: [
+                      0.0,
+                      0.05,
+                      0.95,
+                      1.0
+                    ], // 10% purple, 80% transparent, 10% purple
+                  ).createShader(rect);
+                },
+                blendMode: BlendMode.dstOut,
+                child: Consumer<LessonProvider>(
+                    builder: (context, providerLesson, child) {
+                  var lessons = providerLesson.lessons;
+                  return Container(
+                    height: MediaQuery.of(context).size.height / 1.7,
+                    child: ListView.builder(
+                      physics: BouncingScrollPhysics(),
+                      scrollDirection: Axis.vertical,
+                      padding: EdgeInsets.symmetric(
+                          horizontal: MediaQuery.of(context).size.width / 8),
+                      itemCount: lessons.length,
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            Provider.of<LessonProvider>(context, listen: false)
+                                .setClickLesson(lessons[index]);
+                            // Navigator.pushNamed(context, PageTransition(type: PageTransitionType.leftToRight, child: const SubLevel()));
+                            Navigator.pushNamed(context, "/sublevel");
+                          },
+                          child: ColumnList(
+                            lesson: lessons[index],
+                          ),
+                        );
+                      },
+                    ),
+                  );
+                }),
+              ),
             ],
           ),
         ),

@@ -2,14 +2,15 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:handsfree/provider/subLessonProvider.dart';
 import 'package:handsfree/widgets/buildButton.dart';
+import 'package:handsfree/widgets/columnList.dart';
 import 'package:handsfree/widgets/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../../provider/lessonProvider.dart';
 import '../../widgets/navBar.dart';
 import 'package:percent_indicator/percent_indicator.dart';
-import 'package:handsfree/models/subLevelModel.dart';
 import 'package:handsfree/models/lessonModel.dart';
 
 class SubLevel extends StatelessWidget {
@@ -28,9 +29,9 @@ class SubLevel extends StatelessWidget {
       ),
       child: Container(
         padding: const EdgeInsets.only(left: 40, bottom: 5, right: 40),
-        margin: const EdgeInsets.only(top: 50),
+        margin: const EdgeInsets.only(top: 30),
         child: ListView(
-          physics: NeverScrollableScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           children: [
             Stack(
               children: [
@@ -38,24 +39,15 @@ class SubLevel extends StatelessWidget {
                   alignment: Alignment.center,
                   width: MediaQuery.of(context).size.width,
                   height: 80,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    boxShadow: const [
-                      BoxShadow(
-                        // blurStyle: BlurStyle(9),
-                        color: kShadow,
-                        offset: Offset(6, 6),
-                        blurRadius: 6,
-                      ),
-                    ],
-                    image: const DecorationImage(
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
                         alignment: Alignment.topCenter,
                         image:
                             AssetImage('assets/image/sublevel_container.png'),
                         scale: 2),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 60),
+                    padding: const EdgeInsets.symmetric(horizontal: 53),
                     child: Row(
                       // mainAxisAlignment: MainAxisAlignment.center,
                       // crossAxisAlignment: CrossAxisAlignment.center,
@@ -108,98 +100,50 @@ class SubLevel extends StatelessWidget {
             const Padding(
               padding: EdgeInsets.only(bottom: 80),
             ),
-            Container(
-              height: 350,
-              child: ListView.builder(
-                physics: BouncingScrollPhysics(),
-                scrollDirection: Axis.vertical,
-                padding: EdgeInsets.symmetric(horizontal: 60),
-                itemCount: sublevels.length,
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () async {
-                      //check index and go the the respective place
+            ShaderMask(
+              shaderCallback: (Rect rect) {
+                return const LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Colors.purple,
+                    Colors.transparent,
+                    Colors.transparent,
+                    Colors.purple
+                  ],
+                  stops: [
+                    0.0,
+                    0.05,
+                    0.95,
+                    1.0
+                  ], // 10% purple, 80% transparent, 10% purple
+                ).createShader(rect);
+              },
+              blendMode: BlendMode.dstOut,
+              child: Consumer<SubLessonProvider>(
+                  builder: (context, providerSubLesson, child) {
+                var subLessons = providerSubLesson.subLessons;
+                return Container(
+                  height: MediaQuery.of(context).size.height / 1.6,
+                  child: ListView.builder(
+                    physics: const BouncingScrollPhysics(),
+                    scrollDirection: Axis.vertical,
+                    padding: EdgeInsets.symmetric(
+                        horizontal: MediaQuery.of(context).size.width / 8),
+                    itemCount: subLessons.length,
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        onTap: () {
+                          Provider.of<SubLessonProvider>(context, listen: false)
+                              .setClickLesson(subLessons[index]);
+                          Navigator.pushNamed(context, "/mainLearningPage");
+                        },
+                        child: ColumnList(lesson: subLessons[index]),
+                      );
                     },
-                    child: Container(
-                      height: 100,
-                      width: 200,
-                      child: Row(
-                        children: <Widget>[
-                          Container(
-                              child: Image.asset(
-                            sublevels[index].images,
-                            scale: 4,
-                          )),
-                          const Padding(padding: EdgeInsets.only(right: 10)),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Padding(padding: EdgeInsets.only(top: 20)),
-                              Text(
-                                sublevels[index].lessonName,
-                                style: GoogleFonts.montserrat(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600,
-                                  color: kText,
-                                ),
-                              ),
-                              const Padding(padding: EdgeInsets.only(top: 5)),
-                              Text(
-                                sublevels[index].lessonDesc,
-                                style: GoogleFonts.montserrat(
-                                  fontSize: 12.8,
-                                  fontWeight: FontWeight.w400,
-                                  color: kText,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 30),
-              child: GestureDetector(
-                  onTap: () async {},
-                  child: Stack(children: <Widget>[
-                    Center(
-                      child: Container(
-                          alignment: Alignment.center,
-                          width: 200,
-                          decoration: const BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20)),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: kButtonShadow,
-                                  offset: Offset(6, 6),
-                                  blurRadius: 6,
-                                ),
-                              ]),
-                          child: Image.asset(
-                            'assets/image/purple_button.png',
-                            scale: 4,
-                          )),
-                    ),
-                    Container(
-                      height: 40,
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.only(top: 10),
-                      child: Text(
-                        'Next',
-                        style: GoogleFonts.montserrat(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          color: kTextLight,
-                        ),
-                      ),
-                    ),
-                  ])),
+                  ),
+                );
+              }),
             ),
           ],
         ),

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:handsfree/provider/subLessonProvider.dart';
 import 'package:handsfree/screens/authenticate/signIn.dart';
 import 'package:handsfree/screens/authenticate/signUp.dart';
 import 'package:handsfree/screens/dictionary/dictionary.dart';
 import 'package:handsfree/screens/home/home.dart';
 import 'package:handsfree/screens/learn/learn.dart';
+import 'package:handsfree/screens/learn/mainLearningPage.dart';
 import 'package:handsfree/screens/learn/subLesson.dart';
 import 'package:handsfree/screens/profile/profile.dart';
 import 'package:handsfree/screens/profile/acknowledgement.dart';
@@ -29,10 +31,11 @@ void main() async {
   );
   await UserPreference.init();
 
-  runApp(ChangeNotifierProvider<LessonProvider>(
-    create: (_) => LessonProvider(),
-    child: const MyApp(),
-  ));
+  runApp(MultiProvider(child: const MyApp(), providers: [
+    ChangeNotifierProvider<LessonProvider>(create: (_) => LessonProvider()),
+    ChangeNotifierProvider<SubLessonProvider>(
+        create: (_) => SubLessonProvider()),
+  ]));
 }
 
 ThemeManager _themeManager = ThemeManager();
@@ -64,6 +67,7 @@ class MyApp extends StatelessWidget {
             "/settings": (context) => const Settings(),
             "/acknowledgement": (context) => const Acknowledgement(),
             "/terms": (context) => Terms(),
+            "/mainLearningPage": (context) => const MainLearningPage(),
             // "/helpCenter": (context) => const Help(),
           },
         ));

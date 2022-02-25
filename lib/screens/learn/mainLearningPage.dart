@@ -6,14 +6,14 @@ import 'package:percent_indicator/percent_indicator.dart';
 
 String title = "HELLO";
 
-class learningPage extends StatefulWidget {
-  const learningPage({Key? key}) : super(key: key);
+class MainLearningPage extends StatefulWidget {
+  const MainLearningPage({Key? key}) : super(key: key);
 
   @override
-  _learningPageState createState() => _learningPageState();
+  _MainLearningPageState createState() => _MainLearningPageState();
 }
 
-class _learningPageState extends State<learningPage> {
+class _MainLearningPageState extends State<MainLearningPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +27,7 @@ class _learningPageState extends State<learningPage> {
         child: Container(
           alignment: Alignment.center,
           padding: const EdgeInsets.only(left: 40, bottom: 5, right: 40),
-          margin: const EdgeInsets.only(top: 35),
+          margin: EdgeInsets.only(top: MediaQuery.of(context).size.height / 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -47,7 +47,7 @@ class _learningPageState extends State<learningPage> {
                 children: [
                   Container(
                     width: MediaQuery.of(context).size.width,
-                    height: 350,
+                    height: MediaQuery.of(context).size.height / 2.4,
                     decoration: const BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(20)),
                       boxShadow: [
@@ -65,7 +65,7 @@ class _learningPageState extends State<learningPage> {
                   Container(
                     alignment: Alignment.bottomCenter,
                     width: MediaQuery.of(context).size.width,
-                    height: 340,
+                    height: MediaQuery.of(context).size.height / 2.45,
                     decoration: const BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage('assets/image/dummy_hand.png'),

@@ -72,7 +72,7 @@ class _SettingsState extends State<Settings> {
                 child: Container(
                   alignment: Alignment.centerLeft,
                   padding: const EdgeInsets.only(left: 0, bottom: 5, right: 0),
-                  height: 500,
+                  height: MediaQuery.of(context).size.height / 1.37,
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 0),
                     child: ListView(
@@ -81,7 +81,7 @@ class _SettingsState extends State<Settings> {
                       physics: BouncingScrollPhysics(),
                       children: [
                         ///Your profile
-                        breaker(10),
+                        breaker(20),
                         buildText.heading2Text("Your Profile"),
                         breaker(20),
                         subTitle("Name"),
