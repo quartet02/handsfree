@@ -47,183 +47,271 @@ class _SocialState extends State<Social> {
                 children: [
                   buildText.bigTitle("Social"),
                   Padding(padding: EdgeInsets.only(top: 100)),
-                  Container(
-                    height: 450,
-                    child: ListView(
-                      physics: BouncingScrollPhysics(),
+                  ShaderMask(
+                    shaderCallback: (Rect rect) {
+                      return const LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Colors.purple,
+                          Colors.transparent,
+                          Colors.transparent,
+                          Colors.purple
+                        ],
+                        stops: [
+                          0.0,
+                          0.1,
+                          0.9,
+                          1.0
+                        ], // 10% purple, 80% transparent, 10% purple
+                      ).createShader(rect);
+                    },
+                    blendMode: BlendMode.dstOut,
+                    child: Container(
+                      height: 450,
+                      child: ListView(
+                        physics: BouncingScrollPhysics(),
 
-                      scrollDirection: Axis.vertical,
-                      // crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            buildText.heading2Text("Online Friends"),
-                            GestureDetector(
-                              onTap: () async {
-                                //check index and go the the respective place
-                              },
-                              child: Container(
-                                width: 40,
-                                height: 40,
-                                decoration: const BoxDecoration(
-                                  image: DecorationImage(
-                                    alignment: Alignment.center,
-                                    image: AssetImage(
-                                        'assets/image/search_icon.png'),
-                                    scale: 3,
+                        scrollDirection: Axis.vertical,
+                        // crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              buildText.heading2Text("Online Friends"),
+                              GestureDetector(
+                                onTap: () async {
+                                  //check index and go the the respective place
+                                },
+                                child: Container(
+                                  width: 40,
+                                  height: 40,
+                                  decoration: const BoxDecoration(
+                                    image: DecorationImage(
+                                      alignment: Alignment.center,
+                                      image: AssetImage(
+                                          'assets/image/search_icon.png'),
+                                      scale: 3,
+                                    ),
                                   ),
+                                  child: Container(),
                                 ),
-                                child: Container(),
                               ),
-                            ),
-                          ],
-                        ),
-                        const Padding(padding: EdgeInsets.only(top: 5)),
-                        Container(
-                            height: friendSize + 15,
-                            child: ListView.builder(
-                                physics: BouncingScrollPhysics(),
-                                scrollDirection: Axis.horizontal,
-                                itemCount: friends.length,
-                                itemBuilder: (context, index) {
-                                  return Container(
-                                      margin: EdgeInsets.only(right: 10),
-                                      height: friendSize,
-                                      width: friendSize,
-                                      decoration: const BoxDecoration(
-                                        image: DecorationImage(
-                                          alignment: Alignment.topCenter,
-                                          image: AssetImage(
-                                              'assets/image/chat_bubble.png'),
-                                          scale: 3,
-                                        ),
-                                      ),
-                                      child: Column(
-                                        children: [
-                                          Container(
-                                            height: friendSize,
-                                            width: friendSize,
-                                            decoration: BoxDecoration(
-                                              image: DecorationImage(
-                                                alignment: Alignment.center,
-                                                image: AssetImage(
-                                                    friends[index].images),
-                                                scale: 3,
-                                              ),
+                            ],
+                          ),
+                          const Padding(padding: EdgeInsets.only(top: 5)),
+                          ShaderMask(
+                            shaderCallback: (Rect rect) {
+                              return const LinearGradient(
+                                begin: Alignment.centerLeft,
+                                end: Alignment.centerRight,
+                                colors: [
+                                  Colors.purple,
+                                  Colors.transparent,
+                                  Colors.transparent,
+                                  Colors.purple
+                                ],
+                                stops: [
+                                  0.0,
+                                  0.03,
+                                  0.97,
+                                  1.0
+                                ], // 10% purple, 80% transparent, 10% purple
+                              ).createShader(rect);
+                            },
+                            blendMode: BlendMode.dstOut,
+                            child: Container(
+                                height: friendSize + 15,
+                                child: ListView.builder(
+                                    physics: BouncingScrollPhysics(),
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: friends.length,
+                                    itemBuilder: (context, index) {
+                                      return Container(
+                                          margin: EdgeInsets.only(right: 10),
+                                          height: friendSize,
+                                          width: friendSize,
+                                          decoration: const BoxDecoration(
+                                            image: DecorationImage(
+                                              alignment: Alignment.topCenter,
+                                              image: AssetImage(
+                                                  'assets/image/chat_bubble.png'),
+                                              scale: 3,
                                             ),
                                           ),
-                                          Container(
-                                            height: 15,
-                                            width: friendSize,
-                                            alignment: Alignment.bottomCenter,
-                                            child: buildText.heading4Text(
-                                                friends[index].friendName),
-                                          ),
-                                        ],
-                                      ));
-                                })),
-                        Padding(padding: EdgeInsets.only(top: 50)),
+                                          child: Column(
+                                            children: [
+                                              Container(
+                                                height: friendSize,
+                                                width: friendSize,
+                                                decoration: BoxDecoration(
+                                                  image: DecorationImage(
+                                                    alignment: Alignment.center,
+                                                    image: AssetImage(
+                                                        friends[index].images),
+                                                    scale: 3,
+                                                  ),
+                                                ),
+                                              ),
+                                              Container(
+                                                height: 15,
+                                                width: friendSize,
+                                                alignment:
+                                                    Alignment.bottomCenter,
+                                                child: buildText.heading4Text(
+                                                    friends[index].friendName),
+                                              ),
+                                            ],
+                                          ));
+                                    })),
+                          ),
+                          Padding(padding: EdgeInsets.only(top: 50)),
 
-                        //Community
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            buildText.heading2Text("Community"),
-                            GestureDetector(
-                              onTap: () async {
-                                //search community
-                              },
-                              child: Container(
-                                width: 40,
-                                height: 25,
-                                decoration: const BoxDecoration(
-                                  image: DecorationImage(
-                                    alignment: Alignment.center,
-                                    image: AssetImage(
-                                        'assets/image/search_icon.png'),
-                                    scale: 3,
+                          //Community
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              buildText.heading2Text("Community"),
+                              GestureDetector(
+                                onTap: () async {
+                                  //search community
+                                },
+                                child: Container(
+                                  width: 40,
+                                  height: 25,
+                                  decoration: const BoxDecoration(
+                                    image: DecorationImage(
+                                      alignment: Alignment.center,
+                                      image: AssetImage(
+                                          'assets/image/search_icon.png'),
+                                      scale: 3,
+                                    ),
                                   ),
+                                  child: Container(),
                                 ),
-                                child: Container(),
                               ),
+                            ],
+                          ),
+                          ShaderMask(
+                            shaderCallback: (Rect rect) {
+                              return const LinearGradient(
+                                begin: Alignment.centerLeft,
+                                end: Alignment.centerRight,
+                                colors: [
+                                  Colors.purple,
+                                  Colors.transparent,
+                                  Colors.transparent,
+                                  Colors.purple
+                                ],
+                                stops: [
+                                  0.0,
+                                  0.03,
+                                  0.97,
+                                  1.0
+                                ], // 10% purple, 80% transparent, 10% purple
+                              ).createShader(rect);
+                            },
+                            blendMode: BlendMode.dstOut,
+                            child: Container(
+                              child: Consumer<CommunityProvider>(
+                                  builder: (context, card, child) {
+                                return Container(
+                                    width: MediaQuery.of(context).size.width,
+                                    height: coumminitySize + 100,
+                                    child: ListView.builder(
+                                        physics: BouncingScrollPhysics(),
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount: 5,
+                                        itemBuilder: (context, index) {
+                                          return SmallCard(
+                                              id: card.cardDetails[index].id,
+                                              communitySize: coumminitySize,
+                                              communityImage: card
+                                                  .cardDetails[index].images,
+                                              communityTitle: card
+                                                  .cardDetails[index]
+                                                  .communityTitle,
+                                              communityDesc: card
+                                                  .cardDetails[index]
+                                                  .communityDesc);
+                                        }));
+                              }),
                             ),
-                          ],
-                        ),
-                        Container(
-                          child: Consumer<CommunityProvider>(
-                              builder: (context, card, child) {
-                            return Container(
-                                width: MediaQuery.of(context).size.width,
-                                height: coumminitySize + 100,
-                                child: ListView.builder(
-                                    physics: BouncingScrollPhysics(),
-                                    scrollDirection: Axis.horizontal,
-                                    itemCount: 5,
-                                    itemBuilder: (context, index) {
-                                      return SmallCard(
-                                          id: card.cardDetails[index].id,
-                                          communitySize: coumminitySize,
-                                          communityImage:
-                                              card.cardDetails[index].images,
-                                          communityTitle: card
-                                              .cardDetails[index]
-                                              .communityTitle,
-                                          communityDesc: card.cardDetails[index]
-                                              .communityDesc);
-                                    }));
-                          }),
-                        ),
-                        //News Feed
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            buildText.heading2Text("News Feed"),
-                            GestureDetector(
-                              onTap: () async {
-                                //check index and go the the respective place
-                              },
-                              child: Container(
-                                width: 40,
-                                height: 25,
-                                decoration: const BoxDecoration(
-                                  image: DecorationImage(
-                                    alignment: Alignment.center,
-                                    image: AssetImage(
-                                        'assets/image/search_icon.png'),
-                                    scale: 3,
+                          ),
+                          //News Feed
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              buildText.heading2Text("News Feed"),
+                              GestureDetector(
+                                onTap: () async {
+                                  //check index and go the the respective place
+                                },
+                                child: Container(
+                                  width: 40,
+                                  height: 25,
+                                  decoration: const BoxDecoration(
+                                    image: DecorationImage(
+                                      alignment: Alignment.center,
+                                      image: AssetImage(
+                                          'assets/image/search_icon.png'),
+                                      scale: 3,
+                                    ),
                                   ),
+                                  child: Container(),
                                 ),
-                                child: Container(),
                               ),
+                            ],
+                          ),
+                          ShaderMask(
+                            shaderCallback: (Rect rect) {
+                              return const LinearGradient(
+                                begin: Alignment.centerLeft,
+                                end: Alignment.centerRight,
+                                colors: [
+                                  Colors.purple,
+                                  Colors.transparent,
+                                  Colors.transparent,
+                                  Colors.purple
+                                ],
+                                stops: [
+                                  0.0,
+                                  0.03,
+                                  0.97,
+                                  1.0
+                                ], // 10% purple, 80% transparent, 10% purple
+                              ).createShader(rect);
+                            },
+                            blendMode: BlendMode.dstOut,
+                            child: Container(
+                              child: Consumer<NewsFeedProvider>(
+                                  builder: (context, news, child) {
+                                return Container(
+                                    width: MediaQuery.of(context).size.width,
+                                    height: coumminitySize + 100,
+                                    child: ListView.builder(
+                                        physics: BouncingScrollPhysics(),
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount: 5,
+                                        itemBuilder: (context, index) {
+                                          return SmallCard(
+                                              id: news.cardDetails[index].id,
+                                              communitySize: coumminitySize,
+                                              communityImage: news
+                                                  .cardDetails[index]
+                                                  .newsFeedImages,
+                                              communityTitle: news
+                                                  .cardDetails[index]
+                                                  .newsFeedTitle,
+                                              communityDesc: news
+                                                  .cardDetails[index]
+                                                  .newsFeedDesc);
+                                        }));
+                              }),
                             ),
-                          ],
-                        ),
-                        Container(
-                          child: Consumer<NewsFeedProvider>(
-                              builder: (context, news, child) {
-                            return Container(
-                                width: MediaQuery.of(context).size.width,
-                                height: coumminitySize + 100,
-                                child: ListView.builder(
-                                    physics: BouncingScrollPhysics(),
-                                    scrollDirection: Axis.horizontal,
-                                    itemCount: 5,
-                                    itemBuilder: (context, index) {
-                                      return SmallCard(
-                                          id: news.cardDetails[index].id,
-                                          communitySize: coumminitySize,
-                                          communityImage: news
-                                              .cardDetails[index]
-                                              .newsFeedImages,
-                                          communityTitle: news
-                                              .cardDetails[index].newsFeedTitle,
-                                          communityDesc: news
-                                              .cardDetails[index].newsFeedDesc);
-                                    }));
-                          }),
-                        ),
-                      ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],
