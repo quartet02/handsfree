@@ -315,11 +315,13 @@ class _SettingsState extends State<Settings> {
                         ),
                         breaker(20),
                         buildButton(
-                            text: "Terms", word: "home", buttonColor: "purple"),
+                            text: "Terms",
+                            word: "/terms",
+                            buttonColor: "purple"),
                         breaker(10),
                         buildButton(
                             text: "Acknowledgement",
-                            word: "home",
+                            word: "/acknowledgement",
                             buttonColor: "purple"),
                         breaker(40),
                       ],

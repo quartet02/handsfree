@@ -5,12 +5,12 @@ import 'package:handsfree/screens/home/home.dart';
 import 'package:handsfree/screens/learn/learn.dart';
 import 'package:handsfree/screens/loading.dart';
 import 'package:handsfree/screens/social/social.dart';
-import 'package:handsfree/screens/terms.dart';
+import 'package:handsfree/screens/social/terms.dart';
 import 'package:handsfree/widgets/navBar.dart';
 import 'package:provider/provider.dart';
-import 'package:handsfree/screens/settings.dart';
+import 'package:handsfree/screens/social/settings.dart';
 
-import 'acknowledgement.dart';
+import 'profile/acknowledgement.dart';
 
 class Wrapper extends StatelessWidget {
   const Wrapper({Key? key}) : super(key: key);

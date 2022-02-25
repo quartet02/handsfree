@@ -27,7 +27,7 @@ class buildButton extends StatelessWidget {
 
     return GestureDetector(
         onTap: () {
-          Navigator.pushReplacementNamed(context, word);
+          Navigator.pushNamed(context, word);
         },
         child: Stack(children: <Widget>[
           Center(

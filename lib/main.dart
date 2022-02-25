@@ -7,8 +7,10 @@ import 'package:handsfree/screens/home/home.dart';
 import 'package:handsfree/screens/learn/learn.dart';
 import 'package:handsfree/screens/learn/subLesson.dart';
 import 'package:handsfree/screens/profile/profile.dart';
-import 'package:handsfree/screens/settings.dart';
+import 'package:handsfree/screens/profile/acknowledgement.dart';
+import 'package:handsfree/screens/social/settings.dart';
 import 'package:handsfree/screens/social/social.dart';
+import 'package:handsfree/screens/social/terms.dart';
 import 'package:handsfree/screens/wrapper.dart';
 import 'package:handsfree/services/auth.dart';
 import 'package:handsfree/provider/lessonProvider.dart';
@@ -60,6 +62,9 @@ class MyApp extends StatelessWidget {
             "/learn": (context) => const Learn(),
             "/sublevel": (context) => const SubLevel(),
             "/settings": (context) => const Settings(),
+            "/acknowledgement": (context) => const Acknowledgement(),
+            "/terms": (context) => Terms(),
+            // "/helpCenter": (context) => const Help(),
           },
         ));
   }

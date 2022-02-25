@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:handsfree/widgets/buildText.dart';
 
 class Terms extends StatelessWidget {
+  Terms({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -132,7 +134,7 @@ class Terms extends StatelessWidget {
                       buildText.heading2Text("19. Miscellaneous"),
                       breaker(20),
                       buildText.heading3Text(miscellaneous),
-                      breaker(20),
+                      breaker(30),
                     ],
                   ),
                 ),
