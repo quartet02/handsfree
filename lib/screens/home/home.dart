@@ -67,7 +67,7 @@ class _HomeState extends State<Home> {
                               style: BorderStyle.none,
                             ),
                           ),
-                          hintText: "aabbababbaba",
+                          hintText: "Guess this word",
                           labelStyle: GoogleFonts.montserrat(
                             fontSize: 12.8,
                             fontWeight: FontWeight.w400,

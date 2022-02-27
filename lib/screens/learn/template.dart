@@ -21,7 +21,8 @@ class _CongratulationState extends State<Congratulation> {
         child: Container(
             alignment: Alignment.center,
             padding: const EdgeInsets.only(left: 40, bottom: 5, right: 40),
-            margin: const EdgeInsets.only(top: 35),
+            margin:
+                EdgeInsets.only(top: MediaQuery.of(context).size.height / 18),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [],

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:handsfree/models/lessonModel.dart';
+import 'package:handsfree/provider/subLessonProvider.dart';
 import 'package:handsfree/widgets/buildButton.dart';
 import 'package:handsfree/widgets/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:handsfree/widgets/buildConfetti.dart';
 import 'package:handsfree/widgets/buildText.dart';
+import 'package:provider/provider.dart';
 
 class Congratulation extends StatefulWidget {
   const Congratulation({Key? key}) : super(key: key);
@@ -15,6 +18,8 @@ class Congratulation extends StatefulWidget {
 class _CongratulationState extends State<Congratulation> {
   @override
   Widget build(BuildContext context) {
+    LessonModel subLesson =
+        context.read<SubLessonProvider>().getClickedSubLesson;
     return Scaffold(
       body: AllConfettiWidget(
         child: Container(
@@ -27,11 +32,12 @@ class _CongratulationState extends State<Congratulation> {
           child: Container(
               alignment: Alignment.center,
               padding: const EdgeInsets.only(left: 40, bottom: 5, right: 40),
-              margin: const EdgeInsets.only(top: 100),
+              margin:
+                  EdgeInsets.only(top: MediaQuery.of(context).size.height / 6),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  buildText.textBox('Congratulations', 1, 38, FontWeight.w700),
+                  buildText.textBox('Congratulations', 1, 35, FontWeight.w700),
                   const Padding(
                     padding: EdgeInsets.only(bottom: 30),
                   ),
@@ -67,7 +73,7 @@ class _CongratulationState extends State<Congratulation> {
                       ),
                     ),
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 40),
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
                       margin: EdgeInsets.only(top: 14),
                       child: Row(
                         // mainAxisAlignment: MainAxisAlignment.center,
@@ -77,11 +83,10 @@ class _CongratulationState extends State<Congratulation> {
                             width: 130,
                             height: 200,
                             alignment: Alignment.center,
-                            decoration: const BoxDecoration(
+                            decoration: BoxDecoration(
                               image: DecorationImage(
                                 alignment: Alignment.topCenter,
-                                image: AssetImage(
-                                    'assets/image/lesson_2_thumbnail.png'),
+                                image: AssetImage(subLesson.lessonImage),
                               ),
                             ),
                           ),
@@ -90,25 +95,13 @@ class _CongratulationState extends State<Congratulation> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const Padding(padding: EdgeInsets.only(top: 28)),
-                              Text(
-                                "afasdhfsd",
-                                style: GoogleFonts.montserrat(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600,
-                                  color: kText,
-                                ),
-                              ),
+                              buildText
+                                  .learningHeading2Text(subLesson.lessonName),
                               const Padding(
                                 padding: EdgeInsets.only(bottom: 7),
                               ),
-                              Text(
-                                "afasdhfsd",
-                                style: GoogleFonts.montserrat(
-                                  fontSize: 12.8,
-                                  fontWeight: FontWeight.w400,
-                                  color: kText,
-                                ),
-                              ),
+                              buildText
+                                  .learningHeading3Text(subLesson.lessonDesc),
                             ],
                           ),
                         ],
@@ -120,7 +113,7 @@ class _CongratulationState extends State<Congratulation> {
                   ),
                   buildButton(
                     text: 'Return',
-                    word: '/learn/learn.dart',
+                    word: '/learn',
                     buttonColor: 'white',
                     buttonShadow: Color.fromARGB(100, 29, 40, 63),
                   )

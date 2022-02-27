@@ -42,11 +42,14 @@ class _SocialState extends State<Social> {
           child: Container(
               alignment: Alignment.center,
               padding: const EdgeInsets.only(left: 45, bottom: 5, right: 46),
-              margin: const EdgeInsets.only(top: 60),
+              margin:
+                  EdgeInsets.only(top: MediaQuery.of(context).size.height / 10),
               child: Column(
                 children: [
                   buildText.bigTitle("Social"),
-                  Padding(padding: EdgeInsets.only(top: 80)),
+                  Padding(
+                      padding: EdgeInsets.only(
+                          top: MediaQuery.of(context).size.height / 10)),
                   ShaderMask(
                     shaderCallback: (Rect rect) {
                       return const LinearGradient(

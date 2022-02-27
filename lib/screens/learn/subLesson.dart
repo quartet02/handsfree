@@ -2,8 +2,10 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:handsfree/provider/lessonCardProvider.dart';
 import 'package:handsfree/provider/subLessonProvider.dart';
 import 'package:handsfree/widgets/buildButton.dart';
+import 'package:handsfree/widgets/buildText.dart';
 import 'package:handsfree/widgets/columnList.dart';
 import 'package:handsfree/widgets/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -29,7 +31,7 @@ class SubLevel extends StatelessWidget {
       ),
       child: Container(
         padding: const EdgeInsets.only(left: 40, bottom: 5, right: 40),
-        margin: const EdgeInsets.only(top: 30),
+        margin: EdgeInsets.only(top: MediaQuery.of(context).size.height / 20),
         child: ListView(
           physics: const NeverScrollableScrollPhysics(),
           children: [
@@ -70,25 +72,11 @@ class SubLevel extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Padding(padding: EdgeInsets.only(top: 20)),
-                            Text(
-                              lesson.lessonName,
-                              style: GoogleFonts.montserrat(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                                color: kText,
-                              ),
-                            ),
+                            buildText.learningHeading2Text(lesson.lessonName),
                             const Padding(
                               padding: EdgeInsets.only(bottom: 5),
                             ),
-                            Text(
-                              lesson.lessonDesc,
-                              style: GoogleFonts.montserrat(
-                                fontSize: 12.8,
-                                fontWeight: FontWeight.w400,
-                                color: kText,
-                              ),
-                            ),
+                            buildText.learningHeading3Text(lesson.lessonDesc),
                           ],
                         ),
                       ],
@@ -136,6 +124,9 @@ class SubLevel extends StatelessWidget {
                         onTap: () {
                           Provider.of<SubLessonProvider>(context, listen: false)
                               .setClickLesson(subLessons[index]);
+                          Provider.of<LessonCardProvider>(context,
+                                  listen: false)
+                              .resetIndex();
                           Navigator.pushNamed(context, "/mainLearningPage");
                         },
                         child: ColumnList(lesson: subLessons[index]),

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:handsfree/provider/lessonCardProvider.dart';
 import 'package:handsfree/provider/subLessonProvider.dart';
 import 'package:handsfree/screens/authenticate/signIn.dart';
 import 'package:handsfree/screens/authenticate/signUp.dart';
 import 'package:handsfree/screens/dictionary/dictionary.dart';
+import 'package:handsfree/screens/dictionary/translator.dart';
 import 'package:handsfree/screens/home/home.dart';
+import 'package:handsfree/screens/learn/congrats.dart';
 import 'package:handsfree/screens/learn/learn.dart';
 import 'package:handsfree/screens/learn/mainLearningPage.dart';
 import 'package:handsfree/screens/learn/subLesson.dart';
@@ -35,6 +38,8 @@ void main() async {
     ChangeNotifierProvider<LessonProvider>(create: (_) => LessonProvider()),
     ChangeNotifierProvider<SubLessonProvider>(
         create: (_) => SubLessonProvider()),
+    ChangeNotifierProvider<LessonCardProvider>(
+        create: (_) => LessonCardProvider()),
   ]));
 }
 
@@ -68,6 +73,8 @@ class MyApp extends StatelessWidget {
             "/acknowledgement": (context) => const Acknowledgement(),
             "/terms": (context) => Terms(),
             "/mainLearningPage": (context) => const MainLearningPage(),
+            "/congratulation": (context) => const Congratulation(),
+            "/translator": (context) => const Translator(),
             // "/helpCenter": (context) => const Help(),
           },
         ));
