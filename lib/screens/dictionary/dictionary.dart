@@ -36,7 +36,8 @@ class _DictionaryState extends State<Dictionary> {
           ),
           child: Container(
             padding: const EdgeInsets.only(left: 40, bottom: 5, right: 40),
-            margin: const EdgeInsets.only(top: 60),
+            margin:
+                EdgeInsets.only(top: MediaQuery.of(context).size.height / 10),
             child: Column(
               children: [
                 buildText.bigTitle("Dictionary"),
@@ -57,7 +58,7 @@ class _DictionaryState extends State<Dictionary> {
                 !isVisible
                     ? GestureDetector(
                         onTap: () {
-                          Navigator.pushNamed(context, '/home');
+                          Navigator.pushNamed(context, '/translator');
                         },
                         child: Stack(
                           children: <Widget>[

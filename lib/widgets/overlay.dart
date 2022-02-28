@@ -19,7 +19,10 @@ class Overlays extends StatelessWidget {
             child: BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
               child: Container(
-                height: MediaQuery.of(context).size.height,
+                margin: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height / 10),
+                alignment: Alignment.center,
+                height: MediaQuery.of(context).size.height / 1.2,
                 width: MediaQuery.of(context).size.width,
                 decoration:
                     BoxDecoration(color: Colors.grey.shade200.withOpacity(0.5)),
@@ -51,7 +54,8 @@ class Overlays extends StatelessWidget {
                       child: Column(
                         children: [
                           Container(
-                            margin: EdgeInsets.only(top: 10),
+                            // margin: EdgeInsets.only(
+                            //     top: MediaQuery.of(context).size.height / 10.5),
                             child: Container(
                               height: 250,
                               alignment: Alignment.center,

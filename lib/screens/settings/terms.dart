@@ -16,8 +16,9 @@ class Terms extends StatelessWidget {
               fit: BoxFit.cover),
         ),
         child: Container(
-          margin: const EdgeInsets.only(left: 40, bottom: 5, right: 40),
-          padding: const EdgeInsets.only(top: 80),
+          padding: const EdgeInsets.only(left: 40, bottom: 5, right: 40),
+          margin:
+              EdgeInsets.only(top: MediaQuery.of(context).size.height / 7.5),
           child: Column(
             children: [
               buildText.bigTitle("Terms & Conditions"),
