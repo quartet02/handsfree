@@ -91,7 +91,7 @@ class Profile extends StatelessWidget {
       floatingActionButton: NavBar.Buttons(context),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       extendBody: true,
-      bottomNavigationBar: NavBar.bar(context),
+      bottomNavigationBar: NavBar.bar(context, 4),
     );
   }
 

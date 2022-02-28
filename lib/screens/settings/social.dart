@@ -22,7 +22,7 @@ class Social extends StatefulWidget {
 }
 
 class _SocialState extends State<Social> {
-  var overlayState = Overlays();
+  var overlayState = const Overlays();
   @override
   Widget build(BuildContext context) {
     final isVisible = MediaQuery.of(context).viewInsets.bottom != 0;
@@ -73,7 +73,7 @@ class _SocialState extends State<Social> {
                     child: Container(
                       height: MediaQuery.of(context).size.height / 1.4,
                       child: ListView(
-                        physics: BouncingScrollPhysics(),
+                        physics: const BouncingScrollPhysics(),
                         scrollDirection: Axis.vertical,
                         children: <Widget>[
                           Row(
@@ -124,12 +124,13 @@ class _SocialState extends State<Social> {
                             child: Container(
                                 height: friendSize + 15,
                                 child: ListView.builder(
-                                    physics: BouncingScrollPhysics(),
+                                    physics: const BouncingScrollPhysics(),
                                     scrollDirection: Axis.horizontal,
                                     itemCount: friends.length,
                                     itemBuilder: (context, index) {
                                       return Container(
-                                          margin: EdgeInsets.only(right: 10),
+                                          margin:
+                                              const EdgeInsets.only(right: 10),
                                           height: friendSize,
                                           width: friendSize,
                                           decoration: const BoxDecoration(
@@ -166,7 +167,7 @@ class _SocialState extends State<Social> {
                                           ));
                                     })),
                           ),
-                          Padding(padding: EdgeInsets.only(top: 50)),
+                          const Padding(padding: EdgeInsets.only(top: 50)),
 
                           //Community
                           Row(
@@ -220,7 +221,7 @@ class _SocialState extends State<Social> {
                                     width: MediaQuery.of(context).size.width,
                                     height: coumminitySize + 100,
                                     child: ListView.builder(
-                                        physics: BouncingScrollPhysics(),
+                                        physics: const BouncingScrollPhysics(),
                                         scrollDirection: Axis.horizontal,
                                         itemCount: 5,
                                         itemBuilder: (context, index) {
@@ -291,7 +292,7 @@ class _SocialState extends State<Social> {
                                     width: MediaQuery.of(context).size.width,
                                     height: coumminitySize + 100,
                                     child: ListView.builder(
-                                        physics: BouncingScrollPhysics(),
+                                        physics: const BouncingScrollPhysics(),
                                         scrollDirection: Axis.horizontal,
                                         itemCount: 5,
                                         itemBuilder: (context, index) {
@@ -318,10 +319,11 @@ class _SocialState extends State<Social> {
                 ],
               )),
         ),
-        floatingActionButton: isVisible ? SizedBox() : NavBar.Buttons(context),
+        floatingActionButton:
+            isVisible ? const SizedBox() : NavBar.Buttons(context),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         extendBody: true,
-        bottomNavigationBar: NavBar.bar(context),
+        bottomNavigationBar: NavBar.bar(context, 3),
       ),
     );
   }

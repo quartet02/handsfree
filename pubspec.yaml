@@ -50,6 +50,8 @@ dependencies:
   autocomplete_textfield: ^1.6.4
   flutter_svg: ^1.0.3
   page_transition: ^2.0.5
+  expandable: ^5.0.1
+  # flutter_mediapipe: ^0.0.7
 
 dev_dependencies:
   flutter_test:

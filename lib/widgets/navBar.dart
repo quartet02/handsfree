@@ -6,11 +6,12 @@ class NavBar extends StatelessWidget {
   const NavBar({Key? key}) : super(key: key);
   static int index = 0;
 
-  static BottomAppBar bar(BuildContext context) {
+  static BottomAppBar bar(BuildContext context, int currentPage) {
     const double RADIUS = 23;
+    index = currentPage;
     return BottomAppBar(
       color: Colors.transparent,
-      shape: CircularNotchedRectangle(),
+      shape: const CircularNotchedRectangle(),
       notchMargin: 8,
       clipBehavior: Clip.antiAlias,
       child: Container(
@@ -58,8 +59,9 @@ class NavBar extends StatelessWidget {
         ),
         padding: const EdgeInsets.all(0),
         child: SvgPicture.asset(icon,
-            color:
-                index == i ? Color.fromARGB(255, 238, 242, 254) : kPurpleNav),
+            color: index == i
+                ? const Color.fromARGB(255, 238, 242, 254)
+                : kPurpleNav),
       ),
     );
   }
@@ -87,8 +89,8 @@ class NavBar extends StatelessWidget {
           ],
           image: DecorationImage(
             image: index == 2
-                ? AssetImage("assets/image/purple_nav_button.png")
-                : AssetImage("assets/image/nav_bar_circle.png"),
+                ? const AssetImage("assets/image/purple_nav_button.png")
+                : const AssetImage("assets/image/nav_bar_circle.png"),
           ),
         ),
         child: SvgPicture.asset("assets/svg/hand.svg",
@@ -96,8 +98,9 @@ class NavBar extends StatelessWidget {
             width: 30,
             height: 30,
             fit: BoxFit.scaleDown,
-            color:
-                index == 2 ? Color.fromARGB(255, 238, 242, 254) : kPurpleNav),
+            color: index == 2
+                ? const Color.fromARGB(255, 238, 242, 254)
+                : kPurpleNav),
       ),
     );
   }

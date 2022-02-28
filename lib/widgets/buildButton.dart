@@ -26,10 +26,11 @@ class buildButton extends StatelessWidget {
     }
 
     return GestureDetector(
-        onTap: () {
-          Navigator.pushNamed(context, word);
-        },
-        child: Stack(children: <Widget>[
+      onTap: () {
+        Navigator.pushNamed(context, word);
+      },
+      child: Stack(
+        children: <Widget>[
           Center(
             child: Container(
                 alignment: Alignment.center,
@@ -61,6 +62,8 @@ class buildButton extends StatelessWidget {
               ),
             ),
           ),
-        ]));
+        ],
+      ),
+    );
   }
 }

@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:handsfree/provider/dictionaryProvider.dart';
+import 'package:handsfree/provider/helpdeskProvider.dart';
+import 'package:handsfree/screens/settings/helpdesk.dart';
 import 'package:provider/provider.dart';
 import '../../widgets/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SearchBar extends StatefulWidget {
-  const SearchBar({Key? key}) : super(key: key);
+  final String prompt;
+  final String provider;
+  const SearchBar({
+    Key? key,
+    this.prompt = "Search",
+    required this.provider,
+  }) : super(key: key);
 
   @override
   _SearchBarState createState() => _SearchBarState();
@@ -63,7 +71,14 @@ class _SearchBarState extends State<SearchBar> {
         obscureText: false,
         autocorrect: false,
         onChanged: (txt) {
-          final userQuery = context.read<DictionaryProvider>();
+          final userQuery;
+          if (widget.provider == "dictionary") {
+            userQuery = context.read<DictionaryProvider>();
+          } else if (widget.provider == "helpdesk") {
+            userQuery = context.read<HelpDeskProvider>();
+          } else {
+            userQuery = context.read<DictionaryProvider>();
+          }
           userQuery.query = txt;
         },
         decoration: InputDecoration(
@@ -75,7 +90,7 @@ class _SearchBarState extends State<SearchBar> {
               style: BorderStyle.none,
             ),
           ),
-          hintText: "Search",
+          hintText: widget.prompt,
           labelStyle: GoogleFonts.montserrat(
             fontSize: 12.8,
             fontWeight: FontWeight.w400,
