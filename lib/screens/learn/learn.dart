@@ -155,7 +155,7 @@ class _LearnState extends State<Learn> {
       floatingActionButton: NavBar.Buttons(context),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       extendBody: true,
-      bottomNavigationBar: NavBar.bar(context),
+      bottomNavigationBar: NavBar.bar(context, 2),
     );
   }
 }

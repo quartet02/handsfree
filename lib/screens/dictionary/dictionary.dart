@@ -46,7 +46,7 @@ class _DictionaryState extends State<Dictionary> {
                 Stack(
                   children: [
                     isVisible ? const SearchGroup() : Container(),
-                    const SearchBar()
+                    const SearchBar(provider: "dictionary")
                   ],
                 ),
                 !isVisible
@@ -134,10 +134,11 @@ class _DictionaryState extends State<Dictionary> {
             ),
           ),
         ),
-        floatingActionButton: isVisible ? SizedBox() : NavBar.Buttons(context),
+        floatingActionButton:
+            isVisible ? const SizedBox() : NavBar.Buttons(context),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         extendBody: true,
-        bottomNavigationBar: NavBar.bar(context),
+        bottomNavigationBar: NavBar.bar(context, 1),
       ),
     );
   }

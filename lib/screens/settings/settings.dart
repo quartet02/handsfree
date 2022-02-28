@@ -74,11 +74,11 @@ class _SettingsState extends State<Settings> {
                   padding: const EdgeInsets.only(left: 0, bottom: 5, right: 0),
                   height: MediaQuery.of(context).size.height / 1.37,
                   child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 0),
+                    padding: const EdgeInsets.symmetric(horizontal: 0),
                     child: ListView(
-                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
                       scrollDirection: Axis.vertical,
-                      physics: BouncingScrollPhysics(),
+                      physics: const BouncingScrollPhysics(),
                       children: [
                         ///Your profile
                         breaker(20),
@@ -95,7 +95,7 @@ class _SettingsState extends State<Settings> {
                         breaker(20),
                         buildButton(
                             text: "Sign Out",
-                            word: "home",
+                            word: "/home",
                             buttonColor: "purple"),
 
                         ///General Setttings
@@ -120,7 +120,7 @@ class _SettingsState extends State<Settings> {
                                 ),
                               ]),
                           child: Container(
-                            margin: EdgeInsets.symmetric(horizontal: 15),
+                            margin: const EdgeInsets.symmetric(horizontal: 15),
                             child: Column(
                               children: [
                                 Row(
@@ -155,12 +155,12 @@ class _SettingsState extends State<Settings> {
                         breaker(20),
                         buildButton(
                             text: "Helpdesk",
-                            word: "home",
+                            word: "/helpCenter",
                             buttonColor: "purple"),
                         breaker(10),
                         buildButton(
                             text: "Feedback",
-                            word: "home",
+                            word: "/feedback",
                             buttonColor: "purple"),
                         breaker(50),
 
@@ -185,7 +185,7 @@ class _SettingsState extends State<Settings> {
                                 ),
                               ]),
                           child: Container(
-                            margin: EdgeInsets.symmetric(horizontal: 15),
+                            margin: const EdgeInsets.symmetric(horizontal: 15),
                             child: Column(
                               children: [
                                 Row(
@@ -227,7 +227,7 @@ class _SettingsState extends State<Settings> {
                                 ),
                               ]),
                           child: Container(
-                            margin: EdgeInsets.symmetric(horizontal: 15),
+                            margin: const EdgeInsets.symmetric(horizontal: 15),
                             child: Column(
                               children: [
                                 Row(
@@ -297,7 +297,7 @@ class _SettingsState extends State<Settings> {
                                 ),
                               ]),
                           child: Container(
-                            margin: EdgeInsets.symmetric(horizontal: 15),
+                            margin: const EdgeInsets.symmetric(horizontal: 15),
                             child: Column(
                               children: [
                                 Row(
@@ -338,14 +338,14 @@ class _SettingsState extends State<Settings> {
 
   Widget subTitle(String name) {
     return Container(
-      padding: EdgeInsets.only(left: 18, bottom: 5),
+      padding: const EdgeInsets.only(left: 18, bottom: 5),
       child: buildText.heading3Text(name),
     );
   }
 
   Widget textBox(TextEditingController controller, String name) {
     return Container(
-      padding: EdgeInsets.only(bottom: 10, right: 10, left: 10),
+      padding: const EdgeInsets.only(bottom: 10, right: 10, left: 10),
       child: buildTextBox.textBox(controller, name),
     );
   }

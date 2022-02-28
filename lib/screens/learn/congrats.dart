@@ -31,7 +31,8 @@ class _CongratulationState extends State<Congratulation> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  buildText.textBox('Congratulations', 1, 38, FontWeight.w700),
+                  buildText.textBox('Congratulations', 1, 38, FontWeight.w700,
+                      TextAlign.start),
                   const Padding(
                     padding: EdgeInsets.only(bottom: 30),
                   ),
@@ -44,8 +45,8 @@ class _CongratulationState extends State<Congratulation> {
                       ),
                     ),
                   ),
-                  buildText.textBox(
-                      'You have completed', 0, 20, FontWeight.w400),
+                  buildText.textBox('You have completed', 0, 20,
+                      FontWeight.w400, TextAlign.start),
                   const Padding(
                     padding: EdgeInsets.only(bottom: 20),
                   ),

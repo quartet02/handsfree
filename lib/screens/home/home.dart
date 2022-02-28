@@ -20,7 +20,7 @@ class _HomeState extends State<Home> {
     final isVisible = MediaQuery.of(context).viewInsets.bottom != 0;
     final AuthService _auth = AuthService();
     final homeFieldController = TextEditingController();
-    final double radius = 25;
+    const double radius = 25;
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -32,13 +32,14 @@ class _HomeState extends State<Home> {
         child: Stack(
           children: [
             Container(
-              alignment: Alignment(0, 500),
+              alignment: const Alignment(0, 500),
               child: Stack(
                 children: [
                   Container(
                     alignment: Alignment.bottomCenter,
                     child: Container(
-                      margin: EdgeInsets.only(bottom: 125, left: 60, right: 50),
+                      margin: const EdgeInsets.only(
+                          bottom: 125, left: 60, right: 50),
                       decoration: BoxDecoration(
                           color: Colors.transparent,
                           image: const DecorationImage(
@@ -96,10 +97,11 @@ class _HomeState extends State<Home> {
           ],
         ),
       ),
-      floatingActionButton: isVisible ? SizedBox() : NavBar.Buttons(context),
+      floatingActionButton:
+          isVisible ? const SizedBox() : NavBar.Buttons(context),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       extendBody: true,
-      bottomNavigationBar: NavBar.bar(context),
+      bottomNavigationBar: NavBar.bar(context, 0),
     );
   }
 }
