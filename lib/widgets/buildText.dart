@@ -85,16 +85,4 @@ class buildText extends StatelessWidget {
       [TextAlign textAlignment = TextAlign.start]) {
     return textBox(text, 0, 12.8, FontWeight.w400, textAlignment, kText);
   }
-
-  static Widget learningText(String text) {
-    return textBox(text, 2, 48.83, FontWeight.w700, kText);
-  }
-
-  static Widget learningHeading2Text(String text) {
-    return textBox(text, 0, 16, FontWeight.w600, kText);
-  }
-
-  static Widget learningHeading3Text(String text) {
-    return textBox(text, 0, 12.8, FontWeight.w400, kText);
-  }
 }
