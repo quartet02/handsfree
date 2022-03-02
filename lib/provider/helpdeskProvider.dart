@@ -60,7 +60,7 @@ var topicData = [
   },
 ];
 
-class HelpDeskProvider with ChangeNotifier {
+class HelpDeskProvider extends ChangeNotifier {
   List<TopicModel> _topicList = [];
   List<TopicModel> _suggestions = [];
   late String _queryText = "";
