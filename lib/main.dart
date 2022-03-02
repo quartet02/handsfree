@@ -18,6 +18,7 @@ import 'package:handsfree/screens/settings/settings.dart';
 import 'package:handsfree/screens/settings/social.dart';
 import 'package:handsfree/screens/settings/terms.dart';
 import 'package:handsfree/screens/wrapper.dart';
+import 'package:handsfree/services/ShPref.dart';
 import 'package:handsfree/services/auth.dart';
 import 'package:handsfree/provider/lessonProvider.dart';
 import 'package:handsfree/widgets/userPreference.dart';
@@ -45,6 +46,23 @@ void main() async {
       ],
     ),
   );
+// =======
+//   runApp(MultiProvider(child: const MyApp(), providers: [
+//     ChangeNotifierProvider<LessonProvider>(create: (_) => LessonProvider()),
+//     ChangeNotifierProvider<SubLessonProvider>(
+//         create: (_) => SubLessonProvider()),
+//     ChangeNotifierProvider<LessonCardProvider>(
+//         create: (_) => LessonCardProvider()),
+//   ]));
+//   // runApp(ChangeNotifierProvider<LessonProvider>(
+//   //   create: (_) => LessonProvider(),
+//   //   child: const MyApp(),
+//   // ));
+//   //
+//   // await UserSimplePreferences.init();
+//   //
+//   // runApp(const MyApp());
+// >>>>>>> Stashed changes
 }
 
 ThemeManager _themeManager = ThemeManager();
@@ -78,11 +96,39 @@ class MyApp extends StatelessWidget {
           "/terms": (context) => Terms(),
           "/mainLearningPage": (context) => const MainLearningPage(),
           "/congratulation": (context) => const Congratulation(),
-          "/translator": (context) => const Translator(),
+          // "/translator": (context) => const Translator(),
           "/helpCenter": (context) => const HelpDesk(),
           "/feedback": (context) => const FeedBack(),
         },
       ),
     );
+// =======
+//         value: AuthService().user,
+//         initialData: null,
+//         child: MaterialApp(
+//           title: 'Flutter Demo',
+//           theme: lightTheme,
+//           darkTheme: darkTheme,
+//           themeMode: _themeManager.themeMode,
+//           home: const Wrapper(),
+//           routes: {
+//             "/auth/signIn": (context) => const SignIn(),
+//             "/auth/signUp": (context) => const SignUp(),
+//             "/social": (context) => const Social(),
+//             "/dictionary": (context) => const Dictionary(),
+//             "/profile": (context) => const Profile(),
+//             "/home": (context) => const Home(),
+//             "/learn": (context) => const Learn(),
+//             "/sublevel": (context) => const SubLevel(),
+//             "/settings": (context) => const Settings(),
+//             "/acknowledgement": (context) => const Acknowledgement(),
+//             "/terms": (context) => Terms(),
+//             "/mainLearningPage": (context) => const MainLearningPage(),
+//             "/congratulation": (context) => const Congratulation(),
+//             // "/translator": (context) => const Translator(),
+//             // "/helpCenter": (context) => const Help(),
+//           },
+//         ));
+// >>>>>>> Stashed changes
   }
 }
