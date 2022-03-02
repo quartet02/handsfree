@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "340389082213",
+    "project_id": "handsfree-bef74",
+    "storage_bucket": "handsfree-bef74.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:340389082213:android:3c7d916f27621c3d69c28c",
+        "android_client_info": {
+          "package_name": "com.umquartet02.handsfree"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "340389082213-nuqkl2pcuhvs74803i021e3cc6irto9g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgIor6K-h5HM0Hsd2lTX3HRlE01nJF6F4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "340389082213-nuqkl2pcuhvs74803i021e3cc6irto9g.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "340389082213-ftophm3ta2cdedfvapt6dll4dgank6i5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.umquartet02.handsfree"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:handsfree/services/database.dart';
 import '../models/newUser.dart';
 
 class AuthService {
@@ -7,8 +8,12 @@ class AuthService {
 
   Future signUpWithEmailAndPassword(String email, String password) async {
     try {
-      await _auth.createUserWithEmailAndPassword(
+      UserCredential result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
+      User user = result.user!;
+
+      await  DatabaseService(uid: user.uid).updateUserData(0, '', 'https://', 'Beginner', email.substring(0,email.lastIndexOf('@')));
+
       return [0, 'Account created successfully'];
     } on FirebaseAuthException catch (e) {
       if (e.code == 'email-already-in-use') {
@@ -25,7 +30,11 @@ class AuthService {
 
   Future signInWithEmailAndPassword(String email, String password) async {
     try {
-      await _auth.signInWithEmailAndPassword(email: email, password: password);
+      UserCredential result = await _auth.signInWithEmailAndPassword(email: email, password: password);
+      User user = result.user!;
+
+      DatabaseService(uid: user.uid);
+
       return [0, 'Logged in successfully'];
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
@@ -55,13 +64,26 @@ class AuthService {
     );
 
     try {
-      await _auth.signInWithCredential(credential);
+      UserCredential result =  await _auth.signInWithCredential(credential);
+      User user = result.user!;
+
+      DatabaseService(uid: user.uid);
+
       return [0, 'Logged in successfully'];
     } on FirebaseAuthException catch (e) {
         return [1, e.code];
     } catch (e) {
       return [1, e.toString()];
     }
+  }
+
+  void changePassword(String password) async{
+    User user = FirebaseAuth.instance.currentUser!;
+    user.updatePassword(password).then((_){
+      print("Successfully Change Password");
+    }).catchError((error){
+      print("Password can't be changed " + error.toString());
+    });
   }
 
   void signOut() async {

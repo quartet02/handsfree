@@ -6,6 +6,8 @@ import 'package:handsfree/widgets/constants.dart';
 import 'package:handsfree/widgets/buildText.dart';
 import 'package:handsfree/widgets/buildTextBox.dart';
 
+import '../learn/learn.dart';
+
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
 
@@ -15,7 +17,7 @@ class SignIn extends StatefulWidget {
 
 class _SignInState extends State<SignIn> {
   final AuthService _auth = AuthService();
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final repasswordController = TextEditingController();
@@ -65,7 +67,7 @@ class _SignInState extends State<SignIn> {
                 padding: const EdgeInsets.only(top: 30),
                 child: GestureDetector(
                     onTap: () async {
-                      if (_formKey.currentState!.validate()) {
+                      if (true) {
                         dynamic results =
                             await _auth.signInWithEmailAndPassword(
                                 emailController.text, passwordController.text);
@@ -79,7 +81,8 @@ class _SignInState extends State<SignIn> {
                           // and use it to show a SnackBar.
                           ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         } else {
-                          Navigator.pop(context);
+                          // const Learn();
+                          Navigator.pushReplacementNamed(context, '/home');
                         }
                       }
                     },

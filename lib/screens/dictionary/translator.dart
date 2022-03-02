@@ -3,8 +3,14 @@ import 'package:flutter/rendering.dart';
 import 'package:handsfree/widgets/buildText.dart';
 import 'package:handsfree/widgets/constants.dart';
 
+import '../../services/medialoader.dart';
+
 class Translator extends StatefulWidget {
-  const Translator({Key? key}) : super(key: key);
+  final String? word;
+  final String? definition;
+  final String? phoneticSymbol;
+  final String? imgUrl;
+  const Translator(this.word, this.definition, this.phoneticSymbol, this.imgUrl);
 
   @override
   _TranslatorState createState() => _TranslatorState();
@@ -14,55 +20,89 @@ class _TranslatorState extends State<Translator> {
   String word = "Hello";
   String definition = "haha";
   String phoneticSymbol = "ababa";
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-              alignment: Alignment.topCenter,
-              image: AssetImage('assets/image/magenta_heading.png'),
-              fit: BoxFit.cover),
-        ),
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          padding: const EdgeInsets.only(left: 40, bottom: 5, right: 40),
-          margin: EdgeInsets.only(top: MediaQuery.of(context).size.height / 10),
-          child: Column(
-            children: [
-              buildText.bigTitle("Translator"),
-              const SizedBox(height: 20),
-              Container(
-                height: MediaQuery.of(context).size.height / 2.4,
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                  boxShadow: [
-                    BoxShadow(
-                      color: kTextShadow,
-                      offset: Offset(10, 10),
-                      blurRadius: 20,
+
+    return WillPopScope(
+      onWillPop: () async{
+        Navigator.of(context).popAndPushNamed('/dictionary', result: true);
+        return true;
+      },
+      child: Scaffold(
+        body: Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+                alignment: Alignment.topCenter,
+                image: AssetImage('assets/image/magenta_heading.png'),
+                fit: BoxFit.cover),
+          ),
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            padding: const EdgeInsets.only(left: 40, bottom: 5, right: 40),
+            margin: EdgeInsets.only(top: MediaQuery.of(context).size.height / 10),
+            child: Column(
+              children: [
+                buildText.bigTitle("Translator"),
+                const SizedBox(height: 20),
+                Container(
+                  height: MediaQuery.of(context).size.height / 2.4,
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: kTextShadow,
+                        offset: Offset(10, 10),
+                        blurRadius: 20,
+                      ),
+                    ],
+                    image: DecorationImage(
+                      image: AssetImage('assets/image/learning_big_rect.png'),
                     ),
-                  ],
-                  image: DecorationImage(
-                    image: AssetImage('assets/image/learning_big_rect.png'),
                   ),
+
+                  // something happen here, dont know how to settle, just some annoying exception
+
+                  child: FutureBuilder(
+                      future: getImage(context, widget.imgUrl!),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting){
+                          return Container(
+                            width: MediaQuery.of(context).size.width/ 1.2,
+                            height: MediaQuery.of(context).size.width/ 1.2,
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                        if(snapshot.connectionState == ConnectionState.done){
+                          print('Successfully Connected');
+                          if(snapshot.hasData) {
+                            return Container(
+                            width: MediaQuery.of(context).size.width/ 1.2,
+                            height: MediaQuery.of(context).size.width/ 1.2,
+                            child: snapshot.data as Widget,
+                            );
+                          }
+                        }
+                        print('Connection Failed');
+                        return Container();
+                      }),
                 ),
-              ),
-              Container(
-                width: double.infinity,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: 30),
-                    buildText.learningText(word),
-                    buildText.heading2Text(phoneticSymbol),
-                    const SizedBox(height: 20),
-                    buildText.heading3Text(definition),
-                  ],
-                ),
-              )
-            ],
+                Container(
+                  width: double.infinity,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 30),
+                      buildText.learningText(widget.word!),
+                      buildText.heading2Text(widget.phoneticSymbol!),
+                      const SizedBox(height: 20),
+                      buildText.heading3Text(widget.definition!),
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
