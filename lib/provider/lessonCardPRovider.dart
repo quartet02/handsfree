@@ -30,6 +30,15 @@ class LessonCardProvider with ChangeNotifier {
     return _clickedCardLesson;
   }
 
+  void setLessonCardData(List<Map<String, dynamic>> newLessonCardData) {
+    lessonCardData = newLessonCardData;
+    notifyListeners();
+  }
+
+  void setCardLessons(List<LessonCardModel> lessonCard) {
+    cardLessons = lessonCard;
+  }
+
   void increment() {
     index++;
     notifyListeners();
@@ -40,7 +49,7 @@ class LessonCardProvider with ChangeNotifier {
   }
 }
 
-var lessonCardData = [
+List<Map<String, dynamic>> lessonCardData = [
   {
     "lessonCardId": 001,
     "lessonCardTitle": "Hello",

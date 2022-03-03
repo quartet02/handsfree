@@ -12,6 +12,7 @@ class AuthService {
           email: email, password: password);
       User user = result.user!;
 
+      DatabaseService(uid: user.uid).buildUserLesson();
       await  DatabaseService(uid: user.uid).updateUserData(0, '', 'https://', 'Beginner', email.substring(0,email.lastIndexOf('@')));
 
       return [0, 'Account created successfully'];
@@ -34,6 +35,7 @@ class AuthService {
       User user = result.user!;
 
       DatabaseService(uid: user.uid);
+      // DatabaseService(uid: user.uid).buildUserLesson();
 
       return [0, 'Logged in successfully'];
     } on FirebaseAuthException catch (e) {
