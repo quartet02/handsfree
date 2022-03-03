@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:handsfree/provider/lessonCardPRovider.dart';
 import 'package:handsfree/provider/subLessonProvider.dart';
 import 'package:handsfree/screens/FeedBack/feedback.dart';
 import 'package:handsfree/screens/authenticate/signIn.dart';
@@ -42,6 +43,8 @@ void main() async {
         ChangeNotifierProvider<LessonProvider>(create: (_) => LessonProvider()),
         ChangeNotifierProvider<SubLessonProvider>(
             create: (_) => SubLessonProvider()),
+        ChangeNotifierProvider<LessonCardProvider>(
+            create: (_) => LessonCardProvider()),
       ],
     ),
   );

@@ -124,9 +124,9 @@ class SubLevel extends StatelessWidget {
                         onTap: () {
                           Provider.of<SubLessonProvider>(context, listen: false)
                               .setClickLesson(subLessons[index]);
-                          Provider.of<LessonCardProvider>(context,
-                                  listen: false)
-                              .resetIndex();
+                          // Provider.of<LessonCardProvider>(context,
+                          //         listen: false)
+                          //     .resetIndex();
                           Navigator.pushNamed(context, "/mainLearningPage");
                         },
                         child: ColumnList(lesson: subLessons[index]),
