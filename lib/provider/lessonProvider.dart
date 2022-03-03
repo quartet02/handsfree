@@ -34,19 +34,19 @@ var lessonData = [
   {
     "lessonId": 001,
     "lessonName": "Lesson 1",
-    "lessonDesc": "haha",
+    "lessonDesc": "Alphabet",
     "lessonImage": "assets/image/lesson_1_thumbnail.png",
   },
   {
     "lessonId": 002,
     "lessonName": "Lesson 2",
-    "lessonDesc": "haha1231231",
+    "lessonDesc": "Basic Sign",
     "lessonImage": 'assets/image/lesson_2_thumbnail.png',
   },
   {
     "lessonId": 003,
     "lessonName": "Lesson 3",
-    "lessonDesc": "haha43253246",
+    "lessonDesc": "Assignment",
     "lessonImage": 'assets/image/assignment_1_thumbnail.png',
   },
   {

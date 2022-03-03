@@ -123,6 +123,7 @@ class _LearnState extends State<Learn> {
                 child: Consumer<LessonProvider>(
                     builder: (context, providerLesson, child) {
                   var lessons = providerLesson.lessons;
+
                   return Container(
                     height: MediaQuery.of(context).size.height / 1.7,
                     child: ListView.builder(
@@ -136,6 +137,8 @@ class _LearnState extends State<Learn> {
                           onTap: () {
                             Provider.of<LessonProvider>(context, listen: false)
                                 .setClickLesson(lessons[index]);
+                            // LessonModel lesson = context.read<LessonProvider>().getClickedLesson;
+                            // print(lesson.lessonId);
                             // Navigator.pushNamed(context, PageTransition(type: PageTransitionType.leftToRight, child: const SubLevel()));
                             Navigator.pushNamed(context, "/sublevel");
                           },
