@@ -861,11 +861,11 @@ class DatabaseService{
 
   ///From Lesson Collection
   //get everything in lesson as List<Map<String, String>>
-  List getWordData() {
-    List wordData = [{'definition': '', 'word': '', 'phoneticSymbol': '', 'imgUrl': ''}];
+  Future<List> getWordData() async {
+    List wordData = [];
     List syllabus = ['Syllabus 1', 'Syllabus 2'];
     for (String each in syllabus) {
-      lessonsCollection.doc(each).collection('Syllabus').get().then((snapshot) {
+      await lessonsCollection.doc(each).collection('Syllabus').get().then((snapshot) {
         snapshot.docs.forEach((doc) {
           wordData.add(doc.data());
         });
