@@ -8,7 +8,7 @@ import 'package:handsfree/widgets/constants.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/newUser.dart';
-import '../../widgets/Loading.dart';
+import '../../widgets/loadingWholeScreen.dart';
 
 class Settings extends StatefulWidget {
   const Settings({Key? key}) : super(key: key);
@@ -178,12 +178,12 @@ class _SettingsState extends State<Settings> {
                               breaker(20),
                               buildButton(
                                   text: "Helpdesk",
-                                  word: "home",
+                                  word: "/helpCenter",
                                   buttonColor: "purple"),
                               breaker(10),
                               buildButton(
                                   text: "Feedback",
-                                  word: "home",
+                                  word: "/feedback",
                                   buttonColor: "purple"),
                               breaker(50),
 

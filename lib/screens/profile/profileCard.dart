@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:handsfree/models/newUser.dart';
 import 'package:handsfree/services/database.dart';
 import 'package:provider/provider.dart';
-import '../../widgets/Loading.dart';
+import '../../widgets/loadingWholeScreen.dart';
 import 'profileDetails.dart';
 import 'experienceCard.dart';
 
