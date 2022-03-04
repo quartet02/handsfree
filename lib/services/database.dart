@@ -21,7 +21,7 @@ class DatabaseService{
   final CollectionReference contributorCollection = FirebaseFirestore.instance.collection('contributor');
   final CollectionReference newsCollection = FirebaseFirestore.instance.collection('news');
   final CollectionReference leaderboardCollection = FirebaseFirestore.instance.collection('leaderboard');
-
+  final CollectionReference feedbackCollection = FirebaseFirestore.instance.collection('feedback');
   ///From User Collection
   Future updateSingleData(String selector, String value) async{
     if(selector == 'name') {
@@ -875,6 +875,18 @@ class DatabaseService{
     return wordData;
   }
   ///To Lesson Collection
+
+  ///From Feedback Collection
+  Future submitFeedbackForm(String category, String subject, String desc, String email, String imgDownloadLink, String name) async{
+    return await feedbackCollection.doc(category).collection(uid!).add({
+      "subject": subject,
+      "description": desc,
+      "email": email,
+      "imageUrl": imgDownloadLink,
+      "name": name,
+    });
+  }
+  ///To Feedback Collection
 
   ///Normal methods....
   double daysBetween(DateTime from, DateTime to){
