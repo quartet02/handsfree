@@ -1,6 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:handsfree/services/database.dart';
+import 'package:handsfree/widgets/loadingWholeScreen.dart';
 import '../models/newUser.dart';
 
 class AuthService {
@@ -12,8 +15,8 @@ class AuthService {
           email: email, password: password);
       User user = result.user!;
 
+      await  DatabaseService(uid: user.uid).updateUserData(0, user.displayName ?? "", user.phoneNumber ?? "", 'assets/image/character.png', 'Newbie Signer', email.substring(0,email.lastIndexOf('@')));
       DatabaseService(uid: user.uid).buildUserLesson();
-      await  DatabaseService(uid: user.uid).updateUserData(0, '', 'https://', 'Beginner', email.substring(0,email.lastIndexOf('@')));
 
       return [0, 'Account created successfully'];
     } on FirebaseAuthException catch (e) {
@@ -35,10 +38,12 @@ class AuthService {
       User user = result.user!;
 
       DatabaseService(uid: user.uid);
-      // DatabaseService(uid: user.uid).buildUserLesson();
+      var activities = await DatabaseService(uid: user.uid).getActivityLog("List");
+      var time = await DatabaseService(uid: user.uid).getActivityLog("Time");
+      await DatabaseService(uid: user.uid).updateActivityLog(activities!, time!);
 
       return [0, 'Logged in successfully'];
-    } on FirebaseAuthException catch (e) {
+      }on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         return [1, 'No user found for that email'];
       } else if (e.code == 'wrong-password') {

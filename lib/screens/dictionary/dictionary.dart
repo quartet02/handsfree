@@ -34,6 +34,7 @@ class _DictionaryState extends State<Dictionary> {
     // print(temp['definition']);
     // print(temp['imgUrl']);
     // print(temp['phoneticSymbol']);
+
     super.initState();
   }
 
@@ -66,6 +67,7 @@ class _DictionaryState extends State<Dictionary> {
   @override
   Widget build(BuildContext context) {
     final isVisible = MediaQuery.of(context).viewInsets.bottom != 0;
+
 
 // <<<<<<< Updated upstream
 //     return ChangeNotifierProvider<DictionaryProvider>(
@@ -163,7 +165,7 @@ class _DictionaryState extends State<Dictionary> {
                   !isVisible
                       ? GestureDetector(
                           onTap: () {
-                            Navigator.pushNamed(context, '/translator');
+                            Navigator.pushReplacementNamed(context, '/translator');
                           },
                           child: Stack(
                             children: <Widget>[

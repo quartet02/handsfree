@@ -9,6 +9,7 @@ class SubLessonProvider with ChangeNotifier {
           lessonName: item['lessonName'] ?? "",
           lessonDesc: item['lessonDesc'] ?? "",
           lessonImage: item['lessonImage'] ?? "",
+          isCompleted: item['isCompleted'] ?? "",
         ),
       )
       .toList();
@@ -28,7 +29,7 @@ class SubLessonProvider with ChangeNotifier {
   }
 
   LessonModel _clickedSubLesson = LessonModel(
-      lessonId: 000, lessonName: "bruh", lessonDesc: "wa", lessonImage: "");
+      lessonId: 000, lessonName: "bruh", lessonDesc: "wa", lessonImage: "", isCompleted: "");
 
   void setSubLessons (List<LessonModel>? newSubLessons){
     subLessons = newSubLessons!;

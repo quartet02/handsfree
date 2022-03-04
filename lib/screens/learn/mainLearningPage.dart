@@ -5,7 +5,6 @@ import 'package:handsfree/models/lessonModel.dart';
 import 'package:handsfree/provider/lessonCardProvider.dart';
 import 'package:handsfree/provider/subLessonProvider.dart';
 import 'package:handsfree/services/database.dart';
-import 'package:handsfree/widgets/Loading.dart';
 import 'package:handsfree/widgets/buildText.dart';
 import 'package:handsfree/widgets/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,6 +12,7 @@ import 'package:percent_indicator/percent_indicator.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/newUser.dart';
+import '../../widgets/loadingWholeScreen.dart';
 
 class MainLearningPage extends StatefulWidget {
   const MainLearningPage({Key? key}) : super(key: key);
@@ -55,11 +55,7 @@ class _MainLearningPageState extends State<MainLearningPage> {
 
           List<LessonCardModel>? lessonCard = snapshot.data;
 
-          print(lessonCard!.length);
-          print(lessonCard[0].lessonCardDesc);
-          print(provider);
-
-          if(lessonCard.isNotEmpty && provider != null){
+          if(lessonCard!.isNotEmpty && provider != null){
                 provider.setCardLessons(lessonCard);
           }
 
@@ -209,7 +205,10 @@ class _MainLearningPageState extends State<MainLearningPage> {
                                 onTap: () {
                                   if (providerCardLesson.index == cardLesson.length - 1) {
                                     Navigator.pushNamed(context, "/congratulation");
+                                    DatabaseService(uid: user.uid).updateIsCompletedSubLesson(syllabus, lesson, cardLesson[providerCardLesson.index].lessonId);
+                                    DatabaseService(uid: user.uid).updateIsCompletedLesson(syllabus, lesson);
                                   } else {
+                                    DatabaseService(uid: user.uid).updateIsCompletedSubLesson(syllabus, lesson, cardLesson[providerCardLesson.index].lessonId);
                                     providerCardLesson.increment();
                                   }
                                 },

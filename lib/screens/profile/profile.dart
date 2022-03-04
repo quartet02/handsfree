@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:handsfree/models/newUser.dart';
 import 'package:handsfree/screens/profile/profileCard.dart';
 import 'package:handsfree/services/database.dart';
-import 'package:handsfree/widgets/Loading.dart';
+import 'package:handsfree/widgets/loadingWholeScreen.dart';
 import 'package:handsfree/widgets/navBar.dart';
 import 'package:handsfree/screens/profile/profileDetails.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -16,8 +16,7 @@ class Profile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     int ranking = 14;
-    final days = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
-    final activities = [true, true, false, false, true, true, false];
+    final days = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
     final user = Provider.of<NewUser?>(context);
     User userAuth = FirebaseAuth.instance.currentUser!;
 

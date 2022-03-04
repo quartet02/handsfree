@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:handsfree/screens/learn/congrats.dart';
 import 'package:handsfree/widgets/buildText.dart';
 import 'package:handsfree/widgets/constants.dart';
+import 'package:handsfree/widgets/loadingWholeScreen.dart';
 
 import '../../services/medialoader.dart';
 
@@ -66,15 +68,17 @@ class _TranslatorState extends State<Translator> {
                   child: FutureBuilder(
                       future: getImage(context, widget.imgUrl!),
                       builder: (context, snapshot) {
+
                         if (snapshot.connectionState == ConnectionState.waiting){
                           return Container(
                             width: MediaQuery.of(context).size.width/ 1.2,
                             height: MediaQuery.of(context).size.width/ 1.2,
-                            child: CircularProgressIndicator(),
+                            child: const CircularProgressIndicator(
+                              strokeWidth: 1.0,
+                            ),
                           );
                         }
                         if(snapshot.connectionState == ConnectionState.done){
-                          print('Successfully Connected');
                           if(snapshot.hasData) {
                             return Container(
                             width: MediaQuery.of(context).size.width/ 1.2,
@@ -83,7 +87,7 @@ class _TranslatorState extends State<Translator> {
                             );
                           }
                         }
-                        print('Connection Failed');
+                        print('Image Path Does Not Exist in Firebase Storage -- Please Update Firebase');
                         return Container();
                       }),
                 ),

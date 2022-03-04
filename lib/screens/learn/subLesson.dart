@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:handsfree/provider/lessonCardProvider.dart';
 import 'package:handsfree/provider/subLessonProvider.dart';
 import 'package:handsfree/services/database.dart';
-import 'package:handsfree/widgets/Loading.dart';
+import 'package:handsfree/widgets/loadingWholeScreen.dart';
 import 'package:handsfree/widgets/buildButton.dart';
 import 'package:handsfree/widgets/buildText.dart';
 import 'package:handsfree/widgets/columnList.dart';
@@ -17,6 +17,8 @@ import '../../provider/lessonProvider.dart';
 import '../../widgets/navBar.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:handsfree/models/lessonModel.dart';
+
+List _lessonCompletionList = [];
 
 class SubLevel extends StatelessWidget {
   const SubLevel({Key? key}) : super(key: key);
@@ -32,10 +34,11 @@ class SubLevel extends StatelessWidget {
       syllabus = "Syllabus 2";
     }
 
-    return StreamBuilder<List<LessonModel>?>(
+    return StreamBuilder<List<LessonModel>?> (
       stream: DatabaseService(uid: user!.uid).getSyllabus(syllabus),
-      builder: (context, snapshot){
+      builder: (context, snapshot) {
         if(snapshot.hasData){
+
 
           List<LessonModel>? userModel= snapshot.data;
           if(userModel!.isNotEmpty) {
@@ -43,8 +46,13 @@ class SubLevel extends StatelessWidget {
               .setSubLessons(userModel);
           }
 
-          //For undeclared Lesson [Lesson 3 (Assignment), Lesson 4 and Lesson 5]
-          //if Lesson 1 and Lesson 2 is clicked, the undeclared Lessons will inherit Lesson 1 or Lesson 2 value depends on the last click
+          bool completionOfSyllabus = true;
+          for(int i = 0; i<userModel.length; i++){
+            completionOfSyllabus = completionOfSyllabus && userModel[i].isCompleted;
+          }
+          if(completionOfSyllabus){
+            DatabaseService(uid: user.uid).updateIsCompletedSyllabus(syllabus);
+          }
 
           return Scaffold(
             body: Container(
@@ -157,7 +165,7 @@ class SubLevel extends StatelessWidget {
                                           .setClickLesson(subLessons[index]);
                                       Provider.of<SubLessonProvider>(context, listen: false)
                                           .setSyllabus(syllabus);
-                                      Navigator.pushNamed(context, "/mainLearningPage");
+                                      Navigator.pushReplacementNamed(context, "/mainLearningPage");
                                     },
                                     child: ColumnList(lesson: subLessons[index]),
                                   );

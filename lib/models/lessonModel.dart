@@ -3,10 +3,20 @@ class LessonModel {
   final lessonName;
   final lessonDesc;
   final lessonImage;
+  final isCompleted;
 
   LessonModel(
       {required this.lessonId,
       required this.lessonName,
       required this.lessonDesc,
-      required this.lessonImage});
+      required this.lessonImage,
+      required this.isCompleted});
+}
+
+class isCompletedModel{
+  final isCompletedList;
+
+  isCompletedModel({
+    this.isCompletedList,
+  });
 }

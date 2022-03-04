@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class NewUser {
   final String? uid;
 
@@ -6,9 +8,9 @@ class NewUser {
 
 class NewUserActivityLog{
   final List? activity;
-  final String? corrector;
+  final Timestamp? lastLoginIn;
 
-  NewUserActivityLog({this.corrector, this.activity});
+  NewUserActivityLog({this.lastLoginIn, this.activity});
 }
 
 class NewUserData{

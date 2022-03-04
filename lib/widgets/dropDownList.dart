@@ -4,7 +4,8 @@ import 'package:handsfree/widgets/constants.dart';
 
 class CustomDropDown extends StatefulWidget {
   const CustomDropDown(
-    this.items, {
+    this.items,
+    this.hintText, {
     Key? key,
     this.action,
     this.inputType,
@@ -23,6 +24,7 @@ class CustomDropDown extends StatefulWidget {
   final TextInputAction? action;
   final TextInputType? inputType;
   final int? maxLine;
+  final Widget hintText;
 
   @override
   _CustomDropDownState createState() => _CustomDropDownState();
@@ -53,6 +55,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
           ]),
       child: DropdownButtonHideUnderline(
         child: DropdownButton<String>(
+          hint: widget.hintText,
           value: selected,
           items: widget.items
               .map(((e) => DropdownMenuItem<String>(

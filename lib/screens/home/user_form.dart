@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:handsfree/models/newUser.dart';
 import 'package:handsfree/services/database.dart';
-import 'package:handsfree/widgets/Loading.dart';
+import 'package:handsfree/widgets/loadingWholeScreen.dart';
 import 'package:handsfree/widgets/constants.dart';
 import 'package:provider/provider.dart';
 
@@ -99,6 +99,7 @@ class _UserFormState extends State<UserForm> {
                   if(_formKey.currentState!.validate()){
                     await DatabaseService(uid: user.uid).updateUserData(
                         (_currentExperience ?? userData.experience)!,
+                        "",
                         (_currentPhoneNumber ?? userData.phoneNumber)!,
                         "assets/image/" + (_currentPicture ?? userData.picture!.substring((userData.picture!.lastIndexOf('/')+1), userData.picture!.indexOf('.'))) + ".png",
                         (_currentTitle ?? userData.title)!,
