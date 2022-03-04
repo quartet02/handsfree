@@ -27,41 +27,12 @@ class _DictionaryState extends State<Dictionary> {
   @override
   void initState() {
     _wordData = [];
-    _wordData = DatabaseService().getWordData();
-    // getIndividualData('Hello');
-    // print(temp);
-    // print(temp['word']);
-    // print(temp['definition']);
-    // print(temp['imgUrl']);
-    // print(temp['phoneticSymbol']);
-
+    futureListConverter();
     super.initState();
   }
 
-
-  /*Map<String, String>*/ getIndividualData(String x){
-    //because wordData is not a stream, but a Future, so it wont be loaded initially, but load when home page finish display
-    //so you can only use this function on the next page or I will create a stream
-    //debug here
-    // print('Oi');
-    // print(wordData);
-    // for(Map<String, String> each in wordData){
-    //   print(each);
-    //   if(each['word'] == x) {
-    //     return each;
-    //   }
-    // }
-    // return {'definition': 'Error', 'word': 'Error', 'phoneticSymbol': 'Error', 'imgUrl': 'Error'};
-    List syllabus = ['Syllabus 1', 'Syllabus 2'];
-    for(String each in syllabus) {
-      FirebaseFirestore.instance.collection('lessons').doc(each).collection('Syllabus').where('word', isEqualTo: x).get().then((snapshot) {
-        snapshot.docs.forEach((doc) {
-          if (doc.exists) {
-            temp = doc.data();
-          }
-        });
-      });
-    }
+  void futureListConverter () async{
+    _wordData = await DatabaseService().getWordData();
   }
 
   @override

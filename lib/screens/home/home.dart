@@ -27,15 +27,19 @@ class _HomeState extends State<Home> {
   String _imgUrl = '';
 
   @override
-  void initState() {
+  void initState(){
     _wordData = [];
-    _wordData = DatabaseService().getWordData();
+    futureListConverter();
     super.initState();
   }
 
   void getQuiz(){
     Random r = new Random();
     _quiz = _wordData![r.nextInt(_wordData!.length-1)+1];
+  }
+
+  void futureListConverter () async{
+    _wordData = await DatabaseService().getWordData();
   }
 
   @override
