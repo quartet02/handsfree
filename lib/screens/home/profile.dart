@@ -28,11 +28,13 @@ class _ProfileState extends State<Profile> {
       });
     }
 
+    List friendList = ["tpXcppawocgNvY4ye4twfVrXxe12", "YuKIcHF8Zn0Fpj9SHt4d"];
+
     //check keyboard visibility
     final isVisible = MediaQuery.of(context).viewInsets.bottom != 0;
     final AuthService _auth = AuthService();
     return StreamProvider<List<Users>?>.value(
-      value: DatabaseService().users,
+      value: DatabaseService().friends(friendList),
       initialData: null,
       child: Scaffold(
         appBar: AppBar(

@@ -1,8 +1,10 @@
 import 'package:async/async.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:handsfree/models/communityModel.dart';
 import 'package:handsfree/models/lessonCardModel.dart';
 import 'package:handsfree/models/lessonModel.dart';
 import 'package:handsfree/models/newUser.dart';
+import 'package:handsfree/models/newsFeedModel.dart';
 import 'package:handsfree/models/wordModel.dart';
 import 'package:handsfree/services/auth.dart';
 import '../models/userProfile.dart';
@@ -888,6 +890,44 @@ class DatabaseService{
   }
   ///To Feedback Collection
 
+  ///From Community Collection
+  List<CommunityModel_1>? _communityListFromSnapshot(QuerySnapshot snapshot){
+    return snapshot.docs.map((doc){
+      return CommunityModel_1(
+          content: doc['content'],
+          media: doc['media'],
+          participant: List.from(doc['participant']),
+          title: doc['title']
+      );
+    }).toList();
+  }
+
+  Stream<List<CommunityModel_1>?> get communityList{
+    return newsCollection.snapshots()
+        .map(_communityListFromSnapshot);
+  }
+  ///To Community Collection
+
+  ///From News Collection
+  List<NewsFeedModel_1>? _newsListFromSnapshot(QuerySnapshot snapshot){
+    return snapshot.docs.map((doc){
+
+      return NewsFeedModel_1(
+          author: doc['author'],
+          content: doc['content'],
+          media: doc['media'],
+          timestamp: doc['timestamp'],
+          title: doc['title']
+      );
+    }).toList();
+  }
+
+  Stream<List<NewsFeedModel_1>?> get newsList{
+    return newsCollection.snapshots()
+        .map(_newsListFromSnapshot);
+  }
+  ///To News Collection
+
   ///Normal methods....
   double daysBetween(DateTime from, DateTime to){
     from = DateTime(from.year, from.month, from.day);
@@ -896,27 +936,6 @@ class DatabaseService{
   }
 
   ///Not in use
-  //Dictionary Provider
-  List<WordModel>? _dictionaryListFromSnapshot(QuerySnapshot snapshot){
-    return snapshot.docs.map((doc) {
-      return WordModel(
-          word: doc['word'],
-          imgUrl: doc['imgUrl'],
-          definition: doc['definition'],
-          phoneticSymbol: doc['phoneticSymbol']
-      );
-    }).toList();
-  }
-
-  Stream<List<WordModel>?> get wordData {
-    Stream<List<WordModel>?> x = FirebaseFirestore.instance.collection('lessons').doc('Syllabus 1').collection('Syallbus').snapshots()
-        .map(_dictionaryListFromSnapshot);
-    Stream<List<WordModel>?> y = FirebaseFirestore.instance.collection('lessons').doc('Syllabus 2').collection('Syallbus').snapshots()
-        .map(_dictionaryListFromSnapshot);
-
-    return StreamGroup.merge([x,y]).asBroadcastStream();
-  }
-
   //user list from snapshot
   List<Users>? _userListFromSnapshot(QuerySnapshot snapshot){
     return snapshot.docs.map((doc) {
@@ -936,6 +955,32 @@ class DatabaseService{
     Stream<List<Users>?> x = userCollection.snapshots()
         .map(_userListFromSnapshot);
     return x;
+  }
+
+  Stream<List<Users>?> friends (List friendList){
+    print(friendList);
+    return userCollection.where("uid", whereIn: friendList).snapshots()
+        .map(_userListFromSnapshot);
+  }
+  //Dictionary Provider
+  List<WordModel>? _dictionaryListFromSnapshot(QuerySnapshot snapshot){
+    return snapshot.docs.map((doc) {
+      return WordModel(
+          word: doc['word'],
+          imgUrl: doc['imgUrl'],
+          definition: doc['definition'],
+          phoneticSymbol: doc['phoneticSymbol']
+      );
+    }).toList();
+  }
+
+  Stream<List<WordModel>?> get wordData {
+    Stream<List<WordModel>?> x = FirebaseFirestore.instance.collection('lessons').doc('Syllabus 1').collection('Syallbus').snapshots()
+        .map(_dictionaryListFromSnapshot);
+    Stream<List<WordModel>?> y = FirebaseFirestore.instance.collection('lessons').doc('Syllabus 2').collection('Syallbus').snapshots()
+        .map(_dictionaryListFromSnapshot);
+
+    return StreamGroup.merge([x,y]).asBroadcastStream();
   }
 }
 

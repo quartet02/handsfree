@@ -19,6 +19,9 @@ import 'package:percent_indicator/percent_indicator.dart';
 import 'package:handsfree/models/lessonModel.dart';
 
 List _lessonCompletionList = [];
+List<LessonModel>? _userModel;
+String _syllabus = 'Unknown';
+dynamic _user;
 
 class SubLevel extends StatelessWidget {
   const SubLevel({Key? key}) : super(key: key);
@@ -26,32 +29,31 @@ class SubLevel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     LessonModel lesson = context.read<LessonProvider>().getClickedLesson;
-    final user = Provider.of<NewUser?>(context);
-    String syllabus = 'Unknown';
+    _user = Provider.of<NewUser?>(context);
     if(lesson.lessonId == 1){
-      syllabus = "Syllabus 1";
+      _syllabus = "Syllabus 1";
     }else if(lesson.lessonId == 2){
-      syllabus = "Syllabus 2";
+      _syllabus = "Syllabus 2";
     }
 
     return StreamBuilder<List<LessonModel>?> (
-      stream: DatabaseService(uid: user!.uid).getSyllabus(syllabus),
+      stream: DatabaseService(uid: _user!.uid).getSyllabus(_syllabus),
       builder: (context, snapshot) {
         if(snapshot.hasData){
 
 
-          List<LessonModel>? userModel= snapshot.data;
-          if(userModel!.isNotEmpty) {
+          _userModel= snapshot.data;
+          if(_userModel!.isNotEmpty) {
             Provider.of<SubLessonProvider>(context, listen: false)
-              .setSubLessons(userModel);
+              .setSubLessons(_userModel);
           }
 
           bool completionOfSyllabus = true;
-          for(int i = 0; i<userModel.length; i++){
-            completionOfSyllabus = completionOfSyllabus && userModel[i].isCompleted;
+          for(int i = 0; i<_userModel!.length; i++){
+            completionOfSyllabus = completionOfSyllabus && _userModel![i].isCompleted;
           }
           if(completionOfSyllabus){
-            DatabaseService(uid: user.uid).updateIsCompletedSyllabus(syllabus);
+            DatabaseService(uid: _user.uid).updateIsCompletedSyllabus(_syllabus);
           }
 
           return Scaffold(
@@ -164,7 +166,7 @@ class SubLevel extends StatelessWidget {
                                       Provider.of<SubLessonProvider>(context, listen: false)
                                           .setClickLesson(subLessons[index]);
                                       Provider.of<SubLessonProvider>(context, listen: false)
-                                          .setSyllabus(syllabus);
+                                          .setSyllabus(_syllabus);
                                       Navigator.pushReplacementNamed(context, "/mainLearningPage");
                                     },
                                     child: ColumnList(lesson: subLessons[index]),
@@ -185,5 +187,17 @@ class SubLevel extends StatelessWidget {
         }
       }
     );
+  }
+}
+
+class LessonRefresh{
+  static void refresh(){
+    bool completionOfSyllabus = true;
+    for(int i = 0; i<_userModel!.length; i++){
+      completionOfSyllabus = completionOfSyllabus && _userModel![i].isCompleted;
+    }
+    if(completionOfSyllabus){
+      DatabaseService(uid: _user.uid).updateIsCompletedSyllabus(_syllabus);
+    }
   }
 }
