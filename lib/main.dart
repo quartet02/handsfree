@@ -15,6 +15,7 @@ import 'package:handsfree/screens/learn/congrats.dart';
 import 'package:handsfree/screens/learn/learn.dart';
 import 'package:handsfree/screens/learn/mainLearningPage.dart';
 import 'package:handsfree/screens/learn/subLesson.dart';
+import 'package:handsfree/screens/news/news.dart';
 import 'package:handsfree/screens/profile/profile.dart';
 import 'package:handsfree/screens/profile/acknowledgement.dart';
 import 'package:handsfree/screens/settings/helpdesk.dart';
@@ -106,6 +107,7 @@ class MyApp extends StatelessWidget {
           // "/translator": (context) => const Translator(),
           "/helpCenter": (context) => const HelpDesk(),
           "/feedback": (context) => const FeedBack(),
+          "/news": (context) => const News(),
         },
       ),
     );

@@ -12,7 +12,6 @@ import 'package:percent_indicator/percent_indicator.dart';
 import 'package:handsfree/models/lessonModel.dart';
 import 'package:handsfree/widgets/navBar.dart';
 import 'package:provider/provider.dart';
-
 import '../../models/newUser.dart';
 
 double progress = 0.21;
@@ -25,7 +24,19 @@ class Learn extends StatefulWidget {
 
 class _LearnState extends State<Learn> {
   @override
+  void initState() {
+    super.initState();
+  }
+
+
+  @override
   Widget build(BuildContext context) {
+
+    try{
+      LessonRefresh.refresh();
+    }catch(e){
+      print('error');
+    }
 
     final user = Provider.of<NewUser?>(context);
 
