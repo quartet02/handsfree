@@ -51,7 +51,22 @@ dependencies:
   flutter_svg: ^1.0.3
   page_transition: ^2.0.5
   expandable: ^5.0.1
+  flutter_webrtc: ^0.8.3
+  firebase_storage: ^10.0.1
   # flutter_mediapipe: ^0.0.7
+
+  cloud_firestore: ^3.1.8
+  flamingo: ^2.6.0
+  flamingo_annotation: ^0.5.0
+
+  #pick file
+  file_picker: ^3.0.1
+
+  #loading widget
+  flutter_spinkit: ^5.1.0
+
+dependency_overrides:
+  firebase_messaging_platform_interface: ^3.2.1
 
 dev_dependencies:
   flutter_test:

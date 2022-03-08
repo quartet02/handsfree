@@ -1,5 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:handsfree/services/database.dart';
+import 'package:handsfree/widgets/userPreference.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:handsfree/widgets/loadingWholeScreen.dart';
 import '../models/newUser.dart';
 
 class AuthService {
@@ -7,8 +13,24 @@ class AuthService {
 
   Future signUpWithEmailAndPassword(String email, String password) async {
     try {
-      await _auth.createUserWithEmailAndPassword(
+      UserCredential result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
+      User user = result.user!;
+
+      // add uid to SharedPreferences for easy access
+      await UserPreference.setValue("uniqueId", user.uid);
+
+      // init user database on successful registeration
+      await DatabaseService(uid: user.uid)
+        ..updateUserData(
+            0,
+            user.displayName ?? "",
+            user.phoneNumber ?? "",
+            'assets/image/character.png',
+            'Newbie Signer',
+            email.substring(0, email.lastIndexOf('@')))
+        ..buildUserLesson();
+
       return [0, 'Account created successfully'];
     } on FirebaseAuthException catch (e) {
       if (e.code == 'email-already-in-use') {
@@ -25,7 +47,21 @@ class AuthService {
 
   Future signInWithEmailAndPassword(String email, String password) async {
     try {
-      await _auth.signInWithEmailAndPassword(email: email, password: password);
+      UserCredential result = await _auth.signInWithEmailAndPassword(
+          email: email, password: password);
+      User user = result.user!;
+
+      // add uid to SharedPreferences for easy access
+      await UserPreference.setValue("uniqueId", user.uid);
+
+      DatabaseService(uid: user.uid);
+      var activities =
+          await DatabaseService(uid: user.uid).getActivityLog("List");
+      var time = await DatabaseService(uid: user.uid).getActivityLog("Time");
+      await DatabaseService(uid: user.uid)
+          .updateActivityLog(activities!, time!);
+      // set local user profileDetails
+
       return [0, 'Logged in successfully'];
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
@@ -55,13 +91,30 @@ class AuthService {
     );
 
     try {
-      await _auth.signInWithCredential(credential);
+      UserCredential result = await _auth.signInWithCredential(credential);
+      User user = result.user!;
+
+      // add uid to SharedPreferences for easy access
+      final pref = await SharedPreferences.getInstance();
+      await pref.setString("uniqueId", user.uid);
+
+      DatabaseService(uid: user.uid);
+
       return [0, 'Logged in successfully'];
     } on FirebaseAuthException catch (e) {
-        return [1, e.code];
+      return [1, e.code];
     } catch (e) {
       return [1, e.toString()];
     }
+  }
+
+  void changePassword(String password) async {
+    User user = FirebaseAuth.instance.currentUser!;
+    user.updatePassword(password).then((_) {
+      print("Successfully Change Password");
+    }).catchError((error) {
+      print("Password can't be changed " + error.toString());
+    });
   }
 
   void signOut() async {

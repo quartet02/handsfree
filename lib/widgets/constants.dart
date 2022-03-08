@@ -34,3 +34,24 @@ const kTextShadow = Color.fromARGB(255, 179, 197, 234);
 
 const kTextFieldText = Color.fromARGB(255, 121, 131, 151);
 const kText = Color.fromARGB(255, 29, 40, 64);
+
+enum PadPos {
+  top,
+  right,
+  left,
+  bottom,
+}
+
+enum Providers {
+  dictionary,
+  helpdesk,
+  friend,
+}
+
+enum CollectionSelector {
+  name,
+  username,
+  password,
+  title,
+  none,
+}

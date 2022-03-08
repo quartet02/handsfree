@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:handsfree/services/auth.dart';
 import 'package:handsfree/widgets/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -7,12 +8,24 @@ class buildButton extends StatelessWidget {
   final String word;
   String buttonColor;
   Color buttonShadow;
+  late final bool isSignOut;
 
   buildButton(
       {required this.text,
       required this.word,
       required this.buttonColor,
-      this.buttonShadow = kButtonShadow});
+      this.buttonShadow = kButtonShadow,
+      this.isSignOut = false});
+
+  void navigate(BuildContext context, String word) {
+    if (isSignOut) {
+      final AuthService _auth = AuthService();
+      _auth.signOut();
+      Navigator.pushNamed(context, "/auth");
+    } else {
+      Navigator.pushNamed(context, word);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +39,7 @@ class buildButton extends StatelessWidget {
     }
 
     return GestureDetector(
-      onTap: () {
-        Navigator.pushNamed(context, word);
-      },
+      onTap: () => navigate(context, word),
       child: Stack(
         children: <Widget>[
           Center(
