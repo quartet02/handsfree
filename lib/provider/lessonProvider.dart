@@ -9,6 +9,7 @@ class LessonProvider with ChangeNotifier {
           lessonName: item['lessonName'] ?? "",
           lessonDesc: item['lessonDesc'] ?? "",
           lessonImage: item['lessonImage'] ?? "",
+          isCompleted: item['isCompleted'] ?? "",
         ),
       )
       .toList();
@@ -18,7 +19,11 @@ class LessonProvider with ChangeNotifier {
   }
 
   LessonModel _clickedLesson = LessonModel(
-      lessonId: 000, lessonName: "bruh", lessonDesc: "wa", lessonImage: "");
+      lessonId: 000,
+      lessonName: "bruh",
+      lessonDesc: "wa",
+      lessonImage: "",
+      isCompleted: false);
 
   void setClickLesson(LessonModel newClickedLesson) {
     _clickedLesson = newClickedLesson;

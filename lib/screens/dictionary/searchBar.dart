@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:handsfree/provider/dictionaryProvider.dart';
+import 'package:handsfree/provider/friendsProvider.dart';
 import 'package:handsfree/provider/helpdeskProvider.dart';
 import 'package:handsfree/screens/settings/helpdesk.dart';
 import 'package:provider/provider.dart';
@@ -8,7 +9,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 class SearchBar extends StatefulWidget {
   final String prompt;
-  final String provider;
+  final Providers provider;
+
   const SearchBar({
     Key? key,
     this.prompt = "Search",
@@ -66,16 +68,19 @@ class _SearchBarState extends State<SearchBar> {
             ),
           ]),
       child: TextFormField(
+        autofocus: false,
         focusNode: _onFocus,
         controller: searchFieldController,
         obscureText: false,
         autocorrect: false,
         onChanged: (txt) {
           final userQuery;
-          if (widget.provider == "dictionary") {
+          if (widget.provider == Providers.dictionary) {
             userQuery = context.read<DictionaryProvider>();
-          } else if (widget.provider == "helpdesk") {
+          } else if (widget.provider == Providers.helpdesk) {
             userQuery = context.read<HelpDeskProvider>();
+          } else if (widget.provider == Providers.friend) {
+            userQuery = context.read<FriendProvider>();
           } else {
             userQuery = context.read<DictionaryProvider>();
           }

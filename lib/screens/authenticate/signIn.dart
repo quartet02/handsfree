@@ -65,7 +65,7 @@ class _SignInState extends State<SignIn> {
                 padding: const EdgeInsets.only(top: 30),
                 child: GestureDetector(
                     onTap: () async {
-                      if (_formKey.currentState!.validate()) {
+                      if (true) {
                         dynamic results =
                             await _auth.signInWithEmailAndPassword(
                                 emailController.text, passwordController.text);
@@ -79,7 +79,7 @@ class _SignInState extends State<SignIn> {
                           // and use it to show a SnackBar.
                           ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         } else {
-                          Navigator.pop(context);
+                          Navigator.pushReplacementNamed(context, '/chatHome');
                         }
                       }
                     },

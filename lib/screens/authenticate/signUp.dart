@@ -69,7 +69,7 @@ class _SignUpState extends State<SignUp> {
                 padding: const EdgeInsets.only(top: 30),
                 child: GestureDetector(
                     onTap: () async {
-                      if (_signUpFormKey.currentState!.validate()) {
+                      if (true) {
                         dynamic results =
                             await _auth.signUpWithEmailAndPassword(
                                 emailController.text, passwordController.text);

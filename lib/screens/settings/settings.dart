@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:handsfree/services/auth.dart';
 import 'package:handsfree/widgets/buildButton.dart';
 import 'package:handsfree/widgets/buildText.dart';
 import 'package:handsfree/widgets/buildTextBox.dart';
@@ -94,9 +95,11 @@ class _SettingsState extends State<Settings> {
                         textBox(passwordController, "password"),
                         breaker(20),
                         buildButton(
-                            text: "Sign Out",
-                            word: "/home",
-                            buttonColor: "purple"),
+                          text: "Sign Out",
+                          word: "/home",
+                          buttonColor: "purple",
+                          isSignOut: true,
+                        ),
 
                         ///General Setttings
                         breaker(50),

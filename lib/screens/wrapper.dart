@@ -9,10 +9,11 @@ import 'package:handsfree/widgets/loading.dart';
 import 'package:handsfree/screens/settings/social.dart';
 import 'package:handsfree/screens/settings/terms.dart';
 import 'package:handsfree/screens/settings/helpdesk.dart';
+import 'package:handsfree/services/test.dart';
 import 'package:handsfree/widgets/navBar.dart';
 import 'package:provider/provider.dart';
 import 'package:handsfree/screens/settings/settings.dart';
-
+import 'chat/chatHome.dart';
 import 'profile/acknowledgement.dart';
 
 class Wrapper extends StatelessWidget {
@@ -23,10 +24,10 @@ class Wrapper extends StatelessWidget {
     final user = Provider.of<NewUser?>(context);
 
     // return either Home or Authenticate widget
-    if (user != null) {
+    if (user == null) {
       return const Authenticate();
     } else {
-      return const Home();
+      return const Settings();
     }
   }
 }
