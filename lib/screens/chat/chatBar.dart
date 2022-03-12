@@ -18,9 +18,9 @@ class _ChatBarState extends State<ChatBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
+      padding: const EdgeInsets.fromLTRB(10, 15, 10, 0),
       margin: const EdgeInsets.only(bottom: 20),
-      color: Colors.black.withOpacity(0),
+      color: Colors.black.withOpacity(0.0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -58,28 +58,42 @@ class _ChatBarState extends State<ChatBar> {
                         spreadRadius: 1,
                         blurRadius: 8)
                   ]),
-              child: TextFormField(
-                controller: control,
-                autocorrect: true,
-                enableSuggestions: true,
-                textCapitalization: TextCapitalization.sentences,
-                autofocus: false,
-                maxLines: null,
-                textInputAction: TextInputAction.newline,
-                keyboardType: TextInputType.multiline,
-                decoration: const InputDecoration(
-                  constraints: BoxConstraints(maxHeight: 100),
-                  border: InputBorder.none,
-                  filled: true,
-                  fillColor: Colors.transparent,
-                  hintText: "Aa",
+              child:
+                  Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                Expanded(
+                  child: TextFormField(
+                    controller: control,
+                    autocorrect: true,
+                    enableSuggestions: true,
+                    textCapitalization: TextCapitalization.sentences,
+                    autofocus: false,
+                    maxLines: null,
+                    textInputAction: TextInputAction.newline,
+                    keyboardType: TextInputType.multiline,
+                    decoration: const InputDecoration(
+                      constraints: BoxConstraints(maxHeight: 100),
+                      border: InputBorder.none,
+                      filled: true,
+                      fillColor: Colors.transparent,
+                      hintText: "Aa",
+                    ),
+                    onChanged: (typed) {
+                      setState(() {
+                        input = typed;
+                      });
+                    },
+                  ),
                 ),
-                onChanged: (typed) {
-                  setState(() {
-                    input = typed;
-                  });
-                },
-              ),
+                GestureDetector(
+                    onTap: () {
+                      print("pressed camera");
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.fromLTRB(10, 11, 12, 0),
+                      child: const Icon(Icons.camera_alt_rounded,
+                          color: kPurpleLight),
+                    )),
+              ]),
             ),
           ),
           GestureDetector(
