@@ -14,8 +14,8 @@ import 'package:handsfree/widgets/userPreference.dart';
 import 'chatBubble.dart';
 
 class Chat extends StatefulWidget {
-  const Chat({Key? key}) : super(key: key);
-
+  Chat({Key? key}) : super(key: key);
+  String prev = "";
   @override
   State<Chat> createState() => _ChatState();
 }
@@ -83,50 +83,27 @@ class _ChatState extends State<Chat> {
                 ],
               ),
               Expanded(
-                child: ShaderMask(
-                  shaderCallback: (Rect rect) {
-                    return const LinearGradient(
-                      tileMode: TileMode.mirror,
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        Colors.white,
-                        Colors.transparent,
-                      ],
-                      stops: [
-                        0.0,
-                        0.4,
-                      ],
-                    ).createShader(rect);
-                  },
-                  blendMode: BlendMode.dstOut,
-                  child: Container(
-                    margin: const EdgeInsets.fromLTRB(0, 65, 0, 0),
-                    color: Colors.black.withOpacity(0),
-                    child: StreamBuilder<List<Messages>>(
-                      stream:
-                          DatabaseService(uid: UserPreference.get("uniqueId"))
-                              .messages(roomData.roomId),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData &&
-                            snapshot.connectionState ==
-                                ConnectionState.active) {
-                          List<Messages> messages = snapshot.data!;
-                          return ListView.builder(
-                              physics: const BouncingScrollPhysics(),
-                              reverse: true,
-                              itemCount: messages.length,
-                              itemBuilder: (context, index) {
-                                return ChatBubble(
-                                    isMe: UserPreference.get("uniqueId") ==
-                                        messages[index].sentBy,
-                                    message: messages[index]);
-                              });
-                        } else {
-                          return Container();
-                        }
-                      },
-                    ),
+                child: Container(
+                  margin: const EdgeInsets.fromLTRB(0, 65, 0, 0),
+                  color: Colors.black.withOpacity(0),
+                  child: StreamBuilder<List<Messages>>(
+                    stream: DatabaseService(uid: UserPreference.get("uniqueId"))
+                        .messages(roomData.roomId),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData &&
+                          snapshot.connectionState == ConnectionState.active) {
+                        List<Messages> messages = snapshot.data!;
+                        return ListView.builder(
+                            //physics: const BouncingScrollPhysics(),
+                            reverse: true,
+                            itemCount: messages.length,
+                            itemBuilder: (context, index) {
+                              return buildChatbubble(messages[index]);
+                            });
+                      } else {
+                        return Container();
+                      }
+                    },
                   ),
                 ),
               ),
@@ -138,5 +115,24 @@ class _ChatState extends State<Chat> {
         ),
       ),
     );
+  }
+
+  Widget buildChatbubble(Messages message) {
+    if (message.sentBy != UserPreference.get("uniqueId") &&
+        message.sentBy != widget.prev) {
+      widget.prev = message.sentBy;
+      return ChatBubble(
+          isMe: UserPreference.get("uniqueId") == message.sentBy,
+          message: message,
+          showProfileIcon: true);
+    }
+    // self and same sender
+    else {
+      widget.prev = message.sentBy;
+      return ChatBubble(
+          isMe: UserPreference.get("uniqueId") == message.sentBy,
+          message: message,
+          showProfileIcon: false);
+    }
   }
 }
