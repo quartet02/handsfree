@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 
 import '../../models/newUser.dart';
 import '../../widgets/loadingWholeScreen.dart';
+import 'package:handsfree/services/userPreference.dart';
 
 class Settings extends StatefulWidget {
   const Settings({Key? key}) : super(key: key);
@@ -154,7 +155,7 @@ class _SettingsState extends State<Settings> {
                                           MainAxisAlignment.spaceBetween,
                                           children: [
                                             buildText.heading3Text("Sound Effects"),
-                                            toggleSwitch(isSoundEffectOn),
+                                            toggleSwitch('isSound'),
                                           ],
                                         ),
                                         Row(
@@ -162,7 +163,7 @@ class _SettingsState extends State<Settings> {
                                           MainAxisAlignment.spaceBetween,
                                           children: [
                                             buildText.heading3Text("Dark Mode"),
-                                            toggleSwitch(isDarkModeOn),
+                                            toggleSwitch('isDark'),
                                           ],
                                         ),
                                         Row(
@@ -171,7 +172,7 @@ class _SettingsState extends State<Settings> {
                                           children: [
                                             buildText
                                                 .heading3Text("Motivational message"),
-                                            toggleSwitch(isMotivationalMessageOn),
+                                            toggleSwitch("isMotivational"),
                                           ],
                                         ),
                                       ],
@@ -219,7 +220,7 @@ class _SettingsState extends State<Settings> {
                                           MainAxisAlignment.spaceBetween,
                                           children: [
                                             buildText.heading3Text("Practice Reminder"),
-                                            toggleSwitch(isPracticeReminderOn),
+                                            toggleSwitch("isPractice"),
                                           ],
                                         ),
                                         Row(
@@ -227,7 +228,7 @@ class _SettingsState extends State<Settings> {
                                           MainAxisAlignment.spaceBetween,
                                           children: [
                                             buildText.heading3Text("Smart Scheduling"),
-                                            toggleSwitch(isSmartSchedulingOn),
+                                            toggleSwitch("isSmartScheduling"),
                                           ],
                                         ),
                                       ],
@@ -261,7 +262,7 @@ class _SettingsState extends State<Settings> {
                                           MainAxisAlignment.spaceBetween,
                                           children: [
                                             buildText.heading3Text("Weekly Progress"),
-                                            toggleSwitch(isWeeklyProgressOn),
+                                            toggleSwitch("isWeeklyProgress"),
                                           ],
                                         ),
                                         Row(
@@ -269,7 +270,7 @@ class _SettingsState extends State<Settings> {
                                           MainAxisAlignment.spaceBetween,
                                           children: [
                                             buildText.heading3Text("New Friend"),
-                                            toggleSwitch(isNewFriendsOn),
+                                            toggleSwitch("isNewFriends"),
                                           ],
                                         ),
                                         Row(
@@ -277,7 +278,7 @@ class _SettingsState extends State<Settings> {
                                           MainAxisAlignment.spaceBetween,
                                           children: [
                                             buildText.heading3Text("Friend Activity"),
-                                            toggleSwitch(isFriendActivityOn),
+                                            toggleSwitch("isFriendActivity"),
                                           ],
                                         ),
                                         Row(
@@ -285,7 +286,7 @@ class _SettingsState extends State<Settings> {
                                           MainAxisAlignment.spaceBetween,
                                           children: [
                                             buildText.heading3Text("Leaderboards"),
-                                            toggleSwitch(isLeaderboardsOn),
+                                            toggleSwitch("isLeaderboards"),
                                           ],
                                         ),
                                         Row(
@@ -293,7 +294,7 @@ class _SettingsState extends State<Settings> {
                                           MainAxisAlignment.spaceBetween,
                                           children: [
                                             buildText.heading3Text("News"),
-                                            toggleSwitch(isNewsOn),
+                                            toggleSwitch("isNews"),
                                           ],
                                         ),
                                       ],
@@ -332,7 +333,7 @@ class _SettingsState extends State<Settings> {
                                           children: [
                                             buildText.heading3Text(
                                                 "Tracking for Advertisement"),
-                                            toggleSwitch(isTrackingForAdvertisingOn),
+                                            toggleSwitch("isTrackingForAdvertising"),
                                           ],
                                         ),
                                       ],
@@ -382,12 +383,12 @@ class _SettingsState extends State<Settings> {
     );
   }
 
-  Widget toggleSwitch(bool j) {
+  Widget toggleSwitch(String key) {
     return Switch(
-      value: j,
+      value: UserPreference.getSetting(key),
       onChanged: (value) {
         setState(() {
-          j = value;
+          UserPreference.setSetting(key, value);
         });
       },
       activeTrackColor: kOrangeLight,

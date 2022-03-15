@@ -60,7 +60,7 @@ class _SignUpState extends State<SignUp> {
                 child: buildText.labelText("Confirm Password"),
               ),
               buildTextBox.authenticateTextBox(
-                  passwordController,
+                  repasswordController,
                   'Retype your password',
                   true,
                   false,

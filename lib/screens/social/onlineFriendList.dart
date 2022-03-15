@@ -3,7 +3,7 @@ import 'package:handsfree/models/chatModel.dart';
 import 'package:handsfree/models/userProfile.dart';
 import 'package:handsfree/screens/social/friendBlock.dart';
 import 'package:handsfree/services/database.dart';
-import 'package:handsfree/widgets/userPreference.dart';
+import 'package:handsfree/services/userPreference.dart';
 import 'package:handsfree/widgets/buildText.dart';
 
 class OnlineFriendList extends StatelessWidget {

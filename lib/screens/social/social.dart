@@ -10,7 +10,7 @@ import 'package:handsfree/models/friendModel.dart';
 import 'package:handsfree/widgets/overlay.dart';
 import 'package:handsfree/widgets/navBar.dart';
 import 'package:handsfree/widgets/smallCard.dart';
-import 'package:handsfree/widgets/userPreference.dart';
+import 'package:handsfree/services/userPreference.dart';
 import 'package:provider/provider.dart';
 import 'package:handsfree/widgets/buildText.dart';
 
