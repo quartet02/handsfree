@@ -13,7 +13,7 @@ import '../widgets/button_widget.dart';
 
 // this is a code of taking the URL of media from firebase, and returning a dynamic image type
 
-class FireStorageService extends ChangeNotifier{
+class FireStorageService extends ChangeNotifier {
   FireStorageService();
   static Future<dynamic> loadImage(BuildContext context, String Image) async {
     return await FirebaseStorage.instance.ref().child(Image).getDownloadURL();
@@ -23,7 +23,7 @@ class FireStorageService extends ChangeNotifier{
 // display image widget
 // fetch and download the image from firebase storage
 
-Future<Widget> getImage(BuildContext context, String imageName) async{
+Future<Widget> getImage(BuildContext context, String imageName) async {
   late Image image;
   await FireStorageService.loadImage(context, imageName).then((value) {
     image = Image.network(
@@ -31,7 +31,6 @@ Future<Widget> getImage(BuildContext context, String imageName) async{
       fit: BoxFit.scaleDown,
 
       // Do more modification of image here
-
     );
   });
   return image;

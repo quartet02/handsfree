@@ -26,94 +26,15 @@ class _ChatState extends State<Chat> {
     final ChatRoom roomData =
         ModalRoute.of(context)!.settings.arguments as ChatRoom;
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-              alignment: Alignment.topCenter,
-              image: AssetImage('assets/image/orange_heading.png'),
-              fit: BoxFit.cover),
-        ),
-        child: Container(
-          padding: const EdgeInsets.fromLTRB(10, 40, 10, 0),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: const Icon(Icons.arrow_back_ios_new_rounded),
-                    color: Colors.white,
-                  ),
-                  Breaker(i: 20, pos: PadPos.right),
-                  Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          print("Pressed profile picture");
-                        },
-                        child: Container(
-                            height: 70,
-                            width: 70,
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(15),
-                                image: DecorationImage(
-                                  image: AssetImage(roomData.roomPicture),
-                                  fit: BoxFit.cover,
-                                ),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.6),
-                                    spreadRadius: 1,
-                                    blurRadius: 6,
-                                    offset: const Offset(
-                                        5, 5), // changes position of shadow
-                                  ),
-                                ]),
-                            child: null),
-                      ),
-                      Breaker(i: 15, pos: PadPos.right),
-                      buildText.textBox(
-                          roomData.roomName, 0.5, 22, FontWeight.bold),
-                    ],
-                  ),
-                ],
-              ),
-              Expanded(
-                child: Container(
-                  margin: const EdgeInsets.fromLTRB(0, 65, 0, 0),
-                  color: Colors.black.withOpacity(0),
-                  child: StreamBuilder<List<Messages>>(
-                    stream: DatabaseService(uid: UserPreference.get("uniqueId"))
-                        .messages(roomData.roomId),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData &&
-                          snapshot.connectionState == ConnectionState.active) {
-                        List<Messages> messages = snapshot.data!;
-                        return ListView.builder(
-                            //physics: const BouncingScrollPhysics(),
-                            reverse: true,
-                            itemCount: messages.length,
-                            itemBuilder: (context, index) {
-                              return buildChatbubble(messages[index]);
-                            });
-                      } else {
-                        return Container();
-                      }
-                    },
-                  ),
-                ),
-              ),
-              ChatBar(
-                roomId: roomData.roomId,
-              ),
-            ],
+      body: Column(children: [
+        buildChatHeader(roomData, context),
+        buildChatBody(roomData),
+        Container(
+          child: ChatBar(
+            roomId: roomData.roomId,
           ),
         ),
-      ),
+      ]),
     );
   }
 
@@ -134,5 +55,74 @@ class _ChatState extends State<Chat> {
           message: message,
           showProfileIcon: false);
     }
+  }
+
+  Widget buildChatBody(ChatRoom roomData) {
+    return Expanded(
+      flex: 2,
+      child: Container(
+        // color: Colors.black.withOpacity(0.2),
+        child: StreamBuilder<List<Messages>>(
+          stream: DatabaseService(uid: UserPreference.get("uniqueId"))
+              .messages(roomData.roomId),
+          builder: (context, snapshot) {
+            if (snapshot.hasData &&
+                snapshot.connectionState == ConnectionState.active) {
+              List<Messages> messages = snapshot.data!;
+              return ListView.builder(
+                  //physics: const BouncingScrollPhysics(),
+                  reverse: true,
+                  itemCount: messages.length,
+                  itemBuilder: (context, index) {
+                    return buildChatbubble(messages[index]);
+                  });
+            } else {
+              return Container();
+            }
+          },
+        ),
+      ),
+    );
+  }
+
+  Widget buildChatHeader(ChatRoom roomData, BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      constraints: BoxConstraints(
+          minHeight: 130, maxWidth: MediaQuery.of(context).size.width),
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+              color: Colors.black.withOpacity(0.5),
+              offset: const Offset(0, -2),
+              blurStyle: BlurStyle.outer,
+              spreadRadius: 2,
+              blurRadius: 20)
+        ],
+        image: const DecorationImage(
+          image: AssetImage("assets/image/orange_heading3.png"),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+        GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: const Icon(
+            Icons.arrow_back_ios_new_rounded,
+            color: Colors.white,
+          ),
+        ),
+        buildText.bigTitle(roomData.roomName),
+        GestureDetector(
+          onTap: () {},
+          child: const Icon(
+            Icons.more_vert_rounded,
+            color: Colors.white,
+          ),
+        ),
+      ]),
+    );
   }
 }

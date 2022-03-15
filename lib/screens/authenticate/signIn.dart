@@ -69,8 +69,8 @@ class _SignInState extends State<SignIn> {
                     onTap: () async {
                       if (true) {
                         dynamic results =
-                        await _auth.signInWithEmailAndPassword(
-                            emailController.text, passwordController.text);
+                            await _auth.signInWithEmailAndPassword(
+                                emailController.text, passwordController.text);
                         if (results[0] == 1) {
                           // login fail
                           var snackBar = SnackBar(
@@ -92,7 +92,7 @@ class _SignInState extends State<SignIn> {
                             width: 200,
                             decoration: const BoxDecoration(
                                 borderRadius:
-                                BorderRadius.all(Radius.circular(20)),
+                                    BorderRadius.all(Radius.circular(20)),
                                 boxShadow: [
                                   BoxShadow(
                                     color: kButtonShadow,

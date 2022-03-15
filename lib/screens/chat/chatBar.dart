@@ -18,15 +18,14 @@ class _ChatBarState extends State<ChatBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.fromLTRB(10, 15, 10, 0),
-      margin: const EdgeInsets.only(bottom: 20),
-      color: Colors.black.withOpacity(0.0),
+      padding: const EdgeInsets.fromLTRB(10, 10, 10, 12),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           GestureDetector(
-            onTap: () {
-              print("pressed video call");
+            onTap: () async {
+              // await DatabaseService(uid: UserPreference.get("uniqueId"))
+              //     .removeFriend("0YgPUtiQxRZjh25ZEGNRql1Ugxq2");
             },
             child: Container(
               height: 45,
@@ -86,7 +85,7 @@ class _ChatBarState extends State<ChatBar> {
                 ),
                 GestureDetector(
                     onTap: () {
-                      print("pressed camera");
+                      Navigator.pushNamed(context, "/camera");
                     },
                     child: Container(
                       margin: const EdgeInsets.fromLTRB(10, 11, 12, 0),
