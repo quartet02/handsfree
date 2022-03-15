@@ -58,7 +58,7 @@ class _NewsState extends State<News> {
                 Stack(
                   children: [
                     isVisible ? const SearchGroup() : Container(),
-                    const SearchBar(provider: 'dictionary',)
+                    const SearchBar(provider: Providers.dictionary,)
                   ],
                 ),
                 // !isVisible
