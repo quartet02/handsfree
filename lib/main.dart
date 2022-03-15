@@ -1,3 +1,4 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:handsfree/provider/helpdeskProvider.dart';
@@ -20,11 +21,12 @@ import 'package:handsfree/screens/profile/profile.dart';
 import 'package:handsfree/screens/profile/acknowledgement.dart';
 import 'package:handsfree/screens/settings/helpdesk.dart';
 import 'package:handsfree/screens/settings/settings.dart';
-import 'package:handsfree/screens/settings/social.dart';
+import 'package:handsfree/screens/social/social.dart';
 import 'package:handsfree/screens/settings/terms.dart';
 import 'package:handsfree/screens/wrapper.dart';
 import 'package:handsfree/services/auth.dart';
 import 'package:handsfree/provider/lessonProvider.dart';
+import 'package:handsfree/services/mediaAccess.dart';
 import 'package:handsfree/widgets/userPreference.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -33,14 +35,22 @@ import 'package:handsfree/models/newUser.dart';
 import 'theme/theme_manager.dart';
 import 'theme/theme_constants.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+// to store all available camera on device as global variable for easy access
+List<CameraDescription> camerasAvailable = [];
 
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  await UserPreference.init();
-  SharedPreferences.setMockInitialValues({});
+Future<void> main() async {
+  try {
+    WidgetsFlutterBinding.ensureInitialized();
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+    await UserPreference.init();
+    SharedPreferences.setMockInitialValues({});
+    camerasAvailable = await availableCameras();
+  } on CameraException catch (e) {
+    print(e.description);
+  }
+
   runApp(
     MultiProvider(
       child: const MyApp(),
@@ -94,6 +104,7 @@ class MyApp extends StatelessWidget {
           "/feedback": (context) => const FeedBack(),
           "/chatHome": (context) => ChatHome(),
           "/chatHome/chat": (context) => Chat(),
+          "/camera": (context) => CameraScreen(),
         },
       ),
     );

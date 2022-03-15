@@ -30,7 +30,7 @@ class UserPreference {
       return _prefs.getString(key);
     } else {
       // print("Dont have this thing with this key : $key");
-      return [];
+      return null;
     }
   }
 }

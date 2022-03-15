@@ -19,6 +19,7 @@ class AuthService {
 
       // add uid to SharedPreferences for easy access
       await UserPreference.setValue("uniqueId", user.uid);
+      // print("set user preference with ${user.uid}");
 
       // init user database on successful registeration
       await DatabaseService(uid: user.uid)
@@ -48,7 +49,7 @@ class AuthService {
   Future signInWithEmailAndPassword(String email, String password) async {
     try {
       UserCredential result = await _auth.signInWithEmailAndPassword(
-          email: email, password: password);
+          email: email.trim(), password: password);
       User user = result.user!;
 
       // add uid to SharedPreferences for easy access

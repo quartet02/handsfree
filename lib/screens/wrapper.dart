@@ -6,7 +6,7 @@ import 'package:handsfree/screens/home/home.dart';
 import 'package:handsfree/screens/learn/congrats.dart';
 import 'package:handsfree/screens/learn/learn.dart';
 import 'package:handsfree/widgets/loading.dart';
-import 'package:handsfree/screens/settings/social.dart';
+import 'package:handsfree/screens/social/social.dart';
 import 'package:handsfree/screens/settings/terms.dart';
 import 'package:handsfree/screens/settings/helpdesk.dart';
 import 'package:handsfree/services/test.dart';
@@ -27,7 +27,7 @@ class Wrapper extends StatelessWidget {
     if (user == null) {
       return const Authenticate();
     } else {
-      return const Settings();
+      return Home();
     }
   }
 }

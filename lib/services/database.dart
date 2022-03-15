@@ -242,6 +242,94 @@ class DatabaseService {
     });
   }
 
+  Future<void> createChatRoom(
+      List<String> friendIds, String? name, int type) async {
+    await chatRoomCollection.add({
+      'createdAt': Timestamp.now(),
+      'createdBy': uid,
+      'participants': FieldValue.arrayUnion(friendIds),
+      'recentMsg': {
+        'messageText': "",
+        'sentAt': "",
+        'sentBy': "",
+      },
+      'roomId': "",
+      'roomName': name ?? "",
+      'roomPicture': "",
+      'type': type,
+    }).then((doc) async {
+      await doc.update({"roomId": doc.id});
+      await sendMessage(
+          doc.id,
+          friendIds.length > 1
+              ? "I have opened a group for us. Let us hang out now!"
+              : "I have accepted your friend request. Let us chat now!");
+    });
+  }
+
+  Future<void> addToFriendList(String otherSideId) async {
+    await userCollection.doc(uid).collection("friends").doc("friends").set({
+      "list": FieldValue.arrayUnion([otherSideId])
+    });
+  }
+
+  Future<void> removeFriend(String otherSideId) async {
+    await userCollection.doc(uid).collection("friends").doc("friends").set({
+      "list": FieldValue.arrayRemove([otherSideId])
+    });
+    // chat room created by otherSideId and current user as participants
+    var q1 = await chatRoomCollection
+        .where("createdBy", isEqualTo: otherSideId)
+        .where("participants", arrayContains: uid)
+        .where("type", isEqualTo: 1)
+        .get();
+    // chat room contains otherSideId and current user as the room creator
+    var q2 = await chatRoomCollection
+        .where(
+          "participants",
+          arrayContains: otherSideId,
+        )
+        .where("createdBy", isEqualTo: uid)
+        .where("type", isEqualTo: 1)
+        .get();
+    if (q1.size == 0) {
+      q2.docs.map((doc) {
+        String roomId = doc['roomId'];
+        chatRoomCollection.doc(roomId).delete();
+      });
+    } else {
+      q1.docs.map((doc) {
+        String roomId = doc['roomId'];
+        chatRoomCollection.doc(roomId).delete();
+      });
+    }
+  }
+
+  Future<void> sendFriendRequest(String otherSideId) async {
+    await userCollection
+        .doc(uid)
+        .collection("friend_requests")
+        .doc(otherSideId)
+        .set({});
+  }
+
+  Future<int> friendRequestAction(bool isAccepted, String otherSideId) async {
+    try {
+      await userCollection
+          .doc(uid)
+          .collection("friend_requests")
+          .doc(otherSideId)
+          .delete();
+      if (isAccepted) {
+        await createChatRoom([otherSideId], null, 1);
+        await addToFriendList(otherSideId);
+      }
+      return isAccepted ? 201 : 200;
+    } catch (e) {
+      return 400;
+    }
+  }
+
   //new user lesson and log data
   Future<void> buildUserLesson() async {
     ///Syllabus 1 Lesson 1
@@ -1502,7 +1590,7 @@ class DatabaseService {
 
   Stream<List<String>> get chatsId {
     return userCollection.doc(uid).snapshots().map((snapshot) {
-      return List.from(snapshot['groups']);
+      return List<String>.from(snapshot['groups']);
     });
   }
 
@@ -1535,8 +1623,10 @@ class DatabaseService {
   }
 
   Future<void> sendMessage(String roomId, String messageText) async {
-    await chatRoomCollection.doc(roomId).collection("messages").add(
+    // add messages to collection "messages", if collection not found will create one
+    await chatRoomCollection.doc(roomId).collection("messages").doc().set(
         {"messageText": messageText, "sentAt": Timestamp.now(), "sentBy": uid});
+    // update recent message field
     await chatRoomCollection.doc(roomId).update({
       "recentMsg": {
         "messageText": messageText,
