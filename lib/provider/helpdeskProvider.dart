@@ -8,7 +8,7 @@ var topicData = [
     "contentid": "#00001",
     "title": "Issue 1",
     "Content":
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum egestas, eros quis placerat ultricies, erat est finibus lorem, sit amet feugiat nulla nisi id risus. Nulla lacinia dolor maximus dolor lacinia maximus. Integer at urna in est consequat tincidunt a a lectus. Ut leo metus, tincidunt eget consequat sit amet, placerat porttitor nibh. Pellentesque ultricies, ex at tempus semper, ante magna pulvinar mauris, nec dapibus neque lectus a augue. Nam cursus hendrerit scelerisque. Ut molestie feugiat sem efficitur pellentesque. Nam euismod nibh ipsum, non sodales est tempor et. In eget facilisis lorem.",
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum egestas, eros quis placerat ultricies, erat est finibus lorem, sit amet feugiat nulla nisi id risus. Nulla lacinia dolor maximus dolor lacinia maximus. Integer at urna in est consequat tincidunt a a lectus. Ut leo metus, tincidunt eget consequat sit amet, placerat porttitor nibh. Pellentesque ultricies, ex at tempus semper, ante magna pulvinar mauris, nec dapibus neque lectus a augue. Nam cursus hendrerit scelerisque. Ut molestie feugiat sem efficitur pellentesque. Nam euismod nibh ipsum, non sodales est tempor et. In eget facilisis lorem.",
     "Author": "Author A",
     "readBy": 10,
     "likes": 5,
@@ -17,7 +17,7 @@ var topicData = [
     "contentid": "#00002",
     "title": "Issue 2",
     "Content":
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum egestas, eros quis placerat ultricies, erat est finibus lorem, sit amet feugiat nulla nisi id risus. Nulla lacinia dolor maximus dolor lacinia maximus. Integer at urna in est consequat tincidunt a a lectus. Ut leo metus, tincidunt eget consequat sit amet, placerat porttitor nibh. Pellentesque ultricies, ex at tempus semper, ante magna pulvinar mauris, nec dapibus neque lectus a augue. Nam cursus hendrerit scelerisque. Ut molestie feugiat sem efficitur pellentesque. Nam euismod nibh ipsum, non sodales est tempor et. In eget facilisis lorem.",
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum egestas, eros quis placerat ultricies, erat est finibus lorem, sit amet feugiat nulla nisi id risus. Nulla lacinia dolor maximus dolor lacinia maximus. Integer at urna in est consequat tincidunt a a lectus. Ut leo metus, tincidunt eget consequat sit amet, placerat porttitor nibh. Pellentesque ultricies, ex at tempus semper, ante magna pulvinar mauris, nec dapibus neque lectus a augue. Nam cursus hendrerit scelerisque. Ut molestie feugiat sem efficitur pellentesque. Nam euismod nibh ipsum, non sodales est tempor et. In eget facilisis lorem.",
     "Author": "Author B",
     "readBy": 7,
     "likes": 6,
@@ -26,7 +26,7 @@ var topicData = [
     "contentid": "#00003",
     "title": "Big Issue 1",
     "Content":
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum egestas, eros quis placerat ultricies, erat est finibus lorem, sit amet feugiat nulla nisi id risus. Nulla lacinia dolor maximus dolor lacinia maximus. Integer at urna in est consequat tincidunt a a lectus. Ut leo metus, tincidunt eget consequat sit amet, placerat porttitor nibh. Pellentesque ultricies, ex at tempus semper, ante magna pulvinar mauris, nec dapibus neque lectus a augue. Nam cursus hendrerit scelerisque. Ut molestie feugiat sem efficitur pellentesque. Nam euismod nibh ipsum, non sodales est tempor et. In eget facilisis lorem.",
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum egestas, eros quis placerat ultricies, erat est finibus lorem, sit amet feugiat nulla nisi id risus. Nulla lacinia dolor maximus dolor lacinia maximus. Integer at urna in est consequat tincidunt a a lectus. Ut leo metus, tincidunt eget consequat sit amet, placerat porttitor nibh. Pellentesque ultricies, ex at tempus semper, ante magna pulvinar mauris, nec dapibus neque lectus a augue. Nam cursus hendrerit scelerisque. Ut molestie feugiat sem efficitur pellentesque. Nam euismod nibh ipsum, non sodales est tempor et. In eget facilisis lorem.",
     "Author": "Author C",
     "readBy": 4,
     "likes": 4,
@@ -35,7 +35,7 @@ var topicData = [
     "contentid": "#00004",
     "title": "Big Issue 2",
     "Content":
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum egestas, eros quis placerat ultricies, erat est finibus lorem, sit amet feugiat nulla nisi id risus. Nulla lacinia dolor maximus dolor lacinia maximus. Integer at urna in est consequat tincidunt a a lectus. Ut leo metus, tincidunt eget consequat sit amet, placerat porttitor nibh. Pellentesque ultricies, ex at tempus semper, ante magna pulvinar mauris, nec dapibus neque lectus a augue. Nam cursus hendrerit scelerisque. Ut molestie feugiat sem efficitur pellentesque. Nam euismod nibh ipsum, non sodales est tempor et. In eget facilisis lorem.",
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum egestas, eros quis placerat ultricies, erat est finibus lorem, sit amet feugiat nulla nisi id risus. Nulla lacinia dolor maximus dolor lacinia maximus. Integer at urna in est consequat tincidunt a a lectus. Ut leo metus, tincidunt eget consequat sit amet, placerat porttitor nibh. Pellentesque ultricies, ex at tempus semper, ante magna pulvinar mauris, nec dapibus neque lectus a augue. Nam cursus hendrerit scelerisque. Ut molestie feugiat sem efficitur pellentesque. Nam euismod nibh ipsum, non sodales est tempor et. In eget facilisis lorem.",
     "Author": "Author C",
     "readBy": 5,
     "likes": 3,
@@ -44,7 +44,7 @@ var topicData = [
     "contentid": "#00005",
     "title": "Big Issue 3",
     "Content":
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum egestas, eros quis placerat ultricies, erat est finibus lorem, sit amet feugiat nulla nisi id risus. Nulla lacinia dolor maximus dolor lacinia maximus. Integer at urna in est consequat tincidunt a a lectus. Ut leo metus, tincidunt eget consequat sit amet, placerat porttitor nibh. Pellentesque ultricies, ex at tempus semper, ante magna pulvinar mauris, nec dapibus neque lectus a augue. Nam cursus hendrerit scelerisque. Ut molestie feugiat sem efficitur pellentesque. Nam euismod nibh ipsum, non sodales est tempor et. In eget facilisis lorem.",
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum egestas, eros quis placerat ultricies, erat est finibus lorem, sit amet feugiat nulla nisi id risus. Nulla lacinia dolor maximus dolor lacinia maximus. Integer at urna in est consequat tincidunt a a lectus. Ut leo metus, tincidunt eget consequat sit amet, placerat porttitor nibh. Pellentesque ultricies, ex at tempus semper, ante magna pulvinar mauris, nec dapibus neque lectus a augue. Nam cursus hendrerit scelerisque. Ut molestie feugiat sem efficitur pellentesque. Nam euismod nibh ipsum, non sodales est tempor et. In eget facilisis lorem.",
     "Author": "Author C",
     "readBy": 7,
     "likes": 1,
@@ -53,7 +53,7 @@ var topicData = [
     "contentid": "#00006",
     "title": "Small Issue 1",
     "Content":
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum egestas, eros quis placerat ultricies, erat est finibus lorem, sit amet feugiat nulla nisi id risus. Nulla lacinia dolor maximus dolor lacinia maximus. Integer at urna in est consequat tincidunt a a lectus. Ut leo metus, tincidunt eget consequat sit amet, placerat porttitor nibh. Pellentesque ultricies, ex at tempus semper, ante magna pulvinar mauris, nec dapibus neque lectus a augue. Nam cursus hendrerit scelerisque. Ut molestie feugiat sem efficitur pellentesque. Nam euismod nibh ipsum, non sodales est tempor et. In eget facilisis lorem.",
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum egestas, eros quis placerat ultricies, erat est finibus lorem, sit amet feugiat nulla nisi id risus. Nulla lacinia dolor maximus dolor lacinia maximus. Integer at urna in est consequat tincidunt a a lectus. Ut leo metus, tincidunt eget consequat sit amet, placerat porttitor nibh. Pellentesque ultricies, ex at tempus semper, ante magna pulvinar mauris, nec dapibus neque lectus a augue. Nam cursus hendrerit scelerisque. Ut molestie feugiat sem efficitur pellentesque. Nam euismod nibh ipsum, non sodales est tempor et. In eget facilisis lorem.",
     "Author": "Author A",
     "readBy": 7,
     "likes": 0,
@@ -104,16 +104,16 @@ class HelpDeskProvider extends ChangeNotifier {
     else {
       _suggestions = _topicList
           .map((e) {
-            if (e.title.toUpperCase().startsWith(_queryText.toUpperCase())) {
-              return e;
-            } else if (e.content
-                .toUpperCase()
-                .contains(_queryText.toUpperCase())) {
-              return e;
-            } else {
-              return TopicModel(title: "", content: "", author: "", score: 0);
-            }
-          })
+        if (e.title.toUpperCase().startsWith(_queryText.toUpperCase())) {
+          return e;
+        } else if (e.content
+            .toUpperCase()
+            .contains(_queryText.toUpperCase())) {
+          return e;
+        } else {
+          return TopicModel(title: "", content: "", author: "", score: 0);
+        }
+      })
           .toList()
           .cast<TopicModel>();
       _suggestions.removeWhere((element) => element.title == "");

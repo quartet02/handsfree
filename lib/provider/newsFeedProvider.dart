@@ -5,12 +5,12 @@ class NewsFeedProvider with ChangeNotifier {
   List<NewsFeedModel> newsFeeds = newsFeedData
       .map(
         (item) => NewsFeedModel(
-          item['newsFeedId'],
-          item['newsFeedTitle'] ?? "",
-          item['newsFeedDesc'] ?? "",
-          item['newsFeedImages'] ?? "",
-        ),
-      )
+      item['newsFeedId'],
+      item['newsFeedTitle'] ?? "",
+      item['newsFeedDesc'] ?? "",
+      item['newsFeedImages'] ?? "",
+    ),
+  )
       .toList();
 
   List<NewsFeedModel> get cardDetails {

@@ -17,7 +17,7 @@ class SignIn extends StatefulWidget {
 
 class _SignInState extends State<SignIn> {
   final AuthService _auth = AuthService();
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final repasswordController = TextEditingController();
@@ -81,7 +81,7 @@ class _SignInState extends State<SignIn> {
                           // and use it to show a SnackBar.
                           ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         } else {
-                          Navigator.pushReplacementNamed(context, '/social');
+                          Navigator.pushReplacementNamed(context, '/home');
                         }
                       }
                     },

@@ -12,10 +12,10 @@ class buildButton extends StatelessWidget {
 
   buildButton(
       {required this.text,
-      required this.word,
-      required this.buttonColor,
-      this.buttonShadow = kButtonShadow,
-      this.isSignOut = false});
+        required this.word,
+        required this.buttonColor,
+        this.buttonShadow = kButtonShadow,
+        this.isSignOut = false});
 
   void navigate(BuildContext context, String word) {
     if (isSignOut) {

@@ -39,12 +39,12 @@ class CommunityProvider with ChangeNotifier {
   List<CommunityModel> communities = communityData
       .map(
         (item) => CommunityModel(
-          item['id'],
-          item['communityTitle'] ?? "",
-          item['communityDesc'] ?? "",
-          item['images'] ?? "",
-        ),
-      )
+      item['id'],
+      item['communityTitle'] ?? "",
+      item['communityDesc'] ?? "",
+      item['images'] ?? "",
+    ),
+  )
       .toList();
 
   List<CommunityModel> get cardDetails {

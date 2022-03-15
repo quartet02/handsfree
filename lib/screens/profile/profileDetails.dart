@@ -4,9 +4,8 @@ class ProfileDetails {
 
   ProfileDetails(
       {required this.imageUrl,
-      required this.username,
-      required this.email,
-      required this.experience});
+        required this.username,
+        required this.email,
+        required this.experience});
 }
-
 

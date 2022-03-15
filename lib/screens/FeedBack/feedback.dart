@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:handsfree/screens/FeedBack/feedbackIntroCard.dart';
 import 'package:handsfree/screens/FeedBack/getInTouch.dart';
 import 'package:handsfree/widgets/breaker.dart';
-import 'package:handsfree/widgets/buildButton.dart';
 import 'package:handsfree/widgets/buildText.dart';
 
 class FeedBack extends StatelessWidget {
@@ -60,9 +58,6 @@ class FeedBack extends StatelessWidget {
                         Breaker(i: 30),
                         const FeedbackIntroCard(),
                         const GetInTouchForm(),
-                        Breaker(i: 30),
-                        buildButton(
-                            text: "Send", word: "/home", buttonColor: "purple"),
                       ],
                     ),
                   ),

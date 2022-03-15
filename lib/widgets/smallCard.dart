@@ -12,10 +12,10 @@ class SmallCard extends StatelessWidget {
 
   SmallCard(
       {required this.id,
-      required this.communitySize,
-      required this.communityImage,
-      required this.communityTitle,
-      required this.communityDesc});
+        required this.communitySize,
+        required this.communityImage,
+        required this.communityTitle,
+        required this.communityDesc});
 
   @override
   Widget build(BuildContext context) {

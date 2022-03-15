@@ -3,6 +3,7 @@ import 'package:handsfree/provider/dictionaryProvider.dart';
 import 'package:handsfree/provider/friendsProvider.dart';
 import 'package:handsfree/provider/helpdeskProvider.dart';
 import 'package:handsfree/screens/settings/helpdesk.dart';
+import 'package:handsfree/screens/dictionary/translator.dart';
 import 'package:provider/provider.dart';
 import '../../widgets/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -85,6 +86,25 @@ class _SearchBarState extends State<SearchBar> {
             userQuery = context.read<DictionaryProvider>();
           }
           userQuery.query = txt;
+        },
+        onFieldSubmitted: (txt){
+          final provider = context.read<DictionaryProvider>();
+          List? wordData = provider.wordData;
+          for(Map each in wordData!){
+            if(each['word'] == txt){
+              Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (context) => Translator(each['word'], each['definition'], each['phoneticSymbol'], each['imgUrl']),
+                  maintainState: false)
+              );
+              break;
+            }
+            else{
+              Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (context) => Translator('Unknown', 'Unknown', 'Unknown', 'Unknown'),
+                  maintainState: false)
+              );
+            }
+          }
         },
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),

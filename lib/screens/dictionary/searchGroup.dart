@@ -27,8 +27,8 @@ class SearchGroup extends StatelessWidget {
             height: dict.suggestion.length == 1
                 ? 95
                 : dict.suggestion.length <= 4
-                    ? 102 + (dict.suggestion.length - 1) * 50
-                    : 110 + 3 * 50,
+                ? 102 + (dict.suggestion.length - 1) * 50
+                : 110 + 3 * 50,
             child: ListView.builder(
               physics: BouncingScrollPhysics(),
               itemCount: dict.suggestion.length,

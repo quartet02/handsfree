@@ -20,7 +20,7 @@ class Acknowledgement extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.only(left: 40, bottom: 5, right: 40),
           margin:
-              EdgeInsets.only(top: MediaQuery.of(context).size.height / 7.5),
+          EdgeInsets.only(top: MediaQuery.of(context).size.height / 7.5),
           child: Column(
             children: [
               buildText.bigTitle("Acknowledgement"),

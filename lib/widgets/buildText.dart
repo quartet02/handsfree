@@ -24,13 +24,13 @@ class buildText extends StatelessWidget {
   }
 
   static Widget textBox(
-    String text,
-    double spacing,
-    double size,
-    FontWeight weight, [
-    TextAlign textAlignment = TextAlign.start,
-    Color colour = kTextLight,
-  ]) {
+      String text,
+      double spacing,
+      double size,
+      FontWeight weight, [
+        TextAlign textAlignment = TextAlign.start,
+        Color colour = kTextLight,
+      ]) {
     return Text(text,
         style: GoogleFonts.montserrat(
           letterSpacing: spacing,
