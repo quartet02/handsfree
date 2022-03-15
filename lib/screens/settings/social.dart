@@ -248,7 +248,6 @@ class _SocialState extends State<Social> {
                               GestureDetector(
                                 onTap: () async {
                                   //check index and go the the respective place
-                                  Navigator.pushNamed(context, "/news");
                                 },
                                 child: Container(
                                   width: 40,

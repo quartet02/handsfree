@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:handsfree/provider/communityProvider.dart';
-import 'package:handsfree/provider/helpdeskProvider.dart';
-import 'package:handsfree/provider/lessonCardProvider.dart';
-import 'package:handsfree/provider/newsFeedProvider.dart';
 import 'package:handsfree/provider/helpdeskProvider.dart';
 import 'package:handsfree/provider/lessonCardProvider.dart';
 import 'package:handsfree/provider/subLessonProvider.dart';
@@ -20,7 +16,6 @@ import 'package:handsfree/screens/learn/congrats.dart';
 import 'package:handsfree/screens/learn/learn.dart';
 import 'package:handsfree/screens/learn/mainLearningPage.dart';
 import 'package:handsfree/screens/learn/subLesson.dart';
-import 'package:handsfree/screens/news/news.dart';
 import 'package:handsfree/screens/profile/profile.dart';
 import 'package:handsfree/screens/profile/acknowledgement.dart';
 import 'package:handsfree/screens/settings/helpdesk.dart';
@@ -28,7 +23,6 @@ import 'package:handsfree/screens/settings/settings.dart';
 import 'package:handsfree/screens/settings/social.dart';
 import 'package:handsfree/screens/settings/terms.dart';
 import 'package:handsfree/screens/wrapper.dart';
-import 'package:handsfree/services/ShPref.dart';
 import 'package:handsfree/services/auth.dart';
 import 'package:handsfree/provider/lessonProvider.dart';
 import 'package:handsfree/widgets/userPreference.dart';
@@ -52,32 +46,15 @@ void main() async {
       child: const MyApp(),
       providers: [
         ChangeNotifierProvider<LessonProvider>(create: (_) => LessonProvider()),
-        ChangeNotifierProvider<SubLessonProvider>(create: (_) => SubLessonProvider()),
-        ChangeNotifierProvider<LessonCardProvider>(create: (_) => LessonCardProvider()),
-        ChangeNotifierProvider<HelpDeskProvider>(create: (_) => HelpDeskProvider()),
-        ChangeNotifierProvider<CommunityProvider>(create: (_) => CommunityProvider()),
-        ChangeNotifierProvider<NewsFeedProvider>(create: (_) => NewsFeedProvider()),
-        ChangeNotifierProvider<LessonCardProvider>(create: (_) => LessonCardProvider()),
+        ChangeNotifierProvider<SubLessonProvider>(
+            create: (_) => SubLessonProvider()),
+        ChangeNotifierProvider<HelpDeskProvider>(
+            create: (_) => HelpDeskProvider()),
+        ChangeNotifierProvider<LessonCardProvider>(
+            create: (_) => LessonCardProvider()),
       ],
     ),
   );
-// =======
-//   runApp(MultiProvider(child: const MyApp(), providers: [
-//     ChangeNotifierProvider<LessonProvider>(create: (_) => LessonProvider()),
-//     ChangeNotifierProvider<SubLessonProvider>(
-//         create: (_) => SubLessonProvider()),
-//     ChangeNotifierProvider<LessonCardProvider>(
-//         create: (_) => LessonCardProvider()),
-//   ]));
-//   // runApp(ChangeNotifierProvider<LessonProvider>(
-//   //   create: (_) => LessonProvider(),
-//   //   child: const MyApp(),
-//   // ));
-//   //
-//   // await UserSimplePreferences.init();
-//   //
-//   // runApp(const MyApp());
-// >>>>>>> Stashed changes
 }
 
 ThemeManager _themeManager = ThemeManager();
@@ -112,10 +89,9 @@ class MyApp extends StatelessWidget {
           "/terms": (context) => Terms(),
           "/mainLearningPage": (context) => const MainLearningPage(),
           "/congratulation": (context) => const Congratulation(),
-          // "/translator": (context) => const Translator(),
+          "/translator": (context) => const Translator(),
           "/helpCenter": (context) => const HelpDesk(),
           "/feedback": (context) => const FeedBack(),
-          "/news": (context) => const News(),
           "/chatHome": (context) => ChatHome(),
           "/chatHome/chat": (context) => Chat(),
         },

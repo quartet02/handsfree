@@ -1,7 +1,5 @@
 import 'package:async/async.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:handsfree/models/communityModel.dart';
-import 'package:handsfree/models/newsFeedModel.dart';
 import 'package:handsfree/models/chatModel.dart';
 import 'package:handsfree/models/friendsModel.dart';
 import 'package:handsfree/models/lessonCardModel.dart';
@@ -61,8 +59,6 @@ class DatabaseService {
       return;
     }
   }
-  Future updateIsCompletedSubLesson(String syllabus, String lesson, String subLessonId){
-    return userCollection.doc(uid).collection('lessons').doc(syllabus).collection(lesson).doc(subLessonId).update({
 
   Future updateIsCompletedSubLesson(
       String syllabus, String lesson, String subLessonId) {
@@ -199,7 +195,6 @@ class DatabaseService {
     ///login on saturday, skip sunday, login on monday
     ///duration more than 7 days
     ///on same date(Friday and Friday, but different week)
-    activityLog[now.weekday<7 ? now.weekday:0] = true;
     if (now.weekday == 7 ||
         (now.weekday < last.weekday && last.weekday != 7) ||
         days >= 7 ||
@@ -1385,46 +1380,8 @@ class DatabaseService {
       "name": name,
     });
   }
+
   ///To Feedback Collection
-      
-  ///From Community Collection
-  List<CommunityModel_1>? _communityListFromSnapshot(QuerySnapshot snapshot){
-    return snapshot.docs.map((doc){
-      return CommunityModel_1(
-          content: doc['content'],
-          media: doc['media'],
-          participant: List.from(doc['participant']),
-          title: doc['title']
-      );
-    }).toList();
-  }
-
-  Stream<List<CommunityModel_1>?> get communityList{
-    return newsCollection.snapshots()
-        .map(_communityListFromSnapshot);
-  }
-  ///To Community Collection
-
-  ///From News Collection
-  List<NewsFeedModel_1>? _newsListFromSnapshot(QuerySnapshot snapshot){
-    return snapshot.docs.map((doc){
-
-      return NewsFeedModel_1(
-          author: doc['author'],
-          content: doc['content'],
-          media: doc['media'],
-          timestamp: doc['timestamp'],
-          title: doc['title']
-      );
-    }).toList();
-  }
-
-  Stream<List<NewsFeedModel_1>?> get newsList{
-    return newsCollection.snapshots()
-        .map(_newsListFromSnapshot);
-  }
-  ///To News Collection
-
   ///Normal methods....
   double daysBetween(DateTime from, DateTime to) {
     from = DateTime(from.year, from.month, from.day);
@@ -1477,12 +1434,6 @@ class DatabaseService {
   }
 
   // get user stream
-  Stream<List<Users>?> get users{
-    Stream<List<Users>?> x = userCollection.snapshots()
-        .map(_userListFromSnapshot);
-    return x;
-  }
-
   Stream<List<Users>?> get users {
     Stream<List<Users>?> x =
         userCollection.snapshots().map(_userListFromSnapshot);
@@ -1573,7 +1524,6 @@ class DatabaseService {
       );
     }).toList();
   }
-
 
   Stream<List<Messages>> messages(String roomId) {
     return chatRoomCollection

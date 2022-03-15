@@ -3,12 +3,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class ExperienceCard extends StatelessWidget {
-  ExperienceCard({Key? key, required this.title, required this.lvl, required this.currentExp}) : super(key: key);
+  const ExperienceCard({Key? key, required this.title, required this.lvl, required this.currentExp}) : super(key: key);
 
   final String title;
   final String lvl;
   static const double maximumExp = 100;
-  final int currentExp;
+  final double currentExp;
 
   @override
   Widget build(BuildContext context) {

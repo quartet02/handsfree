@@ -14,39 +14,19 @@ class SubLessonProvider with ChangeNotifier {
       )
       .toList();
 
-  String syllabus = 'Unknown';
-
-  String get getSyllabus{
-    return syllabus;
-  }
-
-  void setSyllabus(String newSyllabus){
-    syllabus = newSyllabus;
-  }
-
   List<LessonModel> get subLessonDetails {
     return [...subLessons];
   }
 
   LessonModel _clickedSubLesson = LessonModel(
-
       lessonId: 000,
       lessonName: "bruh",
       lessonDesc: "wa",
       lessonImage: "",
       isCompleted: false);
- 
-  void setSubLessons (List<LessonModel>? newSubLessons){
-    subLessons = newSubLessons!;
-  }
 
   void setClickLesson(LessonModel newClickedSubLesson) {
     _clickedSubLesson = newClickedSubLesson;
-    notifyListeners();
-  }
-
-  void setSubLessonData(List<Map<String, dynamic>> newSubLessonData){
-    subLessonData = newSubLessonData;
     notifyListeners();
   }
 
@@ -55,7 +35,7 @@ class SubLessonProvider with ChangeNotifier {
   }
 }
 
-List<Map<String, dynamic>> subLessonData = [
+var subLessonData = [
   {
     "lessonId": 001,
     "lessonName": "sub Lesson 1",

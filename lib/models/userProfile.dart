@@ -1,5 +1,4 @@
-class Users{
-
+class Users {
   final String name;
   final int experience;
   final String phoneNumber;
