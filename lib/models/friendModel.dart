@@ -9,10 +9,10 @@ List<friendsModel> get friends {
   return friendData
       .map(
         (item) => friendsModel(
-          item['lessonName'] ?? "",
-          item['images'] ?? "",
-        ),
-      )
+      item['lessonName'] ?? "",
+      item['images'] ?? "",
+    ),
+  )
       .toList();
 }
 

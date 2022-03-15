@@ -6,6 +6,8 @@ import 'package:handsfree/widgets/constants.dart';
 import 'package:handsfree/widgets/buildText.dart';
 import 'package:handsfree/widgets/buildTextBox.dart';
 
+import '../learn/learn.dart';
+
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
 
@@ -15,7 +17,7 @@ class SignIn extends StatefulWidget {
 
 class _SignInState extends State<SignIn> {
   final AuthService _auth = AuthService();
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final repasswordController = TextEditingController();
@@ -67,8 +69,8 @@ class _SignInState extends State<SignIn> {
                     onTap: () async {
                       if (true) {
                         dynamic results =
-                            await _auth.signInWithEmailAndPassword(
-                                emailController.text, passwordController.text);
+                        await _auth.signInWithEmailAndPassword(
+                            emailController.text, passwordController.text);
                         if (results[0] == 1) {
                           // login fail
                           var snackBar = SnackBar(
@@ -79,7 +81,7 @@ class _SignInState extends State<SignIn> {
                           // and use it to show a SnackBar.
                           ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         } else {
-                          Navigator.pushReplacementNamed(context, '/chatHome');
+                          Navigator.pushReplacementNamed(context, '/home');
                         }
                       }
                     },
@@ -90,7 +92,7 @@ class _SignInState extends State<SignIn> {
                             width: 200,
                             decoration: const BoxDecoration(
                                 borderRadius:
-                                    BorderRadius.all(Radius.circular(20)),
+                                BorderRadius.all(Radius.circular(20)),
                                 boxShadow: [
                                   BoxShadow(
                                     color: kButtonShadow,

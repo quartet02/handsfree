@@ -25,7 +25,7 @@ class Overlays extends StatelessWidget {
                 height: MediaQuery.of(context).size.height / 1.2,
                 width: MediaQuery.of(context).size.width,
                 decoration:
-                    BoxDecoration(color: Colors.grey.shade200.withOpacity(0.5)),
+                BoxDecoration(color: Colors.grey.shade200.withOpacity(0.5)),
                 child: GestureDetector(
                   onTap: () {
                     dismissMenu();
@@ -62,7 +62,7 @@ class Overlays extends StatelessWidget {
                               margin: EdgeInsets.symmetric(horizontal: 20),
                               decoration: BoxDecoration(
                                 borderRadius:
-                                    const BorderRadius.all(Radius.circular(20)),
+                                const BorderRadius.all(Radius.circular(20)),
                                 image: DecorationImage(
                                   alignment: Alignment.center,
                                   image: AssetImage(image),

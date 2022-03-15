@@ -5,13 +5,13 @@ class LessonProvider with ChangeNotifier {
   List<LessonModel> lessons = lessonData
       .map(
         (item) => LessonModel(
-          lessonId: item['lessonId'],
-          lessonName: item['lessonName'] ?? "",
-          lessonDesc: item['lessonDesc'] ?? "",
-          lessonImage: item['lessonImage'] ?? "",
-          isCompleted: item['isCompleted'] ?? "",
-        ),
-      )
+      lessonId: item['lessonId'],
+      lessonName: item['lessonName'] ?? "",
+      lessonDesc: item['lessonDesc'] ?? "",
+      lessonImage: item['lessonImage'] ?? "",
+      isCompleted: item['isCompleted'] ?? "",
+    ),
+  )
       .toList();
 
   List<LessonModel> get lessonDetails {
@@ -24,6 +24,10 @@ class LessonProvider with ChangeNotifier {
       lessonDesc: "wa",
       lessonImage: "",
       isCompleted: false);
+
+  void setLessons (List<LessonModel> newLessons){
+    lessons = newLessons;
+  }
 
   void setClickLesson(LessonModel newClickedLesson) {
     _clickedLesson = newClickedLesson;
@@ -39,19 +43,19 @@ var lessonData = [
   {
     "lessonId": 001,
     "lessonName": "Lesson 1",
-    "lessonDesc": "haha",
+    "lessonDesc": "Alphabet",
     "lessonImage": "assets/image/lesson_1_thumbnail.png",
   },
   {
     "lessonId": 002,
     "lessonName": "Lesson 2",
-    "lessonDesc": "haha1231231",
+    "lessonDesc": "Basic Sign",
     "lessonImage": 'assets/image/lesson_2_thumbnail.png',
   },
   {
     "lessonId": 003,
     "lessonName": "Lesson 3",
-    "lessonDesc": "haha43253246",
+    "lessonDesc": "Assignment",
     "lessonImage": 'assets/image/assignment_1_thumbnail.png',
   },
   {

@@ -7,12 +7,12 @@ class LessonCardProvider with ChangeNotifier {
   List<LessonCardModel> cardLessons = lessonCardData
       .map(
         (item) => LessonCardModel(
-          lessonCardId: item['lessonCardId'],
-          lessonCardTitle: item['lessonCardTitle'] ?? "",
-          lessonCardDesc: item['lessonCardDesc'] ?? "",
-          lessonCardImage: item['lessonCardImage'] ?? "",
-        ),
-      )
+      lessonCardId: item['lessonCardId'],
+      lessonCardTitle: item['lessonCardTitle'] ?? "",
+      lessonCardDesc: item['lessonCardDesc'] ?? "",
+      lessonCardImage: item['lessonCardImage'] ?? "",
+    ),
+  )
       .toList();
 
   LessonCardModel _clickedCardLesson = LessonCardModel(
@@ -30,6 +30,15 @@ class LessonCardProvider with ChangeNotifier {
     return _clickedCardLesson;
   }
 
+  void setLessonCardData(List<Map<String, dynamic>> newLessonCardData) {
+    lessonCardData = newLessonCardData;
+    notifyListeners();
+  }
+
+  void setCardLessons(List<LessonCardModel> lessonCard) {
+    cardLessons = lessonCard;
+  }
+
   void increment() {
     index++;
     notifyListeners();
@@ -40,7 +49,7 @@ class LessonCardProvider with ChangeNotifier {
   }
 }
 
-var lessonCardData = [
+List<Map<String, dynamic>> lessonCardData = [
   {
     "lessonCardId": 001,
     "lessonCardTitle": "Hello",

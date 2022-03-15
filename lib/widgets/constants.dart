@@ -35,6 +35,18 @@ const kTextShadow = Color.fromARGB(255, 179, 197, 234);
 const kTextFieldText = Color.fromARGB(255, 121, 131, 151);
 const kText = Color.fromARGB(255, 29, 40, 64);
 
+const textInputDecoration = InputDecoration(
+  fillColor: Colors.white,
+  filled: true,
+  contentPadding: EdgeInsets.all(12.0),
+  enabledBorder: OutlineInputBorder(
+    borderSide: BorderSide(color: Colors.white, width: 2.0),
+  ),
+  focusedBorder: OutlineInputBorder(
+    borderSide: BorderSide(color: Colors.pink, width: 2.0),
+  ),
+);
+
 enum PadPos {
   top,
   right,

@@ -43,7 +43,7 @@ class _SocialState extends State<Social> {
               alignment: Alignment.center,
               padding: const EdgeInsets.only(left: 45, bottom: 5, right: 46),
               margin:
-                  EdgeInsets.only(top: MediaQuery.of(context).size.height / 10),
+              EdgeInsets.only(top: MediaQuery.of(context).size.height / 10),
               child: Column(
                 children: [
                   buildText.bigTitle("Social"),
@@ -130,7 +130,7 @@ class _SocialState extends State<Social> {
                                     itemBuilder: (context, index) {
                                       return Container(
                                           margin:
-                                              const EdgeInsets.only(right: 10),
+                                          const EdgeInsets.only(right: 10),
                                           height: friendSize,
                                           width: friendSize,
                                           decoration: const BoxDecoration(
@@ -159,7 +159,7 @@ class _SocialState extends State<Social> {
                                                 height: 15,
                                                 width: friendSize,
                                                 alignment:
-                                                    Alignment.bottomCenter,
+                                                Alignment.bottomCenter,
                                                 child: buildText.heading4Text(
                                                     friends[index].friendName),
                                               ),
@@ -217,27 +217,27 @@ class _SocialState extends State<Social> {
                             child: Container(
                               child: Consumer<CommunityProvider>(
                                   builder: (context, card, child) {
-                                return Container(
-                                    width: MediaQuery.of(context).size.width,
-                                    height: coumminitySize + 100,
-                                    child: ListView.builder(
-                                        physics: const BouncingScrollPhysics(),
-                                        scrollDirection: Axis.horizontal,
-                                        itemCount: 5,
-                                        itemBuilder: (context, index) {
-                                          return SmallCard(
-                                              id: card.cardDetails[index].id,
-                                              communitySize: coumminitySize,
-                                              communityImage: card
-                                                  .cardDetails[index].images,
-                                              communityTitle: card
-                                                  .cardDetails[index]
-                                                  .communityTitle,
-                                              communityDesc: card
-                                                  .cardDetails[index]
-                                                  .communityDesc);
-                                        }));
-                              }),
+                                    return Container(
+                                        width: MediaQuery.of(context).size.width,
+                                        height: coumminitySize + 100,
+                                        child: ListView.builder(
+                                            physics: const BouncingScrollPhysics(),
+                                            scrollDirection: Axis.horizontal,
+                                            itemCount: 5,
+                                            itemBuilder: (context, index) {
+                                              return SmallCard(
+                                                  id: card.cardDetails[index].id,
+                                                  communitySize: coumminitySize,
+                                                  communityImage: card
+                                                      .cardDetails[index].images,
+                                                  communityTitle: card
+                                                      .cardDetails[index]
+                                                      .communityTitle,
+                                                  communityDesc: card
+                                                      .cardDetails[index]
+                                                      .communityDesc);
+                                            }));
+                                  }),
                             ),
                           ),
                           //News Feed
@@ -248,6 +248,7 @@ class _SocialState extends State<Social> {
                               GestureDetector(
                                 onTap: () async {
                                   //check index and go the the respective place
+                                  Navigator.pushNamed(context, "/news");
                                 },
                                 child: Container(
                                   width: 40,
@@ -288,28 +289,28 @@ class _SocialState extends State<Social> {
                             child: Container(
                               child: Consumer<NewsFeedProvider>(
                                   builder: (context, news, child) {
-                                return Container(
-                                    width: MediaQuery.of(context).size.width,
-                                    height: coumminitySize + 100,
-                                    child: ListView.builder(
-                                        physics: const BouncingScrollPhysics(),
-                                        scrollDirection: Axis.horizontal,
-                                        itemCount: 5,
-                                        itemBuilder: (context, index) {
-                                          return SmallCard(
-                                              id: news.cardDetails[index].id,
-                                              communitySize: coumminitySize,
-                                              communityImage: news
-                                                  .cardDetails[index]
-                                                  .newsFeedImages,
-                                              communityTitle: news
-                                                  .cardDetails[index]
-                                                  .newsFeedTitle,
-                                              communityDesc: news
-                                                  .cardDetails[index]
-                                                  .newsFeedDesc);
-                                        }));
-                              }),
+                                    return Container(
+                                        width: MediaQuery.of(context).size.width,
+                                        height: coumminitySize + 100,
+                                        child: ListView.builder(
+                                            physics: const BouncingScrollPhysics(),
+                                            scrollDirection: Axis.horizontal,
+                                            itemCount: 5,
+                                            itemBuilder: (context, index) {
+                                              return SmallCard(
+                                                  id: news.cardDetails[index].id,
+                                                  communitySize: coumminitySize,
+                                                  communityImage: news
+                                                      .cardDetails[index]
+                                                      .newsFeedImages,
+                                                  communityTitle: news
+                                                      .cardDetails[index]
+                                                      .newsFeedTitle,
+                                                  communityDesc: news
+                                                      .cardDetails[index]
+                                                      .newsFeedDesc);
+                                            }));
+                                  }),
                             ),
                           ),
                         ],
@@ -320,7 +321,7 @@ class _SocialState extends State<Social> {
               )),
         ),
         floatingActionButton:
-            isVisible ? const SizedBox() : NavBar.Buttons(context),
+        isVisible ? const SizedBox() : NavBar.Buttons(context),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         extendBody: true,
         bottomNavigationBar: NavBar.bar(context, 3),

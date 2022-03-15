@@ -7,8 +7,16 @@ class LessonModel {
 
   LessonModel(
       {required this.lessonId,
-      required this.lessonName,
-      required this.lessonDesc,
-      required this.lessonImage,
-      required this.isCompleted});
+        required this.lessonName,
+        required this.lessonDesc,
+        required this.lessonImage,
+        required this.isCompleted});
+}
+
+class isCompletedModel{
+  final isCompletedList;
+
+  isCompletedModel({
+    this.isCompletedList,
+  });
 }

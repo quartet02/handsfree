@@ -5,28 +5,48 @@ class SubLessonProvider with ChangeNotifier {
   List<LessonModel> subLessons = subLessonData
       .map(
         (item) => LessonModel(
-          lessonId: item['lessonId'],
-          lessonName: item['lessonName'] ?? "",
-          lessonDesc: item['lessonDesc'] ?? "",
-          lessonImage: item['lessonImage'] ?? "",
-          isCompleted: item['isCompleted'] ?? "",
-        ),
-      )
+      lessonId: item['lessonId'],
+      lessonName: item['lessonName'] ?? "",
+      lessonDesc: item['lessonDesc'] ?? "",
+      lessonImage: item['lessonImage'] ?? "",
+      isCompleted: item['isCompleted'] ?? "",
+    ),
+  )
       .toList();
+
+  String syllabus = 'Unknown';
+
+  String get getSyllabus{
+    return syllabus;
+  }
+
+  void setSyllabus(String newSyllabus){
+    syllabus = newSyllabus;
+  }
 
   List<LessonModel> get subLessonDetails {
     return [...subLessons];
   }
 
   LessonModel _clickedSubLesson = LessonModel(
+
       lessonId: 000,
       lessonName: "bruh",
       lessonDesc: "wa",
       lessonImage: "",
       isCompleted: false);
 
+  void setSubLessons (List<LessonModel>? newSubLessons){
+    subLessons = newSubLessons!;
+  }
+
   void setClickLesson(LessonModel newClickedSubLesson) {
     _clickedSubLesson = newClickedSubLesson;
+    notifyListeners();
+  }
+
+  void setSubLessonData(List<Map<String, dynamic>> newSubLessonData){
+    subLessonData = newSubLessonData;
     notifyListeners();
   }
 
@@ -35,7 +55,7 @@ class SubLessonProvider with ChangeNotifier {
   }
 }
 
-var subLessonData = [
+List<Map<String, dynamic>> subLessonData = [
   {
     "lessonId": 001,
     "lessonName": "sub Lesson 1",

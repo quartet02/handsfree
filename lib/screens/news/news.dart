@@ -99,4 +99,3 @@ class _NewsState extends State<News> {
     );
   }
 }
-
