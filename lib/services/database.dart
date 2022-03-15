@@ -61,8 +61,6 @@ class DatabaseService {
       return;
     }
   }
-  Future updateIsCompletedSubLesson(String syllabus, String lesson, String subLessonId){
-    return userCollection.doc(uid).collection('lessons').doc(syllabus).collection(lesson).doc(subLessonId).update({
 
   Future updateIsCompletedSubLesson(
       String syllabus, String lesson, String subLessonId) {
@@ -1477,12 +1475,6 @@ class DatabaseService {
   }
 
   // get user stream
-  Stream<List<Users>?> get users{
-    Stream<List<Users>?> x = userCollection.snapshots()
-        .map(_userListFromSnapshot);
-    return x;
-  }
-
   Stream<List<Users>?> get users {
     Stream<List<Users>?> x =
         userCollection.snapshots().map(_userListFromSnapshot);
@@ -1535,7 +1527,7 @@ class DatabaseService {
         .map(_singleUserFromSnapshot);
   }
 
-  Stream<List<Users>?> friends(List<String> friendIds) {
+  Stream<List<Users>?> friends(List<dynamic> friendIds) {
     return userCollection
         .where("uid", whereIn: friendIds)
         .snapshots()
