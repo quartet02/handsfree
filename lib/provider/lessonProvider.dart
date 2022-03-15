@@ -24,10 +24,6 @@ class LessonProvider with ChangeNotifier {
       lessonDesc: "wa",
       lessonImage: "",
       isCompleted: false);
-  
-  void setLessons (List<LessonModel> newLessons){
-    lessons = newLessons;
-  }
 
   void setClickLesson(LessonModel newClickedLesson) {
     _clickedLesson = newClickedLesson;
@@ -43,19 +39,19 @@ var lessonData = [
   {
     "lessonId": 001,
     "lessonName": "Lesson 1",
-    "lessonDesc": "Alphabet",
+    "lessonDesc": "haha",
     "lessonImage": "assets/image/lesson_1_thumbnail.png",
   },
   {
     "lessonId": 002,
     "lessonName": "Lesson 2",
-    "lessonDesc": "Basic Sign",
+    "lessonDesc": "haha1231231",
     "lessonImage": 'assets/image/lesson_2_thumbnail.png',
   },
   {
     "lessonId": 003,
     "lessonName": "Lesson 3",
-    "lessonDesc": "Assignment",
+    "lessonDesc": "haha43253246",
     "lessonImage": 'assets/image/assignment_1_thumbnail.png',
   },
   {

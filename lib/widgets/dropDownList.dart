@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:handsfree/widgets/buildText.dart';
 import 'package:handsfree/widgets/constants.dart';
 
-String? _selected;
-
 class CustomDropDown extends StatefulWidget {
   const CustomDropDown(
     this.items,
@@ -28,14 +26,12 @@ class CustomDropDown extends StatefulWidget {
   final int? maxLine;
   final Widget hintText;
 
-  String? get getSelected{
-    return _selected;
-  }
   @override
   _CustomDropDownState createState() => _CustomDropDownState();
 }
 
 class _CustomDropDownState extends State<CustomDropDown> {
+  String? selected;
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +56,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
       child: DropdownButtonHideUnderline(
         child: DropdownButton<String>(
           hint: widget.hintText,
-          value: _selected,
+          value: selected,
           items: widget.items
               .map(((e) => DropdownMenuItem<String>(
                     child: buildText.textBox(e as String, 0.5, 14,
@@ -70,7 +66,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
               .toList(),
           onChanged: (val) {
             setState(() {
-              _selected = val;
+              selected = val;
             });
           },
           isExpanded: true,

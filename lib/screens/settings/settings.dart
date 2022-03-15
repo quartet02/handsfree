@@ -1,15 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:handsfree/services/database.dart';
 import 'package:handsfree/services/auth.dart';
 import 'package:handsfree/widgets/buildButton.dart';
 import 'package:handsfree/widgets/buildText.dart';
 import 'package:handsfree/widgets/buildTextBox.dart';
 import 'package:handsfree/widgets/constants.dart';
-import 'package:provider/provider.dart';
-
-import '../../models/newUser.dart';
-import '../../widgets/loadingWholeScreen.dart';
 
 class Settings extends StatefulWidget {
   const Settings({Key? key}) : super(key: key);
@@ -39,25 +33,8 @@ class _SettingsState extends State<Settings> {
 
   bool isTrackingForAdvertisingOn = false;
 
-  Widget subTitle(String name) {
-    return Container(
-      padding: const EdgeInsets.only(left: 18, bottom: 5),
-      child: buildText.heading3Text(name),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<NewUser?>(context);
-    User userAuth = FirebaseAuth.instance.currentUser!;
-
-    return StreamBuilder<NewUserData>(
-      stream: DatabaseService(uid: user!.uid).userData,
-      builder: (context, snapshot){
-        if(snapshot.hasData) {
-
-          NewUserData? userData = snapshot.data;
-
           return Scaffold(
             body: Container(
               decoration: const BoxDecoration(
@@ -122,250 +99,249 @@ class _SettingsState extends State<Settings> {
                                 word: "/home",
                                 buttonColor: "purple",
                                 isSignOut: true,
-                              ),
 
-                              ///General Setttings
-                              breaker(50),
-                              buildText.heading2Text("General"),
-                              breaker(20),
-                              Container(
-                                height: 150,
-                                decoration: BoxDecoration(
-                                    color: Colors.transparent,
-                                    image: const DecorationImage(
-                                      image:
-                                          AssetImage('assets/image/rect_row_3.png'),
-                                      fit: BoxFit.cover,
-                                    ),
-                                    borderRadius: BorderRadius.circular(15),
-                                    boxShadow: const [
-                                      BoxShadow(
-                                        color: kTextShadow,
-                                        offset: Offset(6, 6),
-                                        blurRadius: 6,
-                                      ),
-                                    ]),
-                                child: Container(
-                                  margin: EdgeInsets.symmetric(horizontal: 15),
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          buildText.heading3Text("Sound Effects"),
-                                          toggleSwitch(isSoundEffectOn),
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          buildText.heading3Text("Dark Mode"),
-                                          toggleSwitch(isDarkModeOn),
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          buildText
-                                              .heading3Text("Motivational message"),
-                                          toggleSwitch(isMotivationalMessageOn),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
+                        ///General Setttings
+                        breaker(50),
+                        buildText.heading2Text("General"),
+                        breaker(20),
+                        Container(
+                          height: 150,
+                          decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              image: const DecorationImage(
+                                image:
+                                    AssetImage('assets/image/rect_row_3.png'),
+                                fit: BoxFit.cover,
                               ),
-                              breaker(20),
-                              buildButton(
-                                  text: "Helpdesk",
-                                  word: "/helpCenter",
-                                  buttonColor: "purple"),
-                              breaker(10),
-                              buildButton(
-                                  text: "Feedback",
-                                  word: "/feedback",
-                                  buttonColor: "purple"),
-                              breaker(50),
-
-                              ///Notification
-                              buildText.heading2Text("Notification"),
-                              breaker(20),
-                              Container(
-                                height: 100,
-                                decoration: BoxDecoration(
-                                    color: Colors.transparent,
-                                    image: const DecorationImage(
-                                      image:
-                                          AssetImage('assets/image/rect_row_2.png'),
-                                      fit: BoxFit.cover,
-                                    ),
-                                    borderRadius: BorderRadius.circular(15),
-                                    boxShadow: const [
-                                      BoxShadow(
-                                        color: kTextShadow,
-                                        offset: Offset(6, 6),
-                                        blurRadius: 6,
-                                      ),
-                                    ]),
-                                child: Container(
-                                  margin: EdgeInsets.symmetric(horizontal: 15),
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          buildText.heading3Text("Practice Reminder"),
-                                          toggleSwitch(isPracticeReminderOn),
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          buildText.heading3Text("Smart Scheduling"),
-                                          toggleSwitch(isSmartSchedulingOn),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
+                              borderRadius: BorderRadius.circular(15),
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: kTextShadow,
+                                  offset: Offset(6, 6),
+                                  blurRadius: 6,
                                 ),
-                              ),
-                              breaker(20),
-                              Container(
-                                height: 250,
-                                decoration: BoxDecoration(
-                                    color: Colors.transparent,
-                                    image: const DecorationImage(
-                                      image:
-                                          AssetImage('assets/image/rect_row_5.png'),
-                                      fit: BoxFit.cover,
-                                    ),
-                                    borderRadius: BorderRadius.circular(15),
-                                    boxShadow: const [
-                                      BoxShadow(
-                                        color: kTextShadow,
-                                        offset: Offset(6, 6),
-                                        blurRadius: 6,
-                                      ),
-                                    ]),
-                                child: Container(
-                                  margin: EdgeInsets.symmetric(horizontal: 15),
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          buildText.heading3Text("Weekly Progress"),
-                                          toggleSwitch(isWeeklyProgressOn),
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          buildText.heading3Text("New Friend"),
-                                          toggleSwitch(isNewFriendsOn),
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          buildText.heading3Text("Friend Activity"),
-                                          toggleSwitch(isFriendActivityOn),
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          buildText.heading3Text("Leaderboards"),
-                                          toggleSwitch(isLeaderboardsOn),
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          buildText.heading3Text("News"),
-                                          toggleSwitch(isNewsOn),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
+                              ]),
+                          child: Container(
+                            margin: const EdgeInsets.symmetric(horizontal: 15),
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    buildText.heading3Text("Sound Effects"),
+                                    toggleSwitch(isSoundEffectOn),
+                                  ],
                                 ),
-                              ),
-                              breaker(50),
-
-                              ///Privacy
-                              buildText.heading2Text("Privacy"),
-                              breaker(20),
-                              Container(
-                                height: 50,
-                                decoration: BoxDecoration(
-                                    color: Colors.transparent,
-                                    image: const DecorationImage(
-                                      image:
-                                          AssetImage('assets/image/text_field.png'),
-                                      fit: BoxFit.cover,
-                                    ),
-                                    borderRadius: BorderRadius.circular(15),
-                                    boxShadow: const [
-                                      BoxShadow(
-                                        color: kTextShadow,
-                                        offset: Offset(6, 6),
-                                        blurRadius: 6,
-                                      ),
-                                    ]),
-                                child: Container(
-                                  margin: EdgeInsets.symmetric(horizontal: 15),
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          buildText.heading3Text(
-                                              "Tracking for Advertisement"),
-                                          toggleSwitch(isTrackingForAdvertisingOn),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    buildText.heading3Text("Dark Mode"),
+                                    toggleSwitch(isDarkModeOn),
+                                  ],
                                 ),
-                              ),
-                              breaker(20),
-                              buildButton(
-                                  text: "Terms",
-                                  word: "/terms",
-                                  buttonColor: "purple"),
-                              breaker(10),
-                              buildButton(
-                                  text: "Acknowledgement",
-                                  word: "/acknowledgement",
-                                  buttonColor: "purple"),
-                              breaker(40),
-                            ],
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    buildText
+                                        .heading3Text("Motivational message"),
+                                    toggleSwitch(isMotivationalMessageOn),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
+                        breaker(20),
+                        buildButton(
+                            text: "Helpdesk",
+                            word: "/helpCenter",
+                            buttonColor: "purple"),
+                        breaker(10),
+                        buildButton(
+                            text: "Feedback",
+                            word: "/feedback",
+                            buttonColor: "purple"),
+                        breaker(50),
+
+                        ///Notification
+                        buildText.heading2Text("Notification"),
+                        breaker(20),
+                        Container(
+                          height: 100,
+                          decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              image: const DecorationImage(
+                                image:
+                                    AssetImage('assets/image/rect_row_2.png'),
+                                fit: BoxFit.cover,
+                              ),
+                              borderRadius: BorderRadius.circular(15),
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: kTextShadow,
+                                  offset: Offset(6, 6),
+                                  blurRadius: 6,
+                                ),
+                              ]),
+                          child: Container(
+                            margin: const EdgeInsets.symmetric(horizontal: 15),
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    buildText.heading3Text("Practice Reminder"),
+                                    toggleSwitch(isPracticeReminderOn),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    buildText.heading3Text("Smart Scheduling"),
+                                    toggleSwitch(isSmartSchedulingOn),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        breaker(20),
+                        Container(
+                          height: 250,
+                          decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              image: const DecorationImage(
+                                image:
+                                    AssetImage('assets/image/rect_row_5.png'),
+                                fit: BoxFit.cover,
+                              ),
+                              borderRadius: BorderRadius.circular(15),
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: kTextShadow,
+                                  offset: Offset(6, 6),
+                                  blurRadius: 6,
+                                ),
+                              ]),
+                          child: Container(
+                            margin: const EdgeInsets.symmetric(horizontal: 15),
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    buildText.heading3Text("Weekly Progress"),
+                                    toggleSwitch(isWeeklyProgressOn),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    buildText.heading3Text("New Friend"),
+                                    toggleSwitch(isNewFriendsOn),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    buildText.heading3Text("Friend Activity"),
+                                    toggleSwitch(isFriendActivityOn),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    buildText.heading3Text("Leaderboards"),
+                                    toggleSwitch(isLeaderboardsOn),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    buildText.heading3Text("News"),
+                                    toggleSwitch(isNewsOn),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        breaker(50),
+
+                        ///Privacy
+                        buildText.heading2Text("Privacy"),
+                        breaker(20),
+                        Container(
+                          height: 50,
+                          decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              image: const DecorationImage(
+                                image:
+                                    AssetImage('assets/image/text_field.png'),
+                                fit: BoxFit.cover,
+                              ),
+                              borderRadius: BorderRadius.circular(15),
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: kTextShadow,
+                                  offset: Offset(6, 6),
+                                  blurRadius: 6,
+                                ),
+                              ]),
+                          child: Container(
+                            margin: const EdgeInsets.symmetric(horizontal: 15),
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    buildText.heading3Text(
+                                        "Tracking for Advertisement"),
+                                    toggleSwitch(isTrackingForAdvertisingOn),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        breaker(20),
+                        buildButton(
+                            text: "Terms",
+                            word: "/terms",
+                            buttonColor: "purple"),
+                        breaker(10),
+                        buildButton(
+                            text: "Acknowledgement",
+                            word: "/acknowledgement",
+                            buttonColor: "purple"),
+                        breaker(40),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
               ),
-            ),
-          );
-        }
-        else{
-          print(snapshot);
-          return Loading();
-        }
-      }
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget subTitle(String name) {
+    return Container(
+      padding: const EdgeInsets.only(left: 18, bottom: 5),
+      child: buildText.heading3Text(name),
     );
   }
 
