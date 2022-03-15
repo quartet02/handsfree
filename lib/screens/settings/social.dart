@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:handsfree/widgets/buildButton.dart';
-import 'package:handsfree/models/friends.dart';
+import 'package:handsfree/models/friendModel.dart';
 import 'package:handsfree/widgets/overlay.dart';
 import 'package:handsfree/widgets/navBar.dart';
 import 'package:handsfree/widgets/smallCard.dart';

@@ -81,7 +81,6 @@ class _SignInState extends State<SignIn> {
                           // and use it to show a SnackBar.
                           ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         } else {
-                          // const Learn();
                           Navigator.pushReplacementNamed(context, '/home');
                         }
                       }

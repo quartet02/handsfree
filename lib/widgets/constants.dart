@@ -46,3 +46,24 @@ const textInputDecoration = InputDecoration(
     borderSide: BorderSide(color: Colors.pink, width: 2.0),
   ),
 );
+
+enum PadPos {
+  top,
+  right,
+  left,
+  bottom,
+}
+
+enum Providers {
+  dictionary,
+  helpdesk,
+  friend,
+}
+
+enum CollectionSelector {
+  name,
+  username,
+  password,
+  title,
+  none,
+}

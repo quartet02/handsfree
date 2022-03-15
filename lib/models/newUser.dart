@@ -22,7 +22,7 @@ class NewUserData{
   late final String? picture;
   late final String? title;
   late final String? username;
-
+  
   NewUserData({this.name, this.uid, this.experience, this.phoneNumber, this.picture, this.title, this.username});
 
 }

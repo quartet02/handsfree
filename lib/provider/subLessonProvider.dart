@@ -29,8 +29,13 @@ class SubLessonProvider with ChangeNotifier {
   }
 
   LessonModel _clickedSubLesson = LessonModel(
-      lessonId: 000, lessonName: "bruh", lessonDesc: "wa", lessonImage: "", isCompleted: "");
 
+      lessonId: 000,
+      lessonName: "bruh",
+      lessonDesc: "wa",
+      lessonImage: "",
+      isCompleted: false);
+ 
   void setSubLessons (List<LessonModel>? newSubLessons){
     subLessons = newSubLessons!;
   }

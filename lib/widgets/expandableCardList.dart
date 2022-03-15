@@ -18,6 +18,7 @@ class ExpandableCardList extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 20),
       child: topicData.isNotEmpty
           ? ListView.builder(
+              physics: const BouncingScrollPhysics(),
               padding: const EdgeInsets.only(bottom: 20, left: 10, right: 10),
               itemCount: topicData.length,
               itemBuilder: (context, index) {

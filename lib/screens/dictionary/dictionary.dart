@@ -38,8 +38,6 @@ class _DictionaryState extends State<Dictionary> {
   @override
   Widget build(BuildContext context) {
     final isVisible = MediaQuery.of(context).viewInsets.bottom != 0;
-
-
 // <<<<<<< Updated upstream
 //     return ChangeNotifierProvider<DictionaryProvider>(
 //       create: (context) => DictionaryProvider(),

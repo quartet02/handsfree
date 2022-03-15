@@ -19,8 +19,12 @@ class LessonProvider with ChangeNotifier {
   }
 
   LessonModel _clickedLesson = LessonModel(
-      lessonId: 000, lessonName: "bruh", lessonDesc: "wa", lessonImage: "", isCompleted: "");
-
+      lessonId: 000,
+      lessonName: "bruh",
+      lessonDesc: "wa",
+      lessonImage: "",
+      isCompleted: false);
+  
   void setLessons (List<LessonModel> newLessons){
     lessons = newLessons;
   }

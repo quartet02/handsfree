@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:handsfree/services/database.dart';
+import 'package:handsfree/services/auth.dart';
 import 'package:handsfree/widgets/buildButton.dart';
 import 'package:handsfree/widgets/buildText.dart';
 import 'package:handsfree/widgets/buildTextBox.dart';
@@ -97,29 +98,31 @@ class _SettingsState extends State<Settings> {
                         padding: const EdgeInsets.only(left: 0, bottom: 5, right: 0),
                         height: MediaQuery.of(context).size.height / 1.37,
                         child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 0),
+                          padding: const EdgeInsets.symmetric(horizontal: 0),
                           child: ListView(
-                            padding: EdgeInsets.symmetric(horizontal: 10),
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
                             scrollDirection: Axis.vertical,
-                            physics: BouncingScrollPhysics(),
+                            physics: const BouncingScrollPhysics(),
                             children: [
                               ///Your profile
                               breaker(20),
                               buildText.heading2Text("Your Profile"),
                               breaker(20),
                               subTitle("Name"),
-                              textBox(nameController, "name", 'name', user.uid!, userData!.name!),
+                              textBox(nameController, "name"),
                               subTitle("Username"),
-                              textBox(usernameController, "username", 'username', user.uid!, userData.username!),
+                              textBox(usernameController, "username"),
                               subTitle("Email"),
-                              textBox(emailController, "email", 'none', user.uid!, userAuth.email!, enabled: false),
+                              textBox(emailController, "email"),
                               subTitle("Password"),
-                              textBox(passwordController, "password", 'password', user.uid!, ''),
+                              textBox(passwordController, "password"),
                               breaker(20),
                               buildButton(
-                                  text: "Sign Out",
-                                  word: "home",
-                                  buttonColor: "purple"),
+                                text: "Sign Out",
+                                word: "/home",
+                                buttonColor: "purple",
+                                isSignOut: true,
+                              ),
 
                               ///General Setttings
                               breaker(50),

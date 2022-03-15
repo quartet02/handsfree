@@ -37,7 +37,7 @@ android {
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.umquartet02.handsfree"
-        minSdkVersion 19
+        minSdkVersion 21
         multiDexEnabled true // android 20 or lower
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
@@ -45,10 +45,20 @@ android {
     }
 
     buildTypes {
+        // debug {
+        //     proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        // }
+        
         release {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.debug
+
+            // minifyEnabled false
+            // shrinkResources false
+
+            // useProguard true
+            // proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 }

@@ -5,14 +5,16 @@ class friendsModel {
   friendsModel(this.friendName, this.images);
 }
 
-List<friendsModel> friends = friendData
-    .map(
-      (item) => friendsModel(
-        item['lessonName'] ?? "",
-        item['images'] ?? "",
-      ),
-    )
-    .toList();
+List<friendsModel> get friends {
+  return friendData
+      .map(
+        (item) => friendsModel(
+          item['lessonName'] ?? "",
+          item['images'] ?? "",
+        ),
+      )
+      .toList();
+}
 
 var friendData = [
   {

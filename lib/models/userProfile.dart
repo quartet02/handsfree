@@ -6,6 +6,14 @@ class Users{
   final String picture;
   final String title;
   final String username;
+  final String uid;
 
-  Users({required this.name, required this.experience, required this.phoneNumber, required this.picture, required this.title, required this.username});
+  Users(
+      {required this.name,
+      required this.experience,
+      required this.phoneNumber,
+      required this.picture,
+      required this.title,
+      required this.username,
+      required this.uid});
 }
