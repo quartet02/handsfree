@@ -1448,6 +1448,12 @@ class DatabaseService {
     return x;
   }
 
+  Stream<List<Users>?> get users {
+    Stream<List<Users>?> x =
+        userCollection.snapshots().map(_userListFromSnapshot);
+    return x;
+  }
+
   List<String> _friendIdFromSnapshot(DocumentSnapshot snapshot) {
     List<String> fUid = List.from(snapshot["list"]);
 
