@@ -166,7 +166,7 @@ class _DictionaryState extends State<Dictionary> {
                   Stack(
                     children: [
                       isVisible ? const SearchGroup() : Container(),
-                      const SearchBar(provider: 'dictionary',) /*SearchBar(provider: "dictionary")*/
+                      const SearchBar(provider: Providers.dictionary,) /*SearchBar(provider: "dictionary")*/
                     ],
                   ),
                   !isVisible

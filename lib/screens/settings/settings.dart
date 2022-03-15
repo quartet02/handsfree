@@ -35,71 +35,70 @@ class _SettingsState extends State<Settings> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-              alignment: Alignment.topCenter,
-              image: AssetImage('assets/image/purple_heading2.png'),
-              fit: BoxFit.cover),
-        ),
-        child: Container(
-          padding: const EdgeInsets.only(left: 30, bottom: 5, right: 30),
-          margin: EdgeInsets.only(top: MediaQuery.of(context).size.height / 10),
-          child: Column(
-            children: [
-              buildText.bigTitle("Settings"),
-              breaker(80),
-              ShaderMask(
-                shaderCallback: (Rect rect) {
-                  return const LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Colors.purple,
-                      Colors.transparent,
-                      Colors.transparent,
-                      Colors.purple
-                    ],
-                    stops: [
-                      0.0,
-                      0.1,
-                      0.9,
-                      1.0
-                    ], // 10% purple, 80% transparent, 10% purple
-                  ).createShader(rect);
-                },
-                blendMode: BlendMode.dstOut,
-                child: Container(
-                  alignment: Alignment.centerLeft,
-                  padding: const EdgeInsets.only(left: 0, bottom: 5, right: 0),
-                  height: MediaQuery.of(context).size.height / 1.37,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 0),
-                    child: ListView(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      scrollDirection: Axis.vertical,
-                      physics: const BouncingScrollPhysics(),
-                      children: [
-                        ///Your profile
-                        breaker(20),
-                        buildText.heading2Text("Your Profile"),
-                        breaker(20),
-                        subTitle("Name"),
-                        textBox(nameController, "name"),
-                        subTitle("Username"),
-                        textBox(usernameController, "username"),
-                        subTitle("Email"),
-                        textBox(emailController, "email"),
-                        subTitle("Password"),
-                        textBox(passwordController, "password"),
-                        breaker(20),
-                        buildButton(
-                          text: "Sign Out",
-                          word: "/home",
-                          buttonColor: "purple",
-                          isSignOut: true,
-                        ),
+          return Scaffold(
+            body: Container(
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                    alignment: Alignment.topCenter,
+                    image: AssetImage('assets/image/purple_heading2.png'),
+                    fit: BoxFit.cover),
+              ),
+              child: Container(
+                padding: const EdgeInsets.only(left: 30, bottom: 5, right: 30),
+                margin: EdgeInsets.only(top: MediaQuery.of(context).size.height / 10),
+                child: Column(
+                  children: [
+                    buildText.bigTitle("Settings"),
+                    breaker(80),
+                    ShaderMask(
+                      shaderCallback: (Rect rect) {
+                        return const LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Colors.purple,
+                            Colors.transparent,
+                            Colors.transparent,
+                            Colors.purple
+                          ],
+                          stops: [
+                            0.0,
+                            0.1,
+                            0.9,
+                            1.0
+                          ], // 10% purple, 80% transparent, 10% purple
+                        ).createShader(rect);
+                      },
+                      blendMode: BlendMode.dstOut,
+                      child: Container(
+                        alignment: Alignment.centerLeft,
+                        padding: const EdgeInsets.only(left: 0, bottom: 5, right: 0),
+                        height: MediaQuery.of(context).size.height / 1.37,
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 0),
+                          child: ListView(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            scrollDirection: Axis.vertical,
+                            physics: const BouncingScrollPhysics(),
+                            children: [
+                              ///Your profile
+                              breaker(20),
+                              buildText.heading2Text("Your Profile"),
+                              breaker(20),
+                              subTitle("Name"),
+                              textBox(nameController, "name", 'name', user.uid!, userData!.name!),
+                              subTitle("Username"),
+                              textBox(usernameController, "username", 'username', user.uid!, userData.username!),
+                              subTitle("Email"),
+                              textBox(emailController, "email", 'none', user.uid!, userAuth.email!, enabled: false),
+                              subTitle("Password"),
+                              textBox(passwordController, "password", 'password', user.uid!, ''),
+                              breaker(20),
+                              buildButton(
+                                text: "Sign Out",
+                                word: "/home",
+                                buttonColor: "purple",
+                                isSignOut: true,
 
                         ///General Setttings
                         breaker(50),
