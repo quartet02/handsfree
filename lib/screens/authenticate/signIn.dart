@@ -6,6 +6,8 @@ import 'package:handsfree/widgets/constants.dart';
 import 'package:handsfree/widgets/buildText.dart';
 import 'package:handsfree/widgets/buildTextBox.dart';
 
+import '../learn/learn.dart';
+
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
 
