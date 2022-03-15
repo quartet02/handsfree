@@ -23,6 +23,7 @@ class _DictionaryState extends State<Dictionary> {
   @override
   Widget build(BuildContext context) {
     final isVisible = MediaQuery.of(context).viewInsets.bottom != 0;
+<<<<<<< HEAD
 
     return ChangeNotifierProvider<DictionaryProvider>(
       create: (context) => DictionaryProvider(),
@@ -79,6 +80,126 @@ class _DictionaryState extends State<Dictionary> {
                                 child: Image.asset(
                                   'assets/image/translator.png',
                                   scale: 4,
+=======
+// <<<<<<< Updated upstream
+//     return ChangeNotifierProvider<DictionaryProvider>(
+//       create: (context) => DictionaryProvider(),
+//       child: Scaffold(
+//         body: Container(
+//           decoration: const BoxDecoration(
+//             image: DecorationImage(
+//                 alignment: Alignment.topCenter,
+//                 image: AssetImage('assets/image/magenta_heading.png'),
+//                 fit: BoxFit.cover),
+//           ),
+//           child: Container(
+//             padding: const EdgeInsets.only(left: 40, bottom: 5, right: 40),
+//             margin:
+//                 EdgeInsets.only(top: MediaQuery.of(context).size.height / 10),
+//             child: Column(
+//               children: [
+//                 buildText.bigTitle("Dictionary"),
+//                 const Padding(
+//                   padding: EdgeInsets.only(bottom: 20),
+//                 ),
+//                 Stack(
+//                   children: [
+//                     isVisible ? const SearchGroup() : Container(),
+//                     const SearchBar(provider: "dictionary")
+//                   ],
+//                 ),
+//                 !isVisible
+//                     ? const Padding(
+//                         padding: EdgeInsets.only(bottom: 80),
+//                       )
+//                     : Container(),
+//                 !isVisible
+//                     ? GestureDetector(
+//                         onTap: () {
+//                           Navigator.pushNamed(context, '/translator');
+//                         },
+//                         child: Stack(
+//                           children: <Widget>[
+//                             Center(
+//                               child: Container(
+//                                 alignment: Alignment.center,
+//                                 width: 200,
+//                                 decoration: const BoxDecoration(
+//                                     borderRadius:
+//                                         BorderRadius.all(Radius.circular(20)),
+//                                     boxShadow: [
+//                                       BoxShadow(
+//                                         color: kTextDeep,
+//                                         offset: Offset(6, 6),
+//                                         blurRadius: 6,
+//                                       ),
+//                                     ]),
+//                                 child: Image.asset(
+//                                   'assets/image/translator.png',
+//                                   scale: 4,
+// =======
+    return WillPopScope(
+      onWillPop: () async{
+        Navigator.of(context).popAndPushNamed('/learn', result: true);
+        return true;
+      },
+      child: ChangeNotifierProvider<DictionaryProvider>(
+        create: (context) => DictionaryProvider(wordData: _wordData),
+        child: Scaffold(
+          body: Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                  alignment: Alignment.topCenter,
+                  image: AssetImage('assets/image/magenta_heading.png'),
+                  fit: BoxFit.cover),
+            ),
+            child: Container(
+              padding: const EdgeInsets.only(left: 40, bottom: 5, right: 40),
+              margin:
+                  EdgeInsets.only(top: MediaQuery.of(context).size.height / 10),
+              child: Column(
+                children: [
+                  buildText.bigTitle("Dictionary"),
+                  const Padding(
+                    padding: EdgeInsets.only(bottom: 20),
+                  ),
+                  Stack(
+                    children: [
+                      isVisible ? const SearchGroup() : Container(),
+                      const SearchBar(provider: 'dictionary',) /*SearchBar(provider: "dictionary")*/
+                    ],
+                  ),
+                  !isVisible
+                      ? const Padding(
+                          padding: EdgeInsets.only(bottom: 80),
+                        )
+                      : Container(),
+                  !isVisible
+                      ? GestureDetector(
+                          onTap: () {
+                            Navigator.pushReplacementNamed(context, '/translator');
+                          },
+                          child: Stack(
+                            children: <Widget>[
+                              Center(
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  width: 200,
+                                  decoration: const BoxDecoration(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(20)),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: kTextDeep,
+                                          offset: Offset(6, 6),
+                                          blurRadius: 6,
+                                        ),
+                                      ]),
+                                  child: Image.asset(
+                                    'assets/image/translator.png',
+                                    scale: 4,
+                                  ),
+>>>>>>> parent of ff1b3fc (Minor fix)
                                 ),
                               ),
                             ),
