@@ -57,11 +57,11 @@ dependencies:
   page_transition: ^2.0.5
   expandable: ^5.0.1
   flutter_webrtc: ^0.8.3
-  firebase_storage: ^10.0.1
   camera: ^0.9.4+16
   camerax: ^0.1.0
   path_provider: ^2.0.9
   video_player: ^2.3.0
+  gallery_saver: ^2.3.2
 
 
   cloud_firestore: ^3.1.8
