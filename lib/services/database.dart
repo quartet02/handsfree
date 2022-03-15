@@ -334,6 +334,11 @@ class DatabaseService {
     }
   }
 
+  Future<void> updateExperience() async{
+    userCollection.doc(uid).update({
+      'experience': FieldValue.increment(15),
+    });
+  }
   //new user lesson and log data
   Future<void> buildUserLesson() async {
     ///Syllabus 1 Lesson 1
@@ -1438,8 +1443,8 @@ class DatabaseService {
       "login": [false, false, false, false, false, false, false],
     });
   }
-
   ///To User Collection
+
   ///From Lesson Collection
   //get everything in lesson as List<Map<String, String>>
   Future<List> getWordData() async {
