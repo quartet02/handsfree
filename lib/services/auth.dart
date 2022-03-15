@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:handsfree/services/database.dart';
+import 'package:handsfree/widgets/loadingWholeScreen.dart';
 import 'package:handsfree/widgets/userPreference.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:handsfree/widgets/loadingWholeScreen.dart';
@@ -47,6 +48,7 @@ class AuthService {
 
   Future signInWithEmailAndPassword(String email, String password) async {
     try {
+
       UserCredential result = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
       User user = result.user!;
@@ -63,7 +65,7 @@ class AuthService {
       // set local user profileDetails
 
       return [0, 'Logged in successfully'];
-    } on FirebaseAuthException catch (e) {
+      }on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         return [1, 'No user found for that email'];
       } else if (e.code == 'wrong-password') {

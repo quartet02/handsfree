@@ -12,3 +12,11 @@ class LessonModel {
       required this.lessonImage,
       required this.isCompleted});
 }
+
+class isCompletedModel{
+  final isCompletedList;
+
+  isCompletedModel({
+    this.isCompletedList,
+  });
+}

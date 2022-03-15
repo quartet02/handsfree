@@ -6,14 +6,15 @@ class NewUser {
   NewUser({this.uid});
 }
 
-class NewUserActivityLog {
+class NewUserActivityLog{
   final List? activity;
   final Timestamp? lastLoginIn;
 
   NewUserActivityLog({this.lastLoginIn, this.activity});
 }
 
-class NewUserData {
+class NewUserData{
+
   late final String? uid;
   late final String? name;
   late final int? experience;
@@ -21,13 +22,7 @@ class NewUserData {
   late final String? picture;
   late final String? title;
   late final String? username;
+  
+  NewUserData({this.name, this.uid, this.experience, this.phoneNumber, this.picture, this.title, this.username});
 
-  NewUserData(
-      {this.name,
-      this.uid,
-      this.experience,
-      this.phoneNumber,
-      this.picture,
-      this.title,
-      this.username});
 }

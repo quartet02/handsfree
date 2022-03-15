@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:handsfree/widgets/buildText.dart';
+import 'package:handsfree/services/database.dart';
 import 'package:handsfree/widgets/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -71,12 +72,16 @@ class buildTextBox extends StatelessWidget {
   static Widget textBox(
     TextEditingController controllers,
     String hint, {
-    TextInputAction? action,
-    TextInputType? inputType,
-    int? maxLine = 1,
-    EdgeInsets margins = const EdgeInsets.all(0),
-    EdgeInsets paddings = const EdgeInsets.symmetric(horizontal: 20.0),
-  }) {
+      String selector = '',
+      String uid = '',
+      String initialValue = '',
+      bool enabled = true,
+      TextInputAction? action,
+      TextInputType? inputType,
+      int? maxLine = 1,
+      EdgeInsets margins = const EdgeInsets.all(0),
+      EdgeInsets paddings = const EdgeInsets.symmetric(horizontal: 20.0)
+    }) {
     double radius = 25;
     return Container(
       margin: margins,
@@ -95,10 +100,13 @@ class buildTextBox extends StatelessWidget {
             ),
           ]),
       child: TextFormField(
-        controller: controllers,
         textInputAction: action,
         keyboardType: inputType,
         maxLines: maxLine,
+        initialValue: initialValue,
+        enabled: enabled,
+        onFieldSubmitted: (txt) => DatabaseService(uid: uid).updateSingleData(selector, txt),
+        controller: null,
         decoration: InputDecoration(
           contentPadding: paddings,
           border: OutlineInputBorder(
