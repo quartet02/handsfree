@@ -369,10 +369,10 @@ class _SettingsState extends State<Settings> {
     );
   }
 
-  Widget textBox(TextEditingController controller, String name) {
+  Widget textBox(TextEditingController controller, String name, String selector, String uid, String initialValue, {bool enabled = true}) {
     return Container(
-      padding: const EdgeInsets.only(bottom: 10, right: 10, left: 10),
-      child: buildTextBox.textBox(controller, name),
+      padding: EdgeInsets.only(bottom: 10, right: 10, left: 10),
+      child: buildTextBox.textBox(controller, name, selector: selector, uid: uid, initialValue: initialValue, enabled: enabled),
     );
   }
 

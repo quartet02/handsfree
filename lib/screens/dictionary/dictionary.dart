@@ -123,7 +123,7 @@ class _DictionaryState extends State<Dictionary> {
                   Stack(
                     children: [
                       isVisible ? const SearchGroup() : Container(),
-                      SearchBar(provider: Providers.dictionary,) /*SearchBar(provider: "dictionary")*/
+                      const SearchBar(provider: 'dictionary',) /*SearchBar(provider: "dictionary")*/
                     ],
                   ),
                   !isVisible

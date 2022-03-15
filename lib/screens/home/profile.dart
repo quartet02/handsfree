@@ -28,7 +28,7 @@ class _ProfileState extends State<Profile> {
       });
     }
 
-    List<String> friendList = ["tpXcppawocgNvY4ye4twfVrXxe12", "YuKIcHF8Zn0Fpj9SHt4d"];
+    List friendList = ["tpXcppawocgNvY4ye4twfVrXxe12", "YuKIcHF8Zn0Fpj9SHt4d"];
 
     //check keyboard visibility
     final isVisible = MediaQuery.of(context).viewInsets.bottom != 0;

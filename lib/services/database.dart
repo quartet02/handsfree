@@ -61,6 +61,8 @@ class DatabaseService {
       return;
     }
   }
+  Future updateIsCompletedSubLesson(String syllabus, String lesson, String subLessonId){
+    return userCollection.doc(uid).collection('lessons').doc(syllabus).collection(lesson).doc(subLessonId).update({
 
   Future updateIsCompletedSubLesson(
       String syllabus, String lesson, String subLessonId) {
@@ -1478,6 +1480,12 @@ class DatabaseService {
   Stream<List<Users>?> get users{
     Stream<List<Users>?> x = userCollection.snapshots()
         .map(_userListFromSnapshot);
+    return x;
+  }
+
+  Stream<List<Users>?> get users {
+    Stream<List<Users>?> x =
+        userCollection.snapshots().map(_userListFromSnapshot);
     return x;
   }
 
