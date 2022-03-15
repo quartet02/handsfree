@@ -3,11 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:handsfree/screens/news/news_list.dart';
 import 'package:provider/provider.dart';
-import 'package:handsfree/widgets/constants.dart';
 import 'package:handsfree/widgets/buildText.dart';
 import '../../models/newsFeedModel.dart';
-import '../../provider/dictionaryProvider.dart';
 import '../../services/database.dart';
+import '../../widgets/constants.dart';
 import '../../widgets/navBar.dart';
 import '../dictionary/searchBar.dart';
 import '../dictionary/searchGroup.dart';
@@ -58,7 +57,7 @@ class _NewsState extends State<News> {
                 Stack(
                   children: [
                     isVisible ? const SearchGroup() : Container(),
-                    const SearchBar(provider: Providers.dictionary,)
+                    const SearchBar(provider: Providers.dictionary),
                   ],
                 ),
                 // !isVisible

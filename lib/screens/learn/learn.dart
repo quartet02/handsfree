@@ -35,7 +35,7 @@ class _LearnState extends State<Learn> {
     try{
       LessonRefresh.refresh();
     }catch(e){
-      print('error');
+      print('Up to Date');
     }
 
     final user = Provider.of<NewUser?>(context);
