@@ -21,21 +21,21 @@ class DatabaseService {
 
   // collection reference
   final CollectionReference userCollection =
-  FirebaseFirestore.instance.collection('users');
+      FirebaseFirestore.instance.collection('users');
   final CollectionReference chatRoomCollection =
-  FirebaseFirestore.instance.collection('chatRoom');
+      FirebaseFirestore.instance.collection('chatRoom');
   final CollectionReference messageCollection =
-  FirebaseFirestore.instance.collection('message');
+      FirebaseFirestore.instance.collection('message');
   final CollectionReference lessonsCollection =
-  FirebaseFirestore.instance.collection('lessons');
+      FirebaseFirestore.instance.collection('lessons');
   final CollectionReference contributorCollection =
-  FirebaseFirestore.instance.collection('contributor');
+      FirebaseFirestore.instance.collection('contributor');
   final CollectionReference newsCollection =
-  FirebaseFirestore.instance.collection('news');
+      FirebaseFirestore.instance.collection('news');
   final CollectionReference leaderboardCollection =
-  FirebaseFirestore.instance.collection('leaderboard');
+      FirebaseFirestore.instance.collection('leaderboard');
   final CollectionReference feedbackCollection =
-  FirebaseFirestore.instance.collection('feedback');
+      FirebaseFirestore.instance.collection('feedback');
 
   ///From User Collection
   Future updateSingleData(String selector, String value) async {
@@ -174,14 +174,14 @@ class DatabaseService {
   Future<dynamic> getActivityLog(String selector) async {
     if (selector == "List") {
       final activityData =
-      await userCollection.doc(uid).collection('log').doc('Activity').get();
+          await userCollection.doc(uid).collection('log').doc('Activity').get();
       var data = activityData['login'];
       return data;
     }
 
     if (selector == "Time") {
       final activityData =
-      await userCollection.doc(uid).collection('log').doc('Activity').get();
+          await userCollection.doc(uid).collection('log').doc('Activity').get();
       var data = activityData['lastLoginIn'];
       return data;
     }
@@ -197,7 +197,7 @@ class DatabaseService {
     ///login on saturday, skip sunday, login on monday
     ///duration more than 7 days
     ///on same date(Friday and Friday, but different week)
-    activityLog[now.weekday<7 ? now.weekday:0] = true;
+    activityLog[now.weekday < 7 ? now.weekday : 0] = true;
     if (now.weekday == 7 ||
         (now.weekday < last.weekday && last.weekday != 7) ||
         days >= 7 ||
@@ -239,6 +239,7 @@ class DatabaseService {
       'picture': picture,
       'title': title,
       'username': username,
+      'name': name,
       'uid': uid,
     }).then((_) {
       print("Success!");
@@ -908,7 +909,7 @@ class DatabaseService {
       "lessonCardId": 002,
       "lessonCardTitle": "What",
       "lessonCardDesc":
-      "Sign of 'What', this sign is usually shown at the last of the signing sentence.",
+          "Sign of 'What', this sign is usually shown at the last of the signing sentence.",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
       "lessonId": 'what',
       "isCompleted": false,
@@ -954,7 +955,7 @@ class DatabaseService {
       "lessonCardId": 005,
       "lessonCardTitle": "Where",
       "lessonCardDesc":
-      "Sign of 'Where', this sign is usually shown at the last of the signing sentence.",
+          "Sign of 'Where', this sign is usually shown at the last of the signing sentence.",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
       "lessonId": 'where',
       "isCompleted": false,
@@ -1077,7 +1078,7 @@ class DatabaseService {
       "lessonCardId": 003,
       "lessonCardTitle": "What do",
       "lessonCardDesc":
-      "Sign of 'What do', this sign is usually shown at the last of signing sentence.",
+          "Sign of 'What do', this sign is usually shown at the last of signing sentence.",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
       "lessonId": 'whatdo',
       "isCompleted": false,
@@ -1154,7 +1155,7 @@ class DatabaseService {
       "lessonCardId": 002,
       "lessonCardTitle": "Meaning",
       "lessonCardDesc":
-      "Sign of 'Meaning', which is used to ask the meaning the sign shown.",
+          "Sign of 'Meaning', which is used to ask the meaning the sign shown.",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
       "lessonId": 'meaning',
       "isCompleted": false,
@@ -1471,44 +1472,42 @@ class DatabaseService {
       "name": name,
     });
   }
+
   ///To Feedback Collection
 
   ///From Community Collection
-  List<CommunityModel_1>? _communityListFromSnapshot(QuerySnapshot snapshot){
-    return snapshot.docs.map((doc){
+  List<CommunityModel_1>? _communityListFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map((doc) {
       return CommunityModel_1(
           content: doc['content'],
           media: doc['media'],
           participant: List.from(doc['participant']),
-          title: doc['title']
-      );
+          title: doc['title']);
     }).toList();
   }
 
-  Stream<List<CommunityModel_1>?> get communityList{
-    return newsCollection.snapshots()
-        .map(_communityListFromSnapshot);
+  Stream<List<CommunityModel_1>?> get communityList {
+    return newsCollection.snapshots().map(_communityListFromSnapshot);
   }
+
   ///To Community Collection
 
   ///From News Collection
-  List<NewsFeedModel_1>? _newsListFromSnapshot(QuerySnapshot snapshot){
-    return snapshot.docs.map((doc){
-
+  List<NewsFeedModel_1>? _newsListFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map((doc) {
       return NewsFeedModel_1(
           author: doc['author'],
           content: doc['content'],
           media: doc['media'],
           timestamp: doc['timestamp'],
-          title: doc['title']
-      );
+          title: doc['title']);
     }).toList();
   }
 
-  Stream<List<NewsFeedModel_1>?> get newsList{
-    return newsCollection.snapshots()
-        .map(_newsListFromSnapshot);
+  Stream<List<NewsFeedModel_1>?> get newsList {
+    return newsCollection.snapshots().map(_newsListFromSnapshot);
   }
+
   ///To News Collection
 
   ///Normal methods....
@@ -1565,7 +1564,7 @@ class DatabaseService {
   // get user stream
   Stream<List<Users>?> get users {
     Stream<List<Users>?> x =
-    userCollection.snapshots().map(_userListFromSnapshot);
+        userCollection.snapshots().map(_userListFromSnapshot);
     return x;
   }
 
@@ -1594,16 +1593,16 @@ class DatabaseService {
   Users _singleUserFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs
         .map((doc) {
-      return Users(
-        name: doc['name'],
-        experience: doc['experience'],
-        phoneNumber: doc['phoneNumber'],
-        picture: doc['picture'],
-        title: doc['title'],
-        username: doc['username'],
-        uid: doc["uid"],
-      );
-    })
+          return Users(
+            name: doc['name'],
+            experience: doc['experience'],
+            phoneNumber: doc['phoneNumber'],
+            picture: doc['picture'],
+            title: doc['title'],
+            username: doc['username'],
+            uid: doc["uid"],
+          );
+        })
         .toList()
         .first;
   }
@@ -1653,7 +1652,6 @@ class DatabaseService {
       );
     }).toList();
   }
-
 
   Stream<List<Messages>> messages(String roomId) {
     return chatRoomCollection
