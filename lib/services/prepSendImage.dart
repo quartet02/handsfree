@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:handsfree/services/database.dart';
 import 'package:handsfree/services/medialoader.dart';
-import 'package:handsfree/widgets/userPreference.dart';
+import 'package:handsfree/services/userPreference.dart';
 import 'package:path/path.dart';
 
 class PrepSendImage extends StatelessWidget {

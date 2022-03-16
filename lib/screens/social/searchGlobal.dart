@@ -8,7 +8,7 @@ import 'package:handsfree/screens/social/searchGlobalResult.dart';
 import 'package:handsfree/services/database.dart';
 import 'package:handsfree/widgets/buildText.dart';
 import 'package:handsfree/widgets/constants.dart';
-import 'package:handsfree/widgets/userPreference.dart';
+import 'package:handsfree/services/userPreference.dart';
 
 class SearchGlobal extends StatefulWidget {
   const SearchGlobal({Key? key}) : super(key: key);
