@@ -262,7 +262,20 @@ class DatabaseService {
       'roomPicture': "",
       'type': type,
     }).then((doc) async {
+      // print(doc.id);
       await doc.update({"roomId": doc.id});
+      friendIds.add(uid!);
+      friendIds.forEach((id) async {
+        print(id);
+        List<String> prev = await userCollection
+            .doc(id)
+            .get()
+            .then((doc) => List<String>.from(doc["groups"]));
+        prev.add(doc.id);
+        await userCollection
+            .doc(id)
+            .update({'groups': FieldValue.arrayUnion(prev)});
+      });
       await sendMessage(
           doc.id,
           friendIds.length > 1
@@ -272,9 +285,34 @@ class DatabaseService {
   }
 
   Future<void> addToFriendList(String otherSideId) async {
-    await userCollection.doc(uid).collection("friends").doc("friends").set({
-      "list": FieldValue.arrayUnion([otherSideId])
-    });
+    // self side
+    List<String> prev1 = await userCollection
+        .doc(uid)
+        .collection("friends")
+        .doc("friends")
+        .get()
+        .then((doc) => doc["list"])
+        .onError((error, stackTrace) => print(stackTrace.toString()));
+    prev1.add(otherSideId);
+    await userCollection
+        .doc(uid)
+        .collection("friends")
+        .doc("friends")
+        .set({"list": FieldValue.arrayUnion(prev1)});
+    // other side
+    List<String> prev2 = await userCollection
+        .doc(otherSideId)
+        .collection("friends")
+        .doc("friends")
+        .get()
+        .then((doc) => doc["list"])
+        .onError((error, stackTrace) => print(stackTrace.toString()));
+    prev2.add(uid!);
+    await userCollection
+        .doc(otherSideId)
+        .collection("friends")
+        .doc("friends")
+        .set({"list": FieldValue.arrayUnion(prev2)});
   }
 
   Future<void> removeFriend(String otherSideId) async {
@@ -355,6 +393,8 @@ class DatabaseService {
   }
 
   List<String> _friendRequestListFromSnapshot(QuerySnapshot snapshot) {
+    print(uid);
+    print(snapshot.docs.length);
     return snapshot.docs.map((doc) {
       return doc["uid"] as String;
     }).toList();
