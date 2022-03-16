@@ -34,7 +34,7 @@ class _NewsState extends State<News> {
   Widget build(BuildContext context) {
     final isVisible = MediaQuery.of(context).viewInsets.bottom != 0;
 
-    return StreamProvider<List<NewsFeedModel_1>?>.value(
+    return StreamProvider<List<NewsFeedModel>?>.value(
       value: DatabaseService().newsList,
       initialData: null,
       child: Scaffold(

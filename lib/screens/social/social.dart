@@ -14,9 +14,11 @@ import 'package:handsfree/widgets/smallCard.dart';
 import 'package:handsfree/services/userPreference.dart';
 import 'package:provider/provider.dart';
 import 'package:handsfree/widgets/buildText.dart';
-
+import '../../models/newsFeedModel.dart';
 import '../../provider/newsFeedProvider.dart';
 import 'package:handsfree/widgets/navBar.dart';
+
+import '../../widgets/loading.dart';
 
 double friendSize = 70;
 double coumminitySize = 150;
@@ -29,7 +31,9 @@ class Social extends StatefulWidget {
 }
 
 class _SocialState extends State<Social> {
+  List<NewsFeedModel>? newsList;
   var overlayState = const Overlays();
+
   @override
   Widget build(BuildContext context) {
     final isVisible = MediaQuery.of(context).viewInsets.bottom != 0;
@@ -38,114 +42,103 @@ class _SocialState extends State<Social> {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => NewsFeedProvider()),
-      ],
-      child: Scaffold(
-        body: Stack(
-          alignment: AlignmentDirectional.topCenter,
-          children: [
-            ListView(
-              physics: const BouncingScrollPhysics(),
-              children: [
-                Column(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.fromLTRB(20, 160, 20, 0),
-                      child: Column(
+    
+    return StreamBuilder<List<NewsFeedModel>?>(
+      stream: DatabaseService().newsList,
+      builder: (context, snapshot){
+        if(snapshot.hasData){
+
+          newsList = snapshot.data;
+
+          return MultiProvider(
+            providers: [
+              ChangeNotifierProvider(create: (_) => NewsFeedProvider()),
+            ],
+            child: Scaffold(
+              body: Stack(
+                alignment: AlignmentDirectional.topCenter,
+                children: [
+                  ListView(
+                    physics: const BouncingScrollPhysics(),
+                    children: [
+                      Column(
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              buildText.heading2Text("Online Friends"),
-                              Row(
-                                children: [
-                                  GestureDetector(
-                                    onTap: () async {
-                                      Navigator.pushNamed(
-                                          context, "/viewFriendRequest");
-                                    },
-                                    child: Container(
-                                      width: 28,
-                                      height: 28,
-                                      decoration: const BoxDecoration(
-                                        image: DecorationImage(
-                                          alignment: Alignment.center,
-                                          image: AssetImage(
-                                              'assets/image/friend_request.png'),
-                                          scale: 3,
+                          Container(
+                            padding: const EdgeInsets.fromLTRB(20, 160, 20, 0),
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    buildText.heading2Text("Online Friends"),
+                                    GestureDetector(
+                                      onTap: () async {
+                                        //search all users
+                                      },
+                                      child: Container(
+                                        width: 40,
+                                        height: 40,
+                                        decoration: const BoxDecoration(
+                                          image: DecorationImage(
+                                            alignment: Alignment.center,
+                                            image: AssetImage(
+                                                'assets/image/search_icon.png'),
+                                            scale: 3,
+                                          ),
                                         ),
+                                        child: Container(),
                                       ),
-                                      child: Container(),
                                     ),
-                                  ),
-                                  Breaker(i: 5, pos: PadPos.right),
-                                  GestureDetector(
-                                    onTap: () {
-                                      Navigator.pushNamed(
-                                          context, "/searchGlobalUsers");
-                                    },
-                                    child: Container(
-                                      width: 40,
-                                      height: 40,
-                                      decoration: const BoxDecoration(
-                                        image: DecorationImage(
-                                          alignment: Alignment.center,
-                                          image: AssetImage(
-                                              'assets/image/search_icon.png'),
-                                          scale: 3,
-                                        ),
-                                      ),
-                                      child: Container(),
-                                    ),
-                                  ),
-                                ],
-                              )
-                            ],
+                                  ],
+                                ),
+                                Breaker(i: 5),
+                                ShaderMask(
+                                  shaderCallback: (Rect rect) {
+                                    return const LinearGradient(
+                                      begin: Alignment.centerLeft,
+                                      end: Alignment.centerRight,
+                                      colors: [
+                                        Colors.purple,
+                                        Colors.transparent,
+                                        Colors.transparent,
+                                        Colors.purple
+                                      ],
+                                      stops: [
+                                        0.0,
+                                        0.03,
+                                        0.97,
+                                        1.0
+                                      ], // 10% purple, 80% transparent, 10% purple
+                                    ).createShader(rect);
+                                  },
+                                  blendMode: BlendMode.dstOut,
+                                  child: const OnlineFriendList(),
+                                ),
+                              ],
+                            ),
                           ),
-                          Breaker(i: 5),
-                          ShaderMask(
-                            shaderCallback: (Rect rect) {
-                              return const LinearGradient(
-                                begin: Alignment.centerLeft,
-                                end: Alignment.centerRight,
-                                colors: [
-                                  Colors.purple,
-                                  Colors.transparent,
-                                  Colors.transparent,
-                                  Colors.purple
-                                ],
-                                stops: [
-                                  0.0,
-                                  0.03,
-                                  0.97,
-                                  1.0
-                                ], // 10% purple, 80% transparent, 10% purple
-                              ).createShader(rect);
-                            },
-                            blendMode: BlendMode.dstOut,
-                            child: const OnlineFriendList(),
-                          ),
+                          Container(
+                              padding: const EdgeInsets.fromLTRB(20, 10, 20, 40),
+                              child: buildNewsFeed()),
                         ],
                       ),
-                    ),
-                    Container(
-                        padding: const EdgeInsets.fromLTRB(20, 10, 20, 40),
-                        child: buildNewsFeed()),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                  buildHeading(),
+                ],
+              ),
+              floatingActionButton:
+              isVisible ? const SizedBox() : NavBar.Buttons(context),
+              floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+              extendBody: true,
+              bottomNavigationBar: NavBar.bar(context, 3),
             ),
-            buildHeading(),
-          ],
-        ),
-        floatingActionButton:
-            isVisible ? const SizedBox() : NavBar.Buttons(context),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        extendBody: true,
-        bottomNavigationBar: NavBar.bar(context, 3),
-      ),
+          );
+        }
+        else{
+          return Loading();
+        }
+      },
     );
   }
 
@@ -217,13 +210,16 @@ class _SocialState extends State<Social> {
         blendMode: BlendMode.dstOut,
         child: Container(
           child: Consumer<NewsFeedProvider>(builder: (context, news, child) {
+
+            news.setNewsFeedModel(newsList!);
+
             return Container(
               width: MediaQuery.of(context).size.width,
               height: coumminitySize + 100,
               child: ListView.builder(
                   physics: const BouncingScrollPhysics(),
                   scrollDirection: Axis.horizontal,
-                  itemCount: 5,
+                  itemCount: newsList!.length,
                   itemBuilder: (context, index) {
                     return SmallCard(
                         id: news.cardDetails[index].id,

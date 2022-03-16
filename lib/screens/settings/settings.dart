@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:handsfree/services/database.dart';
 import 'package:handsfree/services/auth.dart';
+import 'package:handsfree/services/firebase_messaging_service.dart';
 import 'package:handsfree/widgets/buildButton.dart';
 import 'package:handsfree/widgets/buildText.dart';
 import 'package:handsfree/widgets/buildTextBox.dart';
@@ -25,21 +26,6 @@ class _SettingsState extends State<Settings> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  bool isSoundEffectOn = false;
-  bool isDarkModeOn = false;
-  bool isMotivationalMessageOn = false;
-
-  bool isPracticeReminderOn = false;
-  bool isSmartSchedulingOn = false;
-
-  bool isWeeklyProgressOn = false;
-  bool isNewFriendsOn = false;
-  bool isFriendActivityOn = false;
-  bool isLeaderboardsOn = false;
-  bool isNewsOn = false;
-
-  bool isTrackingForAdvertisingOn = false;
-
   Widget subTitle(String name) {
     return Container(
       padding: const EdgeInsets.only(left: 18, bottom: 5),
@@ -54,8 +40,9 @@ class _SettingsState extends State<Settings> {
 
     return StreamBuilder<NewUserData>(
         stream: DatabaseService(uid: user!.uid).userData,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
+        builder: (context, snapshot){
+          if(snapshot.hasData) {
+
             NewUserData? userData = snapshot.data;
 
             return Scaffold(
@@ -67,10 +54,8 @@ class _SettingsState extends State<Settings> {
                       fit: BoxFit.cover),
                 ),
                 child: Container(
-                  padding:
-                      const EdgeInsets.only(left: 30, bottom: 5, right: 30),
-                  margin: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height / 10),
+                  padding: const EdgeInsets.only(left: 30, bottom: 5, right: 30),
+                  margin: EdgeInsets.only(top: MediaQuery.of(context).size.height / 10),
                   child: Column(
                     children: [
                       buildText.bigTitle("Settings"),
@@ -97,14 +82,12 @@ class _SettingsState extends State<Settings> {
                         blendMode: BlendMode.dstOut,
                         child: Container(
                           alignment: Alignment.centerLeft,
-                          padding: const EdgeInsets.only(
-                              left: 0, bottom: 5, right: 0),
+                          padding: const EdgeInsets.only(left: 0, bottom: 5, right: 0),
                           height: MediaQuery.of(context).size.height / 1.37,
                           child: Container(
                             padding: const EdgeInsets.symmetric(horizontal: 0),
                             child: ListView(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10),
+                              padding: const EdgeInsets.symmetric(horizontal: 10),
                               scrollDirection: Axis.vertical,
                               physics: const BouncingScrollPhysics(),
                               children: [
@@ -113,18 +96,13 @@ class _SettingsState extends State<Settings> {
                                 buildText.heading2Text("Your Profile"),
                                 breaker(20),
                                 subTitle("Name"),
-                                textBox(nameController, "name", 'name',
-                                    user.uid!, userData!.name!),
+                                textBox(nameController, "name", 'name', user.uid!, userData!.name!),
                                 subTitle("Username"),
-                                textBox(usernameController, "username",
-                                    'username', user.uid!, userData.username!),
+                                textBox(usernameController, "username", 'username', user.uid!, userData.username!),
                                 subTitle("Email"),
-                                textBox(emailController, "email", 'none',
-                                    user.uid!, userAuth.email!,
-                                    enabled: false),
+                                textBox(emailController, "email", 'none', user.uid!, userAuth.email!, enabled: false),
                                 subTitle("Password"),
-                                textBox(passwordController, "password",
-                                    'password', user.uid!, ''),
+                                textBox(passwordController, "password", 'password', user.uid!, ''),
                                 breaker(20),
                                 buildButton(
                                   text: "Sign Out",
@@ -142,8 +120,8 @@ class _SettingsState extends State<Settings> {
                                   decoration: BoxDecoration(
                                       color: Colors.transparent,
                                       image: const DecorationImage(
-                                        image: AssetImage(
-                                            'assets/image/rect_row_3.png'),
+                                        image:
+                                        AssetImage('assets/image/rect_row_3.png'),
                                         fit: BoxFit.cover,
                                       ),
                                       borderRadius: BorderRadius.circular(15),
@@ -155,34 +133,32 @@ class _SettingsState extends State<Settings> {
                                         ),
                                       ]),
                                   child: Container(
-                                    margin:
-                                        EdgeInsets.symmetric(horizontal: 15),
+                                    margin: EdgeInsets.symmetric(horizontal: 15),
                                     child: Column(
                                       children: [
                                         Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.spaceBetween,
                                           children: [
-                                            buildText
-                                                .heading3Text("Sound Effects"),
-                                            toggleSwitch('isSound'),
+                                            buildText.heading3Text("Sound Effects"),
+                                            toggleSwitch('isSound', null),
                                           ],
                                         ),
                                         Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.spaceBetween,
                                           children: [
                                             buildText.heading3Text("Dark Mode"),
-                                            toggleSwitch('isDark'),
+                                            toggleSwitch('isDark', null),
                                           ],
                                         ),
                                         Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.spaceBetween,
                                           children: [
-                                            buildText.heading3Text(
-                                                "Motivational message"),
-                                            toggleSwitch("isMotivational"),
+                                            buildText
+                                                .heading3Text("Motivational message"),
+                                            toggleSwitch("isMotivational", "motivationNoti"),
                                           ],
                                         ),
                                       ],
@@ -209,8 +185,8 @@ class _SettingsState extends State<Settings> {
                                   decoration: BoxDecoration(
                                       color: Colors.transparent,
                                       image: const DecorationImage(
-                                        image: AssetImage(
-                                            'assets/image/rect_row_2.png'),
+                                        image:
+                                        AssetImage('assets/image/rect_row_2.png'),
                                         fit: BoxFit.cover,
                                       ),
                                       borderRadius: BorderRadius.circular(15),
@@ -222,26 +198,23 @@ class _SettingsState extends State<Settings> {
                                         ),
                                       ]),
                                   child: Container(
-                                    margin:
-                                        EdgeInsets.symmetric(horizontal: 15),
+                                    margin: EdgeInsets.symmetric(horizontal: 15),
                                     child: Column(
                                       children: [
                                         Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.spaceBetween,
                                           children: [
-                                            buildText.heading3Text(
-                                                "Practice Reminder"),
-                                            toggleSwitch("isPractice"),
+                                            buildText.heading3Text("Practice Reminder"),
+                                            toggleSwitch("isPractice","practiceNoti"),
                                           ],
                                         ),
                                         Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.spaceBetween,
                                           children: [
-                                            buildText.heading3Text(
-                                                "Smart Scheduling"),
-                                            toggleSwitch("isSmartScheduling"),
+                                            buildText.heading3Text("Smart Scheduling"),
+                                            toggleSwitch("isSmartScheduling", null),
                                           ],
                                         ),
                                       ],
@@ -254,8 +227,8 @@ class _SettingsState extends State<Settings> {
                                   decoration: BoxDecoration(
                                       color: Colors.transparent,
                                       image: const DecorationImage(
-                                        image: AssetImage(
-                                            'assets/image/rect_row_5.png'),
+                                        image:
+                                        AssetImage('assets/image/rect_row_5.png'),
                                         fit: BoxFit.cover,
                                       ),
                                       borderRadius: BorderRadius.circular(15),
@@ -267,52 +240,47 @@ class _SettingsState extends State<Settings> {
                                         ),
                                       ]),
                                   child: Container(
-                                    margin:
-                                        EdgeInsets.symmetric(horizontal: 15),
+                                    margin: EdgeInsets.symmetric(horizontal: 15),
                                     child: Column(
                                       children: [
                                         Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.spaceBetween,
                                           children: [
-                                            buildText.heading3Text(
-                                                "Weekly Progress"),
-                                            toggleSwitch("isWeeklyProgress"),
+                                            buildText.heading3Text("Weekly Progress"),
+                                            toggleSwitch("isWeeklyProgress", null),
                                           ],
                                         ),
                                         Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.spaceBetween,
                                           children: [
-                                            buildText
-                                                .heading3Text("New Friend"),
-                                            toggleSwitch("isNewFriends"),
+                                            buildText.heading3Text("New Friend"),
+                                            toggleSwitch("isNewFriends", null),
                                           ],
                                         ),
                                         Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.spaceBetween,
                                           children: [
-                                            buildText.heading3Text(
-                                                "Friend Activity"),
-                                            toggleSwitch("isFriendActivity"),
+                                            buildText.heading3Text("Friend Activity"),
+                                            toggleSwitch("isFriendActivity", null),
                                           ],
                                         ),
                                         Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.spaceBetween,
                                           children: [
-                                            buildText
-                                                .heading3Text("Leaderboards"),
-                                            toggleSwitch("isLeaderboards"),
+                                            buildText.heading3Text("Leaderboards"),
+                                            toggleSwitch("isLeaderboards", null),
                                           ],
                                         ),
                                         Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.spaceBetween,
                                           children: [
                                             buildText.heading3Text("News"),
-                                            toggleSwitch("isNews"),
+                                            toggleSwitch("isNews","newsNoti"),
                                           ],
                                         ),
                                       ],
@@ -329,8 +297,8 @@ class _SettingsState extends State<Settings> {
                                   decoration: BoxDecoration(
                                       color: Colors.transparent,
                                       image: const DecorationImage(
-                                        image: AssetImage(
-                                            'assets/image/text_field.png'),
+                                        image:
+                                        AssetImage('assets/image/text_field.png'),
                                         fit: BoxFit.cover,
                                       ),
                                       borderRadius: BorderRadius.circular(15),
@@ -342,18 +310,16 @@ class _SettingsState extends State<Settings> {
                                         ),
                                       ]),
                                   child: Container(
-                                    margin:
-                                        EdgeInsets.symmetric(horizontal: 15),
+                                    margin: EdgeInsets.symmetric(horizontal: 15),
                                     child: Column(
                                       children: [
                                         Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.spaceBetween,
                                           children: [
                                             buildText.heading3Text(
                                                 "Tracking for Advertisement"),
-                                            toggleSwitch(
-                                                "isTrackingForAdvertising"),
+                                            toggleSwitch("isTrackingForAdvertising", null),
                                           ],
                                         ),
                                       ],
@@ -381,23 +347,19 @@ class _SettingsState extends State<Settings> {
                 ),
               ),
             );
-          } else {
+          }
+          else{
             print(snapshot);
             return Loading();
           }
-        });
+        }
+    );
   }
 
-  Widget textBox(TextEditingController controller, String name, String selector,
-      String uid, String initialValue,
-      {bool enabled = true}) {
+  Widget textBox(TextEditingController controller, String name, String selector, String uid, String initialValue, {bool enabled = true}) {
     return Container(
       padding: EdgeInsets.only(bottom: 10, right: 10, left: 10),
-      child: buildTextBox.textBox(controller, name,
-          selector: selector,
-          uid: uid,
-          initialValue: initialValue,
-          enabled: enabled),
+      child: buildTextBox.textBox(controller, name, selector: selector, uid: uid, initialValue: initialValue, enabled: enabled),
     );
   }
 
@@ -407,12 +369,15 @@ class _SettingsState extends State<Settings> {
     );
   }
 
-  Widget toggleSwitch(String key) {
+  Widget toggleSwitch(String key, String? topic) {
     return Switch(
       value: UserPreference.getSetting(key),
       onChanged: (value) {
         setState(() {
           UserPreference.setSetting(key, value);
+          if (topic != null) {
+            FirebaseMessagingService.handleSubscription(value, topic);
+          }
         });
       },
       activeTrackColor: kOrangeLight,

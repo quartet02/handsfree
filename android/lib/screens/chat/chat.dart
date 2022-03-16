@@ -9,7 +9,7 @@ import 'package:handsfree/widgets/breaker.dart';
 import 'package:handsfree/widgets/buildText.dart';
 import 'package:handsfree/widgets/columnList.dart';
 import 'package:handsfree/widgets/constants.dart';
-import 'package:handsfree/widgets/userPreference.dart';
+import 'package:handsfree/services/userPreference.dart';
 
 import 'chatBubble.dart';
 

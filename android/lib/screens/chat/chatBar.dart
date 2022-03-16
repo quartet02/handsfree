@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:handsfree/services/database.dart';
 import 'package:handsfree/widgets/constants.dart';
-import 'package:handsfree/widgets/userPreference.dart';
+import 'package:handsfree/services/userPreference.dart';
 
 class ChatBar extends StatefulWidget {
   const ChatBar({Key? key, required this.roomId}) : super(key: key);

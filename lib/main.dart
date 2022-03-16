@@ -54,7 +54,6 @@ Future<void> main() async {
       options: DefaultFirebaseOptions.currentPlatform,
     );
     await UserPreference.init();
-    SharedPreferences.setMockInitialValues({});
     camerasAvailable = await availableCameras();
   } on CameraException catch (e) {
     print(e.description);

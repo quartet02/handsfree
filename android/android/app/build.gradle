@@ -80,6 +80,8 @@ dependencies {
 
     // To connect flutter and use firebase firestore service
     implementation 'com.google.firebase:firebase-storage:20.0.0'
+
+    implementation 'com.google.firebase:firebase-inappmessaging:20.1.2'
 }
 
 flutter {
