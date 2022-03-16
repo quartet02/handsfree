@@ -22,12 +22,11 @@ class Profile extends StatelessWidget {
 
     return StreamBuilder<NewUserData>(
         stream: DatabaseService(uid: user!.uid).userData,
-        builder: (context, snapshot1){
+        builder: (context, snapshot1) {
           return StreamBuilder<NewUserActivityLog>(
               stream: DatabaseService(uid: user.uid).activity,
-              builder: (context, snapshot2){
-                if(snapshot1.hasData && snapshot2.hasData){
-
+              builder: (context, snapshot2) {
+                if (snapshot1.hasData && snapshot2.hasData) {
                   NewUserData? userData = snapshot1.data;
                   NewUserActivityLog? activities = snapshot2.data;
 
@@ -49,7 +48,8 @@ class Profile extends StatelessWidget {
                           ),
                           ProfileCard(
                             profile: ProfileDetails(
-                                imageUrl: 'assets/image/character.png' /*userData.picture!*/,
+                                imageUrl:
+                                    'assets/image/character.png' /*userData.picture!*/,
                                 username: userData!.username!,
                                 email: userAuth.email!,
                                 experience: userData.experience!),
@@ -97,27 +97,29 @@ class Profile extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: List.generate(
-                                days.length,
+                                    days.length,
                                     (index) => DayActivity(
-                                    day: days[index], activity: activities!.activity![index])).toList(),
+                                        day: days[index],
+                                        activity: activities!.activity![index]))
+                                .toList(),
                           ),
                           breaker(120)
                         ],
                       ),
                     ),
                     floatingActionButton: NavBar.Buttons(context),
-                    floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+                    floatingActionButtonLocation:
+                        FloatingActionButtonLocation.centerDocked,
                     extendBody: true,
                     bottomNavigationBar: NavBar.bar(context, 4),
                   );
-                }
-                else{
+                } else {
+                  print(snapshot1.error);
+                  print(snapshot2.error);
                   return Loading();
                 }
-              }
-          );
-        }
-    );
+              });
+        });
   }
 
   Widget breaker(double i) {

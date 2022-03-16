@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:handsfree/models/messageModel.dart';
+import 'package:handsfree/services/medialoader.dart';
 
 class ChatBubble extends StatelessWidget {
   const ChatBubble(
@@ -52,21 +53,29 @@ class ChatBubble extends StatelessWidget {
                 : borderRadius
                     .subtract(const BorderRadius.only(bottomLeft: radius)),
           ),
-          child: buildMessage(),
+          child: buildMessage(context),
         ),
       ],
     );
   }
 
-  Widget buildMessage() => Column(
+  Widget buildMessage(BuildContext context) => Column(
         crossAxisAlignment:
             isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: <Widget>[
-          Text(
-            message.messageText,
-            style: TextStyle(color: isMe ? Colors.black : Colors.white),
-            textAlign: isMe ? TextAlign.end : TextAlign.start,
-          ),
+          message.type == 1
+              ? Text(
+                  message.messageText,
+                  style: TextStyle(color: isMe ? Colors.black : Colors.white),
+                  textAlign: isMe ? TextAlign.end : TextAlign.start,
+                )
+              : GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, "/viewPic",
+                        arguments: message.messageText);
+                  },
+                  child: Image.network(message.messageText),
+                ),
         ],
       );
 }

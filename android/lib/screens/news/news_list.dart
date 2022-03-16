@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:handsfree/models/newsFeedModel.dart';
 import 'package:provider/provider.dart';
-
 import 'news_tile.dart';
 
 class NewsList extends StatefulWidget {

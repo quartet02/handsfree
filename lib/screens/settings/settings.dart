@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:handsfree/services/database.dart';
 import 'package:handsfree/services/auth.dart';
-import 'package:handsfree/services/firebase_messaging_service.dart';
 import 'package:handsfree/widgets/buildButton.dart';
 import 'package:handsfree/widgets/buildText.dart';
 import 'package:handsfree/widgets/buildTextBox.dart';
@@ -248,7 +247,7 @@ class _SettingsState extends State<Settings> {
                                           MainAxisAlignment.spaceBetween,
                                           children: [
                                             buildText.heading3Text("Weekly Progress"),
-                                            toggleSwitch("isWeeklyProgress", null),
+                                            toggleSwitch("isWeeklyProgress"),
                                           ],
                                         ),
                                         Row(
@@ -256,7 +255,7 @@ class _SettingsState extends State<Settings> {
                                           MainAxisAlignment.spaceBetween,
                                           children: [
                                             buildText.heading3Text("New Friend"),
-                                            toggleSwitch("isNewFriends", "newFriendsNoti"),
+                                            toggleSwitch("isNewFriends"),
                                           ],
                                         ),
                                         Row(
@@ -264,7 +263,7 @@ class _SettingsState extends State<Settings> {
                                           MainAxisAlignment.spaceBetween,
                                           children: [
                                             buildText.heading3Text("Friend Activity"),
-                                            toggleSwitch("isFriendActivity", null),
+                                            toggleSwitch("isFriendActivity"),
                                           ],
                                         ),
                                         Row(
@@ -272,7 +271,7 @@ class _SettingsState extends State<Settings> {
                                           MainAxisAlignment.spaceBetween,
                                           children: [
                                             buildText.heading3Text("Leaderboards"),
-                                            toggleSwitch("isLeaderboards", "leaderboardNoti"),
+                                            toggleSwitch("isLeaderboards"),
                                           ],
                                         ),
                                         Row(
@@ -280,7 +279,7 @@ class _SettingsState extends State<Settings> {
                                           MainAxisAlignment.spaceBetween,
                                           children: [
                                             buildText.heading3Text("News"),
-                                            toggleSwitch("isNews", "newsNoti"),
+                                            toggleSwitch("isNews"),
                                           ],
                                         ),
                                       ],
@@ -319,7 +318,7 @@ class _SettingsState extends State<Settings> {
                                           children: [
                                             buildText.heading3Text(
                                                 "Tracking for Advertisement"),
-                                            toggleSwitch("isTrackingForAdvertising", null),
+                                            toggleSwitch("isTrackingForAdvertising"),
                                           ],
                                         ),
                                       ],
@@ -369,13 +368,11 @@ class _SettingsState extends State<Settings> {
     );
   }
 
-  Widget toggleSwitch(String key, String? topic) {
+  Widget toggleSwitch(String key) {
     return Switch(
       value: UserPreference.getSetting(key),
       onChanged: (value) {
         setState(() {
-          if (topic!= null)
-            FirebaseMessagingService.handleSubscription(value, topic);
           UserPreference.setSetting(key, value);
         });
       },

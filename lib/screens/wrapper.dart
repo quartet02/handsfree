@@ -13,7 +13,7 @@ class Wrapper extends StatelessWidget {
     final user = Provider.of<NewUser?>(context);
     FirebaseMessagingService.startFcm();
     // return either Home or Authenticate widget
-    if (user == null) {
+    if (user != null) {
       return const Authenticate();
     } else {
       FirebaseMessagingService.updateToken(user.uid!);
