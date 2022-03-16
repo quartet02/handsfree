@@ -16,6 +16,7 @@ class OnlineFriendList extends StatelessWidget {
           .chatsId, // get chatRoom id
       builder: (context, snapshotId) {
         if (snapshotId.hasData &&
+            snapshotId.data!.isEmpty &&
             snapshotId.connectionState == ConnectionState.active) {
           // snapshotId.data!.forEach(print);
           return StreamBuilder<List<ChatRoom>>(

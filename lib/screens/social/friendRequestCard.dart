@@ -139,8 +139,8 @@ class _FriendRequestCardState extends State<FriendRequestCard> {
         GestureDetector(
           onTap: () async {
             await DatabaseService(uid: UserPreference.get("uniqueId"))
-                .friendRequestAction(true, widget.userData.uid);
-            print("accepted");
+                .friendRequestAction(false, widget.userData.uid);
+            print("declined");
           },
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
