@@ -5,97 +5,6 @@ import '../models/wordModel.dart';
 import 'package:flutter/material.dart';
 import 'package:handsfree/services/database.dart';
 
-// final CollectionReference lessonsCollection = FirebaseFirestore.instance.collection('lessons');
-//
-// List getData() {
-//   List x = [];
-//   QuerySnapshot snapshot = lessonsCollection.doc('Syllabus 1').collection('Syllabus').get() as QuerySnapshot<Object?>;
-//   final allData = snapshot.docs.map((doc) => doc.data()).toList();
-//   QuerySnapshot snapshot1 = lessonsCollection.doc('Syllabus 2').collection('Syllabus').get() as QuerySnapshot<Object?>;
-//   final allData1 = snapshot1.docs.map((doc) => doc.data()).toList();
-//   x.add(allData);
-//   x.add(allData1);
-//   print('Hello');
-//   print(x);
-//   return x;
-// }
-//
-// var wordData1 = getData();
-//
-// void convert(Future<List> x) async{
-//   List<dynamic> list = await x;
-//   print(list);
-// }
-
-// List<Map<String, String>> wordData = [
-//   {
-//     "word": 'Hello',
-//     'imgUrl': 'none',
-//     'definition': 'Just hello',
-//     'phoneticSymbol': "/həˈləʊ,hɛˈləʊ/",
-//   },
-//   {
-//     "word": 'Hi',
-//     'imgUrl': 'none',
-//     'definition': 'Just Hi',
-//     'phoneticSymbol': "/həˈləʊ,hɛˈləʊ/",
-//   },
-//   {
-//     "word": 'Hey',
-//     'imgUrl': 'none',
-//     'definition': 'Just hello',
-//     'phoneticSymbol': "/həˈləʊ,hɛˈləʊ/",
-//   },
-//   {
-//     "word": 'Nice',
-//     'imgUrl': 'none',
-//     'definition': 'Just hello',
-//     'phoneticSymbol': "/həˈləʊ,hɛˈləʊ/",
-//   },
-//   {
-//     "word": 'Nice',
-//     'imgUrl': 'none',
-//     'definition': 'Just hello',
-//     'phoneticSymbol': "/həˈləʊ,hɛˈləʊ/",
-//   },
-//   {
-//     "word": 'Nice',
-//     'imgUrl': 'none',
-//     'definition': 'Just hello',
-//     'phoneticSymbol': "/həˈləʊ,hɛˈləʊ/",
-//   },
-//   {
-//     "word": 'Nice',
-//     'imgUrl': 'none',
-//     'definition': 'Just hello',
-//     'phoneticSymbol': "/həˈləʊ,hɛˈləʊ/",
-//   },
-//   {
-//     "word": 'Nice',
-//     'imgUrl': 'none',
-//     'definition': 'Just hello',
-//     'phoneticSymbol': "/həˈləʊ,hɛˈləʊ/",
-//   },
-//   {
-//     "word": 'Where',
-//     'imgUrl': 'none',
-//     'definition': 'Just hello',
-//     'phoneticSymbol': "/həˈləʊ,hɛˈləʊ/",
-//   },
-//   {
-//     "word": 'Bye',
-//     'imgUrl': 'none',
-//     'definition': 'Just hello',
-//     'phoneticSymbol': "/həˈləʊ,hɛˈləʊ/",
-//   },
-//   {
-//     "word": 'Bye',
-//     'imgUrl': 'none',
-//     'definition': 'Just hello',
-//     'phoneticSymbol': "/həˈləʊ,hɛˈləʊ/",
-//   },
-// ];
-
 class DictionaryProvider extends ChangeNotifier {
   final List? wordData;
 
@@ -137,7 +46,7 @@ class DictionaryProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  String get getQuery{
+  String get getQuery {
     return _query;
   }
 
@@ -179,15 +88,15 @@ class DictionaryProvider extends ChangeNotifier {
     } else {
       _suggestion = _wordList
           .map((wordObject) {
-        // case insensitive search
-        if (wordObject.word.toUpperCase().startsWith(query.toUpperCase())) {
-          return wordObject;
-        } else {
-          // return empty Word
-          return WordModel(
-              word: "", imgUrl: "", definition: "", phoneticSymbol: "");
-        }
-      })
+            // case insensitive search
+            if (wordObject.word.toUpperCase().startsWith(query.toUpperCase())) {
+              return wordObject;
+            } else {
+              // return empty Word
+              return WordModel(
+                  word: "", imgUrl: "", definition: "", phoneticSymbol: "");
+            }
+          })
           .toList()
           .cast<WordModel>();
       // clean up the list

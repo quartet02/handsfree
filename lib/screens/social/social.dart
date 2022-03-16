@@ -7,6 +7,7 @@ import 'package:handsfree/services/database.dart';
 import 'package:handsfree/widgets/breaker.dart';
 import 'package:handsfree/widgets/buildButton.dart';
 import 'package:handsfree/models/friendModel.dart';
+import 'package:handsfree/widgets/constants.dart';
 import 'package:handsfree/widgets/overlay.dart';
 import 'package:handsfree/widgets/navBar.dart';
 import 'package:handsfree/widgets/smallCard.dart';
@@ -14,7 +15,6 @@ import 'package:handsfree/widgets/userPreference.dart';
 import 'package:provider/provider.dart';
 import 'package:handsfree/widgets/buildText.dart';
 
-import '../../provider/communityProvider.dart';
 import '../../provider/newsFeedProvider.dart';
 import 'package:handsfree/widgets/navBar.dart';
 
@@ -40,7 +40,6 @@ class _SocialState extends State<Social> {
     ]);
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => CommunityProvider()),
         ChangeNotifierProvider(create: (_) => NewsFeedProvider()),
       ],
       child: Scaffold(
@@ -60,24 +59,49 @@ class _SocialState extends State<Social> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               buildText.heading2Text("Online Friends"),
-                              GestureDetector(
-                                onTap: () async {
-                                  //search all users
-                                },
-                                child: Container(
-                                  width: 40,
-                                  height: 40,
-                                  decoration: const BoxDecoration(
-                                    image: DecorationImage(
-                                      alignment: Alignment.center,
-                                      image: AssetImage(
-                                          'assets/image/search_icon.png'),
-                                      scale: 3,
+                              Row(
+                                children: [
+                                  GestureDetector(
+                                    onTap: () async {
+                                      Navigator.pushNamed(
+                                          context, "/viewFriendRequest");
+                                    },
+                                    child: Container(
+                                      width: 28,
+                                      height: 28,
+                                      decoration: const BoxDecoration(
+                                        image: DecorationImage(
+                                          alignment: Alignment.center,
+                                          image: AssetImage(
+                                              'assets/image/friend_request.png'),
+                                          scale: 3,
+                                        ),
+                                      ),
+                                      child: Container(),
                                     ),
                                   ),
-                                  child: Container(),
-                                ),
-                              ),
+                                  Breaker(i: 5, pos: PadPos.right),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.pushNamed(
+                                          context, "/searchGlobalUsers");
+                                    },
+                                    child: Container(
+                                      width: 40,
+                                      height: 40,
+                                      decoration: const BoxDecoration(
+                                        image: DecorationImage(
+                                          alignment: Alignment.center,
+                                          image: AssetImage(
+                                              'assets/image/search_icon.png'),
+                                          scale: 3,
+                                        ),
+                                      ),
+                                      child: Container(),
+                                    ),
+                                  ),
+                                ],
+                              )
                             ],
                           ),
                           Breaker(i: 5),
@@ -153,8 +177,8 @@ class _SocialState extends State<Social> {
         children: [
           buildText.heading2Text("News Feed"),
           GestureDetector(
-            onTap: () async {
-              //check index and go the the respective place
+            onTap: () {
+              Navigator.pushNamed(context, "/news");
             },
             child: Container(
               width: 40,

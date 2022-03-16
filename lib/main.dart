@@ -1,7 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:handsfree/provider/communityProvider.dart';
 import 'package:handsfree/provider/helpdeskProvider.dart';
 import 'package:handsfree/provider/lessonCardProvider.dart';
 import 'package:handsfree/provider/newsFeedProvider.dart';
@@ -26,6 +25,8 @@ import 'package:handsfree/screens/profile/profile.dart';
 import 'package:handsfree/screens/profile/acknowledgement.dart';
 import 'package:handsfree/screens/settings/helpdesk.dart';
 import 'package:handsfree/screens/settings/settings.dart';
+import 'package:handsfree/screens/social/friendRequest.dart';
+import 'package:handsfree/screens/social/searchGlobal.dart';
 import 'package:handsfree/screens/social/social.dart';
 import 'package:handsfree/screens/settings/terms.dart';
 import 'package:handsfree/screens/wrapper.dart';
@@ -33,6 +34,8 @@ import 'package:handsfree/services/ShPref.dart';
 import 'package:handsfree/services/auth.dart';
 import 'package:handsfree/provider/lessonProvider.dart';
 import 'package:handsfree/services/mediaAccess.dart';
+import 'package:handsfree/services/prepSendImage.dart';
+import 'package:handsfree/services/viewPic.dart';
 import 'package:handsfree/widgets/userPreference.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -62,12 +65,16 @@ Future<void> main() async {
       child: const MyApp(),
       providers: [
         ChangeNotifierProvider<LessonProvider>(create: (_) => LessonProvider()),
-        ChangeNotifierProvider<SubLessonProvider>(create: (_) => SubLessonProvider()),
-        ChangeNotifierProvider<LessonCardProvider>(create: (_) => LessonCardProvider()),
-        ChangeNotifierProvider<HelpDeskProvider>(create: (_) => HelpDeskProvider()),
-        ChangeNotifierProvider<CommunityProvider>(create: (_) => CommunityProvider()),
-        ChangeNotifierProvider<NewsFeedProvider>(create: (_) => NewsFeedProvider()),
-        ChangeNotifierProvider<LessonCardProvider>(create: (_) => LessonCardProvider()),
+        ChangeNotifierProvider<SubLessonProvider>(
+            create: (_) => SubLessonProvider()),
+        ChangeNotifierProvider<LessonCardProvider>(
+            create: (_) => LessonCardProvider()),
+        ChangeNotifierProvider<HelpDeskProvider>(
+            create: (_) => HelpDeskProvider()),
+        ChangeNotifierProvider<NewsFeedProvider>(
+            create: (_) => NewsFeedProvider()),
+        ChangeNotifierProvider<LessonCardProvider>(
+            create: (_) => LessonCardProvider()),
       ],
     ),
   );
@@ -130,6 +137,10 @@ class MyApp extends StatelessWidget {
           "/chatHome": (context) => ChatHome(),
           "/chatHome/chat": (context) => Chat(),
           "/camera": (context) => CameraScreen(),
+          "/prepsend": (context) => PrepSendImage(),
+          "/viewPic": (context) => ViewPic(),
+          "/viewFriendRequest": (context) => FriendRequest(),
+          "/searchGlobalUsers": (context) => SearchGlobal(),
         },
       ),
     );
