@@ -14,12 +14,12 @@ class NewsList extends StatefulWidget {
 class _NewsListState extends State<NewsList> {
   @override
   Widget build(BuildContext context) {
-    late final news = Provider.of<List<NewsFeedModel>?>(context);
+    late final news = Provider.of<List<NewsFeedModel>?>(context) ?? [];
 
     return ListView.builder(
         scrollDirection: Axis.vertical,
         shrinkWrap: true,
-        itemCount: news!.length,
+        itemCount: news.length,
         itemBuilder: (context, index){
           return NewsTile(news: news == null ? null : news[index]);
         });
