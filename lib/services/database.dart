@@ -805,6 +805,7 @@ class DatabaseService {
       "lessonId": 'z',
       "isCompleted": false,
     });
+
     ///To Syllabus 1
 
     ///Syllabus 2 Lesson 1
@@ -1296,18 +1297,8 @@ class DatabaseService {
       "lessonId": 'howareyou',
       "isCompleted": false,
     });
+
     ///To Syllabus 2
-
-
-
-
-
-
-
-
-
-
-
 
     ///Syllabus 3 Lesson 1
     await userCollection
@@ -1703,6 +1694,7 @@ class DatabaseService {
       "lessonId": 'z',
       "isCompleted": false,
     });
+
     ///To Syllabus 3
 
     ///Syllabus 4 Lesson 1
@@ -1883,7 +1875,7 @@ class DatabaseService {
       "lessonCardId": 002,
       "lessonCardTitle": "What",
       "lessonCardDesc":
-      "Sign of 'What', this sign is usually shown at the last of the signing sentence.",
+          "Sign of 'What', this sign is usually shown at the last of the signing sentence.",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
       "lessonId": 'what',
       "isCompleted": false,
@@ -1929,7 +1921,7 @@ class DatabaseService {
       "lessonCardId": 005,
       "lessonCardTitle": "Where",
       "lessonCardDesc":
-      "Sign of 'Where', this sign is usually shown at the last of the signing sentence.",
+          "Sign of 'Where', this sign is usually shown at the last of the signing sentence.",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
       "lessonId": 'where',
       "isCompleted": false,
@@ -2052,7 +2044,7 @@ class DatabaseService {
       "lessonCardId": 003,
       "lessonCardTitle": "What do",
       "lessonCardDesc":
-      "Sign of 'What do', this sign is usually shown at the last of signing sentence.",
+          "Sign of 'What do', this sign is usually shown at the last of signing sentence.",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
       "lessonId": 'whatdo',
       "isCompleted": false,
@@ -2129,7 +2121,7 @@ class DatabaseService {
       "lessonCardId": 002,
       "lessonCardTitle": "Meaning",
       "lessonCardDesc":
-      "Sign of 'Meaning', which is used to ask the meaning the sign shown.",
+          "Sign of 'Meaning', which is used to ask the meaning the sign shown.",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
       "lessonId": 'meaning',
       "isCompleted": false,
@@ -2194,20 +2186,8 @@ class DatabaseService {
       "lessonId": 'howareyou',
       "isCompleted": false,
     });
+
     ///To Syllabus 4
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     ///From Syllabus 1 Lesson Overview
     await userCollection
@@ -2279,6 +2259,7 @@ class DatabaseService {
       "lessonImage": "assets/image/lesson_1_thumbnail.png",
       "isCompleted": false,
     });
+
     ///To Syllabus 1 Lesson Overview
 
     ///From Syllabus 2 Lesson Overview
@@ -2365,15 +2346,8 @@ class DatabaseService {
       "lessonImage": "assets/image/lesson_1_thumbnail.png",
       "isCompleted": false,
     });
+
     ///To Syllabus 2 Lesson Overview
-
-
-
-
-
-
-
-
 
     ///From Syllabus 3 Lesson Overview
     await userCollection
@@ -2445,6 +2419,7 @@ class DatabaseService {
       "lessonImage": "assets/image/lesson_1_thumbnail.png",
       "isCompleted": false,
     });
+
     ///To Syllabus 3 Lesson Overview
 
     ///From Syllabus 4 Lesson Overview
@@ -2531,14 +2506,8 @@ class DatabaseService {
       "lessonImage": "assets/image/lesson_1_thumbnail.png",
       "isCompleted": false,
     });
+
     ///To Syllabus 4 Lesson Overview
-
-
-
-
-
-
-
 
     ///From Overview Collection
     await userCollection
@@ -2596,16 +2565,19 @@ class DatabaseService {
       "lessonImage": "assets/image/lesson_1_thumbnail.png",
       "isCompleted": false,
     });
+
     ///To Overview Collection
   }
 
-  Future<void> buildUserLog() async{
+  Future<void> buildUserLog() async {
     print("reached");
+
     ///From Log Collection
     await userCollection.doc(uid).collection('log').doc('Activity').set({
       "lastLoginIn": Timestamp.now(),
       "login": [false, false, false, false, false, false, false],
     });
+
     ///To Log Collection
   }
 
@@ -2614,6 +2586,7 @@ class DatabaseService {
       "list": [],
     });
   }
+
   ///To User Collection
 
   ///From Lesson Collection
@@ -2635,6 +2608,7 @@ class DatabaseService {
 
     return wordData;
   }
+
   ///To Lesson Collection
 
   ///From Feedback Collection
@@ -2648,6 +2622,7 @@ class DatabaseService {
       "name": name,
     });
   }
+
   ///To Feedback Collection
 
   ///From Community Collection
@@ -2664,25 +2639,27 @@ class DatabaseService {
   Stream<List<CommunityModel_1>?> get communityList {
     return newsCollection.snapshots().map(_communityListFromSnapshot);
   }
+
   ///To Community Collection
 
   ///From News Collection
   List<NewsFeedModel>? _newsListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
       return NewsFeedModel(
-          doc['id'],
-          doc['title'],
-          doc['content'],
-          doc['media'],
-          doc['timestamp'],
-          doc['author'],
-          );
+        doc['id'],
+        doc['title'],
+        doc['content'],
+        doc['media'],
+        doc['timestamp'],
+        doc['author'],
+      );
     }).toList();
   }
 
   Stream<List<NewsFeedModel>?> get newsList {
     return newsCollection.snapshots().map(_newsListFromSnapshot);
   }
+
   ///To News Collection
 
   ///Normal methods....
@@ -2738,8 +2715,10 @@ class DatabaseService {
 
   // get user stream
   Stream<List<Users>?> get users {
-    Stream<List<Users>?> x =
-        userCollection.orderBy('experience', descending: true).snapshots().map(_userListFromSnapshot);
+    Stream<List<Users>?> x = userCollection
+        .orderBy('experience', descending: true)
+        .snapshots()
+        .map(_userListFromSnapshot);
     return x;
   }
 
@@ -2830,7 +2809,9 @@ class DatabaseService {
 
   Stream<List<String>> get chatsId {
     return userCollection.doc(uid).snapshots().map((snapshot) {
-      return List<String>.from(snapshot['groups']);
+      List<String> a = List<String>.from(snapshot['groups']);
+      print("Number of elem is ${a.length}");
+      return a;
     });
   }
 
