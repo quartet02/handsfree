@@ -8,7 +8,6 @@ Future<void> _messageHandler(RemoteMessage message) async {
   // and it has to be a top level function
   // (eg: not a class method which requires initialization)
   print('background message ${message.notification!.body}');
-  FirebaseFunctions k;
 }
 
 class FirebaseMessagingService {

@@ -16,7 +16,7 @@ class Wrapper extends StatelessWidget {
     if (user != null) {
       return const Authenticate();
     } else {
-      FirebaseMessagingService.updateToken(user.uid!);
+      FirebaseMessagingService.updateToken(user!.uid!);
       return const Home();
     }
   }
