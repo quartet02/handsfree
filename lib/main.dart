@@ -36,7 +36,7 @@ import 'package:handsfree/provider/lessonProvider.dart';
 import 'package:handsfree/services/mediaAccess.dart';
 import 'package:handsfree/services/prepSendImage.dart';
 import 'package:handsfree/services/viewPic.dart';
-import 'package:handsfree/widgets/userPreference.dart';
+import 'package:handsfree/services/userPreference.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';

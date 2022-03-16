@@ -11,7 +11,7 @@ import 'package:handsfree/widgets/constants.dart';
 import 'package:handsfree/widgets/overlay.dart';
 import 'package:handsfree/widgets/navBar.dart';
 import 'package:handsfree/widgets/smallCard.dart';
-import 'package:handsfree/widgets/userPreference.dart';
+import 'package:handsfree/services/userPreference.dart';
 import 'package:provider/provider.dart';
 import 'package:handsfree/widgets/buildText.dart';
 
@@ -177,7 +177,7 @@ class _SocialState extends State<Social> {
         children: [
           buildText.heading2Text("News Feed"),
           GestureDetector(
-            onTap: () {
+            onTap: () async {
               Navigator.pushNamed(context, "/news");
             },
             child: Container(

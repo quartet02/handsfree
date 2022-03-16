@@ -33,4 +33,20 @@ class UserPreference {
       return null;
     }
   }
+
+  static setSetting(String key, bool val){
+    if (_prefs.containsKey(key)){
+      _prefs.setBool(key, val);
+    } else{
+      print('No ' + key + 'in shared preference');
+      _prefs.setBool(key, false);
+    }
+  }
+
+  static getSetting(String key){
+    if (!_prefs.containsKey(key)){
+      setSetting(key, false);
+    }
+    return _prefs.getBool(key)!;
+  }
 }

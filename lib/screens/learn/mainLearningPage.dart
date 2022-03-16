@@ -206,9 +206,11 @@ class _MainLearningPageState extends State<MainLearningPage> {
                                     if (providerCardLesson.index == cardLesson.length - 1) {
                                       Navigator.pushNamed(context, "/congratulation");
                                       DatabaseService(uid: user.uid).updateIsCompletedSubLesson(syllabus, lesson, cardLesson[providerCardLesson.index].lessonId);
+                                      DatabaseService(uid: user.uid).updateExperience();
                                       DatabaseService(uid: user.uid).updateIsCompletedLesson(syllabus, lesson);
                                     } else {
                                       DatabaseService(uid: user.uid).updateIsCompletedSubLesson(syllabus, lesson, cardLesson[providerCardLesson.index].lessonId);
+                                      DatabaseService(uid: user.uid).updateExperience();
                                       providerCardLesson.increment();
                                     }
                                   },

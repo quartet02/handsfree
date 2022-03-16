@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:handsfree/widgets/userPreference.dart';
+import 'package:handsfree/services/userPreference.dart';
 
 import '../models/wordModel.dart';
 import 'package:flutter/material.dart';

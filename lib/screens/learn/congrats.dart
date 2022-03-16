@@ -116,6 +116,7 @@ class _CongratulationState extends State<Congratulation> {
                     word: '/learn',
                     buttonColor: 'white',
                     buttonShadow: Color.fromARGB(100, 29, 40, 63),
+                    isReplaced: true,
                   )
                 ],
               )),

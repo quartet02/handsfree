@@ -76,6 +76,7 @@ dependencies:
 
   #loading widget
   flutter_spinkit: ^5.1.0
+  firebase_messaging: ^11.2.10
 
 # dependency_overrides:
 #   firebase_messaging_platform_interface: ^3.2.1

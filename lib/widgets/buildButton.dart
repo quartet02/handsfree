@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 class buildButton extends StatelessWidget {
   final String text;
   final String word;
+  final bool isReplaced;
   String buttonColor;
   Color buttonShadow;
   late final bool isSignOut;
@@ -15,15 +16,16 @@ class buildButton extends StatelessWidget {
         required this.word,
         required this.buttonColor,
         this.buttonShadow = kButtonShadow,
-        this.isSignOut = false});
+        this.isSignOut = false,
+      this.isReplaced = false});
 
-  void navigate(BuildContext context, String word) {
+  void navigate(BuildContext context, String word,bool isReplaced) {
     if (isSignOut) {
       final AuthService _auth = AuthService();
       _auth.signOut();
       Navigator.pushNamed(context, "/auth");
-    } else {
-      Navigator.pushNamed(context, word);
+    } else{
+      isReplaced?Navigator.pushNamedAndRemoveUntil(context, word, ModalRoute.withName("/sublevel")):Navigator.pushNamed(context, word);
     }
   }
 
@@ -39,7 +41,7 @@ class buildButton extends StatelessWidget {
     }
 
     return GestureDetector(
-      onTap: () => navigate(context, word),
+      onTap: () => navigate(context, word, isReplaced),
       child: Stack(
         children: <Widget>[
           Center(
