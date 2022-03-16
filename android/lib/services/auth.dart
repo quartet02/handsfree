@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:handsfree/services/database.dart';
-import 'package:handsfree/widgets/userPreference.dart';
+import 'package:handsfree/services/userPreference.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:handsfree/widgets/loadingWholeScreen.dart';
 import '../models/newUser.dart';

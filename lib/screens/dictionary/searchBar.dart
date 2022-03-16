@@ -88,21 +88,25 @@ class _SearchBarState extends State<SearchBar> {
           userQuery.query = txt;
         },
         onFieldSubmitted: (txt){
-          final provider = context.read<DictionaryProvider>();
-          List? wordData = provider.wordData;
-          for(Map each in wordData!){
-            if(each['word'] == txt){
-              Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  builder: (context) => Translator(each['word'], each['definition'], each['phoneticSymbol'], each['imgUrl']),
-                  maintainState: false)
-              );
-              break;
-            }
-            else{
-              Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  builder: (context) => Translator('Unknown', 'Unknown', 'Unknown', 'Unknown'),
-                  maintainState: false)
-              );
+          if(widget.provider == Providers.dictionary) {
+            final provider = context.read<DictionaryProvider>();
+            List? wordData = provider.wordData;
+            for (Map each in wordData!) {
+              if (each['word'] == txt) {
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) =>
+                        Translator(each['word'], each['definition'],
+                            each['phoneticSymbol'], each['imgUrl']),
+                    maintainState: false)
+                );
+                break;
+              }
+              else {
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => const Translator('Unknown', 'Unknown', 'Unknown', 'Unknown'),
+                    maintainState: false)
+                );
+              }
             }
           }
         },

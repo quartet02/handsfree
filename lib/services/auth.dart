@@ -17,9 +17,10 @@ class AuthService {
       UserCredential result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       User user = result.user!;
-      print(user.displayName);
+
       // add uid to SharedPreferences for easy access
       await UserPreference.setValue("uniqueId", user.uid);
+
       // print("set user preference with ${user.uid}");
 
       // init user database on successful registeration
@@ -31,7 +32,9 @@ class AuthService {
             'assets/image/character.png',
             'Newbie Signer',
             email.substring(0, email.lastIndexOf('@')))
-        ..buildUserLesson();
+        ..buildUserLesson()
+        ..buildUserLog()
+        ..buildUserFriend();
 
       return [0, 'Account created successfully'];
     } on FirebaseAuthException catch (e) {
@@ -55,6 +58,10 @@ class AuthService {
 
       // add uid to SharedPreferences for easy access
       await UserPreference.setValue("uniqueId", user.uid);
+
+      // for testing initializable database
+      // await DatabaseService(uid: user.uid)..buildUserLesson()
+      //         ..buildUserFriend();
 
       DatabaseService(uid: user.uid);
       var activities =

@@ -25,7 +25,7 @@ import 'package:handsfree/screens/settings/terms.dart';
 import 'package:handsfree/screens/wrapper.dart';
 import 'package:handsfree/services/auth.dart';
 import 'package:handsfree/provider/lessonProvider.dart';
-import 'package:handsfree/widgets/userPreference.dart';
+import 'package:handsfree/services/userPreference.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
@@ -89,7 +89,7 @@ class MyApp extends StatelessWidget {
           "/terms": (context) => Terms(),
           "/mainLearningPage": (context) => const MainLearningPage(),
           "/congratulation": (context) => const Congratulation(),
-          "/translator": (context) => const Translator(),
+          // "/translator": (context) => const Translator(),
           "/helpCenter": (context) => const HelpDesk(),
           "/feedback": (context) => const FeedBack(),
           "/chatHome": (context) => ChatHome(),
