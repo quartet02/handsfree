@@ -3,6 +3,8 @@ import 'package:handsfree/widgets/overlay.dart';
 import 'package:handsfree/widgets/buildButton.dart';
 import 'package:handsfree/widgets/buildText.dart';
 
+import '../services/medialoader.dart';
+
 class SmallCard extends StatelessWidget {
   final id;
   final communitySize;
@@ -37,13 +39,35 @@ class SmallCard extends StatelessWidget {
                 width: communitySize,
                 alignment: Alignment.topCenter,
                 margin: const EdgeInsets.only(top: 5.0),
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    alignment: Alignment.center,
-                    image: AssetImage(communityImage),
-                    scale: 4,
-                  ),
-                ),
+                child: FutureBuilder(
+                    future: getImage(context, communityImage),
+                    builder: (context, snapshot) {
+                      if(snapshot.connectionState == ConnectionState.done){
+                        return Container(
+                          width: MediaQuery.of(context).size.width/ 1.2,
+                          height: MediaQuery.of(context).size.width/ 1.2,
+                          child: snapshot.data as Widget,
+                        );
+                      }
+                      if (snapshot.connectionState == ConnectionState.waiting){
+                        return Container(
+                          width: MediaQuery.of(context).size.width/ 1.2,
+                          height: MediaQuery.of(context).size.width/ 1.2,
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                      else {
+                        print('Connection Failed');
+                        return Container();
+                      }
+                    }),
+                // decoration: BoxDecoration(
+                //   image: DecorationImage(
+                //     alignment: Alignment.center,
+                //     image: AssetImage(communityImage),
+                //     scale: 4,
+                //   ),
+                // ),
               ),
               GestureDetector(
                 onTap: () {

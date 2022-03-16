@@ -14,6 +14,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../../models/newUser.dart';
 import '../../provider/lessonProvider.dart';
+import '../../services/medialoader.dart';
 import '../../widgets/navBar.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:handsfree/models/lessonModel.dart';
@@ -30,11 +31,7 @@ class SubLevel extends StatelessWidget {
   Widget build(BuildContext context) {
     LessonModel lesson = context.read<LessonProvider>().getClickedLesson;
     _user = Provider.of<NewUser?>(context);
-    if(lesson.lessonId == 1){
-      _syllabus = "Syllabus 1";
-    }else if(lesson.lessonId == 2){
-      _syllabus = "Syllabus 2";
-    }
+    _syllabus = "Syllabus " + lesson.lessonId.toString();
 
     return StreamBuilder<List<LessonModel>?> (
         stream: DatabaseService(uid: _user!.uid).getSyllabus(_syllabus),
@@ -93,14 +90,36 @@ class SubLevel extends StatelessWidget {
                                       width: 100,
                                       height: 200,
                                       alignment: Alignment.center,
-                                      decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                          alignment: Alignment.topCenter,
-                                          image: AssetImage(lesson.lessonImage),
-                                          fit: BoxFit.cover,
-                                          scale: 0.5,
-                                        ),
-                                      ),
+                                      child: FutureBuilder(
+                                          future: getImage(context, lesson.lessonImage),
+                                          builder: (context, snapshot) {
+                                            if(snapshot.connectionState == ConnectionState.done){
+                                              return Container(
+                                                width: MediaQuery.of(context).size.width/ 1.2,
+                                                height: MediaQuery.of(context).size.width/ 1.2,
+                                                child: snapshot.data as Widget,
+                                              );
+                                            }
+                                            if (snapshot.connectionState == ConnectionState.waiting){
+                                              return Container(
+                                                width: MediaQuery.of(context).size.width/ 1.2,
+                                                height: MediaQuery.of(context).size.width/ 1.2,
+                                                child: CircularProgressIndicator(),
+                                              );
+                                            }
+                                            else {
+                                              print('Connection Failed');
+                                              return Container();
+                                            }
+                                          }),
+                                      // decoration: BoxDecoration(
+                                      //   image: DecorationImage(
+                                      //     alignment: Alignment.topCenter,
+                                      //     image: AssetImage(lesson.lessonImage),
+                                      //     fit: BoxFit.cover,
+                                      //     scale: 0.5,
+                                      //   ),
+                                      // ),
                                     ),
                                     Column(
                                       mainAxisAlignment: MainAxisAlignment.start,

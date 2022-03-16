@@ -8,6 +8,7 @@ import 'package:handsfree/widgets/navBar.dart';
 import 'package:handsfree/screens/profile/profileDetails.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import '../../models/userProfile.dart';
 import 'dayActivity.dart';
 
 class Profile extends StatelessWidget {
@@ -25,101 +26,118 @@ class Profile extends StatelessWidget {
         builder: (context, snapshot1) {
           return StreamBuilder<NewUserActivityLog>(
               stream: DatabaseService(uid: user.uid).activity,
-              builder: (context, snapshot2) {
-                if (snapshot1.hasData && snapshot2.hasData) {
-                  NewUserData? userData = snapshot1.data;
-                  NewUserActivityLog? activities = snapshot2.data;
+              builder: (context, snapshot2){
+                return StreamBuilder<List<Users>?>(
+                  stream: DatabaseService(uid: user.uid).users,
+                  builder: (context, snapshot3){
+                    if(snapshot1.hasData && snapshot2.hasData && snapshot3.hasData){
 
-                  return Scaffold(
-                    backgroundColor: const Color(0xFFF0F5FF),
-                    body: Container(
-                      child: ListView(
-                        padding: EdgeInsets.fromLTRB(30, 30, 30, 0),
-                        physics: BouncingScrollPhysics(),
-                        children: [
-                          Align(
-                            alignment: Alignment.topRight,
-                            child: IconButton(
-                              icon: Icon(Icons.settings),
-                              onPressed: () {
-                                Navigator.pushNamed(context, '/settings');
-                              },
-                            ),
-                          ),
-                          ProfileCard(
-                            profile: ProfileDetails(
-                                imageUrl:
-                                    'assets/image/character.png' /*userData.picture!*/,
-                                username: userData!.username!,
-                                email: userAuth.email!,
-                                experience: userData.experience!),
-                          ),
-                          breaker(20),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Leaderboards",
+                      NewUserData? userData = snapshot1.data;
+                      NewUserActivityLog? activities = snapshot2.data;
+                      List<Users>? userList = snapshot3.data;
+
+                      int i=0;
+                      for(Users each in userList!){
+                        i++;
+                        if(user.uid == each.uid){
+                          ranking = i;
+                          break;
+                        }
+                      }
+
+                      return Scaffold(
+                        backgroundColor: const Color(0xFFF0F5FF),
+                        body: Container(
+                          child: ListView(
+                            padding: EdgeInsets.fromLTRB(30, 30, 30, 0),
+                            physics: BouncingScrollPhysics(),
+                            children: [
+                              Align(
+                                alignment: Alignment.topRight,
+                                child: IconButton(
+                                  icon: Icon(Icons.settings),
+                                  onPressed: () {
+                                    Navigator.pushNamed(context, '/settings');
+                                  },
+                                ),
+                              ),
+                              ProfileCard(
+                                profile: ProfileDetails(
+                                    imageUrl: 'assets/image/character.png' /*userData.picture!*/,
+                                    username: userData!.username!,
+                                    email: userAuth.email!,
+                                    experience: userData.experience!),
+                              ),
+                              breaker(20),
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Leaderboards",
+                                      style: GoogleFonts.montserrat(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(
+                                      "You are currently $ranking in the whole world.",
+                                      style: GoogleFonts.montserrat(
+                                        fontSize: 12.8,
+                                        fontWeight: FontWeight.w400,
+                                        color: const Color(0xff1D283F),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              breaker(20),
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  'Active Days',
                                   style: GoogleFonts.montserrat(
                                     fontSize: 20,
                                     fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                Text(
-                                  "You are currently $ranking in the whole world.",
-                                  style: GoogleFonts.montserrat(
-                                    fontSize: 12.8,
-                                    fontWeight: FontWeight.w400,
                                     color: const Color(0xff1D283F),
                                   ),
                                 ),
-                              ],
-                            ),
-                          ),
-                          breaker(20),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              'Active Days',
-                              style: GoogleFonts.montserrat(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w500,
-                                color: const Color(0xff1D283F),
                               ),
-                            ),
+                              breaker(10),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: List.generate(
+                                        days.length,
+                                        (index) => DayActivity(
+                                            day: days[index],
+                                            activity: activities!.activity![index]))
+                                    .toList(),
+                              ),
+                              breaker(120)
+                            ],
                           ),
-                          breaker(10),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: List.generate(
-                                    days.length,
-                                    (index) => DayActivity(
-                                        day: days[index],
-                                        activity: activities!.activity![index]))
-                                .toList(),
-                          ),
-                          breaker(120)
-                        ],
-                      ),
-                    ),
-                    floatingActionButton: NavBar.Buttons(context),
-                    floatingActionButtonLocation:
-                        FloatingActionButtonLocation.centerDocked,
-                    extendBody: true,
-                    bottomNavigationBar: NavBar.bar(context, 4),
-                  );
-                } else {
-                  print(snapshot1.error);
-                  print(snapshot2.error);
-                  return Loading();
-                }
-              });
-        });
+                        ),
+                        floatingActionButton: NavBar.Buttons(context),
+                        floatingActionButtonLocation:
+                            FloatingActionButtonLocation.centerDocked,
+                        extendBody: true,
+                        bottomNavigationBar: NavBar.bar(context, 4),
+                      );
+                    } else {
+                      print(snapshot1.error);
+                      print(snapshot2.error);
+                      return Loading();
+                    }
+                  },
+                );
+              }
+          );
+        }
+    );
   }
 
   Widget breaker(double i) {
