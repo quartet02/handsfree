@@ -23,7 +23,7 @@ class Profile extends StatelessWidget {
 
     return StreamBuilder<NewUserData>(
         stream: DatabaseService(uid: user!.uid).userData,
-        builder: (context, snapshot1){
+        builder: (context, snapshot1) {
           return StreamBuilder<NewUserActivityLog>(
               stream: DatabaseService(uid: user.uid).activity,
               builder: (context, snapshot2){
@@ -111,21 +111,25 @@ class Profile extends StatelessWidget {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: List.generate(
-                                    days.length,
+                                        days.length,
                                         (index) => DayActivity(
-                                        day: days[index], activity: activities!.activity![index])).toList(),
+                                            day: days[index],
+                                            activity: activities!.activity![index]))
+                                    .toList(),
                               ),
                               breaker(120)
                             ],
                           ),
                         ),
                         floatingActionButton: NavBar.Buttons(context),
-                        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+                        floatingActionButtonLocation:
+                            FloatingActionButtonLocation.centerDocked,
                         extendBody: true,
                         bottomNavigationBar: NavBar.bar(context, 4),
                       );
-                    }
-                    else{
+                    } else {
+                      print(snapshot1.error);
+                      print(snapshot2.error);
                       return Loading();
                     }
                   },

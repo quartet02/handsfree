@@ -1,5 +1,6 @@
 import 'package:async/async.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:handsfree/models/communityModel.dart';
 import 'package:handsfree/models/newsFeedModel.dart';
 import 'package:handsfree/models/chatModel.dart';
@@ -11,6 +12,7 @@ import 'package:handsfree/models/newUser.dart';
 import 'package:handsfree/models/wordModel.dart';
 import 'package:handsfree/provider/friendsProvider.dart';
 import 'package:handsfree/services/auth.dart';
+import 'package:handsfree/services/userPreference.dart';
 import 'package:provider/provider.dart';
 import '../models/userProfile.dart';
 import 'package:flamingo/flamingo.dart';
@@ -36,6 +38,8 @@ class DatabaseService {
       FirebaseFirestore.instance.collection('leaderboard');
   final CollectionReference feedbackCollection =
       FirebaseFirestore.instance.collection('feedback');
+  final CollectionReference devicesCollection =
+      FirebaseFirestore.instance.collection('devices');
 
   ///From User Collection
   Future updateSingleData(String selector, String value) async {
@@ -310,11 +314,21 @@ class DatabaseService {
   }
 
   Future<void> sendFriendRequest(String otherSideId) async {
+    print("send FriendRequest to $otherSideId");
     await userCollection
-        .doc(uid)
-        .collection("friend_requests")
         .doc(otherSideId)
-        .set({});
+        .collection("friend_requests")
+        .doc(uid)
+        .set({"uid": uid});
+  }
+
+  Future<void> retrieveFriendRequest(String otherSideId) async {
+    print("retrieve FriendRequest to $otherSideId");
+    await userCollection
+        .doc(otherSideId)
+        .collection("friend_requests")
+        .doc(uid)
+        .delete();
   }
 
   Future<int> friendRequestAction(bool isAccepted, String otherSideId) async {
@@ -324,9 +338,11 @@ class DatabaseService {
           .collection("friend_requests")
           .doc(otherSideId)
           .delete();
+      print("successfully cleaned");
       if (isAccepted) {
         await createChatRoom([otherSideId], null, 1);
         await addToFriendList(otherSideId);
+        print("successfully created and added");
       }
       return isAccepted ? 201 : 200;
     } catch (e) {
@@ -334,7 +350,21 @@ class DatabaseService {
     }
   }
 
-  Future<void> updateExperience() async{
+  Stream<List<String>>? get friendRequestList {
+    return userCollection
+        .doc(uid)
+        .collection("friend_requests")
+        .snapshots()
+        .map(_friendRequestListFromSnapshot);
+  }
+
+  List<String> _friendRequestListFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map((doc) {
+      return doc["uid"] as String;
+    }).toList();
+  }
+
+  Future<void> updateExperience() async {
     userCollection.doc(uid).update({
       'experience': FieldValue.increment(15),
     });
@@ -2652,7 +2682,7 @@ class DatabaseService {
   }
 
   //user list from snapshot
-  List<Users>? _userListFromSnapshot(QuerySnapshot snapshot) {
+  List<Users> _userListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
       return Users(
         name: doc['name'],
@@ -2671,6 +2701,31 @@ class DatabaseService {
     Stream<List<Users>?> x =
         userCollection.orderBy('experience', descending: true).snapshots().map(_userListFromSnapshot);
     return x;
+  }
+
+  Stream<List<Users>> usersByQuery(String query) {
+    Stream<List<Users>> a = userCollection
+        .where('name', isGreaterThanOrEqualTo: query)
+        .where('name', isLessThan: query + 'z')
+        .snapshots()
+        .map(_userListFromSnapshot);
+    Stream<List<Users>> b = userCollection
+        .where('username', isGreaterThanOrEqualTo: query)
+        .where('username', isLessThan: query + 'z')
+        .snapshots()
+        .map(_userListFromSnapshot);
+
+    return StreamGroup.merge([a, b]).asBroadcastStream();
+  }
+
+  Stream<List<Users>> usersByUIds(List<String> uids) {
+    if (uids.isEmpty) {
+      uids.add("thisIsADummyTextToPreventError");
+    }
+    return userCollection
+        .where("uid", whereIn: uids)
+        .snapshots()
+        .map(_userListFromSnapshot);
   }
 
   List<String> _friendIdFromSnapshot(DocumentSnapshot snapshot) {
@@ -2754,6 +2809,7 @@ class DatabaseService {
         sentAt: doc["sentAt"] as Timestamp,
         sentBy: doc["sentBy"] as String,
         messageText: doc["messageText"] as String,
+        type: doc["type"] as int,
       );
     }).toList();
   }
@@ -2767,17 +2823,77 @@ class DatabaseService {
         .map(_messagesFromSnapshot);
   }
 
-  Future<void> sendMessage(String roomId, String messageText) async {
+  Future<void> sendMessage(String roomId, String messageText,
+      {bool isMedia = false}) async {
     // add messages to collection "messages", if collection not found will create one
-    await chatRoomCollection.doc(roomId).collection("messages").doc().set(
-        {"messageText": messageText, "sentAt": Timestamp.now(), "sentBy": uid});
-    // update recent message field
-    await chatRoomCollection.doc(roomId).update({
-      "recentMsg": {
+    if (!isMedia) {
+      await chatRoomCollection.doc(roomId).collection("messages").doc().set({
         "messageText": messageText,
         "sentAt": Timestamp.now(),
-        "sentBy": uid
-      }
+        "sentBy": uid,
+        "type": 1,
+      });
+      // update recent message field
+      await chatRoomCollection.doc(roomId).update({
+        "recentMsg": {
+          "messageText": messageText,
+          "sentAt": Timestamp.now(),
+          "sentBy": uid,
+          "type": 1,
+        }
+      });
+    } else {
+      await chatRoomCollection.doc(roomId).collection("messages").doc().set({
+        "messageText": messageText,
+        "sentAt": Timestamp.now(),
+        "sentBy": uid,
+        "type": 2,
+      });
+      // update recent message field
+      await chatRoomCollection.doc(roomId).update({
+        "recentMsg": {
+          "messageText": "sent an image",
+          "sentAt": Timestamp.now(),
+          "sentBy": uid,
+          "type": 2,
+        }
+      });
+    }
+  }
+
+  Future<void> updateToken(String token, DateTime now, String uid) async {
+    await devicesCollection.doc(token).set({
+      "timestamp": Timestamp.now(),
+      "uid": uid,
     });
+    UserPreference.setValue("tokenUpdated", now.toString());
+    UserPreference.setValue("token", token);
+    print("Token is updated to db and shared preference");
+  }
+
+  Future<void> saveToken(String? token, String uid) async {
+    if (token == null) return;
+    print(token);
+
+    final now = DateTime.now();
+    final tokenUpdated = UserPreference.get("tokenUpdated");
+    DateTime lastUpdate = now;
+
+    final deviceToken = UserPreference.get("token");
+
+    if (deviceToken == null || deviceToken != token) {
+      updateToken(token, now, uid);
+    } else {
+      if (tokenUpdated != null) {
+        lastUpdate = DateTime.parse(tokenUpdated);
+        print("Token last updated on $lastUpdate");
+      }
+
+      // update database after 1 month
+      if (tokenUpdated == null ||
+          lastUpdate.add(const Duration(days: 30)).isBefore(now)) {
+        updateToken(token, now, uid);
+      }
+    }
   }
 }

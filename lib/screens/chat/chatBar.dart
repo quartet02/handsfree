@@ -85,7 +85,8 @@ class _ChatBarState extends State<ChatBar> {
                 ),
                 GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, "/camera");
+                      Navigator.pushNamed(context, "/camera",
+                          arguments: widget.roomId);
                     },
                     child: Container(
                       margin: const EdgeInsets.fromLTRB(10, 11, 12, 0),

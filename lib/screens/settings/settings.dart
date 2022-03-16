@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:handsfree/services/database.dart';
 import 'package:handsfree/services/auth.dart';
+import 'package:handsfree/services/firebase_messaging_service.dart';
 import 'package:handsfree/widgets/buildButton.dart';
 import 'package:handsfree/widgets/buildText.dart';
 import 'package:handsfree/widgets/buildTextBox.dart';
@@ -24,21 +25,6 @@ class _SettingsState extends State<Settings> {
   final usernameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-
-  bool isSoundEffectOn = false;
-  bool isDarkModeOn = false;
-  bool isMotivationalMessageOn = false;
-
-  bool isPracticeReminderOn = false;
-  bool isSmartSchedulingOn = false;
-
-  bool isWeeklyProgressOn = false;
-  bool isNewFriendsOn = false;
-  bool isFriendActivityOn = false;
-  bool isLeaderboardsOn = false;
-  bool isNewsOn = false;
-
-  bool isTrackingForAdvertisingOn = false;
 
   Widget subTitle(String name) {
     return Container(
@@ -155,7 +141,7 @@ class _SettingsState extends State<Settings> {
                                           MainAxisAlignment.spaceBetween,
                                           children: [
                                             buildText.heading3Text("Sound Effects"),
-                                            toggleSwitch('isSound'),
+                                            toggleSwitch('isSound', null),
                                           ],
                                         ),
                                         Row(
@@ -163,7 +149,7 @@ class _SettingsState extends State<Settings> {
                                           MainAxisAlignment.spaceBetween,
                                           children: [
                                             buildText.heading3Text("Dark Mode"),
-                                            toggleSwitch('isDark'),
+                                            toggleSwitch('isDark', null),
                                           ],
                                         ),
                                         Row(
@@ -172,7 +158,7 @@ class _SettingsState extends State<Settings> {
                                           children: [
                                             buildText
                                                 .heading3Text("Motivational message"),
-                                            toggleSwitch("isMotivational"),
+                                            toggleSwitch("isMotivational", "motivationNoti"),
                                           ],
                                         ),
                                       ],
@@ -220,7 +206,7 @@ class _SettingsState extends State<Settings> {
                                           MainAxisAlignment.spaceBetween,
                                           children: [
                                             buildText.heading3Text("Practice Reminder"),
-                                            toggleSwitch("isPractice"),
+                                            toggleSwitch("isPractice","practiceNoti"),
                                           ],
                                         ),
                                         Row(
@@ -228,7 +214,7 @@ class _SettingsState extends State<Settings> {
                                           MainAxisAlignment.spaceBetween,
                                           children: [
                                             buildText.heading3Text("Smart Scheduling"),
-                                            toggleSwitch("isSmartScheduling"),
+                                            toggleSwitch("isSmartScheduling", null),
                                           ],
                                         ),
                                       ],
@@ -262,7 +248,7 @@ class _SettingsState extends State<Settings> {
                                           MainAxisAlignment.spaceBetween,
                                           children: [
                                             buildText.heading3Text("Weekly Progress"),
-                                            toggleSwitch("isWeeklyProgress"),
+                                            toggleSwitch("isWeeklyProgress", null),
                                           ],
                                         ),
                                         Row(
@@ -270,7 +256,7 @@ class _SettingsState extends State<Settings> {
                                           MainAxisAlignment.spaceBetween,
                                           children: [
                                             buildText.heading3Text("New Friend"),
-                                            toggleSwitch("isNewFriends"),
+                                            toggleSwitch("isNewFriends", null),
                                           ],
                                         ),
                                         Row(
@@ -278,7 +264,7 @@ class _SettingsState extends State<Settings> {
                                           MainAxisAlignment.spaceBetween,
                                           children: [
                                             buildText.heading3Text("Friend Activity"),
-                                            toggleSwitch("isFriendActivity"),
+                                            toggleSwitch("isFriendActivity", null),
                                           ],
                                         ),
                                         Row(
@@ -286,7 +272,7 @@ class _SettingsState extends State<Settings> {
                                           MainAxisAlignment.spaceBetween,
                                           children: [
                                             buildText.heading3Text("Leaderboards"),
-                                            toggleSwitch("isLeaderboards"),
+                                            toggleSwitch("isLeaderboards", null),
                                           ],
                                         ),
                                         Row(
@@ -294,7 +280,7 @@ class _SettingsState extends State<Settings> {
                                           MainAxisAlignment.spaceBetween,
                                           children: [
                                             buildText.heading3Text("News"),
-                                            toggleSwitch("isNews"),
+                                            toggleSwitch("isNews","newsNoti"),
                                           ],
                                         ),
                                       ],
@@ -333,7 +319,7 @@ class _SettingsState extends State<Settings> {
                                           children: [
                                             buildText.heading3Text(
                                                 "Tracking for Advertisement"),
-                                            toggleSwitch("isTrackingForAdvertising"),
+                                            toggleSwitch("isTrackingForAdvertising", null),
                                           ],
                                         ),
                                       ],
@@ -383,12 +369,15 @@ class _SettingsState extends State<Settings> {
     );
   }
 
-  Widget toggleSwitch(String key) {
+  Widget toggleSwitch(String key, String? topic) {
     return Switch(
       value: UserPreference.getSetting(key),
       onChanged: (value) {
         setState(() {
           UserPreference.setSetting(key, value);
+          if (topic != null) {
+            FirebaseMessagingService.handleSubscription(value, topic);
+          }
         });
       },
       activeTrackColor: kOrangeLight,

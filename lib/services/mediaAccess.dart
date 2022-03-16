@@ -6,6 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:handsfree/widgets/breaker.dart';
 import 'package:handsfree/widgets/constants.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:video_player/video_player.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../main.dart';
 
@@ -19,6 +21,8 @@ class CameraScreen extends StatefulWidget {
 class _CameraScreenState extends State<CameraScreen>
     with WidgetsBindingObserver {
   CameraController? controller; // access different functionality
+  VideoPlayerController? videoController;
+  File? _imageFile;
   bool _isCameraInitialized = false;
   double _minAvailableZoom = 1.0;
   double _maxAvailableZoom = 1.0;
@@ -30,6 +34,9 @@ class _CameraScreenState extends State<CameraScreen>
   bool _isRearCameraSelected = true;
   FlashMode? _currentFlashMode;
   int _pointers = 0;
+
+  List<File> allFileList = [];
+
   /*
     initialize a new camera controller while overiting the previou one 
   */
@@ -109,6 +116,7 @@ class _CameraScreenState extends State<CameraScreen>
     // SystemChrome.setEnabledSystemUIMode(SystemUiMode.leanBack);
     onNewCameraSelected(camerasAvailable[
         _isRearCameraSelected ? 0 : 1]); // make back camera as default
+    refreshAlreadyCapturedImages();
     super.initState();
   }
 
@@ -122,6 +130,8 @@ class _CameraScreenState extends State<CameraScreen>
 
   @override
   Widget build(BuildContext context) {
+    final String chatRoomId =
+        ModalRoute.of(context)!.settings.arguments as String;
     return Scaffold(
       backgroundColor: Colors.black,
       body: _isCameraInitialized
@@ -136,7 +146,7 @@ class _CameraScreenState extends State<CameraScreen>
                       _cameraPreviewWidget(),
                       flashDropDown(),
                       exposureWidget(),
-                      actionBar(),
+                      actionBar(chatRoomId),
                     ],
                   ),
                 ),
@@ -307,15 +317,38 @@ class _CameraScreenState extends State<CameraScreen>
         ]);
   }
 
-  Widget actionBar() {
-    return Container(
-      height: 100,
-      //color: Colors.white30,
+  Widget actionBar(String chatRoomId) {
+    return Align(
+      alignment: Alignment.bottomCenter,
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           toggleCamera(),
-          takePictureButton(),
+          takePictureButton(chatRoomId),
+          GestureDetector(
+            onTap: () async {
+              XFile? pickedFile = await ImagePicker().pickImage(
+                source: ImageSource.gallery,
+              );
+              if (pickedFile != null) {
+                File imageFile = File(pickedFile.path);
+                int currentUnix = DateTime.now().millisecondsSinceEpoch;
+                final directory = await getApplicationDocumentsDirectory();
+                String fileFormat = imageFile.path.split('.').last;
+
+                await imageFile.copy(
+                  '${directory.path}/$currentUnix.$fileFormat',
+                );
+
+                Navigator.pushNamed(context, "/prepsend", arguments: <String>[
+                  '${directory.path}/$currentUnix.$fileFormat',
+                  chatRoomId
+                ]);
+              }
+            },
+            child: lastCapturedWidget(),
+          ),
         ],
       ),
     );
@@ -352,7 +385,7 @@ class _CameraScreenState extends State<CameraScreen>
     );
   }
 
-  Widget takePictureButton() {
+  Widget takePictureButton(String chatRoomId) {
     return InkWell(
       onTap: () async {
         XFile? rawImage = await takePicture();
@@ -365,6 +398,11 @@ class _CameraScreenState extends State<CameraScreen>
         await imageFile.copy(
           '${directory.path}/$currentUnix.$fileFormat',
         );
+
+        Navigator.pushNamed(context, "/prepsend", arguments: <String>[
+          '${directory.path}/$currentUnix.$fileFormat',
+          chatRoomId
+        ]);
       },
       child: Stack(
         alignment: Alignment.center,
@@ -388,6 +426,59 @@ class _CameraScreenState extends State<CameraScreen>
     } on CameraException catch (e) {
       print('Error occured while taking picture: $e');
       return null;
+    }
+  }
+
+  Widget lastCapturedWidget() {
+    return Container(
+      width: 60,
+      height: 60,
+      decoration: BoxDecoration(
+        color: Colors.black,
+        borderRadius: BorderRadius.circular(10.0),
+        border: Border.all(color: Colors.white, width: 2),
+        image: _imageFile != null
+            ? DecorationImage(
+                image: FileImage(_imageFile!),
+                fit: BoxFit.cover,
+              )
+            : null,
+      ),
+      child: videoController != null && videoController!.value.isInitialized
+          ? ClipRRect(
+              borderRadius: BorderRadius.circular(8.0),
+              child: AspectRatio(
+                aspectRatio: videoController!.value.aspectRatio,
+                child: VideoPlayer(videoController!),
+              ),
+            )
+          : Container(),
+    );
+  }
+
+  refreshAlreadyCapturedImages() async {
+    final directory = await getApplicationDocumentsDirectory();
+    List<FileSystemEntity> fileList = await directory.list().toList();
+    allFileList.clear();
+    List<Map<int, dynamic>> fileNames = [];
+
+    fileList.forEach((file) {
+      if (file.path.contains('.jpg') || file.path.contains('.mp4')) {
+        allFileList.add(File(file.path));
+
+        String name = file.path.split('/').last.split('.').first;
+        fileNames.add({0: int.parse(name), 1: file.path.split('/').last});
+      }
+    });
+
+    if (fileNames.isNotEmpty) {
+      final recentFile =
+          fileNames.reduce((curr, next) => curr[0] > next[0] ? curr : next);
+      String recentFileName = recentFile[1];
+
+      _imageFile = File('${directory.path}/$recentFileName');
+
+      setState(() {});
     }
   }
 }

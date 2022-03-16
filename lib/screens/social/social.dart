@@ -7,13 +7,13 @@ import 'package:handsfree/services/database.dart';
 import 'package:handsfree/widgets/breaker.dart';
 import 'package:handsfree/widgets/buildButton.dart';
 import 'package:handsfree/models/friendModel.dart';
+import 'package:handsfree/widgets/constants.dart';
 import 'package:handsfree/widgets/overlay.dart';
 import 'package:handsfree/widgets/navBar.dart';
 import 'package:handsfree/widgets/smallCard.dart';
 import 'package:handsfree/services/userPreference.dart';
 import 'package:provider/provider.dart';
 import 'package:handsfree/widgets/buildText.dart';
-
 import '../../models/newsFeedModel.dart';
 import '../../provider/communityProvider.dart';
 import '../../provider/newsFeedProvider.dart';
@@ -43,7 +43,7 @@ class _SocialState extends State<Social> {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-
+    
     return StreamBuilder<List<NewsFeedModel>?>(
       stream: DatabaseService().newsList,
       builder: (context, snapshot){
