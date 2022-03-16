@@ -1,11 +1,9 @@
 import 'dart:io';
 import 'package:path/path.dart';
 import 'package:handsfree/api/firebase_api.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../widgets/button_widget.dart';
 
 // uncomment amd copy to use
 // theory of using media from firebase is placing the URL into Image.network() method of Image class
@@ -22,7 +20,6 @@ class FireStorageService extends ChangeNotifier {
 
 // display image widget
 // fetch and download the image from firebase storage
-
 Future<Widget> getImage(BuildContext context, String imageName) async {
   late Image image;
   await FireStorageService.loadImage(context, imageName).then((value) {
@@ -36,7 +33,41 @@ Future<Widget> getImage(BuildContext context, String imageName) async {
   return image;
 }
 
+// method to upload a file from mobile and save it to firebase
+Future<String> uploadFile(File file, String dbPath, String chatRoomId) async {
+  if (file == null) return "";
 
+  final fileName = basename(file.path);
+  final destination = '$dbPath/$chatRoomId/$fileName';
+
+  UploadTask? task = FirebaseApi.uploadFile(destination, file);
+
+  if (task == null) return "";
+
+  final snapshot = await task.whenComplete(() {});
+  final urlDownload = await snapshot.ref.getDownloadURL();
+
+  return urlDownload;
+  // to display the url
+}
+
+Future<String> uploadFileByPath(
+    String filePath, String dbPath, String chatRoomId) async {
+  File? file = File(filePath);
+  if (file == null) return "";
+
+  final fileName = basename(file.path);
+  final destination = '$dbPath/$chatRoomId/$fileName';
+
+  UploadTask? task = FirebaseApi.uploadFile(destination, file);
+
+  if (task == null) return "";
+
+  final snapshot = await task.whenComplete(() {});
+  final urlDownload = await snapshot.ref.getDownloadURL();
+
+  return urlDownload;
+}
 // File (picture, video, audio selector structure)
 /*
 child: FutureBuilder(
@@ -148,26 +179,9 @@ Future selectFile() async {
 
   setState(() => file = File(path!));
 }
-
-// method to upload a file from mobile and save it to firebase
-Future uploadFile() async {
-    if(file == null) return;
-
-    final fileName = basename(file!.path);
-    final destination = 'files/$fileName';
-
-    task = FirebaseApi.uploadFile(destination, file!);
-
-    if (task == null) return;
-
-    final snapshot = await task!.whenComplete(() {});
-    final urlDownload = await snapshot.ref.getDownloadURL();
-
-    // to display the url
-    print('Download-Link: $urlDownload');
-  }
-}
 */
+
+
 
 
 // percentage counter for upload

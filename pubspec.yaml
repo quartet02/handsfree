@@ -72,6 +72,7 @@ dependencies:
 
   #pick file
   file_picker: ^3.0.1
+  image_picker: ^0.8.4+11
 
   #loading widget
   flutter_spinkit: ^5.1.0
