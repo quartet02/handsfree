@@ -1,5 +1,6 @@
 import 'package:async/async.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:handsfree/models/communityModel.dart';
 import 'package:handsfree/models/newsFeedModel.dart';
 import 'package:handsfree/models/chatModel.dart';
@@ -11,6 +12,7 @@ import 'package:handsfree/models/newUser.dart';
 import 'package:handsfree/models/wordModel.dart';
 import 'package:handsfree/provider/friendsProvider.dart';
 import 'package:handsfree/services/auth.dart';
+import 'package:handsfree/services/userPreference.dart';
 import 'package:provider/provider.dart';
 import '../models/userProfile.dart';
 import 'package:flamingo/flamingo.dart';
@@ -36,6 +38,8 @@ class DatabaseService {
       FirebaseFirestore.instance.collection('leaderboard');
   final CollectionReference feedbackCollection =
       FirebaseFirestore.instance.collection('feedback');
+  final CollectionReference devicesCollection =
+      FirebaseFirestore.instance.collection('devices');
 
   ///From User Collection
   Future updateSingleData(String selector, String value) async {
@@ -1674,5 +1678,41 @@ class DatabaseService {
         "sentBy": uid
       }
     });
+  }
+
+  Future<void> updateToken(String token, DateTime now, String uid) async {
+    await devicesCollection.doc(token).set({
+      "timestamp": Timestamp.now(),
+      "uid": uid,
+    });
+    UserPreference.setValue("tokenUpdated", now.toString());
+    UserPreference.setValue("token", token);
+    print("Token is updated to db and shared preference");
+  }
+
+  Future<void> saveToken(String? token, String uid) async {
+    if (token == null) return;
+    print(token);
+
+    final now = DateTime.now();
+    final tokenUpdated = UserPreference.get("tokenUpdated");
+    DateTime lastUpdate = now;
+
+    final deviceToken = UserPreference.get("token");
+
+    if (deviceToken == null || deviceToken != token) {
+      updateToken(token, now, uid);
+    } else {
+      if (tokenUpdated != null) {
+        lastUpdate = DateTime.parse(tokenUpdated);
+        print("Token last updated on $lastUpdate");
+      }
+
+      // update database after 1 month
+      if (tokenUpdated == null ||
+          lastUpdate.add(const Duration(days: 30)).isBefore(now)) {
+        updateToken(token, now, uid);
+      }
+    }
   }
 }

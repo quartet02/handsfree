@@ -1,20 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:handsfree/models/newUser.dart';
 import 'package:handsfree/screens/authenticate/authenticate.dart';
-import 'package:handsfree/screens/dictionary/dictionary.dart';
 import 'package:handsfree/screens/home/home.dart';
-import 'package:handsfree/screens/learn/congrats.dart';
-import 'package:handsfree/screens/learn/learn.dart';
-import 'package:handsfree/widgets/loading.dart';
-import 'package:handsfree/screens/social/social.dart';
-import 'package:handsfree/screens/settings/terms.dart';
-import 'package:handsfree/screens/settings/helpdesk.dart';
-import 'package:handsfree/services/test.dart';
-import 'package:handsfree/widgets/navBar.dart';
+import 'package:handsfree/services/firebase_messaging_service.dart';
 import 'package:provider/provider.dart';
-import 'package:handsfree/screens/settings/settings.dart';
-import 'chat/chatHome.dart';
-import 'profile/acknowledgement.dart';
 
 class Wrapper extends StatelessWidget {
   const Wrapper({Key? key}) : super(key: key);
@@ -22,11 +11,12 @@ class Wrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<NewUser?>(context);
-
+    FirebaseMessagingService.startFcm();
     // return either Home or Authenticate widget
     if (user == null) {
       return const Authenticate();
     } else {
+      FirebaseMessagingService.updateToken(user.uid!);
       return const Home();
     }
   }
