@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:handsfree/models/messageModel.dart';
 import 'package:handsfree/services/medialoader.dart';
+import 'package:handsfree/widgets/constants.dart';
 
 class ChatBubble extends StatelessWidget {
   const ChatBubble(
@@ -39,14 +41,14 @@ class ChatBubble extends StatelessWidget {
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
-                  color: Colors.black.withOpacity(0.3),
-                  offset: const Offset(5, 6),
+                  color: isMe ? kTextShadow : kTextFieldText,
+                  offset: Offset(5, 6),
                   spreadRadius: 1,
                   blurRadius: 8)
             ],
-            color: isMe
-                ? Colors.grey[100]
-                : Theme.of(context).colorScheme.secondary,
+            // color:
+            //     isMe ? Colors.white : Theme.of(context).colorScheme.secondary,
+            color: isMe ? Colors.white : kOrangeLight,
             borderRadius: isMe
                 ? borderRadius
                     .subtract(const BorderRadius.only(bottomRight: radius))
@@ -66,7 +68,8 @@ class ChatBubble extends StatelessWidget {
           message.type == 1
               ? Text(
                   message.messageText,
-                  style: TextStyle(color: isMe ? Colors.black : Colors.white),
+                  style: GoogleFonts.montserrat(
+                      fontSize: 12, color: isMe ? Colors.black : Colors.white),
                   textAlign: isMe ? TextAlign.end : TextAlign.start,
                 )
               : GestureDetector(

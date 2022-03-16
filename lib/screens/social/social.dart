@@ -52,7 +52,7 @@ class _SocialState extends State<Social> {
                 Column(
                   children: [
                     Container(
-                      padding: const EdgeInsets.fromLTRB(20, 160, 20, 0),
+                      padding: const EdgeInsets.fromLTRB(30, 160, 30, 0),
                       child: Column(
                         children: [
                           Row(
@@ -131,7 +131,7 @@ class _SocialState extends State<Social> {
                       ),
                     ),
                     Container(
-                        padding: const EdgeInsets.fromLTRB(20, 10, 20, 40),
+                        padding: const EdgeInsets.fromLTRB(30, 10, 30, 40),
                         child: buildNewsFeed()),
                   ],
                 ),
@@ -163,7 +163,8 @@ class _SocialState extends State<Social> {
           ),
         ),
         Container(
-            margin: const EdgeInsets.only(top: 60),
+            margin:
+                EdgeInsets.only(top: MediaQuery.of(context).size.height / 10),
             alignment: Alignment.topCenter,
             child: buildText.bigTitle("Social"))
       ],

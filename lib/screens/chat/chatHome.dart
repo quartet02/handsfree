@@ -27,6 +27,7 @@ class _ChatHomeState extends State<ChatHome> {
       create: (context) => FriendProvider(),
       child: Scaffold(
         body: Container(
+          padding: EdgeInsets.symmetric(horizontal: 40),
           decoration: const BoxDecoration(
             image: DecorationImage(
                 alignment: Alignment.topCenter,
@@ -36,34 +37,14 @@ class _ChatHomeState extends State<ChatHome> {
           child: Column(
             children: [
               Container(
-                padding: const EdgeInsets.only(left: 20, bottom: 5, right: 20),
-                margin: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height / 10),
-                child: Row(children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, "/settings");
-                    },
-                    child: Container(
-                      height: 50,
-                      width: 50,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(25),
-                        image: const DecorationImage(
-                          image: AssetImage('assets/image/dummy_cat.png'),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                  ), // load profile pic from firebase
-
-                  Breaker(i: 15, pos: PadPos.right),
-                  buildText.bigTitle("Chats"),
-                ]),
-              ),
+                  padding: const EdgeInsets.only(bottom: 5),
+                  margin: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height / 10),
+                  child: buildText.bigTitle("Chat")),
               Breaker(i: 8),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15),
+              Container(
+                margin: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height / 20, bottom: 10),
                 child: SearchBar(
                     prompt: "Search for a friend", provider: Providers.friend),
               ),

@@ -27,7 +27,7 @@ class _ChatState extends State<Chat> {
         ModalRoute.of(context)!.settings.arguments as ChatRoom;
     return Scaffold(
       body: Column(children: [
-        buildChatHeader(roomData, context),
+        buildHeading(roomData, context),
         buildChatBody(roomData),
         Container(
           child: ChatBar(
@@ -62,6 +62,7 @@ class _ChatState extends State<Chat> {
       flex: 2,
       child: Container(
         // color: Colors.black.withOpacity(0.2),
+        padding: const EdgeInsets.symmetric(horizontal: 15),
         child: StreamBuilder<List<Messages>>(
           stream: DatabaseService(uid: UserPreference.get("uniqueId"))
               .messages(roomData.roomId),
@@ -85,44 +86,87 @@ class _ChatState extends State<Chat> {
     );
   }
 
-  Widget buildChatHeader(ChatRoom roomData, BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 15),
-      constraints: BoxConstraints(
-          minHeight: 130, maxWidth: MediaQuery.of(context).size.width),
-      decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-              color: Colors.black.withOpacity(0.5),
-              offset: const Offset(0, -2),
-              blurStyle: BlurStyle.outer,
-              spreadRadius: 2,
-              blurRadius: 20)
-        ],
-        image: const DecorationImage(
-          image: AssetImage("assets/image/orange_heading3.png"),
-          fit: BoxFit.cover,
-        ),
-      ),
-      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        GestureDetector(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: const Icon(
-            Icons.arrow_back_ios_new_rounded,
-            color: Colors.white,
+  // Widget buildChatHeader(ChatRoom roomData, BuildContext context) {
+  //   return Container(
+  //     padding: const EdgeInsets.symmetric(horizontal: 40),
+  //     constraints: BoxConstraints(
+  //         minHeight: MediaQuery.of(context).size.height / 5,
+  //         maxWidth: MediaQuery.of(context).size.width),
+  //     decoration: BoxDecoration(
+  //       boxShadow: [
+  //         BoxShadow(
+  //             color: Colors.black.withOpacity(0.5),
+  //             offset: const Offset(0, -2),
+  //             blurStyle: BlurStyle.outer,
+  //             spreadRadius: 2,
+  //             blurRadius: 20)
+  //       ],
+  //       image: const DecorationImage(
+  //         image: AssetImage("assets/image/orange_heading3.png"),
+  //         fit: BoxFit.cover,
+  //       ),
+  //     ),
+  //     child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+  //       GestureDetector(
+  //         onTap: () {
+  //           Navigator.pop(context);
+  //         },
+  //         child: const Icon(
+  //           Icons.arrow_back_ios_new_rounded,
+  //           color: Colors.white,
+  //         ),
+  //       ),
+  //       buildText.bigTitle(roomData.roomName),
+  //       GestureDetector(
+  //         onTap: () {},
+  //         child: const Icon(
+  //           Icons.more_vert_rounded,
+  //           color: Colors.white,
+  //         ),
+  //       ),
+  //     ]),
+  //   );
+  // }
+
+  Widget buildHeading(ChatRoom roomData, BuildContext context) {
+    return Stack(
+      children: [
+        Container(
+          constraints: BoxConstraints(
+              maxHeight: 172, minWidth: MediaQuery.of(context).size.width),
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/image/orange_heading4.png"),
+              fit: BoxFit.cover,
+            ),
           ),
         ),
-        buildText.bigTitle(roomData.roomName),
-        GestureDetector(
-          onTap: () {},
-          child: const Icon(
-            Icons.more_vert_rounded,
-            color: Colors.white,
-          ),
+        Container(
+          margin: EdgeInsets.only(top: MediaQuery.of(context).size.height / 10),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          alignment: Alignment.topCenter,
+          child:
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: const Icon(
+                Icons.arrow_back_ios_new_rounded,
+                color: Colors.white,
+              ),
+            ),
+            buildText.bigTitle(roomData.roomName),
+            GestureDetector(
+              onTap: () {},
+              child: const Icon(
+                Icons.more_vert_rounded,
+                color: Colors.white,
+              ),
+            ),
+          ]),
         ),
-      ]),
+      ],
     );
   }
 }
