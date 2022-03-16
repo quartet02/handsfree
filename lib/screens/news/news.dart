@@ -61,33 +61,6 @@ class _NewsState extends State<News> {
                     const SearchBar(provider: Providers.dictionary,)
                   ],
                 ),
-                // !isVisible
-                //     ? const Padding(
-                //   padding: EdgeInsets.only(bottom: 80),
-                // )
-                //     : Container(),
-                // !isVisible
-                //     ? Stack(
-                //     children: <Widget>[
-                //       Center(
-                //         child: Container(
-                //           alignment: Alignment.center,
-                //           width: 200,
-                //           decoration: const BoxDecoration(
-                //               borderRadius:
-                //               BorderRadius.all(Radius.circular(20)),
-                //               boxShadow: [
-                //                 BoxShadow(
-                //                   color: kTextDeep,
-                //                   offset: Offset(6, 6),
-                //                   blurRadius: 6,
-                //                 ),
-                //               ]),
-                //         ),
-                //       ),
-                //     ],
-                //   )
-                //     : Container(),
                 !isVisible
                     ? const NewsList()
                     : Container(),
