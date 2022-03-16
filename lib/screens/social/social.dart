@@ -15,7 +15,6 @@ import 'package:handsfree/services/userPreference.dart';
 import 'package:provider/provider.dart';
 import 'package:handsfree/widgets/buildText.dart';
 import '../../models/newsFeedModel.dart';
-import '../../provider/communityProvider.dart';
 import '../../provider/newsFeedProvider.dart';
 import 'package:handsfree/widgets/navBar.dart';
 
@@ -53,7 +52,6 @@ class _SocialState extends State<Social> {
 
           return MultiProvider(
             providers: [
-              ChangeNotifierProvider(create: (_) => CommunityProvider()),
               ChangeNotifierProvider(create: (_) => NewsFeedProvider()),
             ],
             child: Scaffold(
