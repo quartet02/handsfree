@@ -13,7 +13,6 @@ class FriendRequestCard extends StatefulWidget {
 
   final Users userData;
   final bool isPromptSendRequest;
-
   @override
   State<FriendRequestCard> createState() => _FriendRequestCardState();
 }
@@ -90,11 +89,14 @@ class _FriendRequestCardState extends State<FriendRequestCard> {
                     .sendFriendRequest(widget.userData.uid)
                 : await DatabaseService(uid: UserPreference.get("uniqueId"))
                     .retrieveFriendRequest(widget.userData.uid);
+
             setState(() {
               isSent = !isSent;
             });
+
             print("sent friend request");
           },
+
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
             margin: const EdgeInsets.only(right: 5),

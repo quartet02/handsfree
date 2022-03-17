@@ -6,10 +6,7 @@ import 'package:handsfree/widgets/navBar.dart';
 import 'package:handsfree/widgets/smallCard.dart';
 import 'package:provider/provider.dart';
 import 'package:handsfree/widgets/buildText.dart';
-
-import '../../provider/communityProvider.dart';
 import '../../provider/newsFeedProvider.dart';
-import 'package:handsfree/widgets/navBar.dart';
 
 double friendSize = 70;
 double coumminitySize = 150;
@@ -28,7 +25,7 @@ class _SocialState extends State<Social> {
     final isVisible = MediaQuery.of(context).viewInsets.bottom != 0;
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => CommunityProvider()),
+        // ChangeNotifierProvider(create: (_) => CommunityProvider()),
         ChangeNotifierProvider(create: (_) => NewsFeedProvider()),
       ],
       child: Scaffold(
@@ -214,31 +211,31 @@ class _SocialState extends State<Social> {
                               ).createShader(rect);
                             },
                             blendMode: BlendMode.dstOut,
-                            child: Container(
-                              child: Consumer<CommunityProvider>(
-                                  builder: (context, card, child) {
-                                    return Container(
-                                        width: MediaQuery.of(context).size.width,
-                                        height: coumminitySize + 100,
-                                        child: ListView.builder(
-                                            physics: const BouncingScrollPhysics(),
-                                            scrollDirection: Axis.horizontal,
-                                            itemCount: 5,
-                                            itemBuilder: (context, index) {
-                                              return SmallCard(
-                                                  id: card.cardDetails[index].id,
-                                                  communitySize: coumminitySize,
-                                                  communityImage: card
-                                                      .cardDetails[index].images,
-                                                  communityTitle: card
-                                                      .cardDetails[index]
-                                                      .communityTitle,
-                                                  communityDesc: card
-                                                      .cardDetails[index]
-                                                      .communityDesc);
-                                            }));
-                                  }),
-                            ),
+                            // child: Container(
+                            //   child: Consumer<CommunityProvider>(
+                            //       builder: (context, card, child) {
+                            //         return Container(
+                            //             width: MediaQuery.of(context).size.width,
+                            //             height: coumminitySize + 100,
+                            //             child: ListView.builder(
+                            //                 physics: const BouncingScrollPhysics(),
+                            //                 scrollDirection: Axis.horizontal,
+                            //                 itemCount: 5,
+                            //                 itemBuilder: (context, index) {
+                            //                   return SmallCard(
+                            //                       id: card.cardDetails[index].id,
+                            //                       communitySize: coumminitySize,
+                            //                       communityImage: card
+                            //                           .cardDetails[index].images,
+                            //                       communityTitle: card
+                            //                           .cardDetails[index]
+                            //                           .communityTitle,
+                            //                       communityDesc: card
+                            //                           .cardDetails[index]
+                            //                           .communityDesc);
+                            //                 }));
+                            //       }),
+                            // ),
                           ),
                           //News Feed
                           Row(

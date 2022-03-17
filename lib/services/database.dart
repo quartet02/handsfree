@@ -1,5 +1,6 @@
 import 'package:async/async.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:handsfree/models/communityModel.dart';
 import 'package:handsfree/models/newsFeedModel.dart';
@@ -314,12 +315,36 @@ class DatabaseService {
   }
 
   Future<void> sendFriendRequest(String otherSideId) async {
-    print("send FriendRequest to $otherSideId");
+    String senderName ='kkk';
+
+    connectFunction('friendRequest', senderName, otherSideId);
+
     await userCollection
         .doc(otherSideId)
         .collection("friend_requests")
         .doc(uid)
         .set({"uid": uid});
+  }
+  
+  Future<int> connectFunction(func, senderName, otherId) async {
+    // notification
+    HttpsCallable callable = FirebaseFunctions.instance.httpsCallable(
+        func,
+        options: HttpsCallableOptions(
+          timeout: const Duration(seconds: 5),
+        )
+    );
+    try{
+      final result = await callable.call(<String, dynamic>{
+        'senderName': senderName,
+        'receiverUid': otherId,
+      });
+      print('Notification sent successfully');
+      return 1;
+    }catch(e){
+      print('error sending message');
+      return -1;
+    }
   }
 
   Future<void> retrieveFriendRequest(String otherSideId) async {
@@ -1727,6 +1752,10 @@ class DatabaseService {
 
   Future<void> sendMessage(String roomId, String messageText,
       {bool isMedia = false}) async {
+    // TODO: add notification
+    String senderName = 'kkk';
+
+    connectFunction('chatNoti', senderName, roomId);
     // add messages to collection "messages", if collection not found will create one
     if (!isMedia) {
       await chatRoomCollection.doc(roomId).collection("messages").doc().set({
@@ -1767,6 +1796,7 @@ class DatabaseService {
     await devicesCollection.doc(token).set({
       "timestamp": Timestamp.now(),
       "uid": uid,
+      "token": token,
     });
     UserPreference.setValue("tokenUpdated", now.toString());
     UserPreference.setValue("token", token);
