@@ -113,7 +113,7 @@ class _CongratulationState extends State<Congratulation> {
                   ),
                   buildButton(
                     text: 'Return',
-                    word: '/learn',
+                    word: '/sublevel',
                     buttonColor: 'white',
                     buttonShadow: Color.fromARGB(100, 29, 40, 63),
                     isReplaced: true,
