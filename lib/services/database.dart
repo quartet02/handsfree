@@ -354,7 +354,11 @@ class DatabaseService {
   }
 
   Future<void> sendFriendRequest(String otherSideId) async {
-    // String senderName ='kkk';
+    Map<String, dynamic> data = {
+      'receiverUid': otherSideId,
+    };
+
+    connectFunction('friendRequest', data);
 
     // connectFunction('friendRequest', senderName, otherSideId);
     print("sent friend request");
@@ -365,17 +369,14 @@ class DatabaseService {
         .set({"uid": uid});
   }
 
-  Future<int> connectFunction(func, senderName, otherId) async {
+  Future<int> connectFunction(func, Map<String, dynamic> data) async {
     // notification
     HttpsCallable callable = FirebaseFunctions.instance.httpsCallable(func,
         options: HttpsCallableOptions(
           timeout: const Duration(seconds: 5),
         ));
     try {
-      final result = await callable.call(<String, dynamic>{
-        'senderName': senderName,
-        'receiverUid': otherId,
-      });
+      final result = await callable.call(data);
       print('Notification sent successfully');
       return 1;
     } catch (e) {
@@ -2832,6 +2833,7 @@ class DatabaseService {
   Stream<List<String>> get chatsId {
     return userCollection.doc(uid).snapshots().map((snapshot) {
       List<String> a = List<String>.from(snapshot['groups']);
+      print("Number of elem is ${a.length}");
       return a;
     });
   }
@@ -2890,10 +2892,7 @@ class DatabaseService {
 
   Future<void> sendMessage(String roomId, String messageText,
       {bool isMedia = false}) async {
-    // TODO: add notification
-    String senderName = 'kkk';
 
-    connectFunction('chatNoti', senderName, roomId);
     // add messages to collection "messages", if collection not found will create one
     if (!isMedia) {
       await chatRoomCollection.doc(roomId).collection("messages").doc().set({
@@ -2928,6 +2927,18 @@ class DatabaseService {
         }
       });
     }
+
+    //TODO: get senderName
+    // String senderName = 'kkk';
+    // String senderUid = uid!;
+
+    Map<String, dynamic> data = {
+      // 'senderName': senderName,
+      'roomId': roomId,
+      // 'senderUid': senderUid,
+    };
+
+    connectFunction('chatNoti', data);
   }
 
   Future<void> updateToken(String token, DateTime now, String uid) async {
