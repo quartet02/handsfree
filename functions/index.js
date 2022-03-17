@@ -13,107 +13,108 @@ const admin = require('firebase-admin');
 const { firebaseConfig } = require("firebase-functions");
 admin.initializeApp();
 
-exports.newsNoti = functions.firestore.document('/news/{docId}')
-    .onCreate((snap, context) => {
-        const newVal = snap.data()
-        const user = newVal.author;
-        const title = newVal.title;
+// exports.newsNoti = functions.firestore.document('/news/{docId}')
+//     .onCreate((snap, context) => {
+//         const newVal = snap.data()
+//         const user = newVal.author;
+//         const title = newVal.title;
 
-        const message = {
-            notification: {
-                title: `News from ${user}!`,
-                body: title,
-            },
-            topic: "newsNoti",
-        }
-        
-        admin.messaging().send(message)
-            .then((response) => {
-                console.log("Successfully sent news noti:", response);
-                return 1;
-            })
-            .catch((err) => {
-                console.log('Error sending news noti:', err);
-                return -1;
-            })
-    })
+//         const message = {
+//             notification: {
+//                 title: `News from ${user}!`,
+//                 body: title,
+//             },
+//             topic: "newsNoti",
+//         }
 
-exports.chatNoti = functions.https.onCall((data, context) => {
+//         admin.messaging().send(message)
+//             .then((response) => {
+//                 console.log("Successfully sent news noti:", response);
+//                 return 1;
+//             })
+//             .catch((err) => {
+//                 console.log('Error sending news noti:', err);
+//                 return -1;
+//             })
+//     })
 
-})
+// exports.chatNoti = functions.https.onCall((data, context) => {
 
-exports.friendRequest = functions.https.onCall(async (data, context) => {
-    // need to change db to for subscription on msgNoti
+// })
 
-    // data contain the message text, 
-    // context parameters contain user auth information
-    const senderName = data.senderName
-    const receiverUid = data.receiverUid
+// exports.friendRequest = functions.https.onCall(async (data, context) => {
+//     // need to change db to for subscription on msgNoti
 
-    const result = await admin.firestore()
-        .collection('devices')
-        .where('uid', "==", receiverUid)
-        .get()
+//     // data contain the message text, 
+//     // context parameters contain user auth information
+//     const senderName = data.senderName
+//     const receiverUid = data.receiverUid
 
-    const receiverToken = result.token
+//     const result = await admin.firestore()
+//         .collection('devices')
+//         .where('uid', "==", receiverUid)
+//         .get()
 
-    const message = {
-        notification: {
-            title: "New friend request!",
-            body: `${senderName} sent a friend request to you!`
-        },
-        token: receiverToken
-    }
+//     const receiverToken = result.token
 
-    admin.messaging().send(message)
-        .then((res) => {
-            console.log('Successfully sent friend request noti: ', res);
-        })
-        .catch((err) => {
-            console.log('Error sending friend request noti:', err);
-        })
-})
+//     const message = {
+//         notification: {
+//             title: "New friend request!",
+//             body: `${senderName} sent a friend request to you!`
+//         },
+//         token: receiverToken
+//     }
+
+//     admin.messaging().send(message)
+//         .then((res) => {
+//             console.log('Successfully sent friend request noti: ', res);
+//         })
+//         .catch((err) => {
+//             console.log('Error sending friend request noti:', err);
+//         })
+// })
 
 exports.scheduledLeaderboards = functions.pubsub
-    .schedule('every 5 minutes')
+    .schedule('every 10 minutes')
     .onRun(async (context) => {
 
-        query.orderBy('experience').get().then(querySnapshot => {
-            console.log(querySnapshot)
-        querySnapshot.forEach(documentSnapshot => {
-            console.log(`Found document at ${documentSnapshot.experience}`);
-            
-        });
-        });
-        // for (let i = 0; i < results.length; i ++){
-        //     let uid = results[i].uid
+        admin.firestore()
+            .collection('users')
+            .orderBy('experience').get()
+            .then(querySnapshot => {
+                let total = querySnapshot.docs.length
+                let i = 0
+                querySnapshot.forEach(documentSnapshot => {
 
-        //     const tokens = await admin.firestore()
-        //         .collection('devices')
-        //         .where('uid', "==", uid)
-        //         .get()
+                    admin.firestore()
+                        .collection('devices')
+                        .where('uid', "==", documentSnapshot.get('uid'))
+                        .get()
+                        .then(snap => {
+                            snap.forEach(docSnap => {
+                                tokenDb = docSnap.get('token')
+                                message = {
+                                    notification: {
+                                        title: "Leaderboard Ranking!",
+                                        body: `You ranked ${total - i} this week!`
+                                    },
+                                    token: tokenDb
+                                }
+                                console.log(message);
+                                console.log(uid);
 
-        //     for (let j = 0; j < results.length; j++){
-        //         const token = tokens[i];
+                                admin.messaging().send(message)
+                                    .then((res) => {
+                                        console.log('Successfully sent leaderboard noti: ', res);
+                                    })
+                                    .catch((err) => {
+                                        console.log('Error sending leaderboard noti:', err);
+                                    })
+                            })
 
-        //         message = {
-        //         notification: {
-        //             title: "Leaderboard Ranking!",
-        //             body: `You ranked ${results.length - i} this week!`
-        //         },
-        //         token: token
-        //         }
-        //         console.log(message);
-        //         console.log(uid);
-                
-        //         admin.messaging().send(message)
-        //         .then((res) => {
-        //             console.log('Successfully sent leaderboard noti: ', res);
-        //         })
-        //         .catch((err) => {
-        //             console.log('Error sending leaderboard noti:', err);
-        //         })
+                        })
+                    i++
+                });
 
-        //     }   
-        // }
+            });
     })
