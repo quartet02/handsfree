@@ -10,6 +10,7 @@ import 'package:handsfree/widgets/breaker.dart';
 import 'package:handsfree/widgets/buildText.dart';
 import 'package:handsfree/widgets/constants.dart';
 import 'package:handsfree/services/userPreference.dart';
+import 'package:provider/provider.dart';
 
 class SearchGlobal extends StatefulWidget {
   const SearchGlobal({Key? key}) : super(key: key);
@@ -41,7 +42,13 @@ class _SearchGlobalState extends State<SearchGlobal> {
               searchBar(),
               Breaker(i: 30, pos: PadPos.bottom),
               Expanded(
-                child: SearchResult(query: _query),
+                child: StreamProvider<List<String>>(
+                  initialData: [],
+                  create: (_) =>
+                      DatabaseService(uid: UserPreference.get("uniqueId"))
+                          .excludeUserIdForGlobal,
+                  child: SearchResult(query: _query),
+                ),
               ),
             ]),
           ),

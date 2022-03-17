@@ -33,7 +33,7 @@ class OnlineFriendList extends StatelessWidget {
                         scrollDirection: Axis.horizontal,
                         physics: const BouncingScrollPhysics(),
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 10),
+                            horizontal: 10, vertical: 10),
                         shrinkWrap: true,
                         itemCount: chatRooms.length + 1,
                         itemBuilder: (context, index) {
@@ -100,7 +100,8 @@ class OnlineFriendList extends StatelessWidget {
           print(snapshotId.error);
           // on EmptyList
           return Container(
-            padding: const EdgeInsets.only(top: 100),
+            margin: const EdgeInsets.only(top: 40, bottom: 40),
+            padding: const EdgeInsets.symmetric(horizontal: 10),
             child: buildText.heading3Text("You got no friend..."),
           );
         }

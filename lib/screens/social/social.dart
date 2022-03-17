@@ -36,126 +36,129 @@ class _SocialState extends State<Social> {
     ]);
 
     return StreamBuilder<List<NewsFeedModel>?>(
-      stream: DatabaseService().newsList,
-      builder: (context, snapshot){
-        if(snapshot.hasData){
-          List<NewsFeedModel>? newsList = snapshot.data;
+        stream: DatabaseService().newsList,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            List<NewsFeedModel>? newsList = snapshot.data;
 
-          return MultiProvider(
-            providers: [
-              ChangeNotifierProvider(create: (_) => NewsFeedProvider()),
-            ],
-            child: Scaffold(
-              body: Stack(
-                alignment: AlignmentDirectional.topCenter,
-                children: [
-                  ListView(
-                    physics: const BouncingScrollPhysics(),
-                    children: [
-                      Column(
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.fromLTRB(30, 160, 30, 0),
-                            child: Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    buildText.heading2Text("Online Friends"),
-                                    Row(
-                                      children: [
-                                        GestureDetector(
-                                          onTap: () async {
-                                            Navigator.pushNamed(
-                                                context, "/viewFriendRequest");
-                                          },
-                                          child: Container(
-                                            width: 28,
-                                            height: 28,
-                                            decoration: const BoxDecoration(
-                                              image: DecorationImage(
-                                                alignment: Alignment.center,
-                                                image: AssetImage(
-                                                    'assets/image/friend_request.png'),
-                                                scale: 3,
+            return MultiProvider(
+              providers: [
+                ChangeNotifierProvider(create: (_) => NewsFeedProvider()),
+              ],
+              child: Scaffold(
+                body: Stack(
+                  alignment: AlignmentDirectional.topCenter,
+                  children: [
+                    ListView(
+                      physics: const BouncingScrollPhysics(),
+                      children: [
+                        Column(
+                          children: [
+                            Container(
+                              padding:
+                                  const EdgeInsets.fromLTRB(30, 160, 30, 0),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      buildText.heading2Text("Online Friends"),
+                                      Row(
+                                        children: [
+                                          GestureDetector(
+                                            onTap: () async {
+                                              Navigator.pushNamed(context,
+                                                  "/viewFriendRequest");
+                                            },
+                                            child: Container(
+                                              width: 28,
+                                              height: 28,
+                                              decoration: const BoxDecoration(
+                                                image: DecorationImage(
+                                                  alignment: Alignment.center,
+                                                  image: AssetImage(
+                                                      'assets/image/friend_request.png'),
+                                                  scale: 3,
+                                                ),
                                               ),
+                                              child: Container(),
                                             ),
-                                            child: Container(),
                                           ),
-                                        ),
-                                        Breaker(i: 5, pos: PadPos.right),
-                                        GestureDetector(
-                                          onTap: () {
-                                            Navigator.pushNamed(
-                                                context, "/searchGlobalUsers");
-                                          },
-                                          child: Container(
-                                            width: 40,
-                                            height: 40,
-                                            decoration: const BoxDecoration(
-                                              image: DecorationImage(
-                                                alignment: Alignment.center,
-                                                image: AssetImage(
-                                                    'assets/image/search_icon.png'),
-                                                scale: 3,
+                                          Breaker(i: 5, pos: PadPos.right),
+                                          GestureDetector(
+                                            onTap: () {
+                                              Navigator.pushNamed(context,
+                                                  "/searchGlobalUsers");
+                                            },
+                                            child: Container(
+                                              width: 40,
+                                              height: 40,
+                                              decoration: const BoxDecoration(
+                                                image: DecorationImage(
+                                                  alignment: Alignment.center,
+                                                  image: AssetImage(
+                                                      'assets/image/search_icon.png'),
+                                                  scale: 3,
+                                                ),
                                               ),
+                                              child: Container(),
                                             ),
-                                            child: Container(),
                                           ),
-                                        ),
-                                      ],
-                                    )
-                                  ],
-                                ),
-                                Breaker(i: 5),
-                                ShaderMask(
-                                  shaderCallback: (Rect rect) {
-                                    return const LinearGradient(
-                                      begin: Alignment.centerLeft,
-                                      end: Alignment.centerRight,
-                                      colors: [
-                                        Colors.purple,
-                                        Colors.transparent,
-                                        Colors.transparent,
-                                        Colors.purple
-                                      ],
-                                      stops: [
-                                        0.0,
-                                        0.03,
-                                        0.97,
-                                        1.0
-                                      ], // 10% purple, 80% transparent, 10% purple
-                                    ).createShader(rect);
-                                  },
-                                  blendMode: BlendMode.dstOut,
-                                  child: const OnlineFriendList(),
-                                ),
-                              ],
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                  Breaker(i: 5),
+                                  ShaderMask(
+                                    shaderCallback: (Rect rect) {
+                                      return const LinearGradient(
+                                        begin: Alignment.centerLeft,
+                                        end: Alignment.centerRight,
+                                        colors: [
+                                          Colors.purple,
+                                          Colors.transparent,
+                                          Colors.transparent,
+                                          Colors.purple
+                                        ],
+                                        stops: [
+                                          0.0,
+                                          0.03,
+                                          0.97,
+                                          1.0
+                                        ], // 10% purple, 80% transparent, 10% purple
+                                      ).createShader(rect);
+                                    },
+                                    blendMode: BlendMode.dstOut,
+                                    child: const OnlineFriendList(),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          Container(
-                              padding: const EdgeInsets.fromLTRB(30, 10, 30, 40),
-                              child: buildNewsFeed(newsList!)),
-                        ],
-                      ),
-                    ],
-                  ),
-                  buildHeading(),
-                ],
+                            Container(
+                                padding:
+                                    const EdgeInsets.fromLTRB(30, 10, 30, 40),
+                                child: buildNewsFeed(newsList!)),
+                          ],
+                        ),
+                      ],
+                    ),
+                    buildHeading(),
+                  ],
+                ),
+                floatingActionButton:
+                    isVisible ? const SizedBox() : NavBar.Buttons(context),
+                floatingActionButtonLocation:
+                    FloatingActionButtonLocation.centerDocked,
+                extendBody: true,
+                bottomNavigationBar: NavBar.bar(context, 3),
               ),
-              floatingActionButton:
-              isVisible ? const SizedBox() : NavBar.Buttons(context),
-              floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-              extendBody: true,
-              bottomNavigationBar: NavBar.bar(context, 3),
-            ),
-          );
-        }
-        else{
-          return Loading();
-        }
-      }
-    );
+            );
+          } else {
+            print(snapshot.error);
+            return Loading();
+          }
+        });
   }
 
   Widget buildHeading() {
@@ -227,7 +230,6 @@ class _SocialState extends State<Social> {
         blendMode: BlendMode.dstOut,
         child: Container(
           child: Consumer<NewsFeedProvider>(builder: (context, news, child) {
-
             news.setNewsFeedModel(newsList);
             int length = newsList.length;
 
@@ -237,7 +239,7 @@ class _SocialState extends State<Social> {
               child: ListView.builder(
                   physics: const BouncingScrollPhysics(),
                   scrollDirection: Axis.horizontal,
-                  itemCount: length<5 ? length : 5,
+                  itemCount: length < 5 ? length : 5,
                   itemBuilder: (context, index) {
                     return SmallCard(
                         id: news.cardDetails[index].id,

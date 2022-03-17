@@ -5,22 +5,27 @@ import 'package:handsfree/widgets/breaker.dart';
 import 'package:handsfree/widgets/constants.dart';
 import 'package:handsfree/widgets/buildText.dart';
 import 'package:handsfree/services/userPreference.dart';
+import 'package:provider/provider.dart';
 
 class FriendRequestCard extends StatefulWidget {
   FriendRequestCard(
-      {Key? key, required this.userData, this.isPromptSendRequest = false})
+      {Key? key,
+      required this.userData,
+      this.isPromptSendRequest = false,
+      this.isSent = false})
       : super(key: key);
 
   final Users userData;
   final bool isPromptSendRequest;
+  final bool isSent;
   @override
   State<FriendRequestCard> createState() => _FriendRequestCardState();
 }
 
 class _FriendRequestCardState extends State<FriendRequestCard> {
-  bool isSent = false;
   @override
   Widget build(BuildContext context) {
+    bool isSent = widget.isSent;
     return GestureDetector(
       onTap: () {
         // Navigator.pushNamed(context, "/chatHome/chat", arguments: roomData);
@@ -75,47 +80,46 @@ class _FriendRequestCardState extends State<FriendRequestCard> {
                     ]),
               ],
             ),
-            widget.isPromptSendRequest ? requestAction() : responseActions(),
+            widget.isPromptSendRequest
+                ? Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () async {
+                          !widget.isSent
+                              ? await DatabaseService(
+                                      uid: UserPreference.get("uniqueId"))
+                                  .sendFriendRequest(widget.userData.uid)
+                              : await DatabaseService(
+                                      uid: UserPreference.get("uniqueId"))
+                                  .retrieveFriendRequest(widget.userData.uid);
+
+                          setState(() {
+                            isSent = !isSent;
+                          });
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 15, vertical: 5),
+                          margin: const EdgeInsets.only(right: 5),
+                          decoration: BoxDecoration(
+                            color: isSent ? Colors.red : Colors.grey[400],
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: isSent
+                              ? const Text("Cancel",
+                                  style: TextStyle(color: Colors.white))
+                              : const Text(
+                                  "Connect",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                        ),
+                      ),
+                    ],
+                  )
+                : responseActions(),
           ],
         ),
       ),
-    );
-  }
-
-  Widget requestAction() {
-    return Row(
-      children: [
-        GestureDetector(
-          onTap: () async {
-            !isSent
-                ? await DatabaseService(uid: UserPreference.get("uniqueId"))
-                    .sendFriendRequest(widget.userData.uid)
-                : await DatabaseService(uid: UserPreference.get("uniqueId"))
-                    .retrieveFriendRequest(widget.userData.uid);
-
-            setState(() {
-              isSent = !isSent;
-            });
-
-            print("sent friend request");
-          },
-
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-            margin: const EdgeInsets.only(right: 5),
-            decoration: BoxDecoration(
-              color: isSent ? Colors.red : Colors.grey[400],
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: isSent
-                ? const Text("Cancel", style: TextStyle(color: Colors.white))
-                : const Text(
-                    "Connect",
-                    style: TextStyle(color: Colors.white),
-                  ),
-          ),
-        ),
-      ],
     );
   }
 
