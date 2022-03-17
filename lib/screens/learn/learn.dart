@@ -25,18 +25,17 @@ class Learn extends StatefulWidget {
 class _LearnState extends State<Learn> {
   @override
   void initState() {
+    try{
+      LessonRefresh.refresh();
+    }catch(e){
+      print('Up to Date');
+    }
     super.initState();
   }
 
 
   @override
   Widget build(BuildContext context) {
-
-    try{
-      LessonRefresh.refresh();
-    }catch(e){
-      print('Up to Date');
-    }
 
     final user = Provider.of<NewUser?>(context);
 
