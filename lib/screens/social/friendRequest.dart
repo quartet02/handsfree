@@ -42,13 +42,14 @@ class _FriendRequestState extends State<FriendRequest> {
                         if (snapshotUsers.hasData &&
                             snapshotUsers.connectionState ==
                                 ConnectionState.active) {
+                          print(snapshotUsers.data!.length);
                           List<Users> userDatas = snapshotUsers.data!;
                           return ListView.builder(
                               itemCount: userDatas.length,
                               itemBuilder: (context, index) {
                                 return FriendRequestCard(
                                     userData: userDatas[index],
-                                    isPromptSendRequest: true);
+                                    isPromptSendRequest: false);
                               });
                         } else {
                           return Container(

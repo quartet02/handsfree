@@ -89,7 +89,7 @@ class MyApp extends StatelessWidget {
           "/terms": (context) => Terms(),
           "/mainLearningPage": (context) => const MainLearningPage(),
           "/congratulation": (context) => const Congratulation(),
-          "/translator": (context) => const Translator(),
+          // "/translator": (context) => const Translator(),
           "/helpCenter": (context) => const HelpDesk(),
           "/feedback": (context) => const FeedBack(),
           "/chatHome": (context) => ChatHome(),

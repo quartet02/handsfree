@@ -12,6 +12,7 @@ import 'package:percent_indicator/percent_indicator.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/newUser.dart';
+import '../../services/medialoader.dart';
 import '../../widgets/loadingWholeScreen.dart';
 
 class MainLearningPage extends StatefulWidget {
@@ -110,12 +111,34 @@ class _MainLearningPageState extends State<MainLearningPage> {
                                           width: 130,
                                           height: 200,
                                           alignment: Alignment.center,
-                                          decoration: BoxDecoration(
-                                            image: DecorationImage(
-                                              alignment: Alignment.topCenter,
-                                              image: AssetImage(subLesson.lessonImage),
-                                            ),
-                                          ),
+                                          child: FutureBuilder(
+                                              future: getImage(context, subLesson.lessonImage),
+                                              builder: (context, snapshot) {
+                                                if(snapshot.connectionState == ConnectionState.done){
+                                                  return Container(
+                                                    width: MediaQuery.of(context).size.width/ 1.2,
+                                                    height: MediaQuery.of(context).size.width/ 1.2,
+                                                    child: snapshot.data as Widget,
+                                                  );
+                                                }
+                                                if (snapshot.connectionState == ConnectionState.waiting){
+                                                  return Container(
+                                                    width: MediaQuery.of(context).size.width/ 1.2,
+                                                    height: MediaQuery.of(context).size.width/ 1.2,
+                                                    child: CircularProgressIndicator(),
+                                                  );
+                                                }
+                                                else {
+                                                  print('Connection Failed');
+                                                  return Container();
+                                                }
+                                              }),
+                                          // decoration: BoxDecoration(
+                                          //   image: DecorationImage(
+                                          //     alignment: Alignment.topCenter,
+                                          //     image: AssetImage(subLesson.lessonImage),
+                                          //   ),
+                                          // ),
                                         ),
                                         Column(
                                           mainAxisAlignment: MainAxisAlignment.start,
@@ -182,12 +205,35 @@ class _MainLearningPageState extends State<MainLearningPage> {
                                   alignment: Alignment.bottomCenter,
                                   width: MediaQuery.of(context).size.width,
                                   height: MediaQuery.of(context).size.height / 2.45,
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      image: AssetImage(cardLesson[providerCardLesson.index]
+                                  child: FutureBuilder(
+                                      future: getImage(context, cardLesson[providerCardLesson.index]
                                           .lessonCardImage),
-                                    ),
-                                  ),
+                                      builder: (context, snapshot) {
+                                        if(snapshot.connectionState == ConnectionState.done){
+                                          return Container(
+                                            width: MediaQuery.of(context).size.width/ 1.2,
+                                            height: MediaQuery.of(context).size.width/ 1.2,
+                                            child: snapshot.data as Widget,
+                                          );
+                                        }
+                                        if (snapshot.connectionState == ConnectionState.waiting){
+                                          return Container(
+                                            width: MediaQuery.of(context).size.width/ 1.2,
+                                            height: MediaQuery.of(context).size.width/ 1.2,
+                                            child: CircularProgressIndicator(),
+                                          );
+                                        }
+                                        else {
+                                          print('Connection Failed');
+                                          return Container();
+                                        }
+                                      }),
+                                  // decoration: BoxDecoration(
+                                  //   image: DecorationImage(
+                                  //     image: AssetImage(cardLesson[providerCardLesson.index]
+                                  //         .lessonCardImage),
+                                  //   ),
+                                  // ),
                                 ),
                               ],
                             ),
@@ -204,10 +250,11 @@ class _MainLearningPageState extends State<MainLearningPage> {
                               child: GestureDetector(
                                   onTap: () {
                                     if (providerCardLesson.index == cardLesson.length - 1) {
-                                      Navigator.pushNamed(context, "/congratulation");
                                       DatabaseService(uid: user.uid).updateIsCompletedSubLesson(syllabus, lesson, cardLesson[providerCardLesson.index].lessonId);
                                       DatabaseService(uid: user.uid).updateExperience();
                                       DatabaseService(uid: user.uid).updateIsCompletedLesson(syllabus, lesson);
+                                      Navigator.pushNamed(context, "/congratulation");
+
                                     } else {
                                       DatabaseService(uid: user.uid).updateIsCompletedSubLesson(syllabus, lesson, cardLesson[providerCardLesson.index].lessonId);
                                       DatabaseService(uid: user.uid).updateExperience();

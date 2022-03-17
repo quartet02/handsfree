@@ -21,6 +21,7 @@ class SearchResult extends StatelessWidget {
           results.removeWhere(
               (element) => element.uid == UserPreference.get("uniqueId"));
           return ListView.builder(
+            physics: const BouncingScrollPhysics(),
             itemCount: results.length,
             itemBuilder: (context, index) {
               return FriendRequestCard(

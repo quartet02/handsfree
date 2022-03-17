@@ -6,6 +6,7 @@ import 'package:handsfree/screens/dictionary/searchBar.dart';
 import 'package:handsfree/screens/social/friendRequestCard.dart';
 import 'package:handsfree/screens/social/searchGlobalResult.dart';
 import 'package:handsfree/services/database.dart';
+import 'package:handsfree/widgets/breaker.dart';
 import 'package:handsfree/widgets/buildText.dart';
 import 'package:handsfree/widgets/constants.dart';
 import 'package:handsfree/services/userPreference.dart';
@@ -28,22 +29,22 @@ class _SearchGlobalState extends State<SearchGlobal> {
       DeviceOrientation.portraitDown,
     ]);
     return Scaffold(
-      body: Stack(
-        alignment: AlignmentDirectional.topCenter,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Container(
-              padding: const EdgeInsets.fromLTRB(20, 180, 20, 0),
-              child: Column(
-                children: [
-                  searchBar(),
-                  Expanded(
-                      child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: SearchResult(query: _query),
-                  )),
-                ],
-              )),
           buildHeading(),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height / 1.32,
+            padding: const EdgeInsets.symmetric(horizontal: 40.0),
+            child: Column(children: [
+              searchBar(),
+              Breaker(i: 30, pos: PadPos.bottom),
+              Expanded(
+                child: SearchResult(query: _query),
+              ),
+            ]),
+          ),
         ],
       ),
     );
@@ -63,7 +64,8 @@ class _SearchGlobalState extends State<SearchGlobal> {
           ),
         ),
         Container(
-            margin: const EdgeInsets.only(top: 60),
+            margin:
+                EdgeInsets.only(top: MediaQuery.of(context).size.height / 10),
             alignment: Alignment.topCenter,
             child: buildText.bigTitle("Search Global"))
       ],

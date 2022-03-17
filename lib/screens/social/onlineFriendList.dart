@@ -16,6 +16,7 @@ class OnlineFriendList extends StatelessWidget {
           .chatsId, // get chatRoom id
       builder: (context, snapshotId) {
         if (snapshotId.hasData &&
+            snapshotId.data!.isNotEmpty &&
             snapshotId.connectionState == ConnectionState.active) {
           // snapshotId.data!.forEach(print);
           return StreamBuilder<List<ChatRoom>>(
@@ -96,12 +97,11 @@ class OnlineFriendList extends StatelessWidget {
         } else if (snapshotId.connectionState == ConnectionState.waiting) {
           return Container();
         } else {
+          print(snapshotId.error);
           // on EmptyList
-          return Expanded(
-            child: Container(
-              padding: const EdgeInsets.only(top: 100),
-              child: buildText.heading3Text("You got no friend..."),
-            ),
+          return Container(
+            padding: const EdgeInsets.only(top: 100),
+            child: buildText.heading3Text("You got no friend..."),
           );
         }
       },

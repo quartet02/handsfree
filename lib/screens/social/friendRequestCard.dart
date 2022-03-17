@@ -30,11 +30,14 @@ class _FriendRequestCardState extends State<FriendRequestCard> {
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: Colors.grey[100],
-          boxShadow: [
+          image: const DecorationImage(
+            image: AssetImage("assets/image/learning_small_rect.png"),
+            fit: BoxFit.cover,
+          ),
+          boxShadow: const [
             BoxShadow(
-                color: Colors.black.withOpacity(0.3),
-                offset: const Offset(5, 6),
+                color: kTextShadow,
+                offset: Offset(5, 6),
                 spreadRadius: 1,
                 blurRadius: 8)
           ],
@@ -141,8 +144,8 @@ class _FriendRequestCardState extends State<FriendRequestCard> {
         GestureDetector(
           onTap: () async {
             await DatabaseService(uid: UserPreference.get("uniqueId"))
-                .friendRequestAction(true, widget.userData.uid);
-            print("accepted");
+                .friendRequestAction(false, widget.userData.uid);
+            print("declined");
           },
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),

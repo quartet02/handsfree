@@ -9,7 +9,7 @@ import '../../widgets/smallCard.dart';
 
 class NewsTile extends StatelessWidget {
 
-  late final NewsFeedModel_1? news;
+  late final NewsFeedModel? news;
   NewsTile({this.news});
 
   @override
@@ -21,7 +21,7 @@ class NewsTile extends StatelessWidget {
           child: ListTile(
             leading: CircleAvatar(
               child: FutureBuilder(
-                  future: getImage(context, news!.media),
+                  future: getImage(context, news!.newsFeedImages),
                   builder: (context, snapshot) {
                     if(snapshot.connectionState == ConnectionState.done){
                       return Container(
@@ -37,8 +37,10 @@ class NewsTile extends StatelessWidget {
                         child: CircularProgressIndicator(),
                       );
                     }
-                    print('Connection Failed');
-                    return Container();
+                    else {
+                      print('Connection Failed');
+                      return Container();
+                    }
                   }),
               radius: 25.0,
 
@@ -46,11 +48,11 @@ class NewsTile extends StatelessWidget {
               // backgroundImage: AssetImage('assets/image/dummy_cat.png'),
 
             ),
-            title:  Text(news!.title),
-            subtitle: Text(news!.content + "\n" + DateFormat('yyyy-MM-dd - kk:mm').format(news!.timestamp.toDate()) + "\n" + news!.author),
+            title:  Text(news!.newsFeedTitle),
+            subtitle: Text(news!.newsFeedDesc + "\n" + DateFormat('yyyy-MM-dd - kk:mm').format(news!.timestamp.toDate()) + "\n" + news!.author),
             onTap: (){
               //link to individual news display
-              Overlays.showOverlay(context, 0, news!.media, news!.title, news!.content);
+              Overlays.showOverlay(context, 0, news!.newsFeedImages, news!.newsFeedTitle, news!.newsFeedDesc);
             },
           ),
         )

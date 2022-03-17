@@ -19,63 +19,60 @@ class Overlays extends StatelessWidget {
             child: BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
               child: Container(
-                margin: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height / 10),
-                alignment: Alignment.center,
-                height: MediaQuery.of(context).size.height / 1.2,
+                height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
                 decoration:
-                BoxDecoration(color: Colors.grey.shade200.withOpacity(0.5)),
+                    BoxDecoration(color: Colors.grey.shade200.withOpacity(0.5)),
                 child: GestureDetector(
                   onTap: () {
                     dismissMenu();
                   },
                   child: Container(
-                    margin: const EdgeInsets.symmetric(vertical: 50),
-                    child: Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 41),
-                      alignment: Alignment.center,
-                      height: MediaQuery.of(context).size.height,
-                      width: MediaQuery.of(context).size.width,
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                        boxShadow: [
-                          BoxShadow(
-                            color: kTextShadow,
-                            offset: Offset(6, 6),
-                            blurRadius: 6,
-                          ),
-                        ],
-                        image: DecorationImage(
-                          alignment: Alignment.center,
-                          image: AssetImage('assets/image/overlay_rect.png'),
+                    margin: EdgeInsets.symmetric(
+                        horizontal: MediaQuery.of(context).size.width / 9,
+                        vertical: MediaQuery.of(context).size.height / 6),
+                    alignment: Alignment.center,
+                    height: MediaQuery.of(context).size.height,
+                    width: MediaQuery.of(context).size.width,
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                      boxShadow: [
+                        BoxShadow(
+                          color: kTextShadow,
+                          offset: Offset(6, 6),
+                          blurRadius: 6,
                         ),
+                      ],
+                      image: DecorationImage(
+                        alignment: Alignment.center,
+                        image: AssetImage('assets/image/overlay_rect.png'),
                       ),
-                      child: Column(
-                        children: [
-                          Container(
-                            // margin: EdgeInsets.only(
-                            //     top: MediaQuery.of(context).size.height / 10.5),
-                            child: Container(
-                              height: 250,
-                              alignment: Alignment.center,
-                              margin: EdgeInsets.symmetric(horizontal: 20),
-                              decoration: BoxDecoration(
-                                borderRadius:
-                                const BorderRadius.all(Radius.circular(20)),
-                                image: DecorationImage(
-                                  alignment: Alignment.center,
-                                  image: AssetImage(image),
-                                ),
+                    ),
+                    child: Column(
+                      children: [
+                        Container(
+                          // margin: EdgeInsets.only(
+                          //     top: MediaQuery.of(context).size.height / 10.5),
+                          child: Container(
+                            height: 250,
+                            alignment: Alignment.center,
+                            margin: EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 10),
+                            decoration: BoxDecoration(
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(20)),
+                              image: DecorationImage(
+                                alignment: Alignment.center,
+                                image: AssetImage(image),
                               ),
                             ),
                           ),
-                          const Padding(padding: EdgeInsets.only(bottom: 20)),
-                          buildText.heading1Text(title),
-                          const Padding(padding: EdgeInsets.only(bottom: 20)),
-                          buildText.heading2Text(desc),
-                        ],
-                      ),
+                        ),
+                        const Padding(padding: EdgeInsets.only(bottom: 20)),
+                        buildText.heading1Text(title),
+                        const Padding(padding: EdgeInsets.only(bottom: 20)),
+                        buildText.heading2Text(desc),
+                      ],
                     ),
                   ),
                 ),

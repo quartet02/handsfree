@@ -27,8 +27,7 @@ class ChatRoomList extends StatelessWidget {
                     return SizedBox(
                       child: ListView.builder(
                           physics: const BouncingScrollPhysics(),
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 10),
+                          padding: const EdgeInsets.symmetric(vertical: 10),
                           shrinkWrap: true,
                           itemCount: chatRooms.length,
                           itemBuilder: (context, index) {
@@ -75,7 +74,7 @@ class ChatRoomList extends StatelessWidget {
                   } else {
                     return Expanded(
                       child: Container(
-                        padding: const EdgeInsets.only(top: 100),
+                        padding: const EdgeInsets.only(top: 50, bottom: 50),
                         child: buildText.heading3Text("Chat not found..."),
                       ),
                     );
@@ -87,7 +86,7 @@ class ChatRoomList extends StatelessWidget {
             // on EmptyList
             return Expanded(
               child: Container(
-                padding: const EdgeInsets.only(top: 100),
+                padding: const EdgeInsets.only(top: 50, bottom: 50),
                 child: buildText.heading3Text("You got no friend..."),
               ),
             );

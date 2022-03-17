@@ -22,10 +22,13 @@ class ContactCard extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: Colors.grey[100],
+          image: const DecorationImage(
+            image: AssetImage("assets/image/learning_small_rect.png"),
+            fit: BoxFit.cover,
+          ),
           boxShadow: [
             BoxShadow(
-                color: Colors.black.withOpacity(0.3),
+                color: kTextShadow,
                 offset: const Offset(5, 6),
                 spreadRadius: 1,
                 blurRadius: 8)

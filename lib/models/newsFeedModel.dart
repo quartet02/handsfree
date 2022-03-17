@@ -3,9 +3,12 @@ class NewsFeedModel {
   final newsFeedTitle;
   final newsFeedDesc;
   final newsFeedImages;
+  final timestamp;
+  final author;
 
   NewsFeedModel(
-      this.id, this.newsFeedTitle, this.newsFeedDesc, this.newsFeedImages);
+      this.id, this.newsFeedTitle, this.newsFeedDesc, this.newsFeedImages,
+      this.timestamp, this.author);
 }
 
 class NewsFeedModel_1 {
