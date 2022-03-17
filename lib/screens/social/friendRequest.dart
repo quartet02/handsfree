@@ -33,6 +33,7 @@ class _FriendRequestState extends State<FriendRequest> {
                   .friendRequestList!,
               builder: (context, snapshot) {
                 if (snapshot.hasData &&
+                    snapshot.data!.isNotEmpty &&
                     snapshot.connectionState == ConnectionState.active) {
                   return StreamBuilder<List<Users>>(
                       stream:
@@ -60,6 +61,7 @@ class _FriendRequestState extends State<FriendRequest> {
                       });
                 } else {
                   return Container(
+                      padding: const EdgeInsets.only(top: 60),
                       child: buildText.heading3Text("No friend request found"));
                 }
               },

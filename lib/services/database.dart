@@ -246,6 +246,7 @@ class DatabaseService {
       'username': username,
       'name': name,
       'uid': uid,
+      'groups': FieldValue.arrayUnion([]),
     }).then((_) {
       print("Success!");
     });
@@ -353,40 +354,38 @@ class DatabaseService {
   }
 
   Future<void> sendFriendRequest(String otherSideId) async {
-    String senderName ='kkk';
+    // String senderName ='kkk';
 
-    connectFunction('friendRequest', senderName, otherSideId);
-
+    // connectFunction('friendRequest', senderName, otherSideId);
+    print("sent friend request");
     await userCollection
         .doc(otherSideId)
         .collection("friend_requests")
         .doc(uid)
         .set({"uid": uid});
   }
-  
+
   Future<int> connectFunction(func, senderName, otherId) async {
     // notification
-    HttpsCallable callable = FirebaseFunctions.instance.httpsCallable(
-        func,
+    HttpsCallable callable = FirebaseFunctions.instance.httpsCallable(func,
         options: HttpsCallableOptions(
           timeout: const Duration(seconds: 5),
-        )
-    );
-    try{
+        ));
+    try {
       final result = await callable.call(<String, dynamic>{
         'senderName': senderName,
         'receiverUid': otherId,
       });
       print('Notification sent successfully');
       return 1;
-    }catch(e){
+    } catch (e) {
       print('error sending message');
       return -1;
     }
   }
 
   Future<void> retrieveFriendRequest(String otherSideId) async {
-    print("retrieve FriendRequest to $otherSideId");
+    print("retrieve friend request");
     await userCollection
         .doc(otherSideId)
         .collection("friend_requests")
@@ -422,8 +421,6 @@ class DatabaseService {
   }
 
   List<String> _friendRequestListFromSnapshot(QuerySnapshot snapshot) {
-    print(uid);
-    print(snapshot.docs.length);
     return snapshot.docs.map((doc) {
       return doc["uid"] as String;
     }).toList();
@@ -2835,7 +2832,6 @@ class DatabaseService {
   Stream<List<String>> get chatsId {
     return userCollection.doc(uid).snapshots().map((snapshot) {
       List<String> a = List<String>.from(snapshot['groups']);
-      print("Number of elem is ${a.length}");
       return a;
     });
   }
@@ -2847,6 +2843,29 @@ class DatabaseService {
         .doc('friends')
         .snapshots()
         .map(_friendIdFromSnapshot);
+  }
+
+  Stream<List<String>> get excludeUserIdForGlobal {
+    Stream<List<String>> a = userCollection
+        .doc(uid)
+        .collection("friends")
+        .doc('friends')
+        .snapshots()
+        .map(_friendIdFromSnapshot);
+    Stream<List<String>> b = userCollection
+        .doc(uid)
+        .collection('friend_requests')
+        .snapshots()
+        .map(_friendRequestListFromSnapshot);
+    return StreamGroup.merge([a, b]).asBroadcastStream();
+  }
+
+  Stream<List<String>> currentFriendRequests(String otherSideId) {
+    return userCollection
+        .doc(otherSideId)
+        .collection("friend_requests")
+        .snapshots()
+        .map(_friendRequestListFromSnapshot);
   }
 
   List<Messages> _messagesFromSnapshot(QuerySnapshot snapshot) {
