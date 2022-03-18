@@ -24,31 +24,37 @@ class SearchResult extends StatelessWidget {
           results.removeWhere(
               (element) => element.uid == UserPreference.get("uniqueId"));
           return Consumer<List<String>>(
-              builder: (context, currentFriendIds, child) {
-            if (currentFriendIds.isNotEmpty) {
-              results.removeWhere((e) => currentFriendIds.contains(e.uid));
+              builder: (context, toBeExcluded, child) {
+            List<Users> updated = [];
+            if (toBeExcluded.isNotEmpty) {
+              results.removeWhere((user) => toBeExcluded.contains(user.uid));
+            }
+            if (results.isEmpty) {
+              return Container(
+                child: buildText.heading3Text("You have added all of them"),
+              );
             }
             return ListView.builder(
                 physics: const BouncingScrollPhysics(),
-                itemCount: results.length,
+                itemCount: updated.length,
                 itemBuilder: (context, index) {
                   return StreamBuilder<List<String>>(
                       stream:
                           DatabaseService(uid: UserPreference.get("uniqueId"))
-                              .currentFriendRequests(results[index].uid),
+                              .currentFriendRequests(updated[index].uid),
                       builder: (context, snapshotCurrent) {
                         if (snapshotCurrent.hasData &&
                             snapshotCurrent.data!.isNotEmpty &&
                             snapshotCurrent.connectionState ==
                                 ConnectionState.active) {
                           return FriendRequestCard(
-                              userData: results[index],
+                              userData: updated[index],
                               isPromptSendRequest: true,
                               isSent: snapshotCurrent.data!
                                   .contains(UserPreference.get("uniqueId")));
                         } else {
                           return FriendRequestCard(
-                              userData: results[index],
+                              userData: updated[index],
                               isPromptSendRequest: true);
                         }
                       });

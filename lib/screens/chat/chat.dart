@@ -71,7 +71,6 @@ class _ChatState extends State<Chat> {
                 snapshot.connectionState == ConnectionState.active) {
               List<Messages> messages = snapshot.data!;
               return ListView.builder(
-                  //physics: const BouncingScrollPhysics(),
                   reverse: true,
                   itemCount: messages.length,
                   itemBuilder: (context, index) {

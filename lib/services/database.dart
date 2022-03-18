@@ -15,6 +15,7 @@ import 'package:handsfree/provider/friendsProvider.dart';
 import 'package:handsfree/services/auth.dart';
 import 'package:handsfree/services/userPreference.dart';
 import 'package:provider/provider.dart';
+import 'package:rxdart/rxdart.dart';
 import '../models/userProfile.dart';
 import 'package:flamingo/flamingo.dart';
 
@@ -2848,18 +2849,22 @@ class DatabaseService {
   }
 
   Stream<List<String>> get excludeUserIdForGlobal {
+    // get alr fren
     Stream<List<String>> a = userCollection
         .doc(uid)
         .collection("friends")
         .doc('friends')
         .snapshots()
         .map(_friendIdFromSnapshot);
+    // get other side alr sent request
     Stream<List<String>> b = userCollection
         .doc(uid)
         .collection('friend_requests')
         .snapshots()
         .map(_friendRequestListFromSnapshot);
-    return StreamGroup.merge([a, b]).asBroadcastStream();
+    return CombineLatestStream.combine2(a, b, (List<String> x, List<String> y) {
+      return <String>[...x, ...y];
+    });
   }
 
   Stream<List<String>> currentFriendRequests(String otherSideId) {
@@ -2892,7 +2897,6 @@ class DatabaseService {
 
   Future<void> sendMessage(String roomId, String messageText,
       {bool isMedia = false}) async {
-
     // add messages to collection "messages", if collection not found will create one
     if (!isMedia) {
       await chatRoomCollection.doc(roomId).collection("messages").doc().set({
