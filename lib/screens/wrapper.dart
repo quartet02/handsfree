@@ -11,6 +11,7 @@ class Wrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // UserPreference.clearAll();
     final user = Provider.of<NewUser?>(context);
     FirebaseMessagingService.startFcm();
     // return either Home or Authenticate widget
