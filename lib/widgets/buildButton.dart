@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:handsfree/services/auth.dart';
 import 'package:handsfree/widgets/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:handsfree/provider/newUserDataProvider.dart';
 import 'package:provider/provider.dart';
 
 class buildButton extends StatelessWidget {
@@ -15,19 +14,22 @@ class buildButton extends StatelessWidget {
 
   buildButton(
       {required this.text,
-        required this.word,
-        required this.buttonColor,
-        this.buttonShadow = kButtonShadow,
-        this.isSignOut = false,
+      required this.word,
+      required this.buttonColor,
+      this.buttonShadow = kButtonShadow,
+      this.isSignOut = false,
       this.isReplaced = false});
 
-  void navigate(BuildContext context, String word,bool isReplaced) {
+  void navigate(BuildContext context, String word, bool isReplaced) {
     if (isSignOut) {
       final AuthService _auth = AuthService();
       _auth.signOut();
       Navigator.pushNamed(context, "/auth");
-    } else{
-      isReplaced?Navigator.pushNamedAndRemoveUntil(context, word, ModalRoute.withName("/sublevel")):Navigator.pushNamed(context, word);
+    } else {
+      isReplaced
+          ? Navigator.pushNamedAndRemoveUntil(
+              context, word, ModalRoute.withName("/sublevel"))
+          : Navigator.pushNamed(context, word);
     }
   }
 

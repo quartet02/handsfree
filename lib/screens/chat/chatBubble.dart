@@ -34,20 +34,20 @@ class ChatBubble extends StatelessWidget {
                 backgroundColor: Colors.transparent,
               ),
         Container(
-          padding: const EdgeInsets.all(16),
+          padding: message.type == 1
+              ? const EdgeInsets.all(13)
+              : const EdgeInsets.all(8),
           margin:
               const EdgeInsets.all(16).subtract(const EdgeInsets.only(top: 12)),
-          constraints: const BoxConstraints(maxWidth: 140),
+          constraints: const BoxConstraints(maxWidth: 220),
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
                   color: isMe ? kTextShadow : kTextFieldText,
-                  offset: Offset(5, 6),
+                  offset: const Offset(5, 6),
                   spreadRadius: 1,
                   blurRadius: 8)
             ],
-            // color:
-            //     isMe ? Colors.white : Theme.of(context).colorScheme.secondary,
             color: isMe ? Colors.white : kOrangeLight,
             borderRadius: isMe
                 ? borderRadius
@@ -70,7 +70,6 @@ class ChatBubble extends StatelessWidget {
                   message.messageText,
                   style: GoogleFonts.montserrat(
                       fontSize: 12, color: isMe ? Colors.black : Colors.white),
-                  textAlign: isMe ? TextAlign.end : TextAlign.start,
                 )
               : GestureDetector(
                   onTap: () {

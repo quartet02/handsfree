@@ -3,10 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:handsfree/provider/helpdeskProvider.dart';
 import 'package:handsfree/provider/lessonCardProvider.dart';
-import 'package:handsfree/provider/newUserDataProvider.dart';
 import 'package:handsfree/provider/newsFeedProvider.dart';
-import 'package:handsfree/provider/helpdeskProvider.dart';
-import 'package:handsfree/provider/lessonCardProvider.dart';
 import 'package:handsfree/provider/subLessonProvider.dart';
 import 'package:handsfree/screens/FeedBack/feedback.dart';
 import 'package:handsfree/screens/authenticate/authenticate.dart';
@@ -15,7 +12,6 @@ import 'package:handsfree/screens/authenticate/signUp.dart';
 import 'package:handsfree/screens/chat/chat.dart';
 import 'package:handsfree/screens/chat/chatHome.dart';
 import 'package:handsfree/screens/dictionary/dictionary.dart';
-import 'package:handsfree/screens/dictionary/translator.dart';
 import 'package:handsfree/screens/home/home.dart';
 import 'package:handsfree/screens/learn/congrats.dart';
 import 'package:handsfree/screens/learn/learn.dart';
@@ -31,16 +27,13 @@ import 'package:handsfree/screens/social/searchGlobal.dart';
 import 'package:handsfree/screens/social/social.dart';
 import 'package:handsfree/screens/settings/terms.dart';
 import 'package:handsfree/screens/wrapper.dart';
-import 'package:handsfree/services/ShPref.dart';
 import 'package:handsfree/services/auth.dart';
 import 'package:handsfree/provider/lessonProvider.dart';
-import 'package:handsfree/services/database.dart';
 import 'package:handsfree/services/mediaAccess.dart';
 import 'package:handsfree/services/prepSendImage.dart';
 import 'package:handsfree/services/viewPic.dart';
 import 'package:handsfree/services/userPreference.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
 import 'package:handsfree/models/newUser.dart';
 import 'theme/theme_manager.dart';
@@ -76,27 +69,11 @@ Future<void> main() async {
             create: (_) => NewsFeedProvider()),
         ChangeNotifierProvider<LessonCardProvider>(
             create: (_) => LessonCardProvider()),
-        StreamProvider<NewUserData?>.value(value: AuthService().newUserData, initialData: null),
+        StreamProvider<NewUserData?>.value(
+            value: AuthService().newUserData, initialData: null),
       ],
     ),
   );
-// =======
-//   runApp(MultiProvider(child: const MyApp(), providers: [
-//     ChangeNotifierProvider<LessonProvider>(create: (_) => LessonProvider()),
-//     ChangeNotifierProvider<SubLessonProvider>(
-//         create: (_) => SubLessonProvider()),
-//     ChangeNotifierProvider<LessonCardProvider>(
-//         create: (_) => LessonCardProvider()),
-//   ]));
-//   // runApp(ChangeNotifierProvider<LessonProvider>(
-//   //   create: (_) => LessonProvider(),
-//   //   child: const MyApp(),
-//   // ));
-//   //
-//   // await UserSimplePreferences.init();
-//   //
-//   // runApp(const MyApp());
-// >>>>>>> Stashed changes
 }
 
 ThemeManager _themeManager = ThemeManager();

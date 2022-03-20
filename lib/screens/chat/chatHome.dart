@@ -27,7 +27,7 @@ class _ChatHomeState extends State<ChatHome> {
       create: (context) => FriendProvider(),
       child: Scaffold(
         body: Container(
-          padding: EdgeInsets.symmetric(horizontal: 40),
+          padding: const EdgeInsets.symmetric(horizontal: 40),
           decoration: const BoxDecoration(
             image: DecorationImage(
                 alignment: Alignment.topCenter,
@@ -45,11 +45,40 @@ class _ChatHomeState extends State<ChatHome> {
               Container(
                 margin: EdgeInsets.only(
                     top: MediaQuery.of(context).size.height / 20, bottom: 10),
-                child: SearchBar(
+                child: const SearchBar(
                     prompt: "Search for a friend", provider: Providers.friend),
               ),
               const ChatRoomList(),
             ],
+          ),
+        ),
+        //floatingActionButton: buildCreateGroupButton(),
+      ),
+    );
+  }
+
+  Widget buildCreateGroupButton() {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(0, 0, 20, 10),
+      child: GestureDetector(
+        onTap: () {
+          debugPrint("Pressed create group button");
+        },
+        child: Container(
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(40)),
+            boxShadow: [
+              BoxShadow(
+                  color: kTextShadow,
+                  offset: Offset(4, 5),
+                  spreadRadius: 1,
+                  blurRadius: 6)
+            ],
+          ),
+          child: const CircleAvatar(
+            radius: 30,
+            backgroundImage: AssetImage("assets/image/orange_circle.png"),
+            child: Icon(Icons.people_alt_rounded, size: 25),
           ),
         ),
       ),

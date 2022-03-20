@@ -26,10 +26,10 @@ class ContactCard extends StatelessWidget {
             image: AssetImage("assets/image/learning_small_rect.png"),
             fit: BoxFit.cover,
           ),
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(
                 color: kTextShadow,
-                offset: const Offset(5, 6),
+                offset: Offset(5, 6),
                 spreadRadius: 1,
                 blurRadius: 8)
           ],
