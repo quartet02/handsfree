@@ -1,14 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:handsfree/models/chatModel.dart';
 import 'package:handsfree/models/messageModel.dart';
-import 'package:handsfree/models/userProfile.dart';
 import 'package:handsfree/screens/chat/chatBar.dart';
 import 'package:handsfree/services/database.dart';
-import 'package:handsfree/widgets/breaker.dart';
 import 'package:handsfree/widgets/buildText.dart';
-import 'package:handsfree/widgets/columnList.dart';
-import 'package:handsfree/widgets/constants.dart';
 import 'package:handsfree/services/userPreference.dart';
 
 import 'chatBubble.dart';
@@ -61,7 +56,6 @@ class _ChatState extends State<Chat> {
     return Expanded(
       flex: 2,
       child: Container(
-        // color: Colors.black.withOpacity(0.2),
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: StreamBuilder<List<Messages>>(
           stream: DatabaseService(uid: UserPreference.get("uniqueId"))
@@ -84,48 +78,6 @@ class _ChatState extends State<Chat> {
       ),
     );
   }
-
-  // Widget buildChatHeader(ChatRoom roomData, BuildContext context) {
-  //   return Container(
-  //     padding: const EdgeInsets.symmetric(horizontal: 40),
-  //     constraints: BoxConstraints(
-  //         minHeight: MediaQuery.of(context).size.height / 5,
-  //         maxWidth: MediaQuery.of(context).size.width),
-  //     decoration: BoxDecoration(
-  //       boxShadow: [
-  //         BoxShadow(
-  //             color: Colors.black.withOpacity(0.5),
-  //             offset: const Offset(0, -2),
-  //             blurStyle: BlurStyle.outer,
-  //             spreadRadius: 2,
-  //             blurRadius: 20)
-  //       ],
-  //       image: const DecorationImage(
-  //         image: AssetImage("assets/image/orange_heading3.png"),
-  //         fit: BoxFit.cover,
-  //       ),
-  //     ),
-  //     child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-  //       GestureDetector(
-  //         onTap: () {
-  //           Navigator.pop(context);
-  //         },
-  //         child: const Icon(
-  //           Icons.arrow_back_ios_new_rounded,
-  //           color: Colors.white,
-  //         ),
-  //       ),
-  //       buildText.bigTitle(roomData.roomName),
-  //       GestureDetector(
-  //         onTap: () {},
-  //         child: const Icon(
-  //           Icons.more_vert_rounded,
-  //           color: Colors.white,
-  //         ),
-  //       ),
-  //     ]),
-  //   );
-  // }
 
   Widget buildHeading(ChatRoom roomData, BuildContext context) {
     return Stack(

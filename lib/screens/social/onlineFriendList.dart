@@ -97,7 +97,7 @@ class OnlineFriendList extends StatelessWidget {
         } else if (snapshotId.connectionState == ConnectionState.waiting) {
           return Container();
         } else {
-          print(snapshotId.error);
+          debugPrint(snapshotId.error.toString());
           // on EmptyList
           return Container(
             margin: const EdgeInsets.only(top: 40, bottom: 40),

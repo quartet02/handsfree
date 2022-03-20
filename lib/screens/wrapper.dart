@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:handsfree/models/newUser.dart';
-import 'package:handsfree/provider/newUserDataProvider.dart';
 import 'package:handsfree/screens/authenticate/authenticate.dart';
 import 'package:handsfree/screens/home/home.dart';
 import 'package:handsfree/services/database.dart';

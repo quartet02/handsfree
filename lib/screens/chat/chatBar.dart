@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:handsfree/models/newUser.dart';
-import 'package:handsfree/provider/newUserDataProvider.dart';
 import 'package:handsfree/services/database.dart';
 import 'package:handsfree/widgets/constants.dart';
 import 'package:handsfree/services/userPreference.dart';

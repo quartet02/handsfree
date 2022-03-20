@@ -25,8 +25,8 @@ class SearchResult extends StatelessWidget {
               (element) => element.uid == UserPreference.get("uniqueId"));
           return Consumer<List<String>>(
               builder: (context, toBeExcluded, child) {
-            List<Users> updated = [];
             if (toBeExcluded.isNotEmpty) {
+              toBeExcluded.forEach(print);
               results.removeWhere((user) => toBeExcluded.contains(user.uid));
             }
             if (results.isEmpty) {
@@ -36,25 +36,25 @@ class SearchResult extends StatelessWidget {
             }
             return ListView.builder(
                 physics: const BouncingScrollPhysics(),
-                itemCount: updated.length,
+                itemCount: results.length,
                 itemBuilder: (context, index) {
                   return StreamBuilder<List<String>>(
                       stream:
                           DatabaseService(uid: UserPreference.get("uniqueId"))
-                              .currentFriendRequests(updated[index].uid),
+                              .currentFriendRequests(results[index].uid),
                       builder: (context, snapshotCurrent) {
                         if (snapshotCurrent.hasData &&
                             snapshotCurrent.data!.isNotEmpty &&
                             snapshotCurrent.connectionState ==
                                 ConnectionState.active) {
                           return FriendRequestCard(
-                              userData: updated[index],
+                              userData: results[index],
                               isPromptSendRequest: true,
                               isSent: snapshotCurrent.data!
                                   .contains(UserPreference.get("uniqueId")));
                         } else {
                           return FriendRequestCard(
-                              userData: updated[index],
+                              userData: results[index],
                               isPromptSendRequest: true);
                         }
                       });
