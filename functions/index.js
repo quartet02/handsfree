@@ -38,19 +38,17 @@ exports.newsNoti = functions.firestore.document('/news/{docId}')
             })
     })
 
-exports.chatNoti = functions.https.onCall((data, context) => {
-    const senderName = context.auth.name
+exports.chatNoti = functions.https.onCall(async (data, context) => {
+    const senderName = data.name
     const senderUid = context.auth.uid
     const roomId = data.roomId
-    console.log(senderName, senderUid, roomId)
 
-    chat = admin.firestore()
+    chat = await admin.firestore()
         .collection('chatRoom')
         .doc(roomId)
         .get()
 
     uidTokenMap = {}
-
 
     participants = chat.get('participants')
     createdBy = chat.get('createdBy')
@@ -58,55 +56,51 @@ exports.chatNoti = functions.https.onCall((data, context) => {
     admin.firestore()
         .collection('devices')
         .get().then(snap => {
+            console.log('Adding uid and token to map')
             snap.forEach(docSnap => {
                 token = docSnap.get('token')
                 uid = docSnap.get('uid')
-                console.log(token, uid)
+
                 uidTokenMap[uid] = uidTokenMap[uid] || [];
                 uidTokenMap[uid].push(token)
             })
+        }).then(e => {
+            console.log(`sending chat noti`)
+            Object.keys(uidTokenMap).forEach(key => {
+                if (key != senderUid) {
+
+                    uidTokenMap[key].forEach(token => {
+                        const message = {
+                            notification: {
+                                title: "New chat!",
+                                body: `${senderName} sent a message to you!`,
+                            },
+                            android: {
+                                notification: {
+                                    title: "New chat!",
+                                    body: `${senderName} sent a message to you!`,
+                                    sound: 'default',
+                                }
+                            },
+                            token: token,
+
+                        }
+
+                        admin.messaging().send(message)
+                            .then((res) => {
+                                console.log('Successfully sent chat noti: ', res);
+                            })
+                            .catch((err) => {
+                                console.log('Error sending chat noti:', err);
+                            })
+                    })
+
+
+                }
+            })
         })
 
-    if (createdBy != senderUid) {
-        uidTokenMap[createdBy].forEach(token => {
-            const message = {
-                notification: {
-                    title: "New chat!",
-                    body: `${senderName} sent a message to you!`
-                },
-                token: token
-            }
 
-            admin.messaging().send(message)
-                .then((res) => {
-                    console.log('Successfully sent friend request noti: ', res);
-                })
-                .catch((err) => {
-                    console.log('Error sending friend request noti:', err);
-                })
-        })
-    }
-
-    participants.forEach(participant => {
-        console.log(`participant: ${participant}`)
-        if (participant != senderUid) {
-            const message = {
-                notification: {
-                    title: "New chat!",
-                    body: `${senderName} sent a message to you!`
-                },
-                token: token
-            }
-
-            admin.messaging().send(message)
-                .then((res) => {
-                    console.log('Successfully sent friend request noti: ', res);
-                })
-                .catch((err) => {
-                    console.log('Error sending friend request noti:', err);
-                })
-        }
-    })
 })
 
 exports.friendRequest = functions.https.onCall(async (data, context) => {
@@ -114,7 +108,7 @@ exports.friendRequest = functions.https.onCall(async (data, context) => {
 
     // data contain the message text, 
     // context parameters contain user auth information
-    const senderName = context.auth.name
+    const senderName = data.name
     const receiverUid = data.receiverUid
 
     await admin.firestore()
@@ -130,49 +124,55 @@ exports.friendRequest = functions.https.onCall(async (data, context) => {
                     },
                     token: tokenDb
                 }
-                console.log(message);
-                console.log(uid);
 
                 admin.messaging().send(message)
                     .then((res) => {
-                        console.log('Successfully sent leaderboard noti: ', res);
+                        console.log('Successfully sent friend request noti: ', res);
                     })
                     .catch((err) => {
-                        console.log('Error sending leaderboard noti:', err);
+                        console.log('Error sending friend request noti:', err);
                     })
             })
         })
 })
 
-exports.scheduledLeaderboards = functions.pubsub
-    .schedule('every 10 minutes')
+exports.scheduledLeaderboards = functions.pubsub.schedule('every sunday 08:00')
     .onRun(async (context) => {
-
+        uidTokenMap = {}
         admin.firestore()
-            .collection('users')
-            .orderBy('experience').get()
-            .then(querySnapshot => {
-                let total = querySnapshot.docs.length
-                let i = 0
-                querySnapshot.forEach(documentSnapshot => {
+            .collection('devices')
+            .get()
+            .then(snap => {
+                snap.forEach(docSnap => {
+                    console.log('Adding uid and token to map')
+                    token = docSnap.get('token')
+                    uid = docSnap.get('uid')
 
-                    admin.firestore()
-                        .collection('devices')
-                        .where('uid', "==", documentSnapshot.get('uid'))
-                        .get()
-                        .then(snap => {
-                            snap.forEach(docSnap => {
-                                tokenDb = docSnap.get('token')
+                    console.log(`adding token: ${token}, uid: ${uid} to map`)
+
+                    uidTokenMap[uid] = uidTokenMap[uid] || [];
+                    uidTokenMap[uid].push(token)
+                })
+            }).then(e => {
+                console.log('Sending notification')
+                admin.firestore()
+                    .collection('users')
+                    .orderBy('experience').get()
+                    .then(querySnapshot => {
+                        let total = querySnapshot.docs.length
+                        let i = -1
+                        querySnapshot.forEach(documentSnapshot => {
+                            i++
+                            if (!uidTokenMap.hasOwnProperty(documentSnapshot.get('uid'))) return
+                            uidTokenMap[documentSnapshot.get('uid')].forEach(token => {
                                 message = {
                                     notification: {
                                         title: "Leaderboard Ranking!",
                                         body: `You ranked ${total - i} this week!`
                                     },
-                                    token: tokenDb
+                                    token: token
                                 }
-                                console.log(message);
-                                console.log(uid);
-
+                                console.log(`uid: ${uid} message: ${message}`)
                                 admin.messaging().send(message)
                                     .then((res) => {
                                         console.log('Successfully sent leaderboard noti: ', res);
@@ -181,10 +181,22 @@ exports.scheduledLeaderboards = functions.pubsub
                                         console.log('Error sending leaderboard noti:', err);
                                     })
                             })
+                        });
+                    });
+            })
+    })
 
-                        })
-                    i++
-                });
-
-            });
+// 1 of month
+exports.scheduledCleanDevices = functions.pubsub.schedule('every 5 minutes')
+    .onRun(async (context) => {
+        admin.firestore()
+            .collection('devices')
+            .get()
+            .then(snap => {
+                snap.forEach(docSnap => {
+                    timestamp = docSnap.get('timestamp')
+                    console.log(`timestamp for ${docSnap.get('uid')}: ${timestamp.valueOf()}`)
+                    console.log(`cur: ${admin.firestore.Timestamp.now().valueOf()}`)
+                })
+            })
     })
