@@ -1,22 +1,16 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:handsfree/provider/lessonCardProvider.dart';
 import 'package:handsfree/provider/subLessonProvider.dart';
 import 'package:handsfree/services/database.dart';
 import 'package:handsfree/widgets/loadingWholeScreen.dart';
-import 'package:handsfree/widgets/buildButton.dart';
 import 'package:handsfree/widgets/buildText.dart';
 import 'package:handsfree/widgets/columnList.dart';
-import 'package:handsfree/widgets/constants.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../../models/newUser.dart';
 import '../../provider/lessonProvider.dart';
 import '../../services/medialoader.dart';
-import '../../widgets/navBar.dart';
-import 'package:percent_indicator/percent_indicator.dart';
 import 'package:handsfree/models/lessonModel.dart';
 
 List _lessonCompletionList = [];

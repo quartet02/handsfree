@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:handsfree/models/userProfile.dart';
-import 'package:handsfree/screens/dictionary/searchBar.dart';
-import 'package:handsfree/screens/social/friendRequestCard.dart';
 import 'package:handsfree/screens/social/searchGlobalResult.dart';
 import 'package:handsfree/services/database.dart';
 import 'package:handsfree/widgets/breaker.dart';
