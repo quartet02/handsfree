@@ -54,14 +54,17 @@ class ContactCard extends StatelessWidget {
               ),
             ),
             Breaker(i: 20, pos: PadPos.right),
-            Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  buildText.heading3Text(roomData.roomName),
-                  Breaker(i: 3),
-                  buildText.heading4Text(roomData.recentMessageText),
-                ]),
+            Flexible(
+              // fit: FlexFit.tight,
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    buildText.heading3Text(roomData.roomName),
+                    Breaker(i: 3),
+                    buildText.heading4Text(roomData.recentMessageText),
+                  ]),
+            ),
           ],
         ),
       ),
