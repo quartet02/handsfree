@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:handsfree/provider/dictionaryProvider.dart';
+import 'package:handsfree/screens/dictionary/translator.dart';
 import 'package:provider/provider.dart';
 import 'package:handsfree/widgets/constants.dart';
 
@@ -27,8 +28,8 @@ class SearchGroup extends StatelessWidget {
             height: dict.suggestion.length == 1
                 ? 95
                 : dict.suggestion.length <= 4
-                ? 102 + (dict.suggestion.length - 1) * 50
-                : 110 + 3 * 50,
+                    ? 102 + (dict.suggestion.length - 1) * 50
+                    : 110 + 3 * 50,
             child: ListView.builder(
               physics: BouncingScrollPhysics(),
               itemCount: dict.suggestion.length,
@@ -39,6 +40,17 @@ class SearchGroup extends StatelessWidget {
                   title: Text(dict.suggestion[index].word),
                   onTap: () {
                     dict.addSearchTerm(dict.suggestion[index].word);
+                    final provider = context.read<DictionaryProvider>();
+                    List? wordData = provider.wordData;
+                    Map search = wordData!.firstWhere(
+                        (word) => word["word"] == dict.suggestion[index].word);
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => Translator(
+                            search['word'],
+                            search['definition'],
+                            search['phoneticSymbol'],
+                            search['imgUrl']),
+                        maintainState: false));
                   },
                 );
               },

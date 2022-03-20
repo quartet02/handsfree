@@ -67,8 +67,8 @@ class _HelpDeskState extends State<HelpDesk> {
                 blendMode: BlendMode.dstOut,
                 child: Consumer<HelpDeskProvider>(
                     builder: (context, topics, child) {
-                      return ExpandableCardList(topicData: topics.topics);
-                    }),
+                  return ExpandableCardList(topicData: topics.topics);
+                }),
               ),
             ],
           ),
