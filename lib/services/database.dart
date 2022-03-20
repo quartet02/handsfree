@@ -2,6 +2,7 @@ import 'package:async/async.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:handsfree/models/communityModel.dart';
 import 'package:handsfree/models/newsFeedModel.dart';
 import 'package:handsfree/models/chatModel.dart';
@@ -228,7 +229,7 @@ class DatabaseService {
     );
   }
 
-  Future<DocumentSnapshot<Object?>>? getNewUserDataSnapshot(User? user){
+  Future<DocumentSnapshot<Object?>>? getNewUserDataSnapshot(User? user) {
     if (user == null) return null;
     return userCollection.doc(user.uid).get();
   }
@@ -236,7 +237,8 @@ class DatabaseService {
   //new user register
   Future updateUserData(int experience, String name, String phoneNumber,
       String picture, String title, String username) async {
-    return await userCollection.doc(uid).set({
+    // init user doc
+    await userCollection.doc(uid).set({
       'experience': experience,
       'phoneNumber': phoneNumber,
       'picture': picture,
@@ -248,10 +250,16 @@ class DatabaseService {
     }).then((_) {
       print("Success!");
     });
+    // init friend list
+    await userCollection
+        .doc(uid)
+        .collection("friends")
+        .doc("friends")
+        .set({"list": FieldValue.arrayUnion([])});
   }
 
-  Future<void> createChatRoom(
-      List<String> friendIds, String? name, int type, String createrName) async {
+  Future<void> createChatRoom(List<String> friendIds, String? name, int type,
+      String createrName) async {
     await chatRoomCollection.add({
       'createdAt': Timestamp.now(),
       'createdBy': uid,
@@ -280,11 +288,13 @@ class DatabaseService {
             .doc(id)
             .update({'groups': FieldValue.arrayUnion(prev)});
       });
+
       await sendMessage(
           doc.id,
-          friendIds.length > 1
+          type != 1
               ? "I have opened a group for us. Let us hang out now!"
-              : "I have accepted your friend request. Let us chat now!",createrName);
+              : "I have accepted your friend request. Let us chat now!",
+          createrName);
     });
   }
 
@@ -295,8 +305,7 @@ class DatabaseService {
         .collection("friends")
         .doc("friends")
         .get()
-        .then((doc) => doc["list"])
-        .onError((error, stackTrace) => print(stackTrace.toString()));
+        .then((doc) => List<String>.from(doc["list"]));
     prev1.add(otherSideId);
     await userCollection
         .doc(uid)
@@ -309,8 +318,8 @@ class DatabaseService {
         .collection("friends")
         .doc("friends")
         .get()
-        .then((doc) => doc["list"])
-        .onError((error, stackTrace) => print(stackTrace.toString()));
+        .then((doc) => List<String>.from(doc["list"]));
+
     prev2.add(uid!);
     await userCollection
         .doc(otherSideId)
@@ -392,7 +401,8 @@ class DatabaseService {
         .delete();
   }
 
-  Future<int> friendRequestAction(bool isAccepted, String otherSideId, String createrName) async {
+  Future<int> friendRequestAction(
+      bool isAccepted, String otherSideId, String createrName) async {
     try {
       await userCollection
           .doc(uid)
@@ -401,8 +411,10 @@ class DatabaseService {
           .delete();
       print("successfully cleaned");
       if (isAccepted) {
-        await createChatRoom([otherSideId], null, 1, createrName);
-        await addToFriendList(otherSideId);
+        await createChatRoom([otherSideId], null, 1, createrName)
+            .onError((error, stackTrace) => print(error.toString()));
+        await addToFriendList(otherSideId)
+            .onError((error, stackTrace) => print(error.toString()));
         print("successfully created and added");
       }
       return isAccepted ? 201 : 200;
@@ -2831,7 +2843,7 @@ class DatabaseService {
   Stream<List<String>> get chatsId {
     return userCollection.doc(uid).snapshots().map((snapshot) {
       List<String> a = List<String>.from(snapshot['groups']);
-      print("Number of elem is ${a.length}");
+      // print("Number of elem is ${a.length}");
       return a;
     });
   }
