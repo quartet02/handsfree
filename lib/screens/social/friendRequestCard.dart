@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:handsfree/models/newUser.dart';
 import 'package:handsfree/models/userProfile.dart';
+import 'package:handsfree/provider/newUserDataProvider.dart';
 import 'package:handsfree/services/database.dart';
 import 'package:handsfree/widgets/breaker.dart';
 import 'package:handsfree/widgets/constants.dart';
 import 'package:handsfree/widgets/buildText.dart';
 import 'package:handsfree/services/userPreference.dart';
+import 'package:handsfree/widgets/loadingWholeScreen.dart';
 import 'package:provider/provider.dart';
 
 class FriendRequestCard extends StatefulWidget {
@@ -25,7 +28,9 @@ class FriendRequestCard extends StatefulWidget {
 class _FriendRequestCardState extends State<FriendRequestCard> {
   @override
   Widget build(BuildContext context) {
+    NewUserData? user = Provider.of<NewUserData?>(context);
     bool isSent = widget.isSent;
+    if (user==null) return Loading();
     return GestureDetector(
       onTap: () {
         // Navigator.pushNamed(context, "/chatHome/chat", arguments: roomData);
@@ -116,20 +121,20 @@ class _FriendRequestCardState extends State<FriendRequestCard> {
                       ),
                     ],
                   )
-                : responseActions(),
+                : responseActions(user.name!),
           ],
         ),
       ),
     );
   }
 
-  Widget responseActions() {
+  Widget responseActions(String createrName) {
     return Row(
       children: [
         GestureDetector(
           onTap: () async {
             await DatabaseService(uid: UserPreference.get("uniqueId"))
-                .friendRequestAction(true, widget.userData.uid);
+                .friendRequestAction(true, widget.userData.uid, createrName);
             print("accepted");
           },
           child: Container(
@@ -148,7 +153,7 @@ class _FriendRequestCardState extends State<FriendRequestCard> {
         GestureDetector(
           onTap: () async {
             await DatabaseService(uid: UserPreference.get("uniqueId"))
-                .friendRequestAction(false, widget.userData.uid);
+                .friendRequestAction(false, widget.userData.uid, createrName);
             print("declined");
           },
           child: Container(

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:handsfree/provider/helpdeskProvider.dart';
 import 'package:handsfree/provider/lessonCardProvider.dart';
+import 'package:handsfree/provider/newUserDataProvider.dart';
 import 'package:handsfree/provider/newsFeedProvider.dart';
 import 'package:handsfree/provider/helpdeskProvider.dart';
 import 'package:handsfree/provider/lessonCardProvider.dart';
@@ -33,6 +34,7 @@ import 'package:handsfree/screens/wrapper.dart';
 import 'package:handsfree/services/ShPref.dart';
 import 'package:handsfree/services/auth.dart';
 import 'package:handsfree/provider/lessonProvider.dart';
+import 'package:handsfree/services/database.dart';
 import 'package:handsfree/services/mediaAccess.dart';
 import 'package:handsfree/services/prepSendImage.dart';
 import 'package:handsfree/services/viewPic.dart';
@@ -74,6 +76,7 @@ Future<void> main() async {
             create: (_) => NewsFeedProvider()),
         ChangeNotifierProvider<LessonCardProvider>(
             create: (_) => LessonCardProvider()),
+        StreamProvider<NewUserData?>.value(value: AuthService().newUserData, initialData: null),
       ],
     ),
   );
@@ -104,44 +107,40 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return StreamProvider<NewUser?>.value(
-      value: AuthService().user,
-      initialData: null,
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
-        theme: lightTheme,
-        darkTheme: darkTheme,
-        themeMode: _themeManager.themeMode,
-        home: const Wrapper(),
-        routes: {
-          "/auth": (context) => const Authenticate(),
-          "/auth/signIn": (context) => const SignIn(),
-          "/auth/signUp": (context) => const SignUp(),
-          "/social": (context) => const Social(),
-          "/dictionary": (context) => const Dictionary(),
-          "/profile": (context) => const Profile(),
-          "/home": (context) => const Home(),
-          "/learn": (context) => const Learn(),
-          "/sublevel": (context) => const SubLevel(),
-          "/settings": (context) => const Settings(),
-          "/acknowledgement": (context) => const Acknowledgement(),
-          "/terms": (context) => Terms(),
-          "/mainLearningPage": (context) => const MainLearningPage(),
-          "/congratulation": (context) => const Congratulation(),
-          // "/translator": (context) => const Translator(),
-          "/helpCenter": (context) => const HelpDesk(),
-          "/feedback": (context) => const FeedBack(),
-          "/news": (context) => const News(),
-          "/chatHome": (context) => ChatHome(),
-          "/chatHome/chat": (context) => Chat(),
-          "/camera": (context) => CameraScreen(),
-          "/prepsend": (context) => PrepSendImage(),
-          "/viewPic": (context) => ViewPic(),
-          "/viewFriendRequest": (context) => FriendRequest(),
-          "/searchGlobalUsers": (context) => SearchGlobal(),
-        },
-      ),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter Demo',
+      theme: lightTheme,
+      darkTheme: darkTheme,
+      themeMode: _themeManager.themeMode,
+      home: const Wrapper(),
+      routes: {
+        "/auth": (context) => const Authenticate(),
+        "/auth/signIn": (context) => const SignIn(),
+        "/auth/signUp": (context) => const SignUp(),
+        "/social": (context) => const Social(),
+        "/dictionary": (context) => const Dictionary(),
+        "/profile": (context) => const Profile(),
+        "/home": (context) => const Home(),
+        "/learn": (context) => const Learn(),
+        "/sublevel": (context) => const SubLevel(),
+        "/settings": (context) => const Settings(),
+        "/acknowledgement": (context) => const Acknowledgement(),
+        "/terms": (context) => Terms(),
+        "/mainLearningPage": (context) => const MainLearningPage(),
+        "/congratulation": (context) => const Congratulation(),
+        // "/translator": (context) => const Translator(),
+        "/helpCenter": (context) => const HelpDesk(),
+        "/feedback": (context) => const FeedBack(),
+        "/news": (context) => const News(),
+        "/chatHome": (context) => ChatHome(),
+        "/chatHome/chat": (context) => Chat(),
+        "/camera": (context) => CameraScreen(),
+        "/prepsend": (context) => PrepSendImage(),
+        "/viewPic": (context) => ViewPic(),
+        "/viewFriendRequest": (context) => FriendRequest(),
+        "/searchGlobalUsers": (context) => SearchGlobal(),
+      },
     );
   }
 }

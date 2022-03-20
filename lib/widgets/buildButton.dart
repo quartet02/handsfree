@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:handsfree/services/auth.dart';
 import 'package:handsfree/widgets/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:handsfree/provider/newUserDataProvider.dart';
+import 'package:provider/provider.dart';
 
 class buildButton extends StatelessWidget {
   final String text;

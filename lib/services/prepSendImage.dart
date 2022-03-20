@@ -1,17 +1,23 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:handsfree/models/newUser.dart';
+import 'package:handsfree/provider/newUserDataProvider.dart';
 import 'package:handsfree/services/database.dart';
 import 'package:handsfree/services/medialoader.dart';
 import 'package:handsfree/services/userPreference.dart';
+import 'package:handsfree/widgets/loading.dart';
 import 'package:path/path.dart';
+import 'package:provider/provider.dart';
 
 class PrepSendImage extends StatelessWidget {
   const PrepSendImage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<NewUserData?>(context);
     final List<String> imagePath =
         ModalRoute.of(context)!.settings.arguments as List<String>;
+    if (user == null) return Loading();
     return Scaffold(
       backgroundColor: Colors.black,
       body: Column(
@@ -58,7 +64,8 @@ class PrepSendImage extends StatelessWidget {
                     imagePath[1],
                   );
                   await DatabaseService(uid: UserPreference.get("uniqueId"))
-                      .sendMessage(imagePath[1], downloadURL, isMedia: true);
+                      .sendMessage(imagePath[1], downloadURL, user.name!,
+                          isMedia: true);
                   Navigator.pop(context);
                   await File(imagePath[0]).delete();
                 },

@@ -30,8 +30,10 @@ class SubLevel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     LessonModel lesson = context.read<LessonProvider>().getClickedLesson;
-    _user = Provider.of<NewUser?>(context);
+    _user = Provider.of<NewUserData?>(context);
     _syllabus = "Syllabus " + lesson.lessonId.toString();
+
+    if(_user == null) return Loading();
 
     return WillPopScope(
       onWillPop: () async{

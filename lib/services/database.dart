@@ -231,9 +231,9 @@ class DatabaseService {
     );
   }
 
-  //get user doc stream
-  Stream<NewUserData> get userData {
-    return userCollection.doc(uid).snapshots().map(_userDataFromSnapshot);
+  Future<DocumentSnapshot<Object?>>? getNewUserDataSnapshot(User? user){
+    if (user == null) return null;
+    return userCollection.doc(user.uid).get();
   }
 
   //new user register
@@ -254,7 +254,7 @@ class DatabaseService {
   }
 
   Future<void> createChatRoom(
-      List<String> friendIds, String? name, int type) async {
+      List<String> friendIds, String? name, int type, String createrName) async {
     await chatRoomCollection.add({
       'createdAt': Timestamp.now(),
       'createdBy': uid,
@@ -287,7 +287,7 @@ class DatabaseService {
           doc.id,
           friendIds.length > 1
               ? "I have opened a group for us. Let us hang out now!"
-              : "I have accepted your friend request. Let us chat now!");
+              : "I have accepted your friend request. Let us chat now!",createrName);
     });
   }
 
@@ -357,11 +357,11 @@ class DatabaseService {
   Future<void> sendFriendRequest(String otherSideId) async {
     Map<String, dynamic> data = {
       'receiverUid': otherSideId,
+      'name': 'senderName',
     };
 
     connectFunction('friendRequest', data);
 
-    // connectFunction('friendRequest', senderName, otherSideId);
     print("sent friend request");
     await userCollection
         .doc(otherSideId)
@@ -395,7 +395,7 @@ class DatabaseService {
         .delete();
   }
 
-  Future<int> friendRequestAction(bool isAccepted, String otherSideId) async {
+  Future<int> friendRequestAction(bool isAccepted, String otherSideId, String createrName) async {
     try {
       await userCollection
           .doc(uid)
@@ -404,7 +404,7 @@ class DatabaseService {
           .delete();
       print("successfully cleaned");
       if (isAccepted) {
-        await createChatRoom([otherSideId], null, 1);
+        await createChatRoom([otherSideId], null, 1, createrName);
         await addToFriendList(otherSideId);
         print("successfully created and added");
       }
@@ -2895,7 +2895,7 @@ class DatabaseService {
         .map(_messagesFromSnapshot);
   }
 
-  Future<void> sendMessage(String roomId, String messageText,
+  Future<void> sendMessage(String roomId, String messageText, String senderName,
       {bool isMedia = false}) async {
     // add messages to collection "messages", if collection not found will create one
     if (!isMedia) {
@@ -2933,13 +2933,10 @@ class DatabaseService {
     }
 
     //TODO: get senderName
-    // String senderName = 'kkk';
-    // String senderUid = uid!;
 
     Map<String, dynamic> data = {
-      // 'senderName': senderName,
+      'name': senderName,
       'roomId': roomId,
-      // 'senderUid': senderUid,
     };
 
     connectFunction('chatNoti', data);

@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:handsfree/models/newUser.dart';
+import 'package:handsfree/provider/newUserDataProvider.dart';
 import 'package:handsfree/services/database.dart';
 import 'package:handsfree/widgets/constants.dart';
 import 'package:handsfree/services/userPreference.dart';
+import 'package:provider/provider.dart';
+
+import '../../widgets/loading.dart';
 
 class ChatBar extends StatefulWidget {
   const ChatBar({Key? key, required this.roomId}) : super(key: key);
@@ -17,6 +22,10 @@ class _ChatBarState extends State<ChatBar> {
   String input = "";
   @override
   Widget build(BuildContext context) {
+    NewUserData user = Provider.of<NewUserData>(context);
+
+    if (user == null) return Loading();
+
     return Container(
       padding: const EdgeInsets.fromLTRB(10, 10, 10, 12),
       child: Row(
@@ -100,7 +109,7 @@ class _ChatBarState extends State<ChatBar> {
             onTap: () async {
               if (input.trim().isNotEmpty) {
                 await DatabaseService(uid: UserPreference.get("uniqueId"))
-                    .sendMessage(widget.roomId, input);
+                    .sendMessage(widget.roomId, input, user.name!);
                 setState(() {
                   input = "";
                   control.clear();

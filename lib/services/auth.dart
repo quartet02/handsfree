@@ -130,11 +130,12 @@ class AuthService {
     await _auth.signOut();
   }
 
-  NewUser? _userFromFirebaseUser(User? user) {
-    return user != null ? NewUser(uid: user.uid) : null;
+  Future<NewUserData?> _newUserDataFromFirebaseUser(User? user) async{
+    var snap = await DatabaseService().getNewUserDataSnapshot(user);
+    return snap == null ? null : NewUserData.fromMap(snap.data() as Map<String, dynamic>);
   }
 
-  Stream<NewUser?> get user {
-    return _auth.authStateChanges().map(_userFromFirebaseUser);
+  Stream<NewUserData?> get newUserData {
+    return _auth.authStateChanges().asyncMap(_newUserDataFromFirebaseUser);
   }
 }

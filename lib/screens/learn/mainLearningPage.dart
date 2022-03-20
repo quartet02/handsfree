@@ -46,11 +46,13 @@ class _MainLearningPageState extends State<MainLearningPage> {
       break;
     }
 
-    final user = Provider.of<NewUser?>(context);
+    final user = Provider.of<NewUserData?>(context);
     final provider = Provider.of<LessonCardProvider?>(context, listen: false);
 
+    if(user == null) return Loading();
+
     return StreamBuilder<List<LessonCardModel>?>(
-        stream: DatabaseService(uid: user!.uid).getSelectedLessonCard(syllabus, lesson),
+        stream: DatabaseService(uid: user.uid).getSelectedLessonCard(syllabus, lesson),
         builder: (context, snapshot){
           if(snapshot.hasData){
 

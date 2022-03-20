@@ -38,8 +38,8 @@ class _LearnState extends State<Learn> {
   @override
   Widget build(BuildContext context) {
 
-    final user = Provider.of<NewUser?>(context);
-
+    final user = Provider.of<NewUserData?>(context);
+    if (user == null) return Loading();
     return WillPopScope(
       onWillPop: () async{
         final difference = DateTime.now().difference(timeBackPressed);
@@ -58,7 +58,7 @@ class _LearnState extends State<Learn> {
         }
       },
       child: StreamBuilder<List<LessonModel>?>(
-        stream: DatabaseService(uid: user!.uid).getSyllabusOverview(),
+        stream: DatabaseService(uid: user.uid).getSyllabusOverview(),
         builder: (context, snapshot){
           if(snapshot.hasData){
 
