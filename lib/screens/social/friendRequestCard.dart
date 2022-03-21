@@ -92,7 +92,7 @@ class _FriendRequestCardState extends State<FriendRequestCard> {
                           !widget.isSent
                               ? await DatabaseService(
                                       uid: UserPreference.get("uniqueId"))
-                                  .sendFriendRequest(widget.userData.uid)
+                                  .sendFriendRequest(widget.userData.uid, user.name!)
                               : await DatabaseService(
                                       uid: UserPreference.get("uniqueId"))
                                   .retrieveFriendRequest(widget.userData.uid);

@@ -360,10 +360,10 @@ class DatabaseService {
     }
   }
 
-  Future<void> sendFriendRequest(String otherSideId) async {
+  Future<void> sendFriendRequest(String otherSideId, String senderName) async {
     Map<String, dynamic> data = {
       'receiverUid': otherSideId,
-      'name': 'senderName',
+      'name': senderName,
     };
 
     connectFunction('friendRequest', data);
