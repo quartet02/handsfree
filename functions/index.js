@@ -136,7 +136,7 @@ exports.friendRequest = functions.https.onCall(async (data, context) => {
         })
 })
 
-exports.scheduledLeaderboards = functions.pubsub.schedule('every sunday 08:00')
+exports.scheduledLeaderboards = functions.pubsub.schedule('every sunday 00:00')
     .onRun(async (context) => {
         uidTokenMap = {}
         admin.firestore()
@@ -187,7 +187,7 @@ exports.scheduledLeaderboards = functions.pubsub.schedule('every sunday 08:00')
     })
 
 // 1 of month
-exports.scheduledCleanDevices = functions.pubsub.schedule('every 5 minutes')
+exports.scheduledCleanDevices = functions.pubsub.schedule('1 of month 00:00')
     .onRun(async (context) => {
         admin.firestore()
             .collection('devices')
@@ -195,8 +195,20 @@ exports.scheduledCleanDevices = functions.pubsub.schedule('every 5 minutes')
             .then(snap => {
                 snap.forEach(docSnap => {
                     timestamp = docSnap.get('timestamp')
-                    console.log(`timestamp for ${docSnap.get('uid')}: ${timestamp.valueOf()}`)
-                    console.log(`cur: ${admin.firestore.Timestamp.now().valueOf()}`)
+                    last = timestamp.toDate()
+                    now = admin.firestore.Timestamp.now().toDate()
+                    twoMonths = (24*60*60*1000) * 3
+                    if ((now-last) > twoMonths){
+                        token = docSnap.get('token')
+
+                        admin.firestore()
+                        .collection('devices')
+                        .doc(token)
+                        .delete()
+
+                        console.log(`Deleted token: ${token}`)
+                    }
+                    
                 })
             })
     })
