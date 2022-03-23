@@ -73,8 +73,9 @@ class _SignInState extends State<SignIn> {
                                 emailController.text, passwordController.text);
                         if (results[0] == 1) {
                           // login fail
-                          var snackBar = SnackBar(
-                            content: Text(results[1]),
+                          var snackBar = const SnackBar(
+                            content: Text("Login fail. Please try again."),
+                            backgroundColor: kPurpleLight,
                           );
 
                           // Find the ScaffoldMessenger in the widget tree
