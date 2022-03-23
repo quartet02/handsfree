@@ -80,8 +80,19 @@ class SmallCard extends StatelessWidget {
                     //   ),
                     // ),
                   ),
-                  buildText.heading3Text(communityTitle),
-                  buildText.heading5Text(communityDesc),
+                  Container(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: MediaQuery.of(context).size.width / 20),
+                      child: Wrap(
+                        direction: Axis.horizontal,
+                        children: [
+                          buildText.heading3Text(communityTitle),
+                        ],
+                      )),
+                  Container(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: MediaQuery.of(context).size.width / 20),
+                      child: buildText.heading5Text(communityDesc)),
                 ],
               ),
               GestureDetector(

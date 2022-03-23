@@ -28,10 +28,14 @@ class Overlays extends StatelessWidget {
                     dismissMenu();
                   },
                   child: Container(
-                    margin: EdgeInsets.symmetric(
-                        horizontal: MediaQuery.of(context).size.width / 9,
-                        vertical: MediaQuery.of(context).size.height / 6),
+                    margin: EdgeInsets.fromLTRB(
+                        MediaQuery.of(context).size.width / 8,
+                        MediaQuery.of(context).size.height / 5,
+                        MediaQuery.of(context).size.width / 8,
+                        MediaQuery.of(context).size.height / 6),
                     alignment: Alignment.center,
+                    padding: EdgeInsets.symmetric(
+                        horizontal: MediaQuery.of(context).size.width / 20),
                     height: MediaQuery.of(context).size.height,
                     width: MediaQuery.of(context).size.width,
                     decoration: const BoxDecoration(
@@ -56,7 +60,7 @@ class Overlays extends StatelessWidget {
                           child: Container(
                             height: 250,
                             alignment: Alignment.center,
-                            margin: EdgeInsets.symmetric(
+                            margin: const EdgeInsets.symmetric(
                                 horizontal: 20, vertical: 10),
                             decoration: BoxDecoration(
                               borderRadius:
@@ -68,10 +72,18 @@ class Overlays extends StatelessWidget {
                             ),
                           ),
                         ),
-                        const Padding(padding: EdgeInsets.only(bottom: 20)),
+                        Padding(
+                            padding: EdgeInsets.only(
+                                left: MediaQuery.of(context).size.width / 5,
+                                right: MediaQuery.of(context).size.width / 6,
+                                bottom: 20)),
                         buildText.heading1Text(title),
-                        const Padding(padding: EdgeInsets.only(bottom: 20)),
-                        buildText.heading2Text(desc),
+                        Padding(
+                            padding: EdgeInsets.only(
+                                left: MediaQuery.of(context).size.width / 5,
+                                right: MediaQuery.of(context).size.width / 6,
+                                bottom: 20)),
+                        buildText.heading3Text(desc),
                       ],
                     ),
                   ),
