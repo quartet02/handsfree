@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:handsfree/services/firebase_messaging_service.dart';
 import 'package:handsfree/widgets/buildButton.dart';
 import 'package:handsfree/widgets/buildText.dart';
@@ -108,6 +109,55 @@ class _SettingsState extends State<Settings> {
                           word: "/home",
                           buttonColor: "purple",
                           isSignOut: true,
+                        ),
+                        breaker(20),
+                        //======================================== CHANGE BUTTON ==============================================
+                        GestureDetector(
+                          onTap: () async {
+                            // ====================================== ADD CONDITION HERE ===================================
+                            var snackBar = const SnackBar(
+                              content: Text("Change Successful!"),
+                              backgroundColor: kPurpleLight,
+                            );
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
+                          },
+                          child: Stack(
+                            children: <Widget>[
+                              Center(
+                                child: Container(
+                                    alignment: Alignment.center,
+                                    width: 200,
+                                    decoration: const BoxDecoration(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(20)),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: kButtonShadow,
+                                            offset: Offset(6, 6),
+                                            blurRadius: 6,
+                                          ),
+                                        ]),
+                                    child: Image.asset(
+                                      'assets/image/purple_button.png',
+                                      scale: 4,
+                                    )),
+                              ),
+                              Container(
+                                height: 40,
+                                alignment: Alignment.center,
+                                padding: const EdgeInsets.only(top: 10),
+                                child: Text(
+                                  "Change",
+                                  style: GoogleFonts.montserrat(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                    color: kTextLight,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
 
                         ///General Setttings
