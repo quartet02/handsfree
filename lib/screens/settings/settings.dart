@@ -193,14 +193,14 @@ class _SettingsState extends State<Settings> {
                                     toggleSwitch('isSound', null),
                                   ],
                                 ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    buildText.heading3Text("Dark Mode"),
-                                    toggleSwitch('isDark', null),
-                                  ],
-                                ),
+                                // Row(
+                                //   mainAxisAlignment:
+                                //       MainAxisAlignment.spaceBetween,
+                                //   children: [
+                                //     buildText.heading3Text("Dark Mode"),
+                                //     toggleSwitch('isDark', null),
+                                //   ],
+                                // ),
                                 Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
