@@ -125,25 +125,29 @@ class _SettingsState extends State<Settings> {
                         GestureDetector(
                           onTap: () async {
                             // ====================================== ADD CONDITION HERE ===================================
-                            user.name != nameController.value.toString() ||
+                            var change = 0;
+
+                            user.name != nameController.text.trim() ||
                                     nameController.text.trim() == ""
                                 ? await alterName(user)
-                                : null;
-                            user.username != usernameController.text ||
+                                : change++;
+                            user.username != usernameController.text.trim() ||
                                     usernameController.text.trim() == ""
                                 ? await alterUsername(user)
-                                : null;
+                                : change++;
                             passwordController.text.isEmpty ||
                                     passwordController.text.trim() == ""
-                                ? null
+                                ? change++
                                 : await alterPassword(user);
-
-                            var snackBar = const SnackBar(
-                              content: Text("Change Successful!"),
-                              backgroundColor: kPurpleLight,
-                            );
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(snackBar);
+                            FocusManager.instance.primaryFocus?.unfocus();
+                            if (change != 3) {
+                              var snackBar = const SnackBar(
+                                content: Text("Change Successful!"),
+                                backgroundColor: kPurpleLight,
+                              );
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
+                            }
                           },
                           child: Stack(
                             children: <Widget>[
@@ -459,14 +463,12 @@ class _SettingsState extends State<Settings> {
   }
 
   Future<void> alterName(NewUserData user) async {
-    print(1);
     await DatabaseService(uid: user.uid)
         .updateSingleData(CollectionSelector.name, nameController.text.trim())
         .whenComplete(() => {user.setName(nameController.text.trim())});
   }
 
   Future<void> alterUsername(NewUserData user) async {
-    print(2);
     await DatabaseService(uid: user.uid)
         .updateSingleData(
             CollectionSelector.username, usernameController.text.trim())
@@ -474,7 +476,6 @@ class _SettingsState extends State<Settings> {
   }
 
   Future<void> alterPassword(NewUserData user) async {
-    print(3);
     await DatabaseService(uid: user.uid).updateSingleData(
         CollectionSelector.password, passwordController.text.trim());
   }
