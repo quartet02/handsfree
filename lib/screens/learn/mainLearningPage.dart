@@ -3,6 +3,7 @@ import 'package:handsfree/main.dart';
 import 'package:handsfree/models/lessonCardModel.dart';
 import 'package:handsfree/models/lessonModel.dart';
 import 'package:handsfree/provider/lessonCardProvider.dart';
+import 'package:handsfree/provider/lessonProvider.dart';
 import 'package:handsfree/provider/subLessonProvider.dart';
 import 'package:handsfree/services/database.dart';
 import 'package:handsfree/widgets/buildText.dart';
@@ -22,9 +23,26 @@ class MainLearningPage extends StatefulWidget {
   _MainLearningPageState createState() => _MainLearningPageState();
 }
 
-class _MainLearningPageState extends State<MainLearningPage> {
+class _MainLearningPageState extends State<MainLearningPage>
+    with SingleTickerProviderStateMixin {
+  late TextEditingController _controller;
+
+  @override
+  void initState() {
+    _controller = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
+    bool isPractical = Provider.of<LessonProvider>(context).getPractical;
+    print("main learning page is practical: $isPractical");
     LessonModel subLesson =
         context.read<SubLessonProvider>().getClickedSubLesson;
     String syllabus = context.read<SubLessonProvider>().getSyllabus;
@@ -71,227 +89,251 @@ class _MainLearningPageState extends State<MainLearningPage> {
 
             return Scaffold(
               body: Container(
+                height: double.infinity,
                 decoration: const BoxDecoration(
                   image: DecorationImage(
                       alignment: Alignment.topCenter,
                       image: AssetImage('assets/image/white_background.png'),
                       fit: BoxFit.cover),
                 ),
-                child: Consumer<LessonCardProvider?>(
-                    builder: (context, providerCardLesson, child) {
-                  var cardLesson = providerCardLesson!.cardLessons;
-                  double progress =
-                      (providerCardLesson.index) / cardLesson.length;
-                  double lastProgress =
-                      (providerCardLesson.index - 1) / cardLesson.length;
-                  return Container(
-                    alignment: Alignment.center,
-                    padding:
-                        const EdgeInsets.only(left: 40, bottom: 5, right: 40),
-                    margin: EdgeInsets.only(
-                        top: MediaQuery.of(context).size.height / 15),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          height: 130,
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                            boxShadow: [
-                              BoxShadow(
-                                color: kTextShadow,
-                                offset: Offset(10, 10),
-                                blurRadius: 20,
+                child: SingleChildScrollView(
+                  child: Consumer<LessonCardProvider?>(
+                      builder: (context, providerCardLesson, child) {
+                    var cardLesson = providerCardLesson!.cardLessons;
+                    double progress =
+                        (providerCardLesson.index) / cardLesson.length;
+                    double lastProgress =
+                        (providerCardLesson.index - 1) / cardLesson.length;
+                    return Container(
+                      alignment: Alignment.center,
+                      padding:
+                          const EdgeInsets.only(left: 40, bottom: 5, right: 40),
+                      margin: EdgeInsets.only(
+                          top: MediaQuery.of(context).size.height / 15),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            height: 130,
+                            decoration: const BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20)),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: kTextShadow,
+                                  offset: Offset(10, 10),
+                                  blurRadius: 20,
+                                ),
+                              ],
+                              image: DecorationImage(
+                                alignment: Alignment.topCenter,
+                                image: AssetImage(
+                                    'assets/image/learning_small_rect.png'),
                               ),
-                            ],
-                            image: DecorationImage(
-                              alignment: Alignment.topCenter,
-                              image: AssetImage(
-                                  'assets/image/learning_small_rect.png'),
+                            ),
+                            child: Stack(
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20),
+                                  margin: const EdgeInsets.only(top: 8),
+                                  child: Row(
+                                    // mainAxisAlignment: MainAxisAlignment.center,
+                                    // crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: <Widget>[
+                                      Container(
+                                        width: 130,
+                                        height: 200,
+                                        alignment: Alignment.center,
+                                        child: FutureBuilder(
+                                            future:
+                                                getImage(subLesson.lessonImage),
+                                            builder: (context, snapshot) {
+                                              if (snapshot.connectionState ==
+                                                  ConnectionState.done) {
+                                                return Container(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width /
+                                                      1.2,
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .width /
+                                                      1.2,
+                                                  child:
+                                                      snapshot.data as Widget,
+                                                );
+                                              }
+                                              if (snapshot.connectionState ==
+                                                  ConnectionState.waiting) {
+                                                return Container(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width /
+                                                      1.2,
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .width /
+                                                      1.2,
+                                                  child:
+                                                      const CircularProgressIndicator(),
+                                                );
+                                              } else {
+                                                print('Connection Failed');
+                                                return Container();
+                                              }
+                                            }),
+                                        // decoration: BoxDecoration(
+                                        //   image: DecorationImage(
+                                        //     alignment: Alignment.topCenter,
+                                        //     image: AssetImage(subLesson.lessonImage),
+                                        //   ),
+                                        // ),
+                                      ),
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          const Padding(
+                                              padding:
+                                                  EdgeInsets.only(top: 28)),
+                                          buildText.learningHeading2Text(
+                                              subLesson.lessonName),
+                                          const Padding(
+                                            padding: EdgeInsets.only(bottom: 7),
+                                          ),
+                                          buildText.learningHeading3Text(
+                                              subLesson.lessonDesc),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  alignment: Alignment.bottomCenter,
+                                  margin: const EdgeInsets.only(bottom: 15),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20),
+                                  child: LinearPercentIndicator(
+                                    percent: progress,
+                                    lineHeight: 8,
+                                    progressColor: kOrangeDeep,
+                                    animation: true,
+                                    animateFromLastPercent: true,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                          child: Stack(
+                          const Padding(
+                            padding: EdgeInsets.only(bottom: 10),
+                          ),
+                          isPractical
+                              ? Container()
+                              : buildText.learningText(
+                                  cardLesson[providerCardLesson.index]
+                                      .lessonCardTitle),
+                          const Padding(
+                            padding: EdgeInsets.only(bottom: 5),
+                          ),
+                          Stack(
                             children: [
                               Container(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 20),
-                                margin: EdgeInsets.only(top: 8),
-                                child: Row(
-                                  // mainAxisAlignment: MainAxisAlignment.center,
-                                  // crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: <Widget>[
-                                    Container(
-                                      width: 130,
-                                      height: 200,
-                                      alignment: Alignment.center,
-                                      child: FutureBuilder(
-                                          future:
-                                              getImage(subLesson.lessonImage),
-                                          builder: (context, snapshot) {
-                                            if (snapshot.connectionState ==
-                                                ConnectionState.done) {
-                                              return Container(
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    1.2,
-                                                height: MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    1.2,
-                                                child: snapshot.data as Widget,
-                                              );
-                                            }
-                                            if (snapshot.connectionState ==
-                                                ConnectionState.waiting) {
-                                              return Container(
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    1.2,
-                                                height: MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    1.2,
-                                                child:
-                                                    CircularProgressIndicator(),
-                                              );
-                                            } else {
-                                              print('Connection Failed');
-                                              return Container();
-                                            }
-                                          }),
-                                      // decoration: BoxDecoration(
-                                      //   image: DecorationImage(
-                                      //     alignment: Alignment.topCenter,
-                                      //     image: AssetImage(subLesson.lessonImage),
-                                      //   ),
-                                      // ),
-                                    ),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        const Padding(
-                                            padding: EdgeInsets.only(top: 28)),
-                                        buildText.learningHeading2Text(
-                                            subLesson.lessonName),
-                                        const Padding(
-                                          padding: EdgeInsets.only(bottom: 7),
-                                        ),
-                                        buildText.learningHeading3Text(
-                                            subLesson.lessonDesc),
-                                      ],
+                                width: MediaQuery.of(context).size.width,
+                                height:
+                                    MediaQuery.of(context).size.height / 2.4,
+                                decoration: const BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20)),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: kTextShadow,
+                                      offset: Offset(10, 10),
+                                      blurRadius: 20,
                                     ),
                                   ],
+                                  image: DecorationImage(
+                                    image: AssetImage(
+                                        'assets/image/learning_big_rect.png'),
+                                  ),
                                 ),
                               ),
                               Container(
                                 alignment: Alignment.bottomCenter,
-                                margin: EdgeInsets.only(bottom: 15),
-                                padding: EdgeInsets.symmetric(horizontal: 20),
-                                child: LinearPercentIndicator(
-                                  percent: progress,
-                                  lineHeight: 8,
-                                  progressColor: kOrangeDeep,
-                                  animation: true,
-                                  animateFromLastPercent: true,
-                                ),
+                                width: MediaQuery.of(context).size.width,
+                                height:
+                                    MediaQuery.of(context).size.height / 2.45,
+                                child: FutureBuilder(
+                                    future: getImage(
+                                        cardLesson[providerCardLesson.index]
+                                            .lessonCardImage),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.connectionState ==
+                                          ConnectionState.done) {
+                                        return Container(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              1.2,
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              1.2,
+                                          child: snapshot.data as Widget,
+                                        );
+                                      }
+                                      if (snapshot.connectionState ==
+                                          ConnectionState.waiting) {
+                                        return Container(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              1.2,
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              1.2,
+                                          child:
+                                              const CircularProgressIndicator(),
+                                        );
+                                      } else {
+                                        print('Connection Failed');
+                                        return Container();
+                                      }
+                                    }),
+                                // decoration: BoxDecoration(
+                                //   image: DecorationImage(
+                                //     image: AssetImage(cardLesson[providerCardLesson.index]
+                                //         .lessonCardImage),
+                                //   ),
+                                // ),
                               ),
                             ],
                           ),
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.only(bottom: 10),
-                        ),
-                        buildText.learningText(
-                            cardLesson[providerCardLesson.index]
-                                .lessonCardTitle),
-                        const Padding(
-                          padding: EdgeInsets.only(bottom: 5),
-                        ),
-                        Stack(
-                          children: [
-                            Container(
-                              width: MediaQuery.of(context).size.width,
-                              height: MediaQuery.of(context).size.height / 2.4,
-                              decoration: const BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(20)),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: kTextShadow,
-                                    offset: Offset(10, 10),
-                                    blurRadius: 20,
-                                  ),
-                                ],
-                                image: DecorationImage(
-                                  image: AssetImage(
-                                      'assets/image/learning_big_rect.png'),
-                                ),
+                          const Padding(
+                            padding: EdgeInsets.only(bottom: 20),
+                          ),
+                          isPractical
+                              ? Container()
+                              : buildText.heading2Text(
+                                  cardLesson[providerCardLesson.index]
+                                      .lessonCardDesc),
+                          const Padding(
+                            padding: EdgeInsets.only(bottom: 13),
+                          ),
+                          if (isPractical)
+                            TextField(
+                              decoration: const InputDecoration(
+                                labelText: "Your answer",
                               ),
-                            ),
-                            Container(
-                              alignment: Alignment.bottomCenter,
-                              width: MediaQuery.of(context).size.width,
-                              height: MediaQuery.of(context).size.height / 2.45,
-                              child: FutureBuilder(
-                                  future: getImage(
-                                      cardLesson[providerCardLesson.index]
-                                          .lessonCardImage),
-                                  builder: (context, snapshot) {
-                                    if (snapshot.connectionState ==
-                                        ConnectionState.done) {
-                                      return Container(
-                                        width:
-                                            MediaQuery.of(context).size.width /
-                                                1.2,
-                                        height:
-                                            MediaQuery.of(context).size.width /
-                                                1.2,
-                                        child: snapshot.data as Widget,
-                                      );
-                                    }
-                                    if (snapshot.connectionState ==
-                                        ConnectionState.waiting) {
-                                      return Container(
-                                        width:
-                                            MediaQuery.of(context).size.width /
-                                                1.2,
-                                        height:
-                                            MediaQuery.of(context).size.width /
-                                                1.2,
-                                        child: CircularProgressIndicator(),
-                                      );
-                                    } else {
-                                      print('Connection Failed');
-                                      return Container();
-                                    }
-                                  }),
-                              // decoration: BoxDecoration(
-                              //   image: DecorationImage(
-                              //     image: AssetImage(cardLesson[providerCardLesson.index]
-                              //         .lessonCardImage),
-                              //   ),
-                              // ),
-                            ),
-                          ],
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.only(bottom: 20),
-                        ),
-                        buildText.heading2Text(
-                            cardLesson[providerCardLesson.index]
-                                .lessonCardDesc),
-                        const Padding(
-                          padding: EdgeInsets.only(bottom: 13),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 20),
-                          child: GestureDetector(
-                              onTap: () {
+                              controller: _controller,
+                              onSubmitted: (String value) async {
+                                checkAns(
+                                    value,
+                                    cardLesson[providerCardLesson.index]
+                                        .lessonCardTitle);
                                 if (providerCardLesson.index ==
                                     cardLesson.length - 1) {
                                   DatabaseService(uid: user.uid)
@@ -319,50 +361,104 @@ class _MainLearningPageState extends State<MainLearningPage> {
                                   providerCardLesson.increment();
                                 }
                               },
-                              child: Stack(children: <Widget>[
-                                Center(
-                                  child: Container(
-                                      alignment: Alignment.center,
-                                      width: 200,
-                                      decoration: const BoxDecoration(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(20)),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: kButtonShadow,
-                                              offset: Offset(6, 6),
-                                              blurRadius: 6,
-                                            ),
-                                          ]),
-                                      child: Image.asset(
-                                        'assets/image/purple_button.png',
-                                        scale: 4,
-                                      )),
-                                ),
-                                Container(
-                                  height: 40,
-                                  alignment: Alignment.center,
-                                  padding: const EdgeInsets.only(top: 10),
-                                  child: Text(
-                                    'Next',
-                                    style: GoogleFonts.montserrat(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600,
-                                      color: kTextLight,
+                            ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 20),
+                            child: GestureDetector(
+                                onTap: () {
+                                  if (isPractical) {
+                                    checkAns(
+                                        _controller.value.text,
+                                        cardLesson[providerCardLesson.index]
+                                            .lessonCardTitle);
+                                    _controller.clear();
+                                  }
+
+                                  if (providerCardLesson.index ==
+                                      cardLesson.length - 1) {
+                                    DatabaseService(uid: user.uid)
+                                        .updateIsCompletedSubLesson(
+                                            syllabus,
+                                            lesson,
+                                            cardLesson[providerCardLesson.index]
+                                                .lessonId);
+                                    DatabaseService(uid: user.uid)
+                                        .updateExperience();
+                                    DatabaseService(uid: user.uid)
+                                        .updateIsCompletedLesson(
+                                            syllabus, lesson);
+                                    Navigator.pushNamed(
+                                        context, "/congratulation");
+                                  } else {
+                                    DatabaseService(uid: user.uid)
+                                        .updateIsCompletedSubLesson(
+                                            syllabus,
+                                            lesson,
+                                            cardLesson[providerCardLesson.index]
+                                                .lessonId);
+                                    DatabaseService(uid: user.uid)
+                                        .updateExperience();
+                                    providerCardLesson.increment();
+                                  }
+                                },
+                                child: Stack(children: <Widget>[
+                                  Center(
+                                    child: Container(
+                                        alignment: Alignment.center,
+                                        width: 200,
+                                        decoration: const BoxDecoration(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(20)),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: kButtonShadow,
+                                                offset: Offset(6, 6),
+                                                blurRadius: 6,
+                                              ),
+                                            ]),
+                                        child: Image.asset(
+                                          'assets/image/purple_button.png',
+                                          scale: 4,
+                                        )),
+                                  ),
+                                  Container(
+                                    height: 40,
+                                    alignment: Alignment.center,
+                                    padding: const EdgeInsets.only(top: 10),
+                                    child: Text(
+                                      'Next',
+                                      style: GoogleFonts.montserrat(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600,
+                                        color: kTextLight,
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ])),
-                        ),
-                      ],
-                    ),
-                  );
-                }),
+                                ])),
+                          ),
+                        ],
+                      ),
+                    );
+                  }),
+                ),
               ),
             );
           } else {
             return Loading();
           }
         });
+  }
+
+  void checkAns(String value, String ans) {
+    String msg = "Incorrect Answer";
+    bool isCrt = false;
+    if (value.toUpperCase().trim() == ans) {
+      msg = "Correct Answer";
+      isCrt = true;
+    }
+    ScaffoldMessenger.of(context).removeCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
+    _controller.clear();
+    if (!isCrt) Navigator.pushReplacementNamed(context, '/sublevel');
   }
 }

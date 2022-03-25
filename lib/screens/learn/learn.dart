@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:handsfree/provider/subLessonProvider.dart';
 import 'package:handsfree/screens/learn/subLesson.dart';
 import 'package:handsfree/services/database.dart';
-import 'package:handsfree/widgets/buildButton.dart';
 import 'package:handsfree/widgets/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:handsfree/provider/lessonProvider.dart';
 import 'package:handsfree/widgets/columnList.dart';
 import 'package:handsfree/widgets/loadingWholeScreen.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:handsfree/models/lessonModel.dart';
 import 'package:handsfree/widgets/navBar.dart';
@@ -37,7 +36,6 @@ class _LearnState extends State<Learn> {
 
   @override
   Widget build(BuildContext context) {
-
     final user = Provider.of<NewUserData?>(context);
     if (user == null) return Loading();
     return WillPopScope(
@@ -195,6 +193,13 @@ class _LearnState extends State<Learn> {
                                       onTap: () {
                                         Provider.of<LessonProvider>(context, listen: false)
                                             .setClickLesson(lessons[index]);
+                                        if (index >= 2){
+                                          Provider.of<LessonProvider>(context, listen: false).setPractical = true;
+                                          print("isPractical");
+                                        }else{
+                                          Provider.of<LessonProvider>(context, listen: false).setPractical = false;
+                                          print("is not Practical");
+                                        }
                                         // LessonModel lesson = context.read<LessonProvider>().getClickedLesson;
                                         // print(lesson.lessonId);
                                         // Navigator.pushNamed(context, PageTransition(type: PageTransitionType.leftToRight, child: const SubLevel()));

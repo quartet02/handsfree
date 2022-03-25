@@ -2,6 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:handsfree/models/lessonModel.dart';
 
 class LessonProvider with ChangeNotifier {
+  bool _isPractical = false;
+
+  set setPractical(bool val){
+    _isPractical = val;
+  }
+
+  bool get getPractical=>_isPractical;
+
   List<LessonModel> lessons = lessonData
       .map(
         (item) => LessonModel(
