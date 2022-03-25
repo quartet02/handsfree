@@ -69,20 +69,18 @@ class buildTextBox extends StatelessWidget {
     );
   }
 
-  static Widget textBox(
-      TextEditingController controllers,
-      String hint, {
-        String selector = '',
-        String uid = '',
-        String initialValue = '',
-        bool enabled = true,
-        TextInputAction? action,
-        TextInputType? inputType,
-        int? maxLine = 1,
-        EdgeInsets margins = const EdgeInsets.all(0),
-        EdgeInsets paddings = const EdgeInsets.symmetric(horizontal: 20.0)
-      }) {
+  static Widget textBox(TextEditingController controllers, String hint,
+      {CollectionSelector selector = CollectionSelector.none,
+      String uid = '',
+      String initialValue = '',
+      bool enabled = true,
+      TextInputAction? action,
+      TextInputType? inputType,
+      int? maxLine = 1,
+      EdgeInsets margins = const EdgeInsets.all(0),
+      EdgeInsets paddings = const EdgeInsets.symmetric(horizontal: 20.0)}) {
     double radius = 25;
+    controllers.value = TextEditingValue(text: initialValue);
     return Container(
       margin: margins,
       decoration: BoxDecoration(
@@ -103,10 +101,11 @@ class buildTextBox extends StatelessWidget {
         textInputAction: action,
         keyboardType: inputType,
         maxLines: maxLine,
-        initialValue: initialValue,
         enabled: enabled,
-        onFieldSubmitted: (txt) => DatabaseService(uid: uid).updateSingleData(selector, txt),
-        controller: null,
+        onChanged: (txt) {
+          controllers.text = txt;
+        },
+        controller: controllers,
         decoration: InputDecoration(
           contentPadding: paddings,
           border: OutlineInputBorder(

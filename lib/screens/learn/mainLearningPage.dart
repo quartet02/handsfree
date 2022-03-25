@@ -146,8 +146,8 @@ class _MainLearningPageState extends State<MainLearningPage>
                                         height: 200,
                                         alignment: Alignment.center,
                                         child: FutureBuilder(
-                                            future: getImage(
-                                                context, subLesson.lessonImage),
+                                            future:
+                                                getImage(subLesson.lessonImage),
                                             builder: (context, snapshot) {
                                               if (snapshot.connectionState ==
                                                   ConnectionState.done) {
@@ -267,7 +267,6 @@ class _MainLearningPageState extends State<MainLearningPage>
                                     MediaQuery.of(context).size.height / 2.45,
                                 child: FutureBuilder(
                                     future: getImage(
-                                        context,
                                         cardLesson[providerCardLesson.index]
                                             .lessonCardImage),
                                     builder: (context, snapshot) {
@@ -367,8 +366,7 @@ class _MainLearningPageState extends State<MainLearningPage>
                             padding: const EdgeInsets.only(top: 20),
                             child: GestureDetector(
                                 onTap: () {
-
-                                  if (isPractical){
+                                  if (isPractical) {
                                     checkAns(
                                         _controller.value.text,
                                         cardLesson[providerCardLesson.index]

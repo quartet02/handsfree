@@ -1,8 +1,10 @@
 import 'package:camera/camera.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:handsfree/provider/helpdeskProvider.dart';
 import 'package:handsfree/provider/lessonCardProvider.dart';
+import 'package:handsfree/provider/messageTimeProvider.dart';
 import 'package:handsfree/provider/newsFeedProvider.dart';
 import 'package:handsfree/provider/subLessonProvider.dart';
 import 'package:handsfree/screens/FeedBack/feedback.dart';
@@ -18,6 +20,7 @@ import 'package:handsfree/screens/learn/learn.dart';
 import 'package:handsfree/screens/learn/mainLearningPage.dart';
 import 'package:handsfree/screens/learn/subLesson.dart';
 import 'package:handsfree/screens/news/news.dart';
+import 'package:handsfree/screens/news/news_page.dart';
 import 'package:handsfree/screens/profile/profile.dart';
 import 'package:handsfree/screens/profile/acknowledgement.dart';
 import 'package:handsfree/screens/settings/helpdesk.dart';
@@ -58,6 +61,8 @@ Future<void> main() async {
     MultiProvider(
       child: const MyApp(),
       providers: [
+        ChangeNotifierProvider<MessageTimeProvider>(
+            create: (_) => MessageTimeProvider()),
         ChangeNotifierProvider<LessonProvider>(create: (_) => LessonProvider()),
         ChangeNotifierProvider<SubLessonProvider>(
             create: (_) => SubLessonProvider()),
@@ -112,11 +117,12 @@ class MyApp extends StatelessWidget {
         "/news": (context) => const News(),
         "/chatHome": (context) => ChatHome(),
         "/chatHome/chat": (context) => Chat(),
-        "/camera": (context) => CameraScreen(),
-        "/prepsend": (context) => PrepSendImage(),
-        "/viewPic": (context) => ViewPic(),
-        "/viewFriendRequest": (context) => FriendRequest(),
-        "/searchGlobalUsers": (context) => SearchGlobal(),
+        "/camera": (context) => const CameraScreen(),
+        "/prepsend": (context) => const PrepSendImage(),
+        "/viewPic": (context) => const ViewPic(),
+        "/viewFriendRequest": (context) => const FriendRequest(),
+        "/searchGlobalUsers": (context) => const SearchGlobal(),
+        "/showNews": (context) => const NewsPage(),
       },
     );
   }

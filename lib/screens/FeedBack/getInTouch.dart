@@ -39,8 +39,10 @@ class _GetInTouchFormState extends State<GetInTouchForm> {
     EdgeInsets paddings = const EdgeInsets.symmetric(horizontal: 20.0);
     double radius = 25;
 
-    CustomDropDown dropDown = CustomDropDown(items,
-        buildText.textBox("Issue type", 0.5, 12.5, FontWeight.w300, TextAlign.start, kText));
+    CustomDropDown dropDown = CustomDropDown(
+        items,
+        buildText.textBox("Issue type", 0.5, 12.5, TextOverflow.visible,
+            FontWeight.w300, TextAlign.start, kText));
     final user = Provider.of<NewUser?>(context);
 
     return Column(
@@ -217,7 +219,8 @@ class _GetInTouchFormState extends State<GetInTouchForm> {
             onChanged: (value) => _description = value,
             controller: descriptionTextFieldController,
             decoration: InputDecoration(
-              contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+              contentPadding:
+                  const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(radius),
                 borderSide: const BorderSide(
@@ -245,7 +248,8 @@ class _GetInTouchFormState extends State<GetInTouchForm> {
         GestureDetector(
           onTap: () async {
             _category = dropDown.getSelected;
-            await DatabaseService(uid: user!.uid).submitFeedbackForm(_category!, _subject!, _description!, _email!, "_imageUrl", _name!);
+            await DatabaseService(uid: user!.uid).submitFeedbackForm(_category!,
+                _subject!, _description!, _email!, "_imageUrl", _name!);
             Navigator.pushNamed(context, "/settings");
           },
           child: Stack(
@@ -288,4 +292,3 @@ class _GetInTouchFormState extends State<GetInTouchForm> {
     );
   }
 }
-

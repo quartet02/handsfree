@@ -1,16 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:handsfree/provider/newsFeedProvider.dart';
 import 'package:handsfree/screens/news/news_list.dart';
 import 'package:provider/provider.dart';
 import 'package:handsfree/widgets/constants.dart';
 import 'package:handsfree/widgets/buildText.dart';
 import '../../models/newsFeedModel.dart';
-import '../../provider/dictionaryProvider.dart';
 import '../../services/database.dart';
-import '../../widgets/navBar.dart';
 import '../dictionary/searchBar.dart';
-import '../dictionary/searchGroup.dart';
 
 List _wordData = [];
 Map<dynamic, dynamic> temp = {};
@@ -32,12 +29,12 @@ class _NewsState extends State<News> {
 
   @override
   Widget build(BuildContext context) {
-    final isVisible = MediaQuery.of(context).viewInsets.bottom != 0;
-
     return StreamProvider<List<NewsFeedModel>?>.value(
-      value: DatabaseService().newsList,
+      value: DatabaseService()
+          .newsFeedByQuery(Provider.of<NewsFeedProvider>(context).queryText),
       initialData: null,
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         body: Container(
           decoration: const BoxDecoration(
             image: DecorationImage(
@@ -48,22 +45,41 @@ class _NewsState extends State<News> {
           child: Container(
             padding: const EdgeInsets.only(left: 40, bottom: 5, right: 40),
             margin:
-            EdgeInsets.only(top: MediaQuery.of(context).size.height / 10),
+                EdgeInsets.only(top: MediaQuery.of(context).size.height / 10),
             child: Column(
               children: [
                 buildText.bigTitle("News"),
                 const Padding(
                   padding: EdgeInsets.only(bottom: 20),
                 ),
-                Stack(
-                  children: [
-                    isVisible ? const SearchGroup() : Container(),
-                    const SearchBar(provider: Providers.dictionary,)
-                  ],
+                const SearchBar(
+                  provider: Providers.newsFeed,
                 ),
-                !isVisible
-                    ? const NewsList()
-                    : Container(),
+                ShaderMask(
+                  shaderCallback: (Rect rect) {
+                    return const LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Colors.purple,
+                        Colors.transparent,
+                        Colors.transparent,
+                        Colors.purple
+                      ],
+                      stops: [
+                        0.0,
+                        0.1,
+                        0.9,
+                        1.0
+                      ], // 10% purple, 80% transparent, 10% purple
+                    ).createShader(rect);
+                  },
+                  blendMode: BlendMode.dstOut,
+                  child: Container(
+                      margin: const EdgeInsets.only(top: 15),
+                      height: MediaQuery.of(context).size.height * 0.7,
+                      child: const NewsList()),
+                ),
               ],
             ),
           ),

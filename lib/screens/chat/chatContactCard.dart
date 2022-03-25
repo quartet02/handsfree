@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:handsfree/models/chatModel.dart';
 import 'package:handsfree/models/userProfile.dart';
+import 'package:handsfree/provider/messageTimeProvider.dart';
 import 'package:handsfree/widgets/breaker.dart';
 import 'package:handsfree/widgets/buildText.dart';
 import 'package:handsfree/widgets/constants.dart';
+import 'package:provider/provider.dart';
 
 class ContactCard extends StatelessWidget {
   ContactCard({Key? key, required this.roomData}) : super(key: key);
@@ -62,7 +64,8 @@ class ContactCard extends StatelessWidget {
                   children: [
                     buildText.heading3Text(roomData.roomName),
                     Breaker(i: 3),
-                    buildText.heading4Text(roomData.recentMessageText),
+                    buildText.heading4Text(roomData.recentMessageText,
+                        TextAlign.start, TextOverflow.ellipsis),
                   ]),
             ),
           ],

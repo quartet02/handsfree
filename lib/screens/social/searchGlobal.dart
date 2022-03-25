@@ -27,6 +27,7 @@ class _SearchGlobalState extends State<SearchGlobal> {
       DeviceOrientation.portraitDown,
     ]);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [

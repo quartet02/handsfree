@@ -13,6 +13,7 @@ import 'package:handsfree/models/newUser.dart';
 import 'package:handsfree/models/wordModel.dart';
 import 'package:handsfree/services/auth.dart';
 import 'package:handsfree/services/userPreference.dart';
+import 'package:handsfree/widgets/constants.dart';
 import 'package:rxdart/rxdart.dart';
 import '../models/userProfile.dart';
 import 'package:flamingo/flamingo.dart';
@@ -42,27 +43,36 @@ class DatabaseService {
       FirebaseFirestore.instance.collection('devices');
 
   ///From User Collection
-  Future updateSingleData(String selector, String value) async {
-    if (selector == 'name') {
-      return await userCollection.doc(uid).update({
+  Future<void> updateSingleData(
+      CollectionSelector selector, String value) async {
+    if (selector == CollectionSelector.name) {
+      await userCollection.doc(uid).update({
         'name': value,
       });
-    } else if (selector == 'username') {
-      return await userCollection.doc(uid).update({
+      // .onError((error, stackTrace) => 400)
+      // .whenComplete(() => 200);
+    } else if (selector == CollectionSelector.username) {
+      await userCollection.doc(uid).update({
         'username': value,
       });
-    } else if (selector == 'password') {
+      // .onError((error, stackTrace) => 400)
+      // .whenComplete(() => 200);
+    } else if (selector == CollectionSelector.password) {
       AuthService().changePassword(value);
-      return;
-    } else if (selector == 'title') {
-      return await userCollection.doc(uid).update({
+    } else if (selector == CollectionSelector.title) {
+      await userCollection.doc(uid).update({
         'title': value,
       });
-    } else if (selector == 'none') {
-      return;
+      // .onError((error, stackTrace) => 400)
+      // .whenComplete(() => 200);
+    } else if (selector == CollectionSelector.email) {
+      await userCollection.doc(uid).update({
+        'email': value,
+      });
+      // .onError((error, stackTrace) => 400)
+      // .whenComplete(() => 200);
     } else {
-      print('Return Nothing');
-      return;
+      // return 400;
     }
   }
 
@@ -455,7 +465,7 @@ class DatabaseService {
       "lessonCardId": 001,
       "lessonCardTitle": "A",
       "lessonCardDesc": "Alphabet A",
-      "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonCardImage": "assets/word/a.png",
       "lessonId": 'a',
       "isCompleted": false,
     });
@@ -470,7 +480,7 @@ class DatabaseService {
       "lessonCardId": 002,
       "lessonCardTitle": "B",
       "lessonCardDesc": "Alphabet B",
-      "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonCardImage": "assets/word/b.png",
       "lessonId": 'b',
       "isCompleted": false,
     });
@@ -485,7 +495,7 @@ class DatabaseService {
       "lessonCardId": 003,
       "lessonCardTitle": "C",
       "lessonCardDesc": "Alphabet C",
-      "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonCardImage": "assets/word/c.png",
       "lessonId": 'c',
       "isCompleted": false,
     });
@@ -500,7 +510,7 @@ class DatabaseService {
       "lessonCardId": 004,
       "lessonCardTitle": "D",
       "lessonCardDesc": "Alphabet D",
-      "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonCardImage": "assets/word/d.png",
       "lessonId": 'd',
       "isCompleted": false,
     });
@@ -515,7 +525,7 @@ class DatabaseService {
       "lessonCardId": 005,
       "lessonCardTitle": "E",
       "lessonCardDesc": "Alphabet E",
-      "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonCardImage": "assets/word/e.png",
       "lessonId": 'e',
       "isCompleted": false,
     });
@@ -531,7 +541,7 @@ class DatabaseService {
       "lessonCardId": 001,
       "lessonCardTitle": "F",
       "lessonCardDesc": "Alphabet F",
-      "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonCardImage": "assets/word/f.png",
       "lessonId": 'f',
       "isCompleted": false,
     });
@@ -546,7 +556,7 @@ class DatabaseService {
       "lessonCardId": 002,
       "lessonCardTitle": "G",
       "lessonCardDesc": "Alphabet G",
-      "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonCardImage": "assets/word/g.png",
       "lessonId": 'g',
       "isCompleted": false,
     });
@@ -561,7 +571,7 @@ class DatabaseService {
       "lessonCardId": 003,
       "lessonCardTitle": "H",
       "lessonCardDesc": "Alphabet H",
-      "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonCardImage": "assets/word/h.png",
       "lessonId": 'h',
       "isCompleted": false,
     });
@@ -576,7 +586,7 @@ class DatabaseService {
       "lessonCardId": 004,
       "lessonCardTitle": "I",
       "lessonCardDesc": "Alphabet I",
-      "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonCardImage": "assets/word/i.png",
       "lessonId": 'i',
       "isCompleted": false,
     });
@@ -591,7 +601,7 @@ class DatabaseService {
       "lessonCardId": 005,
       "lessonCardTitle": "J",
       "lessonCardDesc": "Alphabet J",
-      "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonCardImage": "assets/word/j.gif",
       "lessonId": 'j',
       "isCompleted": false,
     });
@@ -607,7 +617,7 @@ class DatabaseService {
       "lessonCardId": 001,
       "lessonCardTitle": "K",
       "lessonCardDesc": "Alphabet K",
-      "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonCardImage": "assets/word/k.png",
       "lessonId": 'k',
       "isCompleted": false,
     });
@@ -622,7 +632,7 @@ class DatabaseService {
       "lessonCardId": 002,
       "lessonCardTitle": "L",
       "lessonCardDesc": "Alphabet L",
-      "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonCardImage": "assets/word/l.png",
       "lessonId": 'l',
       "isCompleted": false,
     });
@@ -637,7 +647,7 @@ class DatabaseService {
       "lessonCardId": 003,
       "lessonCardTitle": "M",
       "lessonCardDesc": "Alphabet M",
-      "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonCardImage": "assets/word/m.png",
       "lessonId": 'm',
       "isCompleted": false,
     });
@@ -652,7 +662,7 @@ class DatabaseService {
       "lessonCardId": 004,
       "lessonCardTitle": "N",
       "lessonCardDesc": "Alphabet n",
-      "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonCardImage": "assets/word/n.png",
       "lessonId": 'n',
       "isCompleted": false,
     });
@@ -667,7 +677,7 @@ class DatabaseService {
       "lessonCardId": 005,
       "lessonCardTitle": "O",
       "lessonCardDesc": "Alphabet O",
-      "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonCardImage": "assets/word/o.png",
       "lessonId": 'o',
       "isCompleted": false,
     });
@@ -683,7 +693,7 @@ class DatabaseService {
       "lessonCardId": 001,
       "lessonCardTitle": "P",
       "lessonCardDesc": "Alphabet P",
-      "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonCardImage": "assets/word/p.png",
       "lessonId": 'p',
       "isCompleted": false,
     });
@@ -698,7 +708,7 @@ class DatabaseService {
       "lessonCardId": 002,
       "lessonCardTitle": "Q",
       "lessonCardDesc": "Alphabet Q",
-      "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonCardImage": "assets/word/q.png",
       "lessonId": 'q',
       "isCompleted": false,
     });
@@ -713,7 +723,7 @@ class DatabaseService {
       "lessonCardId": 003,
       "lessonCardTitle": "R",
       "lessonCardDesc": "Alphabet R",
-      "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonCardImage": "assets/word/r.png",
       "lessonId": 'r',
       "isCompleted": false,
     });
@@ -728,7 +738,7 @@ class DatabaseService {
       "lessonCardId": 004,
       "lessonCardTitle": "S",
       "lessonCardDesc": "Alphabet S",
-      "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonCardImage": "assets/word/s.png",
       "lessonId": 's',
       "isCompleted": false,
     });
@@ -743,7 +753,7 @@ class DatabaseService {
       "lessonCardId": 005,
       "lessonCardTitle": "T",
       "lessonCardDesc": "Alphabet T",
-      "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonCardImage": "assets/word/t.png",
       "lessonId": 't',
       "isCompleted": false,
     });
@@ -759,7 +769,7 @@ class DatabaseService {
       "lessonCardId": 001,
       "lessonCardTitle": "U",
       "lessonCardDesc": "Alphabet U",
-      "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonCardImage": "assets/word/u.png",
       "lessonId": 'u',
       "isCompleted": false,
     });
@@ -774,7 +784,7 @@ class DatabaseService {
       "lessonCardId": 002,
       "lessonCardTitle": "V",
       "lessonCardDesc": "Alphabet V",
-      "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonCardImage": "assets/word/v.png",
       "lessonId": 'v',
       "isCompleted": false,
     });
@@ -789,7 +799,7 @@ class DatabaseService {
       "lessonCardId": 003,
       "lessonCardTitle": "W",
       "lessonCardDesc": "Alphabet W",
-      "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonCardImage": "assets/word/w.png",
       "lessonId": 'w',
       "isCompleted": false,
     });
@@ -804,7 +814,7 @@ class DatabaseService {
       "lessonCardId": 004,
       "lessonCardTitle": "X",
       "lessonCardDesc": "Alphabet X",
-      "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonCardImage": "assets/word/x.png",
       "lessonId": 'x',
       "isCompleted": false,
     });
@@ -819,7 +829,7 @@ class DatabaseService {
       "lessonCardId": 005,
       "lessonCardTitle": "Y",
       "lessonCardDesc": "Alphabet Y",
-      "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonCardImage": "assets/word/y.png",
       "lessonId": 'y',
       "isCompleted": false,
     });
@@ -834,7 +844,7 @@ class DatabaseService {
       "lessonCardId": 006,
       "lessonCardTitle": "Z",
       "lessonCardDesc": "Alphabet Z",
-      "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonCardImage": "assets/word/z.gif",
       "lessonId": 'z',
       "isCompleted": false,
     });
@@ -1344,7 +1354,7 @@ class DatabaseService {
       "lessonCardId": 001,
       "lessonCardTitle": "A",
       "lessonCardDesc": "Alphabet A",
-      "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonCardImage": "assets/word/a.png",
       "lessonId": 'a',
       "isCompleted": false,
     });
@@ -1359,7 +1369,7 @@ class DatabaseService {
       "lessonCardId": 002,
       "lessonCardTitle": "B",
       "lessonCardDesc": "Alphabet B",
-      "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonCardImage": "assets/word/b.png",
       "lessonId": 'b',
       "isCompleted": false,
     });
@@ -1374,7 +1384,7 @@ class DatabaseService {
       "lessonCardId": 003,
       "lessonCardTitle": "C",
       "lessonCardDesc": "Alphabet C",
-      "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonCardImage": "assets/word/c.png",
       "lessonId": 'c',
       "isCompleted": false,
     });
@@ -1389,7 +1399,7 @@ class DatabaseService {
       "lessonCardId": 004,
       "lessonCardTitle": "D",
       "lessonCardDesc": "Alphabet D",
-      "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonCardImage": "assets/word/d.png",
       "lessonId": 'd',
       "isCompleted": false,
     });
@@ -1404,7 +1414,7 @@ class DatabaseService {
       "lessonCardId": 005,
       "lessonCardTitle": "E",
       "lessonCardDesc": "Alphabet E",
-      "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonCardImage": "assets/word/e.png",
       "lessonId": 'e',
       "isCompleted": false,
     });
@@ -1420,7 +1430,7 @@ class DatabaseService {
       "lessonCardId": 001,
       "lessonCardTitle": "F",
       "lessonCardDesc": "Alphabet F",
-      "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonCardImage": "assets/word/f.png",
       "lessonId": 'f',
       "isCompleted": false,
     });
@@ -1435,7 +1445,7 @@ class DatabaseService {
       "lessonCardId": 002,
       "lessonCardTitle": "G",
       "lessonCardDesc": "Alphabet G",
-      "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonCardImage": "assets/word/g.png",
       "lessonId": 'g',
       "isCompleted": false,
     });
@@ -1450,7 +1460,7 @@ class DatabaseService {
       "lessonCardId": 003,
       "lessonCardTitle": "H",
       "lessonCardDesc": "Alphabet H",
-      "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonCardImage": "assets/word/h.png",
       "lessonId": 'h',
       "isCompleted": false,
     });
@@ -1465,7 +1475,7 @@ class DatabaseService {
       "lessonCardId": 004,
       "lessonCardTitle": "I",
       "lessonCardDesc": "Alphabet I",
-      "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonCardImage": "assets/word/i.png",
       "lessonId": 'i',
       "isCompleted": false,
     });
@@ -1480,7 +1490,7 @@ class DatabaseService {
       "lessonCardId": 005,
       "lessonCardTitle": "J",
       "lessonCardDesc": "Alphabet J",
-      "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonCardImage": "assets/word/j.gif",
       "lessonId": 'j',
       "isCompleted": false,
     });
@@ -1496,7 +1506,7 @@ class DatabaseService {
       "lessonCardId": 001,
       "lessonCardTitle": "K",
       "lessonCardDesc": "Alphabet K",
-      "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonCardImage": "assets/word/k.png",
       "lessonId": 'k',
       "isCompleted": false,
     });
@@ -1511,7 +1521,7 @@ class DatabaseService {
       "lessonCardId": 002,
       "lessonCardTitle": "L",
       "lessonCardDesc": "Alphabet L",
-      "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonCardImage": "assets/word/l.png",
       "lessonId": 'l',
       "isCompleted": false,
     });
@@ -1526,7 +1536,7 @@ class DatabaseService {
       "lessonCardId": 003,
       "lessonCardTitle": "M",
       "lessonCardDesc": "Alphabet M",
-      "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonCardImage": "assets/word/m.png",
       "lessonId": 'm',
       "isCompleted": false,
     });
@@ -1541,7 +1551,7 @@ class DatabaseService {
       "lessonCardId": 004,
       "lessonCardTitle": "N",
       "lessonCardDesc": "Alphabet n",
-      "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonCardImage": "assets/word/n.png",
       "lessonId": 'n',
       "isCompleted": false,
     });
@@ -1556,7 +1566,7 @@ class DatabaseService {
       "lessonCardId": 005,
       "lessonCardTitle": "O",
       "lessonCardDesc": "Alphabet O",
-      "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonCardImage": "assets/word/o.png",
       "lessonId": 'o',
       "isCompleted": false,
     });
@@ -1572,7 +1582,7 @@ class DatabaseService {
       "lessonCardId": 001,
       "lessonCardTitle": "P",
       "lessonCardDesc": "Alphabet P",
-      "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonCardImage": "assets/word/p.png",
       "lessonId": 'p',
       "isCompleted": false,
     });
@@ -1587,7 +1597,7 @@ class DatabaseService {
       "lessonCardId": 002,
       "lessonCardTitle": "Q",
       "lessonCardDesc": "Alphabet Q",
-      "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonCardImage": "assets/word/q.png",
       "lessonId": 'q',
       "isCompleted": false,
     });
@@ -1602,7 +1612,7 @@ class DatabaseService {
       "lessonCardId": 003,
       "lessonCardTitle": "R",
       "lessonCardDesc": "Alphabet R",
-      "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonCardImage": "assets/word/r.png",
       "lessonId": 'r',
       "isCompleted": false,
     });
@@ -1617,7 +1627,7 @@ class DatabaseService {
       "lessonCardId": 004,
       "lessonCardTitle": "S",
       "lessonCardDesc": "Alphabet S",
-      "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonCardImage": "assets/word/s.png",
       "lessonId": 's',
       "isCompleted": false,
     });
@@ -1632,7 +1642,7 @@ class DatabaseService {
       "lessonCardId": 005,
       "lessonCardTitle": "T",
       "lessonCardDesc": "Alphabet T",
-      "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonCardImage": "assets/word/t.png",
       "lessonId": 't',
       "isCompleted": false,
     });
@@ -1648,7 +1658,7 @@ class DatabaseService {
       "lessonCardId": 001,
       "lessonCardTitle": "U",
       "lessonCardDesc": "Alphabet U",
-      "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonCardImage": "assets/word/u.png",
       "lessonId": 'u',
       "isCompleted": false,
     });
@@ -1663,7 +1673,7 @@ class DatabaseService {
       "lessonCardId": 002,
       "lessonCardTitle": "V",
       "lessonCardDesc": "Alphabet V",
-      "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonCardImage": "assets/word/v.png",
       "lessonId": 'v',
       "isCompleted": false,
     });
@@ -1678,7 +1688,7 @@ class DatabaseService {
       "lessonCardId": 003,
       "lessonCardTitle": "W",
       "lessonCardDesc": "Alphabet W",
-      "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonCardImage": "assets/word/w.png",
       "lessonId": 'w',
       "isCompleted": false,
     });
@@ -1693,7 +1703,7 @@ class DatabaseService {
       "lessonCardId": 004,
       "lessonCardTitle": "X",
       "lessonCardDesc": "Alphabet X",
-      "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonCardImage": "assets/word/x.png",
       "lessonId": 'x',
       "isCompleted": false,
     });
@@ -1708,7 +1718,7 @@ class DatabaseService {
       "lessonCardId": 005,
       "lessonCardTitle": "Y",
       "lessonCardDesc": "Alphabet Y",
-      "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonCardImage": "assets/word/y.png",
       "lessonId": 'y',
       "isCompleted": false,
     });
@@ -1723,7 +1733,7 @@ class DatabaseService {
       "lessonCardId": 006,
       "lessonCardTitle": "Z",
       "lessonCardDesc": "Alphabet Z",
-      "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonCardImage": "assets/word/z.gif",
       "lessonId": 'z',
       "isCompleted": false,
     });
@@ -2685,6 +2695,7 @@ class DatabaseService {
         doc['media'],
         doc['timestamp'],
         doc['author'],
+        doc['authorPic'],
       );
     }).toList();
   }
@@ -2746,6 +2757,17 @@ class DatabaseService {
     }).toList();
   }
 
+  Future<List<String>> get usersId async {
+    return await userCollection.get().then((query) {
+      return query.docs
+          .map((doc) {
+            return doc["uid"];
+          })
+          .toList()
+          .cast<String>();
+    });
+  }
+
   // get user stream
   Stream<List<Users>?> get users {
     Stream<List<Users>?> x = userCollection
@@ -2768,6 +2790,38 @@ class DatabaseService {
         .map(_userListFromSnapshot);
 
     return StreamGroup.merge([a, b]).asBroadcastStream();
+  }
+
+  Stream<List<NewsFeedModel>?> newsFeedByQuery(String query) {
+    Stream<List<NewsFeedModel>?> a = newsCollection
+        .where('title', isGreaterThanOrEqualTo: query)
+        .where('title', isLessThan: query + 'z')
+        .snapshots()
+        .map(_newsListFromSnapshot);
+    Stream<List<NewsFeedModel>?> b = newsCollection
+        .where('content', isGreaterThanOrEqualTo: query)
+        .where('content', isLessThan: query + 'z')
+        .snapshots()
+        .map(_newsListFromSnapshot);
+    Stream<List<NewsFeedModel>?> c = newsCollection
+        .where('id', isGreaterThanOrEqualTo: query)
+        .where('id', isLessThan: query + 'z')
+        .snapshots()
+        .map(_newsListFromSnapshot);
+
+    return CombineLatestStream.combine3(a, b, c, (List<NewsFeedModel>? x,
+        List<NewsFeedModel>? y, List<NewsFeedModel>? z) {
+      List<NewsFeedModel> pool = (<NewsFeedModel>[
+        ...x ?? [],
+        ...y ?? [],
+        ...z ?? []
+      ]).toSet().toList();
+      Map<String, NewsFeedModel> mp = {};
+      for (var item in pool) {
+        mp[item.id] = item;
+      }
+      return mp.values.toList();
+    });
   }
 
   Stream<List<Users>> usersByUIds(List<String> uids) {

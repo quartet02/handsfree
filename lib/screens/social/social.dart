@@ -156,7 +156,7 @@ class _SocialState extends State<Social> {
             );
           } else {
             print(snapshot.error);
-            return Loading();
+            return const Loading();
           }
         });
   }
@@ -242,11 +242,9 @@ class _SocialState extends State<Social> {
                   itemCount: length < 5 ? length : 5,
                   itemBuilder: (context, index) {
                     return SmallCard(
-                        id: news.cardDetails[index].id,
-                        communitySize: coumminitySize,
-                        communityImage: news.cardDetails[index].newsFeedImages,
-                        communityTitle: news.cardDetails[index].newsFeedTitle,
-                        communityDesc: news.cardDetails[index].newsFeedDesc);
+                      news: newsList[index],
+                      communitySize: coumminitySize,
+                    );
                   }),
             );
           }),

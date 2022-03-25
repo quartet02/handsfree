@@ -17,11 +17,13 @@ class _NewsListState extends State<NewsList> {
     late final news = Provider.of<List<NewsFeedModel>?>(context) ?? [];
 
     return ListView.builder(
+        padding: const EdgeInsets.symmetric(vertical: 20),
+        physics: const BouncingScrollPhysics(),
         scrollDirection: Axis.vertical,
-        shrinkWrap: true,
+        // shrinkWrap: true,
         itemCount: news.length,
-        itemBuilder: (context, index){
-          return NewsTile(news: news == null ? null : news[index]);
+        itemBuilder: (context, index) {
+          return NewsTile(news: news[index]);
         });
   }
 }
