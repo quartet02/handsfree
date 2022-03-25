@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:handsfree/models/newUser.dart';
+import 'package:handsfree/services/database.dart';
 import 'package:handsfree/widgets/constants.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
 class NavBar extends StatelessWidget {
   const NavBar({Key? key}) : super(key: key);
@@ -68,8 +71,15 @@ class NavBar extends StatelessWidget {
 
   static FloatingActionButton Buttons(BuildContext context) {
     return FloatingActionButton(
-      onPressed: () {
+      onPressed: () async {
         if (index != 2) {
+          // this block is to reset all users lessons
+          // List<String> ids = await DatabaseService(
+          //         uid: Provider.of<NewUserData?>(context, listen: false)!.uid)
+          //     .usersId;
+          // ids.forEach((element) async {
+          //   await DatabaseService(uid: element).buildUserLesson();
+          // });
           Navigator.pushReplacementNamed(context, "/learn");
         }
         index = 2;

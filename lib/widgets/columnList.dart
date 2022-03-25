@@ -22,9 +22,9 @@ class ColumnList extends StatelessWidget {
         children: <Widget>[
           Container(
               child: Image.asset(
-                lesson.lessonImage,
-                scale: 4,
-              )),
+            lesson.lessonImage,
+            scale: 4,
+          )),
           const Padding(padding: EdgeInsets.only(right: 10)),
           Column(
             mainAxisAlignment: MainAxisAlignment.start,

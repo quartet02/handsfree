@@ -55,9 +55,11 @@ enum PadPos {
 }
 
 enum Providers {
+  newsFeed,
   dictionary,
   helpdesk,
   friend,
+  none,
 }
 
 enum CollectionSelector {
@@ -65,5 +67,6 @@ enum CollectionSelector {
   username,
   password,
   title,
+  email,
   none,
 }

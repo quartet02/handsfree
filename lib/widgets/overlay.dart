@@ -6,6 +6,7 @@ import 'package:handsfree/widgets/buildText.dart';
 bool isShowing = false;
 OverlayEntry overlayEntry = OverlayEntry(builder: (context) => Container());
 
+@deprecated
 class Overlays extends StatelessWidget {
   const Overlays({Key? key}) : super(key: key);
 

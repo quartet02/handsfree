@@ -3,7 +3,6 @@ import 'package:handsfree/services/userPreference.dart';
 
 import '../models/wordModel.dart';
 import 'package:flutter/material.dart';
-import 'package:handsfree/services/database.dart';
 
 class DictionaryProvider extends ChangeNotifier {
   final List? wordData;

@@ -3,6 +3,7 @@ import 'package:flutter_polygon/flutter_polygon.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:handsfree/models/newUser.dart';
 import 'package:handsfree/services/database.dart';
+import 'package:handsfree/widgets/constants.dart';
 import 'package:provider/provider.dart';
 import '../../widgets/loadingWholeScreen.dart';
 import 'profileDetails.dart';
@@ -45,7 +46,8 @@ class ProfileCard extends StatelessWidget {
     final user = Provider.of<NewUserData?>(context);
     calculate();
     if (user == null) return Loading();
-    DatabaseService(uid: user.uid).updateSingleData('title', title!);
+    DatabaseService(uid: user.uid)
+        .updateSingleData(CollectionSelector.title, title!);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,

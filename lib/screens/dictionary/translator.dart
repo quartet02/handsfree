@@ -12,7 +12,8 @@ class Translator extends StatefulWidget {
   final String? definition;
   final String? phoneticSymbol;
   final String? imgUrl;
-  const Translator(this.word, this.definition, this.phoneticSymbol, this.imgUrl);
+  const Translator(
+      this.word, this.definition, this.phoneticSymbol, this.imgUrl);
 
   @override
   _TranslatorState createState() => _TranslatorState();
@@ -25,9 +26,8 @@ class _TranslatorState extends State<Translator> {
 
   @override
   Widget build(BuildContext context) {
-
     return WillPopScope(
-      onWillPop: () async{
+      onWillPop: () async {
         Navigator.of(context).popAndPushNamed('/dictionary', result: true);
         return true;
       },
@@ -42,7 +42,8 @@ class _TranslatorState extends State<Translator> {
           child: Container(
             width: MediaQuery.of(context).size.width,
             padding: const EdgeInsets.only(left: 40, bottom: 5, right: 40),
-            margin: EdgeInsets.only(top: MediaQuery.of(context).size.height / 10),
+            margin:
+                EdgeInsets.only(top: MediaQuery.of(context).size.height / 10),
             child: Column(
               children: [
                 buildText.bigTitle("Translator"),
@@ -66,28 +67,29 @@ class _TranslatorState extends State<Translator> {
                   // something happen here, dont know how to settle, just some annoying exception
 
                   child: FutureBuilder(
-                      future: getImage(context, widget.imgUrl!),
+                      future: getImage(widget.imgUrl!),
                       builder: (context, snapshot) {
-
-                        if (snapshot.connectionState == ConnectionState.waiting){
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
                           return Container(
-                            width: MediaQuery.of(context).size.width/ 1.2,
-                            height: MediaQuery.of(context).size.width/ 1.2,
+                            width: MediaQuery.of(context).size.width / 1.2,
+                            height: MediaQuery.of(context).size.width / 1.2,
                             child: const CircularProgressIndicator(
                               strokeWidth: 1.0,
                             ),
                           );
                         }
-                        if(snapshot.connectionState == ConnectionState.done){
-                          if(snapshot.hasData) {
+                        if (snapshot.connectionState == ConnectionState.done) {
+                          if (snapshot.hasData) {
                             return Container(
-                              width: MediaQuery.of(context).size.width/ 1.2,
-                              height: MediaQuery.of(context).size.width/ 1.2,
+                              width: MediaQuery.of(context).size.width / 1.2,
+                              height: MediaQuery.of(context).size.width / 1.2,
                               child: snapshot.data as Widget,
                             );
                           }
                         }
-                        print('Image Path Does Not Exist in Firebase Storage -- Please Update Firebase');
+                        print(
+                            'Image Path Does Not Exist in Firebase Storage -- Please Update Firebase');
                         return Container();
                       }),
                 ),

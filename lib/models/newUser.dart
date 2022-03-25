@@ -6,7 +6,7 @@ class NewUser {
 
   NewUser({this.uid});
 
-  get userUid{
+  get userUid {
     return uid;
   }
 }
@@ -20,12 +20,12 @@ class NewUserActivityLog {
 
 class NewUserData {
   late final String? uid;
-  late final String? name;
+  late String? name;
   late final int? experience;
   late final String? phoneNumber;
   late final String? picture;
-  late final String? title;
-  late final String? username;
+  late String? title;
+  late String? username;
   late final String? email;
 
   NewUserData(
@@ -37,7 +37,7 @@ class NewUserData {
       this.title,
       this.username});
 
-  factory NewUserData.fromMap(Map data){
+  factory NewUserData.fromMap(Map data) {
     return NewUserData(
       uid: data['uid'],
       name: data['name'],
@@ -47,5 +47,13 @@ class NewUserData {
       title: data['title'],
       username: data['username'],
     );
+  }
+
+  void setName(String name) {
+    this.name = name;
+  }
+
+  void setUsername(String username) {
+    this.username = username;
   }
 }

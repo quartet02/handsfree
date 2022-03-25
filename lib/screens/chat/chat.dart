@@ -1,10 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:handsfree/models/chatModel.dart';
 import 'package:handsfree/models/messageModel.dart';
+import 'package:handsfree/models/newUser.dart';
+import 'package:handsfree/provider/messageTimeProvider.dart';
 import 'package:handsfree/screens/chat/chatBar.dart';
 import 'package:handsfree/services/database.dart';
 import 'package:handsfree/widgets/buildText.dart';
 import 'package:handsfree/services/userPreference.dart';
+import 'package:provider/provider.dart';
 
 import 'chatBubble.dart';
 
@@ -20,25 +24,26 @@ class _ChatState extends State<Chat> {
   Widget build(BuildContext context) {
     final ChatRoom roomData =
         ModalRoute.of(context)!.settings.arguments as ChatRoom;
+    Provider.of<MessageTimeProvider>(context, listen: false)
+        .updateChatRoomId(roomData.roomId);
+    final userProvider = Provider.of<NewUserData?>(context)!;
     return Scaffold(
       body: Column(children: [
         buildHeading(roomData, context),
-        buildChatBody(roomData),
-        Container(
-          child: ChatBar(
-            roomId: roomData.roomId,
-          ),
+        buildChatBody(roomData, userProvider),
+        ChatBar(
+          roomId: roomData.roomId,
         ),
       ]),
     );
   }
 
-  Widget buildChatbubble(Messages message) {
-    if (message.sentBy != UserPreference.get("uniqueId") &&
-        message.sentBy != widget.prev) {
+  Widget buildChatbubble(
+      Messages message, ChatRoom roomData, NewUserData userProvider) {
+    if (message.sentBy != userProvider.uid && message.sentBy != widget.prev) {
       widget.prev = message.sentBy;
       return ChatBubble(
-          isMe: UserPreference.get("uniqueId") == message.sentBy,
+          isMe: userProvider.uid == message.sentBy,
           message: message,
           showProfileIcon: true);
     }
@@ -46,29 +51,32 @@ class _ChatState extends State<Chat> {
     else {
       widget.prev = message.sentBy;
       return ChatBubble(
-          isMe: UserPreference.get("uniqueId") == message.sentBy,
+          isMe: userProvider.uid == message.sentBy,
           message: message,
           showProfileIcon: false);
     }
   }
 
-  Widget buildChatBody(ChatRoom roomData) {
+  Widget buildChatBody(ChatRoom roomData, NewUserData userProvider) {
     return Expanded(
       flex: 2,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: StreamBuilder<List<Messages>>(
-          stream: DatabaseService(uid: UserPreference.get("uniqueId"))
-              .messages(roomData.roomId),
+          stream:
+              DatabaseService(uid: userProvider.uid).messages(roomData.roomId),
           builder: (context, snapshot) {
             if (snapshot.hasData &&
                 snapshot.connectionState == ConnectionState.active) {
               List<Messages> messages = snapshot.data!;
+              Provider.of<MessageTimeProvider>(context, listen: false)
+                  .store(messages);
               return ListView.builder(
                   reverse: true,
                   itemCount: messages.length,
                   itemBuilder: (context, index) {
-                    return buildChatbubble(messages[index]);
+                    return buildChatbubble(
+                        messages[index], roomData, userProvider);
                   });
             } else {
               return Container();

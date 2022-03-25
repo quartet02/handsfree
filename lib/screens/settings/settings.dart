@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:handsfree/services/database.dart';
 import 'package:handsfree/services/firebase_messaging_service.dart';
 import 'package:handsfree/widgets/buildButton.dart';
 import 'package:handsfree/widgets/buildText.dart';
@@ -41,6 +42,7 @@ class _SettingsState extends State<Settings> {
     User userAuth = FirebaseAuth.instance.currentUser!;
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
@@ -91,18 +93,26 @@ class _SettingsState extends State<Settings> {
                         buildText.heading2Text("Your Profile"),
                         breaker(20),
                         subTitle("Name"),
-                        textBox(nameController, "name", 'name', user.uid!,
-                            user.name!),
+                        textBox(nameController, "name", CollectionSelector.name,
+                            user.uid!, user.name!),
                         subTitle("Username"),
-                        textBox(usernameController, "username", 'username',
-                            user.uid!, user.username!),
+                        textBox(
+                            usernameController,
+                            "username",
+                            CollectionSelector.username,
+                            user.uid!,
+                            user.username!),
                         subTitle("Email"),
-                        textBox(emailController, "email", 'none', user.uid!,
+                        textBox(
+                            emailController,
+                            "email",
+                            CollectionSelector.email,
+                            user.uid!,
                             userAuth.email!,
                             enabled: false),
                         subTitle("Password"),
-                        textBox(passwordController, "password", 'password',
-                            user.uid!, ''),
+                        textBox(passwordController, "password",
+                            CollectionSelector.password, user.uid!, ''),
                         breaker(20),
                         buildButton(
                           text: "Sign Out",
@@ -115,6 +125,19 @@ class _SettingsState extends State<Settings> {
                         GestureDetector(
                           onTap: () async {
                             // ====================================== ADD CONDITION HERE ===================================
+                            user.name != nameController.value.toString() ||
+                                    nameController.text.trim() == ""
+                                ? await alterName(user)
+                                : null;
+                            user.username != usernameController.text ||
+                                    usernameController.text.trim() == ""
+                                ? await alterUsername(user)
+                                : null;
+                            passwordController.text.isEmpty ||
+                                    passwordController.text.trim() == ""
+                                ? null
+                                : await alterPassword(user);
+
                             var snackBar = const SnackBar(
                               content: Text("Change Successful!"),
                               backgroundColor: kPurpleLight,
@@ -182,7 +205,7 @@ class _SettingsState extends State<Settings> {
                                 ),
                               ]),
                           child: Container(
-                            margin: EdgeInsets.symmetric(horizontal: 15),
+                            margin: const EdgeInsets.symmetric(horizontal: 15),
                             child: Column(
                               children: [
                                 Row(
@@ -248,7 +271,7 @@ class _SettingsState extends State<Settings> {
                                 ),
                               ]),
                           child: Container(
-                            margin: EdgeInsets.symmetric(horizontal: 15),
+                            margin: const EdgeInsets.symmetric(horizontal: 15),
                             child: Column(
                               children: [
                                 Row(
@@ -290,7 +313,7 @@ class _SettingsState extends State<Settings> {
                                 ),
                               ]),
                           child: Container(
-                            margin: EdgeInsets.symmetric(horizontal: 15),
+                            margin: const EdgeInsets.symmetric(horizontal: 15),
                             child: Column(
                               children: [
                                 Row(
@@ -360,7 +383,7 @@ class _SettingsState extends State<Settings> {
                                 ),
                               ]),
                           child: Container(
-                            margin: EdgeInsets.symmetric(horizontal: 15),
+                            margin: const EdgeInsets.symmetric(horizontal: 15),
                             child: Column(
                               children: [
                                 Row(
@@ -400,11 +423,11 @@ class _SettingsState extends State<Settings> {
     );
   }
 
-  Widget textBox(TextEditingController controller, String name, String selector,
-      String uid, String initialValue,
+  Widget textBox(TextEditingController controller, String name,
+      CollectionSelector selector, String uid, String initialValue,
       {bool enabled = true}) {
     return Container(
-      padding: EdgeInsets.only(bottom: 10, right: 10, left: 10),
+      padding: const EdgeInsets.only(bottom: 10, right: 10, left: 10),
       child: buildTextBox.textBox(controller, name,
           selector: selector,
           uid: uid,
@@ -433,5 +456,26 @@ class _SettingsState extends State<Settings> {
       activeTrackColor: kOrangeLight,
       activeColor: kOrangeDeep,
     );
+  }
+
+  Future<void> alterName(NewUserData user) async {
+    print(1);
+    await DatabaseService(uid: user.uid)
+        .updateSingleData(CollectionSelector.name, nameController.text.trim())
+        .whenComplete(() => {user.setName(nameController.text.trim())});
+  }
+
+  Future<void> alterUsername(NewUserData user) async {
+    print(2);
+    await DatabaseService(uid: user.uid)
+        .updateSingleData(
+            CollectionSelector.username, usernameController.text.trim())
+        .whenComplete(() => {user.setUsername(usernameController.text.trim())});
+  }
+
+  Future<void> alterPassword(NewUserData user) async {
+    print(3);
+    await DatabaseService(uid: user.uid).updateSingleData(
+        CollectionSelector.password, passwordController.text.trim());
   }
 }
