@@ -213,14 +213,14 @@ class _SettingsState extends State<Settings> {
                             margin: const EdgeInsets.symmetric(horizontal: 15),
                             child: Column(
                               children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    buildText.heading3Text("Sound Effects"),
-                                    toggleSwitch('isSound', null),
-                                  ],
-                                ),
+                                // Row(
+                                //   mainAxisAlignment:
+                                //       MainAxisAlignment.spaceBetween,
+                                //   children: [
+                                //     buildText.heading3Text("Sound Effects"),
+                                //     toggleSwitch('isSound', null),
+                                //   ],
+                                // ),
                                 // Row(
                                 //   mainAxisAlignment:
                                 //       MainAxisAlignment.spaceBetween,
@@ -287,14 +287,14 @@ class _SettingsState extends State<Settings> {
                                     toggleSwitch("isPractice", "practiceNoti"),
                                   ],
                                 ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    buildText.heading3Text("Smart Scheduling"),
-                                    toggleSwitch("isSmartScheduling", null),
-                                  ],
-                                ),
+                                // Row(
+                                //   mainAxisAlignment:
+                                //       MainAxisAlignment.spaceBetween,
+                                //   children: [
+                                //     buildText.heading3Text("Smart Scheduling"),
+                                //     toggleSwitch("isSmartScheduling", null),
+                                //   ],
+                                // ),
                               ],
                             ),
                           ),
@@ -321,30 +321,30 @@ class _SettingsState extends State<Settings> {
                             margin: const EdgeInsets.symmetric(horizontal: 15),
                             child: Column(
                               children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    buildText.heading3Text("Weekly Progress"),
-                                    toggleSwitch("isWeeklyProgress", null),
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    buildText.heading3Text("New Friend"),
-                                    toggleSwitch("isNewFriends", null),
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    buildText.heading3Text("Friend Activity"),
-                                    toggleSwitch("isFriendActivity", null),
-                                  ],
-                                ),
+                                // Row(
+                                //   mainAxisAlignment:
+                                //       MainAxisAlignment.spaceBetween,
+                                //   children: [
+                                //     buildText.heading3Text("Weekly Progress"),
+                                //     toggleSwitch("isWeeklyProgress", null),
+                                //   ],
+                                // ),
+                                // Row(
+                                //   mainAxisAlignment:
+                                //       MainAxisAlignment.spaceBetween,
+                                //   children: [
+                                //     buildText.heading3Text("New Friend"),
+                                //     toggleSwitch("isNewFriends", null),
+                                //   ],
+                                // ),
+                                // Row(
+                                //   mainAxisAlignment:
+                                //       MainAxisAlignment.spaceBetween,
+                                //   children: [
+                                //     buildText.heading3Text("Friend Activity"),
+                                //     toggleSwitch("isFriendActivity", null),
+                                //   ],
+                                // ),
                                 Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -368,43 +368,43 @@ class _SettingsState extends State<Settings> {
                         breaker(50),
 
                         ///Privacy
-                        buildText.heading2Text("Privacy"),
-                        breaker(20),
-                        Container(
-                          height: 50,
-                          decoration: BoxDecoration(
-                              color: Colors.transparent,
-                              image: const DecorationImage(
-                                image:
-                                    AssetImage('assets/image/text_field.png'),
-                                fit: BoxFit.cover,
-                              ),
-                              borderRadius: BorderRadius.circular(15),
-                              boxShadow: const [
-                                BoxShadow(
-                                  color: kTextShadow,
-                                  offset: Offset(6, 6),
-                                  blurRadius: 6,
-                                ),
-                              ]),
-                          child: Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 15),
-                            child: Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    buildText.heading3Text(
-                                        "Tracking for Advertisement"),
-                                    toggleSwitch(
-                                        "isTrackingForAdvertising", null),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
+                        // buildText.heading2Text("Privacy"),
+                        // breaker(20),
+                        // Container(
+                        //   height: 50,
+                        //   decoration: BoxDecoration(
+                        //       color: Colors.transparent,
+                        //       image: const DecorationImage(
+                        //         image:
+                        //             AssetImage('assets/image/text_field.png'),
+                        //         fit: BoxFit.cover,
+                        //       ),
+                        //       borderRadius: BorderRadius.circular(15),
+                        //       boxShadow: const [
+                        //         BoxShadow(
+                        //           color: kTextShadow,
+                        //           offset: Offset(6, 6),
+                        //           blurRadius: 6,
+                        //         ),
+                        //       ]),
+                        //   child: Container(
+                        //     margin: const EdgeInsets.symmetric(horizontal: 15),
+                        //     child: Column(
+                        //       children: [
+                        //         Row(
+                        //           mainAxisAlignment:
+                        //               MainAxisAlignment.spaceBetween,
+                        //           children: [
+                        //             buildText.heading3Text(
+                        //                 "Tracking for Advertisement"),
+                        //             toggleSwitch(
+                        //                 "isTrackingForAdvertising", null),
+                        //           ],
+                        //         ),
+                        //       ],
+                        //     ),
+                        //   ),
+                        // ),
                         breaker(20),
                         buildButton(
                             text: "Terms",
