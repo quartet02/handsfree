@@ -107,8 +107,8 @@ class _SearchBarState extends State<SearchBar> {
                 break;
               } else {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) =>
-                        Translator('Unknown', 'Unknown', 'Unknown', 'Unknown'),
+                    builder: (context) => const Translator(
+                        'Unknown', 'Unknown', 'Unknown', 'Unknown'),
                     maintainState: false));
               }
             }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:handsfree/main.dart';
 import 'package:handsfree/models/lessonCardModel.dart';
 import 'package:handsfree/models/lessonModel.dart';
 import 'package:handsfree/provider/lessonCardProvider.dart';
@@ -43,7 +42,7 @@ class _MainLearningPageState extends State<MainLearningPage>
   @override
   Widget build(BuildContext context) {
     bool isPractical = Provider.of<LessonProvider>(context).getPractical;
-    print("main learning page is practical: $isPractical");
+    debugPrint("main learning page is practical: $isPractical");
     LessonModel subLesson =
         context.read<SubLessonProvider>().getClickedSubLesson;
     String syllabus = context.read<SubLessonProvider>().getSyllabus;
@@ -103,8 +102,6 @@ class _MainLearningPageState extends State<MainLearningPage>
                     var cardLesson = providerCardLesson!.cardLessons;
                     double progress =
                         (providerCardLesson.index) / cardLesson.length;
-                    double lastProgress =
-                        (providerCardLesson.index - 1) / cardLesson.length;
                     return Container(
                       alignment: Alignment.center,
                       padding:
@@ -139,8 +136,6 @@ class _MainLearningPageState extends State<MainLearningPage>
                                       horizontal: 20),
                                   margin: const EdgeInsets.only(top: 8),
                                   child: Row(
-                                    // mainAxisAlignment: MainAxisAlignment.center,
-                                    // crossAxisAlignment: CrossAxisAlignment.center,
                                     children: <Widget>[
                                       Container(
                                         width: 130,
@@ -180,16 +175,10 @@ class _MainLearningPageState extends State<MainLearningPage>
                                                       const CircularProgressIndicator(),
                                                 );
                                               } else {
-                                                print('Connection Failed');
+                                                debugPrint('Connection Failed');
                                                 return Container();
                                               }
                                             }),
-                                        // decoration: BoxDecoration(
-                                        //   image: DecorationImage(
-                                        //     alignment: Alignment.topCenter,
-                                        //     image: AssetImage(subLesson.lessonImage),
-                                        //   ),
-                                        // ),
                                       ),
                                       Column(
                                         mainAxisAlignment:
@@ -313,16 +302,10 @@ class _MainLearningPageState extends State<MainLearningPage>
                                               const CircularProgressIndicator(),
                                         );
                                       } else {
-                                        print('Connection Failed');
+                                        debugPrint('Connection Failed');
                                         return Container();
                                       }
                                     }),
-                                // decoration: BoxDecoration(
-                                //   image: DecorationImage(
-                                //     image: AssetImage(cardLesson[providerCardLesson.index]
-                                //         .lessonCardImage),
-                                //   ),
-                                // ),
                               ),
                             ],
                           ),

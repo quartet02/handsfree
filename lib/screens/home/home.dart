@@ -21,24 +21,24 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  List? _wordData =[];
+  List? _wordData = [];
   Map? _quiz = {};
   String _word = '';
   String _imgUrl = '';
 
   @override
-  void initState(){
+  void initState() {
     _wordData = [];
     futureListConverter();
     super.initState();
   }
 
-  void getQuiz(){
+  void getQuiz() {
     Random r = new Random();
-    _quiz = _wordData![r.nextInt(_wordData!.length-1)+1];
+    _quiz = _wordData![r.nextInt(_wordData!.length - 1) + 1];
   }
 
-  void futureListConverter () async{
+  void futureListConverter() async {
     _wordData = await DatabaseService().getWordData();
   }
 
@@ -51,16 +51,16 @@ class _HomeState extends State<Home> {
     const double radius = 25;
 
     return WillPopScope(
-      onWillPop: () async{
+      onWillPop: () async {
         Navigator.of(context).popAndPushNamed('/learn', result: true);
         return true;
       },
       child: Scaffold(
         body: GestureDetector(
-          onTap: (){
+          onTap: () {
             getQuiz();
             _word = _quiz!['word'];
-            print(_word);
+            debugPrint(_word);
           },
           child: Container(
             decoration: const BoxDecoration(
@@ -72,18 +72,19 @@ class _HomeState extends State<Home> {
             child: Stack(
               children: [
                 Container(
-                  alignment: Alignment(0, 500),
+                  alignment: const Alignment(0, 500),
                   child: Stack(
                     children: [
                       Container(
                         alignment: Alignment.bottomCenter,
                         child: Container(
-                          margin: EdgeInsets.only(
+                          margin: const EdgeInsets.only(
                               bottom: 125, left: 60, right: 50),
                           decoration: BoxDecoration(
                               color: Colors.transparent,
                               image: const DecorationImage(
-                                image: AssetImage('assets/image/text_field.png'),
+                                image:
+                                    AssetImage('assets/image/text_field.png'),
                                 fit: BoxFit.cover,
                               ),
                               borderRadius: BorderRadius.circular(radius),
@@ -99,31 +100,31 @@ class _HomeState extends State<Home> {
                             controller: TextEditingController(),
                             obscureText: false,
                             autocorrect: false,
-                            onFieldSubmitted: (txt){
-                              print(_word);
-                              print(txt);
-                              if(txt.toLowerCase() == _word.toLowerCase()){
-                                print('Correct Answer');
+                            onFieldSubmitted: (txt) {
+                              debugPrint(_word);
+                              debugPrint(txt);
+                              if (txt.toLowerCase() == _word.toLowerCase()) {
+                                debugPrint('Correct Answer');
                                 getQuiz();
                                 _word = _quiz!['word'];
-                                print(_word);
-                              }
-                              else if (_word.toLowerCase().contains(txt.toLowerCase())){
-                                print('Partially Correct');
-                                print('The full answer is: ' + _word);
+                                debugPrint(_word);
+                              } else if (_word
+                                  .toLowerCase()
+                                  .contains(txt.toLowerCase())) {
+                                debugPrint('Partially Correct');
+                                debugPrint('The full answer is: ' + _word);
                                 getQuiz();
                                 _word = _quiz!['word'];
-                                print(_word);
-                              }
-                              else{
-                                print('Incorrect Answer');
-                                print('Answer is: ' + _word);
-                                print('Please try again!');
+                                debugPrint(_word);
+                              } else {
+                                debugPrint('Incorrect Answer');
+                                debugPrint('Answer is: ' + _word);
+                                debugPrint('Please try again!');
                               }
                             },
                             decoration: InputDecoration(
                               contentPadding:
-                              const EdgeInsets.symmetric(horizontal: 20.0),
+                                  const EdgeInsets.symmetric(horizontal: 20.0),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(radius),
                                 borderSide: const BorderSide(
@@ -162,7 +163,7 @@ class _HomeState extends State<Home> {
           ),
         ),
         floatingActionButton:
-        isVisible ? const SizedBox() : NavBar.Buttons(context),
+            isVisible ? const SizedBox() : NavBar.Buttons(context),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         extendBody: true,
         bottomNavigationBar: NavBar.bar(context, 0),

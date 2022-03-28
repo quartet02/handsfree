@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:handsfree/provider/newsFeedProvider.dart';
 import 'package:handsfree/screens/news/news_list.dart';

@@ -31,7 +31,7 @@ class SearchGroup extends StatelessWidget {
                     ? 102 + (dict.suggestion.length - 1) * 50
                     : 110 + 3 * 50,
             child: ListView.builder(
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               itemCount: dict.suggestion.length,
               itemBuilder: (context, index) {
                 return ListTile(

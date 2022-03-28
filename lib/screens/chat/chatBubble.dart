@@ -1,15 +1,7 @@
-import 'package:flamingo/flamingo.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:handsfree/models/chatModel.dart';
 import 'package:handsfree/models/messageModel.dart';
-import 'package:handsfree/provider/messageTimeProvider.dart';
-import 'package:handsfree/screens/chat/chat.dart';
-import 'package:handsfree/services/medialoader.dart';
-import 'package:handsfree/widgets/buildText.dart';
 import 'package:handsfree/widgets/constants.dart';
-import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
 
 class ChatBubble extends StatelessWidget {
   const ChatBubble({

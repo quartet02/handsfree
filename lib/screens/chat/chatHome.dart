@@ -1,16 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:handsfree/models/chatModel.dart';
-import 'package:handsfree/models/friendsModel.dart';
-import 'package:handsfree/models/userProfile.dart';
 import 'package:handsfree/provider/friendsProvider.dart';
-import 'package:handsfree/screens/chat/chatContactCard.dart';
 import 'package:handsfree/screens/chat/chatList.dart';
 import 'package:handsfree/screens/dictionary/searchBar.dart';
-import 'package:handsfree/services/database.dart';
 import 'package:handsfree/widgets/breaker.dart';
 import 'package:handsfree/widgets/buildText.dart';
 import 'package:handsfree/widgets/constants.dart';
-import 'package:handsfree/services/userPreference.dart';
 import 'package:provider/provider.dart';
 
 class ChatHome extends StatefulWidget {
@@ -52,7 +46,6 @@ class _ChatHomeState extends State<ChatHome> {
             ],
           ),
         ),
-        //floatingActionButton: buildCreateGroupButton(),
       ),
     );
   }

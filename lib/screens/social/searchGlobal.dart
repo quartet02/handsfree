@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:handsfree/models/newUser.dart';
 import 'package:handsfree/screens/social/searchGlobalResult.dart';
 import 'package:handsfree/services/database.dart';
 import 'package:handsfree/widgets/breaker.dart';
@@ -20,6 +21,7 @@ class _SearchGlobalState extends State<SearchGlobal> {
   String _query = "";
   @override
   Widget build(BuildContext context) {
+    NewUserData? user = Provider.of<NewUserData?>(context);
     final isVisible = MediaQuery.of(context).viewInsets.bottom != 0;
     // prevent screen rotation and force portrait orientation
     SystemChrome.setPreferredOrientations([
@@ -43,8 +45,7 @@ class _SearchGlobalState extends State<SearchGlobal> {
                 child: StreamProvider<List<String>>(
                   initialData: [],
                   create: (_) =>
-                      DatabaseService(uid: UserPreference.get("uniqueId"))
-                          .excludeUserIdForGlobal,
+                      DatabaseService(uid: user!.uid).excludeUserIdForGlobal,
                   child: SearchResult(query: _query),
                 ),
               ),
@@ -78,7 +79,6 @@ class _SearchGlobalState extends State<SearchGlobal> {
   }
 
   Widget searchBar() {
-    final searchFieldController = TextEditingController();
     const double radius = 25;
     return Container(
       margin: const EdgeInsets.all(0),
@@ -99,7 +99,6 @@ class _SearchGlobalState extends State<SearchGlobal> {
       child: TextFormField(
         initialValue: _query,
         autofocus: false,
-        // controller: searchFieldController,
         obscureText: false,
         autocorrect: false,
         onChanged: (txt) {

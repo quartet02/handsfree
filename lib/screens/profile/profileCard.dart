@@ -60,7 +60,7 @@ class ProfileCard extends StatelessWidget {
             borderRadius: 5.0,
             boxShadows: [
               PolygonBoxShadow(color: Colors.white, elevation: 1.0),
-              PolygonBoxShadow(color: Color(0xff9e84fd), elevation: 3.0),
+              PolygonBoxShadow(color: const Color(0xff9e84fd), elevation: 3.0),
             ],
             child: Image.asset(
               profile.imageUrl,

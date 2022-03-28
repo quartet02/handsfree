@@ -40,7 +40,7 @@ class NewsTile extends StatelessWidget {
                       child: const CircularProgressIndicator(),
                     );
                   } else {
-                    print('Connection Failed');
+                    debugPrint('Connection Failed');
                     return Container();
                   }
                 }),

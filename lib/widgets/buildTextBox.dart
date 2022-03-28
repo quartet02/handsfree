@@ -80,7 +80,9 @@ class buildTextBox extends StatelessWidget {
       EdgeInsets margins = const EdgeInsets.all(0),
       EdgeInsets paddings = const EdgeInsets.symmetric(horizontal: 20.0)}) {
     double radius = 25;
-    controllers.value = TextEditingValue(text: initialValue);
+    controllers.text = initialValue;
+    controllers.selection = TextSelection.fromPosition(
+        TextPosition(offset: controllers.text.length));
     return Container(
       margin: margins,
       decoration: BoxDecoration(
@@ -101,9 +103,12 @@ class buildTextBox extends StatelessWidget {
         textInputAction: action,
         keyboardType: inputType,
         maxLines: maxLine,
+        // initialValue: initialValue,
         enabled: enabled,
-        onChanged: (txt) {
-          controllers.text = txt;
+        onChanged: (text) {
+          controllers.text = text;
+          controllers.selection = TextSelection.fromPosition(
+              TextPosition(offset: controllers.text.length));
         },
         controller: controllers,
         decoration: InputDecoration(

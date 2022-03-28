@@ -155,7 +155,7 @@ class _SocialState extends State<Social> {
               ),
             );
           } else {
-            print(snapshot.error);
+            debugPrint(snapshot.error.toString());
             return const Loading();
           }
         });

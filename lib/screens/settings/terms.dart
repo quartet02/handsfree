@@ -46,7 +46,7 @@ class Terms extends StatelessWidget {
                 child: Container(
                   height: MediaQuery.of(context).size.height * 0.7,
                   child: ListView(
-                    physics: BouncingScrollPhysics(),
+                    physics: const BouncingScrollPhysics(),
                     scrollDirection: Axis.vertical,
                     children: [
                       buildText.heading2Text("1. General"),

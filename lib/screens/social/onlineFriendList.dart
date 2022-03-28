@@ -1,27 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:handsfree/models/chatModel.dart';
+import 'package:handsfree/models/newUser.dart';
 import 'package:handsfree/models/userProfile.dart';
 import 'package:handsfree/screens/social/friendBlock.dart';
 import 'package:handsfree/services/database.dart';
-import 'package:handsfree/services/userPreference.dart';
 import 'package:handsfree/widgets/buildText.dart';
+import 'package:provider/provider.dart';
 
 class OnlineFriendList extends StatelessWidget {
   const OnlineFriendList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    NewUserData? user = Provider.of<NewUserData?>(context);
     return StreamBuilder<List<String>>(
-      stream: DatabaseService(uid: UserPreference.get("uniqueId"))
-          .chatsId, // get chatRoom id
+      stream: DatabaseService(uid: user!.uid).chatsId, // get chatRoom id
       builder: (context, snapshotId) {
         if (snapshotId.hasData &&
             snapshotId.data!.isNotEmpty &&
             snapshotId.connectionState == ConnectionState.active) {
-          // snapshotId.data!.forEach(print);
           return StreamBuilder<List<ChatRoom>>(
-              stream: DatabaseService(uid: UserPreference.get("uniqueId"))
-                  .chats(snapshotId.data!),
+              stream: DatabaseService(uid: user.uid).chats(snapshotId.data!),
               builder: (context, snapshotChat) {
                 if (snapshotChat.hasData &&
                     snapshotChat.connectionState == ConnectionState.active) {
@@ -40,13 +39,12 @@ class OnlineFriendList extends StatelessWidget {
                           if (index > 0) {
                             int i = index - 1;
                             if (chatRooms[i].type == 1) {
-                              String id = chatRooms[i].participants[0] ==
-                                      UserPreference.get("uniqueId")
-                                  ? chatRooms[i].createdBy
-                                  : chatRooms[i].participants[0];
+                              String id =
+                                  chatRooms[i].participants[0] == user.uid
+                                      ? chatRooms[i].createdBy
+                                      : chatRooms[i].participants[0];
                               return StreamBuilder<Users>(
-                                  stream: DatabaseService(
-                                          uid: UserPreference.get("uniqueId"))
+                                  stream: DatabaseService(uid: user.uid)
                                       .getSingleFriendById(id),
                                   builder: (context, snapshotUser) {
                                     if (snapshotUser.hasData &&
