@@ -185,9 +185,9 @@ class _LearnState extends State<Learn> {
                             child: ListView.builder(
                               physics: const BouncingScrollPhysics(),
                               scrollDirection: Axis.vertical,
-                              padding: EdgeInsets.symmetric(
-                                  horizontal:
-                                      MediaQuery.of(context).size.width / 8),
+                              padding: EdgeInsets.only(
+                                  right: MediaQuery.of(context).size.width / 8,
+                                  left: MediaQuery.of(context).size.width / 12),
                               itemCount: lessons.length,
                               itemBuilder: (context, index) {
                                 return GestureDetector(
