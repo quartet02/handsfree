@@ -68,6 +68,7 @@ dependencies:
   cupertino_will_pop_scope: ^1.2.0
   rxdart: ^0.27.3
   intl: ^0.17.0
+  themed: ^3.0.2
 
   #pick file
   file_picker: ^3.0.1

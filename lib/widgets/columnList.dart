@@ -21,6 +21,17 @@ class ColumnList extends StatelessWidget {
       child: Row(
         children: <Widget>[
           Container(
+              padding: EdgeInsets.only(bottom: 15),
+              child: Visibility(
+                visible: true,
+                child: Image.asset(
+                  lesson.isCompleted
+                      ? "assets/image/tick.png"
+                      : "assets/image/invi.png",
+                  scale: 4,
+                ),
+              )),
+          Container(
               child: Image.asset(
             lesson.lessonImage,
             scale: 4,

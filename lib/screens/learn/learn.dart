@@ -25,13 +25,14 @@ class Learn extends StatefulWidget {
 class _LearnState extends State<Learn> {
   @override
   void initState() {
-    try{
+    try {
       LessonRefresh.refresh();
-    }catch(e){
+    } catch (e) {
       print('Up to Date');
     }
     super.initState();
   }
+
   DateTime timeBackPressed = DateTime.now();
 
   @override
@@ -39,13 +40,13 @@ class _LearnState extends State<Learn> {
     final user = Provider.of<NewUserData?>(context);
     if (user == null) return Loading();
     return WillPopScope(
-      onWillPop: () async{
+      onWillPop: () async {
         final difference = DateTime.now().difference(timeBackPressed);
         final isExitWarning = difference >= Duration(milliseconds: 500);
 
         timeBackPressed = DateTime.now();
 
-        if(isExitWarning){
+        if (isExitWarning) {
           final message = 'Press back again to exit';
           Fluttertoast.showToast(msg: message, fontSize: 18);
 
@@ -57,26 +58,24 @@ class _LearnState extends State<Learn> {
       },
       child: StreamBuilder<List<LessonModel>?>(
         stream: DatabaseService(uid: user.uid).getSyllabusOverview(),
-        builder: (context, snapshot){
-          if(snapshot.hasData){
-
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
             List<LessonModel>? syllabusOverview = snapshot.data;
-            if(syllabusOverview!.isNotEmpty){
+            if (syllabusOverview!.isNotEmpty) {
               Provider.of<LessonProvider>(context, listen: false)
                   .setLessons(syllabusOverview);
             }
 
             int total = syllabusOverview.length;
             int i = 0;
-            for(LessonModel each in syllabusOverview){
-              if(each.isCompleted==true){
+            for (LessonModel each in syllabusOverview) {
+              if (each.isCompleted == true) {
                 i++;
-              }
-              else{
+              } else {
                 //do nothing
               }
             }
-            progress = i/total;
+            progress = i / total;
 
             return Scaffold(
               body: Container(
@@ -87,8 +86,10 @@ class _LearnState extends State<Learn> {
                       fit: BoxFit.cover),
                 ),
                 child: Container(
-                  padding: const EdgeInsets.only(left: 40, bottom: 5, right: 40),
-                  margin: EdgeInsets.only(top: MediaQuery.of(context).size.height / 10),
+                  padding:
+                      const EdgeInsets.only(left: 40, bottom: 5, right: 40),
+                  margin: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height / 10),
                   child: ListView(
                     physics: NeverScrollableScrollPhysics(),
                     children: [
@@ -178,52 +179,59 @@ class _LearnState extends State<Learn> {
                         blendMode: BlendMode.dstOut,
                         child: Consumer<LessonProvider>(
                             builder: (context, providerLesson, child) {
-                              var lessons = providerLesson.lessons;
+                          var lessons = providerLesson.lessons;
 
-                              return Container(
-                                height: MediaQuery.of(context).size.height / 1.7,
-                                child: ListView.builder(
-                                  physics: BouncingScrollPhysics(),
-                                  scrollDirection: Axis.vertical,
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: MediaQuery.of(context).size.width / 8),
-                                  itemCount: lessons.length,
-                                  itemBuilder: (context, index) {
-                                    return GestureDetector(
-                                      onTap: () {
-                                        Provider.of<LessonProvider>(context, listen: false)
-                                            .setClickLesson(lessons[index]);
-                                        if (index >= 2){
-                                          Provider.of<LessonProvider>(context, listen: false).setPractical = true;
-                                          print("isPractical");
-                                        }else{
-                                          Provider.of<LessonProvider>(context, listen: false).setPractical = false;
-                                          print("is not Practical");
-                                        }
-                                        // LessonModel lesson = context.read<LessonProvider>().getClickedLesson;
-                                        // print(lesson.lessonId);
-                                        // Navigator.pushNamed(context, PageTransition(type: PageTransitionType.leftToRight, child: const SubLevel()));
-                                        Navigator.pushNamed(context, "/sublevel");
-                                      },
-                                      child: ColumnList(
-                                        lesson: lessons[index],
-                                      ),
-                                    );
+                          return Container(
+                            height: MediaQuery.of(context).size.height / 1.7,
+                            child: ListView.builder(
+                              physics: BouncingScrollPhysics(),
+                              scrollDirection: Axis.vertical,
+                              padding: EdgeInsets.only(
+                                  right: MediaQuery.of(context).size.width / 8,
+                                  left: MediaQuery.of(context).size.width / 12),
+                              itemCount: lessons.length,
+                              itemBuilder: (context, index) {
+                                return GestureDetector(
+                                  onTap: () {
+                                    Provider.of<LessonProvider>(context,
+                                            listen: false)
+                                        .setClickLesson(lessons[index]);
+                                    if (index >= 2) {
+                                      Provider.of<LessonProvider>(context,
+                                              listen: false)
+                                          .setPractical = true;
+                                      print("isPractical");
+                                    } else {
+                                      Provider.of<LessonProvider>(context,
+                                              listen: false)
+                                          .setPractical = false;
+                                      print("is not Practical");
+                                    }
+                                    // LessonModel lesson = context.read<LessonProvider>().getClickedLesson;
+                                    // print(lesson.lessonId);
+                                    // Navigator.pushNamed(context, PageTransition(type: PageTransitionType.leftToRight, child: const SubLevel()));
+                                    Navigator.pushNamed(context, "/sublevel");
                                   },
-                                ),
-                              );
-                            }),
+                                  child: ColumnList(
+                                    lesson: lessons[index],
+                                  ),
+                                );
+                              },
+                            ),
+                          );
+                        }),
                       ),
                     ],
                   ),
                 ),
               ),
               floatingActionButton: NavBar.Buttons(context),
-              floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+              floatingActionButtonLocation:
+                  FloatingActionButtonLocation.centerDocked,
               extendBody: true,
               bottomNavigationBar: NavBar.bar(context, 2),
             );
-          }else{
+          } else {
             return Loading();
           }
         },

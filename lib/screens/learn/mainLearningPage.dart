@@ -15,6 +15,7 @@ import 'package:provider/provider.dart';
 import '../../models/newUser.dart';
 import '../../services/medialoader.dart';
 import '../../widgets/loadingWholeScreen.dart';
+import 'package:themed/themed.dart';
 
 class MainLearningPage extends StatefulWidget {
   const MainLearningPage({Key? key}) : super(key: key);
@@ -217,6 +218,7 @@ class _MainLearningPageState extends State<MainLearningPage>
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 20),
                                   child: LinearPercentIndicator(
+                                    barRadius: Radius.circular(20),
                                     percent: progress,
                                     lineHeight: 8,
                                     progressColor: kOrangeDeep,
@@ -266,7 +268,7 @@ class _MainLearningPageState extends State<MainLearningPage>
                                 height:
                                     MediaQuery.of(context).size.height / 2.45,
                                 child: FutureBuilder(
-                                    future: getImage(
+                                    future: FireStorageService.loadImage(
                                         cardLesson[providerCardLesson.index]
                                             .lessonCardImage),
                                     builder: (context, snapshot) {
@@ -281,7 +283,19 @@ class _MainLearningPageState extends State<MainLearningPage>
                                                   .size
                                                   .width /
                                               1.2,
-                                          child: snapshot.data as Widget,
+                                          child: ChangeColors(
+                                              brightness: 0.1,
+                                              saturation: 0.2,
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                    image: DecorationImage(
+                                                        fit: BoxFit.cover,
+                                                        image: Image.network(
+                                                                snapshot.data
+                                                                    as String)
+                                                            .image,
+                                                        scale: 16)),
+                                              )),
                                         );
                                       }
                                       if (snapshot.connectionState ==
@@ -324,43 +338,83 @@ class _MainLearningPageState extends State<MainLearningPage>
                             padding: EdgeInsets.only(bottom: 13),
                           ),
                           if (isPractical)
-                            TextField(
-                              decoration: const InputDecoration(
-                                labelText: "Your answer",
+                            Container(
+                              margin:
+                                  const EdgeInsets.symmetric(horizontal: 20),
+                              decoration: BoxDecoration(
+                                  color: Colors.transparent,
+                                  image: const DecorationImage(
+                                    image: AssetImage(
+                                        'assets/image/text_field.png'),
+                                    fit: BoxFit.cover,
+                                  ),
+                                  borderRadius: BorderRadius.circular(25),
+                                  boxShadow: const [
+                                    BoxShadow(
+                                      color: kTextShadow,
+                                      offset: Offset(6, 6),
+                                      blurRadius: 6,
+                                    ),
+                                  ]),
+                              child: TextField(
+                                decoration: InputDecoration(
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      horizontal: 20.0),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(25),
+                                    borderSide: const BorderSide(
+                                      width: 0,
+                                      style: BorderStyle.none,
+                                    ),
+                                  ),
+                                  hintText: "Your answer",
+                                  labelStyle: GoogleFonts.montserrat(
+                                    fontSize: 12.8,
+                                    fontWeight: FontWeight.w400,
+                                    color: kTextFieldText,
+                                  ),
+                                  hintStyle: GoogleFonts.montserrat(
+                                    fontSize: 12.8,
+                                    fontWeight: FontWeight.w400,
+                                    color: kTextFieldText,
+                                  ),
+                                  fillColor: kTextLight,
+                                  filled: false,
+                                ),
+                                controller: _controller,
+                                onSubmitted: (String value) async {
+                                  checkAns(
+                                      value,
+                                      cardLesson[providerCardLesson.index]
+                                          .lessonCardTitle);
+                                  if (providerCardLesson.index ==
+                                      cardLesson.length - 1) {
+                                    DatabaseService(uid: user.uid)
+                                        .updateIsCompletedSubLesson(
+                                            syllabus,
+                                            lesson,
+                                            cardLesson[providerCardLesson.index]
+                                                .lessonId);
+                                    DatabaseService(uid: user.uid)
+                                        .updateExperience();
+                                    DatabaseService(uid: user.uid)
+                                        .updateIsCompletedLesson(
+                                            syllabus, lesson);
+                                    Navigator.pushNamed(
+                                        context, "/congratulation");
+                                  } else {
+                                    DatabaseService(uid: user.uid)
+                                        .updateIsCompletedSubLesson(
+                                            syllabus,
+                                            lesson,
+                                            cardLesson[providerCardLesson.index]
+                                                .lessonId);
+                                    DatabaseService(uid: user.uid)
+                                        .updateExperience();
+                                    providerCardLesson.increment();
+                                  }
+                                },
                               ),
-                              controller: _controller,
-                              onSubmitted: (String value) async {
-                                checkAns(
-                                    value,
-                                    cardLesson[providerCardLesson.index]
-                                        .lessonCardTitle);
-                                if (providerCardLesson.index ==
-                                    cardLesson.length - 1) {
-                                  DatabaseService(uid: user.uid)
-                                      .updateIsCompletedSubLesson(
-                                          syllabus,
-                                          lesson,
-                                          cardLesson[providerCardLesson.index]
-                                              .lessonId);
-                                  DatabaseService(uid: user.uid)
-                                      .updateExperience();
-                                  DatabaseService(uid: user.uid)
-                                      .updateIsCompletedLesson(
-                                          syllabus, lesson);
-                                  Navigator.pushNamed(
-                                      context, "/congratulation");
-                                } else {
-                                  DatabaseService(uid: user.uid)
-                                      .updateIsCompletedSubLesson(
-                                          syllabus,
-                                          lesson,
-                                          cardLesson[providerCardLesson.index]
-                                              .lessonId);
-                                  DatabaseService(uid: user.uid)
-                                      .updateExperience();
-                                  providerCardLesson.increment();
-                                }
-                              },
                             ),
                           Padding(
                             padding: const EdgeInsets.only(top: 20),
@@ -457,7 +511,10 @@ class _MainLearningPageState extends State<MainLearningPage>
       isCrt = true;
     }
     ScaffoldMessenger.of(context).removeCurrentSnackBar();
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text(msg),
+      backgroundColor: kPurpleLight,
+    ));
     _controller.clear();
     if (!isCrt) Navigator.pushReplacementNamed(context, '/sublevel');
   }

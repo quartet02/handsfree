@@ -146,7 +146,7 @@ class _DictionaryState extends State<Dictionary> {
                       : Container(),
                   !isVisible
                       ? Text(
-                          'Now in BETA!',
+                          'Coming Soon!',
                           style: GoogleFonts.montserrat(
                             fontSize: 20,
                             fontWeight: FontWeight.w400,
