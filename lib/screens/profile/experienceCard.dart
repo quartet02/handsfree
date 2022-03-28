@@ -3,7 +3,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class ExperienceCard extends StatelessWidget {
-  ExperienceCard({Key? key, required this.title, required this.lvl, required this.currentExp}) : super(key: key);
+  ExperienceCard(
+      {Key? key,
+      required this.title,
+      required this.lvl,
+      required this.currentExp})
+      : super(key: key);
 
   final String title;
   final String lvl;
@@ -16,7 +21,9 @@ class ExperienceCard extends StatelessWidget {
       width: 314,
       height: 149,
       decoration: const BoxDecoration(
-        image: DecorationImage(image: AssetImage('assets/image/experienceBackground.png'),fit: BoxFit.fill),
+        image: DecorationImage(
+            image: AssetImage('assets/image/experienceBackground.png'),
+            fit: BoxFit.fill),
         boxShadow: [
           BoxShadow(
             color: Color(0xffa9a9a9),
@@ -34,7 +41,10 @@ class ExperienceCard extends StatelessWidget {
               width: 276,
               height: 58,
               decoration: const BoxDecoration(
-                image: const DecorationImage(image: const AssetImage('assets/image/profileTitleBackground.png'),fit: BoxFit.fill),
+                image: DecorationImage(
+                    image:
+                        AssetImage('assets/image/profileTitleBackground.png'),
+                    fit: BoxFit.fill),
                 boxShadow: [
                   BoxShadow(
                     color: Color(0xff747474),

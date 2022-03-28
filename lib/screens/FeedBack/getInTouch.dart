@@ -21,7 +21,6 @@ class _GetInTouchFormState extends State<GetInTouchForm> {
   String? _subject;
   String? _description;
   String? _email;
-  String? _imageUrl;
   String? _name;
   String? _category;
 
@@ -43,7 +42,7 @@ class _GetInTouchFormState extends State<GetInTouchForm> {
         items,
         buildText.textBox("Issue type", 0.5, 12.5, TextOverflow.visible,
             FontWeight.w300, TextAlign.start, kText));
-    final user = Provider.of<NewUser?>(context);
+    final user = Provider.of<NewUserData>(context);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -248,7 +247,7 @@ class _GetInTouchFormState extends State<GetInTouchForm> {
         GestureDetector(
           onTap: () async {
             _category = dropDown.getSelected;
-            await DatabaseService(uid: user!.uid).submitFeedbackForm(_category!,
+            await DatabaseService(uid: user.uid).submitFeedbackForm(_category!,
                 _subject!, _description!, _email!, "_imageUrl", _name!);
             Navigator.pushNamed(context, "/settings");
           },

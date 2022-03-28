@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:handsfree/widgets/buildText.dart';
-import 'package:handsfree/widgets/constants.dart';
 
 class Acknowledgement extends StatelessWidget {
   const Acknowledgement({Key? key}) : super(key: key);
@@ -20,7 +18,7 @@ class Acknowledgement extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.only(left: 40, bottom: 5, right: 40),
           margin:
-          EdgeInsets.only(top: MediaQuery.of(context).size.height / 7.5),
+              EdgeInsets.only(top: MediaQuery.of(context).size.height / 7.5),
           child: Column(
             children: [
               buildText.bigTitle("Acknowledgement"),

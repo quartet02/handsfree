@@ -45,13 +45,13 @@ class Profile extends StatelessWidget {
                   backgroundColor: const Color(0xFFF0F5FF),
                   body: Container(
                     child: ListView(
-                      padding: EdgeInsets.fromLTRB(30, 30, 30, 0),
-                      physics: BouncingScrollPhysics(),
+                      padding: const EdgeInsets.fromLTRB(30, 30, 30, 0),
+                      physics: const BouncingScrollPhysics(),
                       children: [
                         Align(
                           alignment: Alignment.topRight,
                           child: IconButton(
-                            icon: Icon(Icons.settings),
+                            icon: const Icon(Icons.settings),
                             onPressed: () {
                               Navigator.pushNamed(context, '/settings');
                             },
@@ -125,7 +125,7 @@ class Profile extends StatelessWidget {
                   bottomNavigationBar: NavBar.bar(context, 4),
                 );
               } else {
-                print(snapshot2.error);
+                debugPrint(snapshot2.error.toString());
                 return Loading();
               }
             },

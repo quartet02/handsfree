@@ -29,7 +29,7 @@ class _FriendRequestCardState extends State<FriendRequestCard> {
   Widget build(BuildContext context) {
     NewUserData? user = Provider.of<NewUserData?>(context);
     bool isSent = widget.isSent;
-    if (user==null) return Loading();
+    if (user == null) return Loading();
     return GestureDetector(
       onTap: () {
         // Navigator.pushNamed(context, "/chatHome/chat", arguments: roomData);
@@ -58,7 +58,7 @@ class _FriendRequestCardState extends State<FriendRequestCard> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    print("pressed profile pic");
+                    debugPrint("pressed profile pic");
                   },
                   child: Container(
                     height: 50,
@@ -90,11 +90,10 @@ class _FriendRequestCardState extends State<FriendRequestCard> {
                       GestureDetector(
                         onTap: () async {
                           !widget.isSent
-                              ? await DatabaseService(
-                                      uid: UserPreference.get("uniqueId"))
-                                  .sendFriendRequest(widget.userData.uid, user.name!)
-                              : await DatabaseService(
-                                      uid: UserPreference.get("uniqueId"))
+                              ? await DatabaseService(uid: user.uid)
+                                  .sendFriendRequest(
+                                      widget.userData.uid, user.name!)
+                              : await DatabaseService(uid: user.uid)
                                   .retrieveFriendRequest(widget.userData.uid);
 
                           setState(() {
@@ -120,21 +119,21 @@ class _FriendRequestCardState extends State<FriendRequestCard> {
                       ),
                     ],
                   )
-                : responseActions(user.name!),
+                : responseActions(user.name!, user.uid!),
           ],
         ),
       ),
     );
   }
 
-  Widget responseActions(String createrName) {
+  Widget responseActions(String createrName, String uid) {
     return Row(
       children: [
         GestureDetector(
           onTap: () async {
-            await DatabaseService(uid: UserPreference.get("uniqueId"))
+            await DatabaseService(uid: uid)
                 .friendRequestAction(true, widget.userData.uid, createrName);
-            print("accepted");
+            debugPrint("accepted");
           },
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
@@ -151,9 +150,9 @@ class _FriendRequestCardState extends State<FriendRequestCard> {
         ),
         GestureDetector(
           onTap: () async {
-            await DatabaseService(uid: UserPreference.get("uniqueId"))
+            await DatabaseService(uid: uid)
                 .friendRequestAction(false, widget.userData.uid, createrName);
-            print("declined");
+            debugPrint("declined");
           },
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),

@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:handsfree/models/chatModel.dart';
 import 'package:handsfree/models/messageModel.dart';
@@ -7,7 +6,6 @@ import 'package:handsfree/provider/messageTimeProvider.dart';
 import 'package:handsfree/screens/chat/chatBar.dart';
 import 'package:handsfree/services/database.dart';
 import 'package:handsfree/widgets/buildText.dart';
-import 'package:handsfree/services/userPreference.dart';
 import 'package:provider/provider.dart';
 
 import 'chatBubble.dart';
