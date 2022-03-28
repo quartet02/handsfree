@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:handsfree/models/newUser.dart';
 import 'package:handsfree/services/database.dart';
 import 'package:handsfree/widgets/constants.dart';
@@ -23,7 +22,7 @@ class _ChatBarState extends State<ChatBar> {
   Widget build(BuildContext context) {
     NewUserData user = Provider.of<NewUserData>(context);
 
-    if (user == null) return Loading();
+    if (user == null) return const Loading();
 
     return Container(
       padding: const EdgeInsets.fromLTRB(10, 10, 10, 12),
@@ -31,10 +30,7 @@ class _ChatBarState extends State<ChatBar> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           GestureDetector(
-            onTap: () async {
-              // await DatabaseService(uid: UserPreference.get("uniqueId"))
-              //     .removeFriend("0YgPUtiQxRZjh25ZEGNRql1Ugxq2");
-            },
+            onTap: () async {},
             child: Container(
               height: 45,
               width: 45,
@@ -107,7 +103,7 @@ class _ChatBarState extends State<ChatBar> {
           GestureDetector(
             onTap: () async {
               if (input.trim().isNotEmpty) {
-                await DatabaseService(uid: UserPreference.get("uniqueId"))
+                await DatabaseService(uid: user.uid)
                     .sendMessage(widget.roomId, input, user.name!);
                 setState(() {
                   input = "";

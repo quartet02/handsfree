@@ -20,7 +20,6 @@ class _NewsListState extends State<NewsList> {
         padding: const EdgeInsets.symmetric(vertical: 20),
         physics: const BouncingScrollPhysics(),
         scrollDirection: Axis.vertical,
-        // shrinkWrap: true,
         itemCount: news.length,
         itemBuilder: (context, index) {
           return NewsTile(news: news[index]);

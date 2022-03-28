@@ -87,8 +87,6 @@ class SubLevel extends StatelessWidget {
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 53),
                               child: Row(
-                                // mainAxisAlignment: MainAxisAlignment.center,
-                                // crossAxisAlignment: CrossAxisAlignment.center,
                                 children: <Widget>[
                                   Container(
                                     width: 100,
@@ -130,14 +128,6 @@ class SubLevel extends StatelessWidget {
                                             return Container();
                                           }
                                         }),
-                                    // decoration: BoxDecoration(
-                                    //   image: DecorationImage(
-                                    //     alignment: Alignment.topCenter,
-                                    //     image: AssetImage(lesson.lessonImage),
-                                    //     fit: BoxFit.cover,
-                                    //     scale: 0.5,
-                                    //   ),
-                                    // ),
                                   ),
                                   Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
@@ -203,10 +193,6 @@ class SubLevel extends StatelessWidget {
                                     Provider.of<LessonCardProvider>(context,
                                             listen: false)
                                         .resetIndex();
-
-                                    //I dont know why Provider.of<LessonCardProvider>(context, listen: false)
-                                    //is null!!!!
-
                                     Provider.of<SubLessonProvider>(context,
                                             listen: false)
                                         .setClickLesson(subLessons[index]);

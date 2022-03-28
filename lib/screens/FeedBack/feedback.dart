@@ -9,9 +9,6 @@ class FeedBack extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double vheight = MediaQuery.of(context).size.height;
-    double vwidth = MediaQuery.of(context).size.width;
-
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(

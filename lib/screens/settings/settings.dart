@@ -153,22 +153,23 @@ class _SettingsState extends State<Settings> {
                             children: <Widget>[
                               Center(
                                 child: Container(
-                                    alignment: Alignment.center,
-                                    width: 200,
-                                    decoration: const BoxDecoration(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(20)),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: kButtonShadow,
-                                            offset: Offset(6, 6),
-                                            blurRadius: 6,
-                                          ),
-                                        ]),
-                                    child: Image.asset(
-                                      'assets/image/purple_button.png',
-                                      scale: 4,
-                                    )),
+                                  alignment: Alignment.center,
+                                  width: 200,
+                                  decoration: const BoxDecoration(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(20)),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: kButtonShadow,
+                                          offset: Offset(6, 6),
+                                          blurRadius: 6,
+                                        ),
+                                      ]),
+                                  child: Image.asset(
+                                    'assets/image/purple_button.png',
+                                    scale: 4,
+                                  ),
+                                ),
                               ),
                               Container(
                                 height: 40,

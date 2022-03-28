@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:handsfree/models/lessonModel.dart';
 import 'package:handsfree/provider/subLessonProvider.dart';
 import 'package:handsfree/widgets/buildButton.dart';
-import 'package:handsfree/widgets/constants.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:handsfree/widgets/buildConfetti.dart';
 import 'package:handsfree/widgets/buildText.dart';
 import 'package:provider/provider.dart';
@@ -75,10 +73,8 @@ class _CongratulationState extends State<Congratulation> {
                     ),
                     child: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
-                      margin: EdgeInsets.only(top: 14),
+                      margin: const EdgeInsets.only(top: 14),
                       child: Row(
-                        // mainAxisAlignment: MainAxisAlignment.center,
-                        // crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
                           Container(
                             width: 130,
@@ -116,7 +112,7 @@ class _CongratulationState extends State<Congratulation> {
                     text: 'Return',
                     word: '/sublevel',
                     buttonColor: 'white',
-                    buttonShadow: Color.fromARGB(100, 29, 40, 63),
+                    buttonShadow: const Color.fromARGB(100, 29, 40, 63),
                     isReplaced: true,
                   )
                 ],

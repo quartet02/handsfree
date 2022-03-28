@@ -17,7 +17,7 @@ class FriendBlock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: EdgeInsets.only(right: 10),
+        margin: const EdgeInsets.only(right: 10),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -40,11 +40,9 @@ class FriendBlock extends StatelessWidget {
                   ),
                 ),
                 child: isFirst
-                    ? Container(
-                        child: const Icon(
-                          Icons.chat_bubble,
-                          color: Colors.black,
-                        ),
+                    ? const Icon(
+                        Icons.chat_bubble,
+                        color: Colors.black,
                       )
                     : Container(
                         decoration: BoxDecoration(
