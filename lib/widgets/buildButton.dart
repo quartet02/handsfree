@@ -22,9 +22,9 @@ class buildButton extends StatelessWidget {
 
   void navigate(BuildContext context, String word, bool isReplaced) {
     if (isSignOut) {
+      Navigator.pushNamedAndRemoveUntil(context, "/auth", (route) => false);
       final AuthService _auth = AuthService();
       _auth.signOut();
-      Navigator.pushNamed(context, "/auth");
     } else {
       isReplaced
           ? Navigator.pushNamedAndRemoveUntil(

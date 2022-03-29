@@ -105,6 +105,18 @@ class AuthService {
 
       DatabaseService(uid: user.uid);
 
+      // init user database on successful registeration
+      await DatabaseService(uid: user.uid)
+        ..updateUserData(
+            0,
+            user.displayName ?? user.email!.substring(0, user.email!.lastIndexOf('@')),
+            user.phoneNumber ?? "",
+            'assets/image/character.png',
+            'Newbie Signer',
+            user.email!.substring(0, user.email!.lastIndexOf('@')))
+        ..buildUserLesson()
+        ..buildUserLog()
+        ..buildUserFriend();
       return [0, 'Logged in successfully'];
     } on FirebaseAuthException catch (e) {
       return [1, e.code];
