@@ -5,6 +5,7 @@ import 'package:handsfree/screens/learn/congrats.dart';
 import 'package:handsfree/widgets/buildText.dart';
 import 'package:handsfree/widgets/constants.dart';
 import 'package:handsfree/widgets/loadingWholeScreen.dart';
+import 'package:themed/themed.dart';
 
 import '../../services/medialoader.dart';
 
@@ -47,7 +48,7 @@ class _TranslatorState extends State<Translator> {
                 EdgeInsets.only(top: MediaQuery.of(context).size.height / 10),
             child: Column(
               children: [
-                buildText.bigTitle("Translator"),
+                buildText.bigTitle("Dictionary"),
                 const SizedBox(height: 20),
                 Container(
                   height: MediaQuery.of(context).size.height / 2.4,
@@ -83,14 +84,18 @@ class _TranslatorState extends State<Translator> {
                             ConnectionState.done) {
                           if (snapshot.hasData) {
                             try {
-                              return Container(
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    fit: BoxFit.cover,
-                                    scale: 4,
-                                    image:
-                                        Image.network(snapshot.data as String)
-                                            .image,
+                              return ChangeColors(
+                                brightness: 0.1,
+                                saturation: 0.2,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      fit: BoxFit.cover,
+                                      scale: 4,
+                                      image:
+                                          Image.network(snapshot.data as String)
+                                              .image,
+                                    ),
                                   ),
                                 ),
                               );

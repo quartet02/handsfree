@@ -17,8 +17,7 @@ class Acknowledgement extends StatelessWidget {
         ),
         child: Container(
           padding: const EdgeInsets.only(left: 40, bottom: 5, right: 40),
-          margin:
-              EdgeInsets.only(top: MediaQuery.of(context).size.height / 7.5),
+          margin: EdgeInsets.only(top: MediaQuery.of(context).size.height / 10),
           child: Column(
             children: [
               buildText.bigTitle("Acknowledgement"),
@@ -34,7 +33,7 @@ class Acknowledgement extends StatelessWidget {
                   breaker(50),
                   buildText.heading2Text("Contributors"),
                   breaker(20),
-                  buildText.heading3Text("4 ducks?")
+                  buildText.heading3Text("4 ducks")
                 ],
               ),
             ],

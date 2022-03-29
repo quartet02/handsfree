@@ -149,9 +149,9 @@ class NewsPage extends StatelessWidget {
           ),
         ),
         Container(
-            margin: EdgeInsets.only(
-                top: MediaQuery.of(context).size.height * 0.075),
-            padding: const EdgeInsets.symmetric(horizontal: 30),
+            padding: const EdgeInsets.only(left: 40, bottom: 5, right: 40),
+            margin:
+                EdgeInsets.only(top: MediaQuery.of(context).size.height / 10),
             alignment: Alignment.topCenter,
             child: buildText.bigTitle(news.newsFeedTitle))
       ],

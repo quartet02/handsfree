@@ -80,8 +80,8 @@ class _DictionaryState extends State<Dictionary> {
                   !isVisible
                       ? GestureDetector(
                           onTap: () {
-                            Navigator.pushReplacementNamed(
-                                context, '/translator');
+                            // Navigator.pushReplacementNamed(
+                            //     context, '/translator');
                           },
                           child: Stack(
                             children: <Widget>[

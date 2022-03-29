@@ -60,13 +60,13 @@ class buildText extends StatelessWidget {
   static Widget heading2Text(String text,
       [TextAlign textAlignment = TextAlign.start,
       TextOverflow tovf = TextOverflow.visible]) {
-    return textBox(text, 0, 20, tovf, FontWeight.w600, textAlignment, kText);
+    return textBox(text, 0, 20, tovf, FontWeight.w500, textAlignment, kText);
   }
 
   static Widget heading3Text(String text,
       [TextAlign textAlignment = TextAlign.start,
       TextOverflow tovf = TextOverflow.visible]) {
-    return textBox(text, 0, 16, tovf, FontWeight.w500, textAlignment, kText);
+    return textBox(text, 0, 16, tovf, FontWeight.w400, textAlignment, kText);
   }
 
   static Widget heading4Text(String text,

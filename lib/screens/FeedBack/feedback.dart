@@ -19,12 +19,12 @@ class FeedBack extends StatelessWidget {
           ),
         ),
         child: Container(
-          margin: const EdgeInsets.only(left: 30, bottom: 5, right: 30),
-          padding: const EdgeInsets.only(top: 60),
+          padding: const EdgeInsets.only(left: 40, bottom: 5, right: 40),
+          margin: EdgeInsets.only(top: MediaQuery.of(context).size.height / 10),
           child: Column(
             children: [
               buildText.bigTitle("Feedback"),
-              Breaker(i: 80),
+              Breaker(i: 60),
               Expanded(
                 child: ShaderMask(
                   shaderCallback: (Rect rect) {

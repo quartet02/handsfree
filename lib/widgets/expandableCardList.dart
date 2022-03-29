@@ -24,7 +24,9 @@ class ExpandableCardList extends StatelessWidget {
               itemBuilder: (context, index) {
                 return ExpandableNotifier(
                   child: Card(
-                    elevation: 2,
+                    elevation: 6,
+                    color: kTextLight,
+                    shadowColor: kTextShadow,
                     margin: const EdgeInsets.symmetric(vertical: 8),
                     child: ScrollOnExpand(
                       child: ExpandablePanel(

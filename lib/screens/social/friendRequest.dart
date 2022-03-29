@@ -87,7 +87,9 @@ class _FriendRequestState extends State<FriendRequest> {
           ),
         ),
         Container(
-            margin: const EdgeInsets.only(top: 60),
+            padding: const EdgeInsets.only(left: 40, bottom: 5, right: 40),
+            margin:
+                EdgeInsets.only(top: MediaQuery.of(context).size.height / 10),
             alignment: Alignment.topCenter,
             child: buildText.bigTitle("Friend Requests"))
       ],
