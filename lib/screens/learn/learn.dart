@@ -87,7 +87,7 @@ class _LearnState extends State<Learn> {
                 ),
                 child: Container(
                   padding:
-                      const EdgeInsets.only(left: 40, bottom: 5, right: 40),
+                      const EdgeInsets.only(left: 30, bottom: 5, right: 30),
                   margin: EdgeInsets.only(
                       top: MediaQuery.of(context).size.height / 10),
                   child: ListView(
@@ -185,9 +185,9 @@ class _LearnState extends State<Learn> {
                             child: ListView.builder(
                               physics: const BouncingScrollPhysics(),
                               scrollDirection: Axis.vertical,
-                              padding: EdgeInsets.only(
-                                  right: MediaQuery.of(context).size.width / 8,
-                                  left: MediaQuery.of(context).size.width / 12),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal:
+                                      MediaQuery.of(context).size.width / 8),
                               itemCount: lessons.length,
                               itemBuilder: (context, index) {
                                 return GestureDetector(

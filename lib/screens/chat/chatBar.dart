@@ -30,7 +30,15 @@ class _ChatBarState extends State<ChatBar> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           GestureDetector(
-            onTap: () async {},
+            onTap: () async {
+              // print("updating");
+              // List<String> ids = await DatabaseService().usersId;
+              // ids.forEach((id) async {
+              //   await DatabaseService(uid: id).buildUserLesson().onError(
+              //       (error, stackTrace) => {debugPrint(error.toString())});
+              // });
+              // print("done");
+            },
             child: Container(
               height: 45,
               width: 45,
