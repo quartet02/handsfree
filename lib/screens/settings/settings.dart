@@ -193,12 +193,12 @@ class _SettingsState extends State<Settings> {
                         buildText.heading2Text("General"),
                         breaker(20),
                         Container(
-                          height: 100,
+                          height: 50,
                           decoration: BoxDecoration(
                               color: Colors.transparent,
                               image: const DecorationImage(
                                 image:
-                                    AssetImage('assets/image/rect_row_2.png'),
+                                    AssetImage('assets/image/rect_row_1.png'),
                                 fit: BoxFit.cover,
                               ),
                               borderRadius: BorderRadius.circular(15),
@@ -259,12 +259,12 @@ class _SettingsState extends State<Settings> {
                         buildText.heading2Text("Notification"),
                         breaker(20),
                         Container(
-                          height: 100,
+                          height: 50,
                           decoration: BoxDecoration(
                               color: Colors.transparent,
                               image: const DecorationImage(
                                 image:
-                                    AssetImage('assets/image/rect_row_2.png'),
+                                    AssetImage('assets/image/rect_row_1.png'),
                                 fit: BoxFit.cover,
                               ),
                               borderRadius: BorderRadius.circular(15),
@@ -301,12 +301,12 @@ class _SettingsState extends State<Settings> {
                         ),
                         breaker(20),
                         Container(
-                          height: 250,
+                          height: 100,
                           decoration: BoxDecoration(
                               color: Colors.transparent,
                               image: const DecorationImage(
                                 image:
-                                    AssetImage('assets/image/rect_row_5.png'),
+                                    AssetImage('assets/image/rect_row_2.png'),
                                 fit: BoxFit.cover,
                               ),
                               borderRadius: BorderRadius.circular(15),
