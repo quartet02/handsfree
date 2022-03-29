@@ -28,11 +28,7 @@ class _LearnState extends State<Learn> {
     try {
       LessonRefresh.refresh();
     } catch (e) {
-<<<<<<< HEAD
-      print('Up to Date');
-=======
       debugPrint('Up to Date');
->>>>>>> b80f4e032822a04f831761e07c2262fa5daa31ee
     }
     super.initState();
   }
@@ -91,7 +87,7 @@ class _LearnState extends State<Learn> {
                 ),
                 child: Container(
                   padding:
-                      const EdgeInsets.only(left: 40, bottom: 5, right: 40),
+                      const EdgeInsets.only(left: 30, bottom: 5, right: 30),
                   margin: EdgeInsets.only(
                       top: MediaQuery.of(context).size.height / 10),
                   child: ListView(
@@ -187,19 +183,11 @@ class _LearnState extends State<Learn> {
                           return Container(
                             height: MediaQuery.of(context).size.height / 1.7,
                             child: ListView.builder(
-<<<<<<< HEAD
-                              physics: BouncingScrollPhysics(),
-                              scrollDirection: Axis.vertical,
-                              padding: EdgeInsets.only(
-                                  right: MediaQuery.of(context).size.width / 8,
-                                  left: MediaQuery.of(context).size.width / 12),
-=======
                               physics: const BouncingScrollPhysics(),
                               scrollDirection: Axis.vertical,
                               padding: EdgeInsets.symmetric(
                                   horizontal:
                                       MediaQuery.of(context).size.width / 8),
->>>>>>> b80f4e032822a04f831761e07c2262fa5daa31ee
                               itemCount: lessons.length,
                               itemBuilder: (context, index) {
                                 return GestureDetector(
@@ -211,25 +199,13 @@ class _LearnState extends State<Learn> {
                                       Provider.of<LessonProvider>(context,
                                               listen: false)
                                           .setPractical = true;
-<<<<<<< HEAD
-                                      print("isPractical");
-=======
                                       debugPrint("isPractical");
->>>>>>> b80f4e032822a04f831761e07c2262fa5daa31ee
                                     } else {
                                       Provider.of<LessonProvider>(context,
                                               listen: false)
                                           .setPractical = false;
-<<<<<<< HEAD
-                                      print("is not Practical");
-                                    }
-                                    // LessonModel lesson = context.read<LessonProvider>().getClickedLesson;
-                                    // print(lesson.lessonId);
-                                    // Navigator.pushNamed(context, PageTransition(type: PageTransitionType.leftToRight, child: const SubLevel()));
-=======
                                       debugPrint("is not Practical");
                                     }
->>>>>>> b80f4e032822a04f831761e07c2262fa5daa31ee
                                     Navigator.pushNamed(context, "/sublevel");
                                   },
                                   child: ColumnList(

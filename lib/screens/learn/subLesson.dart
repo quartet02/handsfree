@@ -64,7 +64,7 @@ class SubLevel extends StatelessWidget {
                 ),
                 child: Container(
                   padding:
-                      const EdgeInsets.only(left: 40, bottom: 5, right: 40),
+                      const EdgeInsets.only(left: 30, bottom: 5, right: 30),
                   margin: EdgeInsets.only(
                       top: MediaQuery.of(context).size.height / 20),
                   child: ListView(
@@ -89,6 +89,8 @@ class SubLevel extends StatelessWidget {
                               child: Row(
                                 children: <Widget>[
                                   Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10),
                                     width: 100,
                                     height: 200,
                                     alignment: Alignment.center,

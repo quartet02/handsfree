@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:handsfree/screens/learn/congrats.dart';
 import 'package:handsfree/widgets/buildText.dart';
 import 'package:handsfree/widgets/constants.dart';
@@ -67,7 +68,7 @@ class _TranslatorState extends State<Translator> {
                   // something happen here, dont know how to settle, just some annoying exception
 
                   child: FutureBuilder(
-                      future: getImage(widget.imgUrl!),
+                      future: FireStorageService.loadImage(widget.imgUrl!),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
@@ -78,19 +79,45 @@ class _TranslatorState extends State<Translator> {
                               strokeWidth: 1.0,
                             ),
                           );
-                        }
-                        if (snapshot.connectionState == ConnectionState.done) {
+                        } else if (snapshot.connectionState ==
+                            ConnectionState.done) {
                           if (snapshot.hasData) {
-                            return Container(
-                              width: MediaQuery.of(context).size.width / 1.2,
-                              height: MediaQuery.of(context).size.width / 1.2,
-                              child: snapshot.data as Widget,
-                            );
+                            try {
+                              return Container(
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    scale: 4,
+                                    image:
+                                        Image.network(snapshot.data as String)
+                                            .image,
+                                  ),
+                                ),
+                              );
+                            } catch (e) {
+                              return Container(
+                                child: Text(
+                                  'Coming Soon!',
+                                  style: GoogleFonts.montserrat(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w400,
+                                    color: kText,
+                                  ),
+                                ),
+                              );
+                            }
                           }
                         }
-                        debugPrint(
-                            'Image Path Does Not Exist in Firebase Storage -- Please Update Firebase');
-                        return Container();
+                        return Container(
+                          child: Text(
+                            'Error occured while loading iamge',
+                            style: GoogleFonts.montserrat(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w400,
+                              color: kText,
+                            ),
+                          ),
+                        );
                       }),
                 ),
                 Container(

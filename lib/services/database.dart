@@ -2243,7 +2243,7 @@ class DatabaseService {
       "lessonId": 001,
       "lessonName": "Lesson 1",
       "lessonDesc": "Alphabet A-E",
-      "lessonImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonImage": "assets/sublevel/Group 97.png",
       "isCompleted": false,
     });
 
@@ -2257,7 +2257,7 @@ class DatabaseService {
       "lessonId": 002,
       "lessonName": "Lesson 2",
       "lessonDesc": "Alphabet F-J",
-      "lessonImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonImage": "assets/sublevel/Group 98.png",
       "isCompleted": false,
     });
 
@@ -2271,7 +2271,7 @@ class DatabaseService {
       "lessonId": 003,
       "lessonName": "Lesson 3",
       "lessonDesc": "Alphabet K-O",
-      "lessonImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonImage": "assets/sublevel/Group 99.png",
       "isCompleted": false,
     });
 
@@ -2285,7 +2285,7 @@ class DatabaseService {
       "lessonId": 004,
       "lessonName": "Lesson 4",
       "lessonDesc": "Alphabet P-T",
-      "lessonImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonImage": "assets/sublevel/Group 100.png",
       "isCompleted": false,
     });
 
@@ -2299,7 +2299,7 @@ class DatabaseService {
       "lessonId": 005,
       "lessonName": "Lesson 5",
       "lessonDesc": "Alphabet U-Z",
-      "lessonImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonImage": "assets/sublevel/Group 101.png",
       "isCompleted": false,
     });
 
@@ -2316,7 +2316,7 @@ class DatabaseService {
       "lessonId": 001,
       "lessonName": "Lesson 1",
       "lessonDesc": "Greeting Signs",
-      "lessonImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonImage": "assets/sublevel/Group 109.png",
       "isCompleted": false,
     });
 
@@ -2330,7 +2330,7 @@ class DatabaseService {
       "lessonId": 002,
       "lessonName": "Lesson 2",
       "lessonDesc": "Greeting Signs 2",
-      "lessonImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonImage": "assets/sublevel/Group 108.png",
       "isCompleted": false,
     });
 
@@ -2344,7 +2344,7 @@ class DatabaseService {
       "lessonId": 003,
       "lessonName": "Lesson 3",
       "lessonDesc": "Asking Signs",
-      "lessonImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonImage": "assets/sublevel/Group 107.png",
       "isCompleted": false,
     });
 
@@ -2358,7 +2358,7 @@ class DatabaseService {
       "lessonId": 004,
       "lessonName": "Lesson 4",
       "lessonDesc": "Responsive Signs",
-      "lessonImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonImage": "assets/sublevel/Group 106.png",
       "isCompleted": false,
     });
 
@@ -2372,7 +2372,7 @@ class DatabaseService {
       "lessonId": 005,
       "lessonName": "Lesson 5",
       "lessonDesc": "Common Signs \nin Asking",
-      "lessonImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonImage": "assets/sublevel/Group 105.png",
       "isCompleted": false,
     });
 
@@ -2386,7 +2386,7 @@ class DatabaseService {
       "lessonId": 006,
       "lessonName": "Lesson 6",
       "lessonDesc": "Last Lesson!!!",
-      "lessonImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonImage": "assets/sublevel/Group 102.png",
       "isCompleted": false,
     });
 
@@ -2403,7 +2403,7 @@ class DatabaseService {
       "lessonId": 001,
       "lessonName": "Lesson 1",
       "lessonDesc": "Alphabet A-E",
-      "lessonImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonImage": "assets/sublevel/Group 97.png",
       "isCompleted": false,
     });
 
@@ -2417,7 +2417,7 @@ class DatabaseService {
       "lessonId": 002,
       "lessonName": "Lesson 2",
       "lessonDesc": "Alphabet F-J",
-      "lessonImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonImage": "assets/sublevel/Group 98.png",
       "isCompleted": false,
     });
 
@@ -2431,7 +2431,7 @@ class DatabaseService {
       "lessonId": 003,
       "lessonName": "Lesson 3",
       "lessonDesc": "Alphabet K-O",
-      "lessonImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonImage": "assets/sublevel/Group 99.png",
       "isCompleted": false,
     });
 
@@ -2445,7 +2445,7 @@ class DatabaseService {
       "lessonId": 004,
       "lessonName": "Lesson 4",
       "lessonDesc": "Alphabet P-T",
-      "lessonImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonImage": "assets/sublevel/Group 100.png",
       "isCompleted": false,
     });
 
@@ -2459,7 +2459,7 @@ class DatabaseService {
       "lessonId": 005,
       "lessonName": "Lesson 5",
       "lessonDesc": "Alphabet U-Z",
-      "lessonImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonImage": "assets/sublevel/Group 101.png",
       "isCompleted": false,
     });
 
@@ -2476,7 +2476,7 @@ class DatabaseService {
       "lessonId": 001,
       "lessonName": "Lesson 1",
       "lessonDesc": "Greeting Signs",
-      "lessonImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonImage": "assets/sublevel/Group 109.png",
       "isCompleted": false,
     });
 
@@ -2490,7 +2490,7 @@ class DatabaseService {
       "lessonId": 002,
       "lessonName": "Lesson 2",
       "lessonDesc": "Greeting Signs 2",
-      "lessonImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonImage": "assets/sublevel/Group 108.png",
       "isCompleted": false,
     });
 
@@ -2504,7 +2504,7 @@ class DatabaseService {
       "lessonId": 003,
       "lessonName": "Lesson 3",
       "lessonDesc": "Asking Signs",
-      "lessonImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonImage": "assets/sublevel/Group 107.png",
       "isCompleted": false,
     });
 
@@ -2518,7 +2518,7 @@ class DatabaseService {
       "lessonId": 004,
       "lessonName": "Lesson 4",
       "lessonDesc": "Responsive Signs",
-      "lessonImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonImage": "assets/sublevel/Group 106.png",
       "isCompleted": false,
     });
 
@@ -2532,7 +2532,7 @@ class DatabaseService {
       "lessonId": 005,
       "lessonName": "Lesson 5",
       "lessonDesc": "Common Signs \nin Asking",
-      "lessonImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonImage": "assets/sublevel/Group 105.png",
       "isCompleted": false,
     });
 
@@ -2546,7 +2546,7 @@ class DatabaseService {
       "lessonId": 006,
       "lessonName": "Lesson 6",
       "lessonDesc": "Last Lesson!!!",
-      "lessonImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonImage": "assets/sublevel/Group 102.png",
       "isCompleted": false,
     });
 
@@ -2591,7 +2591,7 @@ class DatabaseService {
       "lessonId": 003,
       "lessonName": "Practical 1",
       "lessonDesc": "Assignments",
-      "lessonImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonImage": "assets/sublevel/Group 104.png",
       "isCompleted": false,
     });
 
@@ -2605,7 +2605,7 @@ class DatabaseService {
       "lessonId": 004,
       "lessonName": "Practical 2",
       "lessonDesc": "Sentences",
-      "lessonImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonImage": "assets/sublevel/Group 104.png",
       "isCompleted": false,
     });
 
