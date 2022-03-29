@@ -29,7 +29,45 @@ class Acknowledgement extends StatelessWidget {
                   buildText.heading2Text(
                       "We use these open source libraries to make Handsfree"),
                   breaker(20),
-                  buildText.heading3Text("Example"),
+                  buildText.heading3Text("""
+                  - async
+                  - autocomplete_textfield
+                  - camera
+                  - cloud_firestore
+                  - cloud_functions
+                  - confetti
+                  - cupertino_icons
+                  - cupertino_will_pop_scope
+                  - expandable
+                  - file_picker
+                  - firebase_auth
+                  - firebase_core
+                  - firebase_database
+                  - firebase_storage
+                  - firebase_messaging
+                  - flamingo
+                  - flamingo_annotation
+                  - fluttertoast 
+                  - flutter_cube
+                  - flutter_polygon
+                  - flutter_spinkit
+                  - flutter_svg
+                  - flutter_typeahead
+                  - flutter_webrtc
+                  - gallery_saver
+                  - google_fonts
+                  - google_sign_in
+                  - intl
+                  - page_transition
+                  - path_provider
+                  - percent_indicator
+                  - provider
+                  - rxdart
+                  - themed
+                  - shared_preferences
+                  - simple_shadow
+                  - video_player
+                  - image_picker"""),
                   breaker(50),
                   buildText.heading2Text("Contributors"),
                   breaker(20),

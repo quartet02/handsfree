@@ -133,7 +133,7 @@ class _TranslatorState extends State<Translator> {
                     children: [
                       const SizedBox(height: 30),
                       buildText.learningText(widget.word!),
-                      buildText.heading2Text(widget.phoneticSymbol!),
+                      Text(widget.phoneticSymbol!),
                       const SizedBox(height: 20),
                       buildText.heading3Text(widget.definition!),
                     ],
