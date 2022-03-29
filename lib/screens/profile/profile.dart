@@ -45,7 +45,11 @@ class Profile extends StatelessWidget {
                   backgroundColor: const Color(0xFFF0F5FF),
                   body: Container(
                     child: ListView(
-                      padding: const EdgeInsets.fromLTRB(30, 30, 30, 0),
+                      padding: EdgeInsets.only(
+                          top: MediaQuery.of(context).size.height / 20,
+                          left: 30,
+                          bottom: 5,
+                          right: 30),
                       physics: const BouncingScrollPhysics(),
                       children: [
                         Align(
