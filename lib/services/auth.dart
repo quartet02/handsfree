@@ -11,7 +11,7 @@ class AuthService {
   Future signUpWithEmailAndPassword(String email, String password) async {
     try {
       UserCredential result = await _auth.createUserWithEmailAndPassword(
-          email: email, password: password);
+          email: email.trim(), password: password);
       User user = result.user!;
 
       // add uid to SharedPreferences for easy access
@@ -126,9 +126,11 @@ class AuthService {
     await _auth.signOut();
   }
 
-  Future<NewUserData?> _newUserDataFromFirebaseUser(User? user) async{
+  Future<NewUserData?> _newUserDataFromFirebaseUser(User? user) async {
     var snap = await DatabaseService().getNewUserDataSnapshot(user);
-    return snap == null ? null : NewUserData.fromMap(snap.data() as Map<String, dynamic>);
+    return snap == null
+        ? null
+        : NewUserData.fromMap(snap.data() as Map<String, dynamic>);
   }
 
   Stream<NewUserData?> get newUserData {
