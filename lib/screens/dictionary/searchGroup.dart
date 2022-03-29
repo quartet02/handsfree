@@ -16,7 +16,7 @@ class SearchGroup extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
             decoration: BoxDecoration(
               color: kTextLight,
-              borderRadius: BorderRadius.circular(18),
+              borderRadius: BorderRadius.circular(25),
               boxShadow: const [
                 BoxShadow(
                   color: kTextShadow,
@@ -25,11 +25,16 @@ class SearchGroup extends StatelessWidget {
                 ),
               ],
             ),
-            height: dict.suggestion.length == 1
-                ? 95
-                : dict.suggestion.length <= 4
-                    ? 102 + (dict.suggestion.length - 1) * 50
-                    : 110 + 3 * 50,
+            height: dict.suggestion.length == 0
+                ? 0
+                : dict.suggestion.length == 1
+                    ? MediaQuery.of(context).size.width / 3
+                    : dict.suggestion.length == 2
+                        ? MediaQuery.of(context).size.width / 2.3
+                        : dict.suggestion.length == 3
+                            ? MediaQuery.of(context).size.width / 1.66666666
+                            : MediaQuery.of(context).size.width /
+                                (1.3333333333),
             child: ListView.builder(
               physics: const BouncingScrollPhysics(),
               itemCount: dict.suggestion.length,
