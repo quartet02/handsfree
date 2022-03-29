@@ -71,6 +71,11 @@ Next step of our projects is to: <br />
     5) Implement Sign Language Processing <br />
 &emsp;&emsp;- Since the grammar of sign language is different from English, we have to use sign language processing in order to arrange the translated words from signs in the order that people can understand. <br />
 
+## Architecture
+- Firebase Firestore (NoSQL)
+- Firebase Storage
+- Flutter (Dart)
+- Mediapipe
 
 ## Library Used
 - async
