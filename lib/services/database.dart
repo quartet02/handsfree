@@ -2563,7 +2563,7 @@ class DatabaseService {
       "lessonId": 001,
       "lessonName": "Lesson 1",
       "lessonDesc": "Alphabets",
-      "lessonImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonImage": "assets/sublevel/Group 119.png",
       "isCompleted": false,
     });
 
@@ -2577,7 +2577,7 @@ class DatabaseService {
       "lessonId": 002,
       "lessonName": "Lesson 2",
       "lessonDesc": "Basic Signs",
-      "lessonImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonImage": "assets/sublevel/Group 118.png",
       "isCompleted": false,
     });
 
@@ -2591,7 +2591,7 @@ class DatabaseService {
       "lessonId": 003,
       "lessonName": "Practical 1",
       "lessonDesc": "Assignments",
-      "lessonImage": "assets/sublevel/Group 104.png",
+      "lessonImage": "assets/sublevel/Group 120.png",
       "isCompleted": false,
     });
 
@@ -2605,7 +2605,7 @@ class DatabaseService {
       "lessonId": 004,
       "lessonName": "Practical 2",
       "lessonDesc": "Sentences",
-      "lessonImage": "assets/sublevel/Group 104.png",
+      "lessonImage": "assets/sublevel/Group 117.png",
       "isCompleted": false,
     });
 
