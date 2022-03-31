@@ -42,6 +42,9 @@ handsfree
     └── Sign Up
 </pre> 
 
+## Installation
+You can either download the testing version from [Google Play Store](https://play.google.com/apps/internaltest/4701593700339110422) or pull this version to you local machine and run it in the android emulator.
+
 ## Collaborator
 We are first year student from University of Malaya, Malaysia who commit ourselves in Google Solution 2022 and aims to achieve United Nation's SGD 4 and 10 which are Quality Education and Reduced Inequalities respectively. 
 
