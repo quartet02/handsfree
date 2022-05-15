@@ -35,8 +35,7 @@ class Authenticate extends StatelessWidget {
                       buttonColor: 'white'),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(
-                      bottom: MediaQuery.of(context).size.height / 40),
+                  padding: const EdgeInsets.only(bottom: 10),
                   child: buildButton(
                       text: 'Sign up',
                       word: '/auth/signUp',
@@ -58,12 +57,12 @@ class Authenticate extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      // GestureDetector(
-                      //     onTap: () {
-                      //       // _auth.signInWithFacebook();
-                      //     },
-                      //     child: Image.asset('assets/image/facebook_icon.png',
-                      //         scale: 4)),
+                      GestureDetector(
+                          onTap: () {
+                            // _auth.signInWithFacebook();
+                          },
+                          child: Image.asset('assets/image/facebook_icon.png',
+                              scale: 4)),
                       GestureDetector(
                           onTap: () {
                             _auth.signInWithGoogle();
