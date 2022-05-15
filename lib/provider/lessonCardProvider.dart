@@ -3,6 +3,9 @@ import 'package:handsfree/models/lessonCardModel.dart';
 
 class LessonCardProvider with ChangeNotifier {
   int index = 0;
+  int typeOfTest = 0;
+  List<int> numOfTest = [];
+  bool currentQuesCrt = false;
 
   List<LessonCardModel> cardLessons = lessonCardData
       .map(
@@ -36,6 +39,7 @@ class LessonCardProvider with ChangeNotifier {
   }
 
   void setCardLessons(List<LessonCardModel> lessonCard) {
+    numOfTest = List.filled(lessonCard.length, 0);
     cardLessons = lessonCard;
   }
 
@@ -46,6 +50,21 @@ class LessonCardProvider with ChangeNotifier {
 
   void resetIndex() {
     index = 0;
+  }
+
+  set setTypeOfTest(int i){
+    typeOfTest = i;
+  }
+
+  void _numOfTestIncrement() {
+    numOfTest[index] += 1;
+  }
+
+  void checkAns(String input){
+    if (cardLessons[index].lessonCardTitle.toString().toUpperCase().compareTo(input.toUpperCase()) == 0) currentQuesCrt=true;
+    _numOfTestIncrement();
+    print("isnt");
+    currentQuesCrt=false;
   }
 }
 

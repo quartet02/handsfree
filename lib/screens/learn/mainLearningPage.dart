@@ -16,6 +16,8 @@ import '../../services/medialoader.dart';
 import '../../widgets/loadingWholeScreen.dart';
 import 'package:themed/themed.dart';
 
+import 'choices.dart';
+
 class MainLearningPage extends StatefulWidget {
   const MainLearningPage({Key? key}) : super(key: key);
 
@@ -41,6 +43,7 @@ class _MainLearningPageState extends State<MainLearningPage>
 
   @override
   Widget build(BuildContext context) {
+    int typeOfTest = 1;
     bool isPractical = Provider.of<LessonProvider>(context).getPractical;
     debugPrint("main learning page is practical: $isPractical");
     LessonModel subLesson =
@@ -230,11 +233,16 @@ class _MainLearningPageState extends State<MainLearningPage>
                             padding: EdgeInsets.only(bottom: 5),
                           ),
                           Stack(
+                            alignment: AlignmentDirectional.center,
                             children: [
                               Container(
-                                width: MediaQuery.of(context).size.width,
-                                height:
-                                    MediaQuery.of(context).size.height / 2.4,
+                                width: typeOfTest == 1 && isPractical
+                                    ? MediaQuery.of(context).size.width / 3
+                                    : MediaQuery.of(context).size.width,
+                                // change image container height if it's mcq
+                                height: typeOfTest == 1 && isPractical
+                                    ? MediaQuery.of(context).size.height / 5
+                                    : MediaQuery.of(context).size.height / 2.4,
                                 decoration: const BoxDecoration(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(20)),
@@ -254,8 +262,9 @@ class _MainLearningPageState extends State<MainLearningPage>
                               Container(
                                 alignment: Alignment.bottomCenter,
                                 width: MediaQuery.of(context).size.width,
-                                height:
-                                    MediaQuery.of(context).size.height / 2.45,
+                                height: typeOfTest == 1 && isPractical
+                                    ? MediaQuery.of(context).size.height / 4
+                                    : MediaQuery.of(context).size.height / 2.45,
                                 child: FutureBuilder(
                                     future: FireStorageService.loadImage(
                                         cardLesson[providerCardLesson.index]
@@ -339,104 +348,122 @@ class _MainLearningPageState extends State<MainLearningPage>
                                       blurRadius: 6,
                                     ),
                                   ]),
-                              child: TextField(
-                                decoration: InputDecoration(
-                                  contentPadding: const EdgeInsets.symmetric(
-                                      horizontal: 20.0),
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(25),
-                                    borderSide: const BorderSide(
-                                      width: 0,
-                                      style: BorderStyle.none,
-                                    ),
-                                  ),
-                                  hintText: "Your answer",
-                                  labelStyle: GoogleFonts.montserrat(
-                                    fontSize: 12.8,
-                                    fontWeight: FontWeight.w400,
-                                    color: kTextFieldText,
-                                  ),
-                                  hintStyle: GoogleFonts.montserrat(
-                                    fontSize: 12.8,
-                                    fontWeight: FontWeight.w400,
-                                    color: kTextFieldText,
-                                  ),
-                                  fillColor: kTextLight,
-                                  filled: false,
-                                ),
-                                controller: _controller,
-                                onSubmitted: (String value) async {
-                                  checkAns(
-                                      value,
-                                      cardLesson[providerCardLesson.index]
-                                          .lessonCardTitle);
-                                  if (providerCardLesson.index ==
-                                      cardLesson.length - 1) {
-                                    DatabaseService(uid: user.uid)
-                                        .updateIsCompletedSubLesson(
-                                            syllabus,
-                                            lesson,
-                                            cardLesson[providerCardLesson.index]
-                                                .lessonId);
-                                    DatabaseService(uid: user.uid)
-                                        .updateExperience();
-                                    DatabaseService(uid: user.uid)
-                                        .updateIsCompletedLesson(
-                                            syllabus, lesson);
-                                    Navigator.pushNamed(
-                                        context, "/congratulation");
-                                  } else {
-                                    DatabaseService(uid: user.uid)
-                                        .updateIsCompletedSubLesson(
-                                            syllabus,
-                                            lesson,
-                                            cardLesson[providerCardLesson.index]
-                                                .lessonId);
-                                    DatabaseService(uid: user.uid)
-                                        .updateExperience();
-                                    providerCardLesson.increment();
-                                  }
-                                },
-                              ),
+                              child:
+                                  // if is text field
+                                  typeOfTest == 1
+                                      ? Choices(options: ["A", "B", "c", "d"])
+                                      : TextField(
+                                          decoration: InputDecoration(
+                                            contentPadding:
+                                                const EdgeInsets.symmetric(
+                                                    horizontal: 20.0),
+                                            border: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(25),
+                                              borderSide: const BorderSide(
+                                                width: 0,
+                                                style: BorderStyle.none,
+                                              ),
+                                            ),
+                                            hintText: "Your answer",
+                                            labelStyle: GoogleFonts.montserrat(
+                                              fontSize: 12.8,
+                                              fontWeight: FontWeight.w400,
+                                              color: kTextFieldText,
+                                            ),
+                                            hintStyle: GoogleFonts.montserrat(
+                                              fontSize: 12.8,
+                                              fontWeight: FontWeight.w400,
+                                              color: kTextFieldText,
+                                            ),
+                                            fillColor: kTextLight,
+                                            filled: false,
+                                          ),
+                                          controller: _controller,
+                                          onSubmitted: (String value) async {
+                                            bool isCrt = checkAns(
+                                                value,
+                                                cardLesson[providerCardLesson
+                                                        .index]
+                                                    .lessonCardTitle);
+                                            if (isCrt){
+                                              if (providerCardLesson.index ==
+                                                  cardLesson.length - 1) {
+                                                DatabaseService(uid: user.uid)
+                                                    .updateIsCompletedSubLesson(
+                                                    syllabus,
+                                                    lesson,
+                                                    cardLesson[
+                                                    providerCardLesson
+                                                        .index]
+                                                        .lessonId);
+                                                DatabaseService(uid: user.uid)
+                                                    .updateExperience();
+                                                DatabaseService(uid: user.uid)
+                                                    .updateIsCompletedLesson(
+                                                    syllabus, lesson);
+                                                Navigator.pushNamed(
+                                                    context, "/congratulation");
+                                              } else {
+                                                DatabaseService(uid: user.uid)
+                                                    .updateIsCompletedSubLesson(
+                                                    syllabus,
+                                                    lesson,
+                                                    cardLesson[
+                                                    providerCardLesson
+                                                        .index]
+                                                        .lessonId);
+                                                DatabaseService(uid: user.uid)
+                                                    .updateExperience();
+                                                providerCardLesson.increment();
+                                              }
+                                            }
+
+                                          },
+                                        ),
                             ),
                           Padding(
                             padding: const EdgeInsets.only(top: 20),
                             child: GestureDetector(
                                 onTap: () {
+                                  bool isCrt = true;
                                   if (isPractical) {
-                                    checkAns(
+                                    isCrt = checkAns(
                                         _controller.value.text,
                                         cardLesson[providerCardLesson.index]
                                             .lessonCardTitle);
                                     _controller.clear();
                                   }
 
-                                  if (providerCardLesson.index ==
-                                      cardLesson.length - 1) {
-                                    DatabaseService(uid: user.uid)
-                                        .updateIsCompletedSubLesson(
-                                            syllabus,
-                                            lesson,
-                                            cardLesson[providerCardLesson.index]
-                                                .lessonId);
-                                    DatabaseService(uid: user.uid)
-                                        .updateExperience();
-                                    DatabaseService(uid: user.uid)
-                                        .updateIsCompletedLesson(
-                                            syllabus, lesson);
-                                    Navigator.pushNamed(
-                                        context, "/congratulation");
-                                  } else {
-                                    DatabaseService(uid: user.uid)
-                                        .updateIsCompletedSubLesson(
-                                            syllabus,
-                                            lesson,
-                                            cardLesson[providerCardLesson.index]
-                                                .lessonId);
-                                    DatabaseService(uid: user.uid)
-                                        .updateExperience();
-                                    providerCardLesson.increment();
+                                  if (isCrt){
+                                    if (providerCardLesson.index ==
+                                        cardLesson.length - 1) {
+                                      DatabaseService(uid: user.uid)
+                                          .updateIsCompletedSubLesson(
+                                          syllabus,
+                                          lesson,
+                                          cardLesson[providerCardLesson.index]
+                                              .lessonId);
+                                      DatabaseService(uid: user.uid)
+                                          .updateExperience();
+                                      DatabaseService(uid: user.uid)
+                                          .updateIsCompletedLesson(
+                                          syllabus, lesson);
+                                      Navigator.pushNamed(
+                                          context, "/congratulation");
+                                    } else {
+                                      DatabaseService(uid: user.uid)
+                                          .updateIsCompletedSubLesson(
+                                          syllabus,
+                                          lesson,
+                                          cardLesson[providerCardLesson.index]
+                                              .lessonId);
+                                      DatabaseService(uid: user.uid)
+                                          .updateExperience();
+                                      providerCardLesson.increment();
+                                    }
                                   }
+
                                 },
                                 child: Stack(children: <Widget>[
                                   Center(
@@ -486,7 +513,7 @@ class _MainLearningPageState extends State<MainLearningPage>
         });
   }
 
-  void checkAns(String value, String ans) {
+  bool checkAns(String value, String ans) {
     String msg = "Incorrect Answer";
     bool isCrt = false;
     if (value.toUpperCase().trim() == ans) {
@@ -499,6 +526,7 @@ class _MainLearningPageState extends State<MainLearningPage>
       backgroundColor: kPurpleLight,
     ));
     _controller.clear();
-    if (!isCrt) Navigator.pushReplacementNamed(context, '/sublevel');
+    return isCrt;
+    // if (!isCrt) Navigator.pushReplacementNamed(context, '/sublevel');
   }
 }
