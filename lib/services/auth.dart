@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../models/newUser.dart';
 
 class AuthService {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  static final FirebaseAuth _auth = FirebaseAuth.instance;
 
   Future signUpWithEmailAndPassword(String email, String password) async {
     try {
@@ -98,12 +98,26 @@ class AuthService {
     try {
       UserCredential result = await _auth.signInWithCredential(credential);
       User user = result.user!;
-
+      if(result.additionalUserInfo!.isNewUser){
+        // init user database on successful registeration
+        await DatabaseService(uid: user.uid)
+          ..updateUserData(
+              0,
+              user.displayName ?? user.email!.substring(0, user.email!.lastIndexOf('@')),
+              user.phoneNumber ?? "",
+              'assets/image/character.png',
+              'Newbie Signer',
+              user.email!.substring(0, user.email!.lastIndexOf('@')))
+          ..buildUserLesson()
+          ..buildUserLog()
+          ..buildUserFriend();
+      };
       // add uid to SharedPreferences for easy access
       final pref = await SharedPreferences.getInstance();
       await pref.setString("uniqueId", user.uid);
 
       DatabaseService(uid: user.uid);
+
 
       return [0, 'Logged in successfully'];
     } on FirebaseAuthException catch (e) {
