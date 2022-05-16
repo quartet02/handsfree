@@ -30,6 +30,7 @@ class _TextFormState extends State<TextForm> {
   @override
   Widget build(BuildContext context) {
     LessonCardProvider provider = Provider.of<LessonCardProvider>(context);
+    provider.submissionTriggerFunction = _controller.clear;
 
     return TextField(
       decoration: InputDecoration(
@@ -59,8 +60,11 @@ class _TextFormState extends State<TextForm> {
         filled: false,
       ),
       controller: _controller,
+      onChanged: (String value){
+        provider.setQuesInput = value;
+      },
       onSubmitted: (String value) async {
-        provider.checkAns(value);
+        provider.checkAns();
       },
     );
   }

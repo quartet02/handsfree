@@ -15,7 +15,8 @@ class ChoiceCard extends StatelessWidget {
 
     return GestureDetector(
       onTap: (){
-        provider.checkAns(header);
+        provider.setQuesInput = header;
+        provider.checkAns();
       },
       child: Container(
         child: Row(

@@ -4,13 +4,13 @@ import 'package:handsfree/screens/learn/choiceCard.dart';
 import 'package:provider/provider.dart';
 
 class Choices extends StatelessWidget {
-  final List<String> options;
 
-  const Choices({Key? key, required this.options}) : super(key: key);
+  const Choices({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     LessonCardProvider provider = Provider.of<LessonCardProvider>(context);
+    final List<String> options = provider.getMcqOptions;
 
     return Column(
       children: [

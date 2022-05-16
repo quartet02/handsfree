@@ -1,9 +1,11 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:handsfree/models/lessonCardModel.dart';
 import 'package:handsfree/models/lessonModel.dart';
 import 'package:handsfree/provider/lessonCardProvider.dart';
 import 'package:handsfree/provider/lessonProvider.dart';
 import 'package:handsfree/provider/subLessonProvider.dart';
+import 'package:handsfree/screens/learn/textForm.dart';
 import 'package:handsfree/services/database.dart';
 import 'package:handsfree/widgets/buildText.dart';
 import 'package:handsfree/widgets/constants.dart';
@@ -27,29 +29,54 @@ class MainLearningPage extends StatefulWidget {
 
 class _MainLearningPageState extends State<MainLearningPage>
     with SingleTickerProviderStateMixin {
-  late TextEditingController _controller;
-
-  @override
-  void initState() {
-    _controller = TextEditingController();
-    super.initState();
-  }
+  final Stopwatch stopwatch = Stopwatch();
+  late Timer oneSecTimer;
+  final int countDownTime = 10;
+  final ValueNotifier<int> _remainingTime = ValueNotifier<int>(10);
 
   @override
   void dispose() {
-    _controller.dispose();
+    stopwatch.stop();
+    oneSecTimer.cancel();
     super.dispose();
   }
 
   @override
+  void deactivate() {
+    stopwatch.stop();
+    oneSecTimer.cancel();
+    super.deactivate();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    oneSecTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      _remainingTime.value = _remainingTime.value - 1;
+
+      if (_remainingTime.value <= 0) {
+        timer.cancel();
+        // Put database func here
+        debugPrint(Provider.of<LessonCardProvider?>(context, listen: false)
+            ?.testResult
+            .toString());
+        Navigator.pushNamed(context, "/congratulation");
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    int typeOfTest = 1;
     bool isPractical = Provider.of<LessonProvider>(context).getPractical;
+    if (!isPractical) oneSecTimer.cancel();
+
     debugPrint("main learning page is practical: $isPractical");
+
     LessonModel subLesson =
         context.read<SubLessonProvider>().getClickedSubLesson;
     String syllabus = context.read<SubLessonProvider>().getSyllabus;
     String lesson = 'Unknown';
+
     switch (subLesson.lessonId) {
       case 1:
         lesson = "Lesson 1";
@@ -77,7 +104,9 @@ class _MainLearningPageState extends State<MainLearningPage>
     final user = Provider.of<NewUserData?>(context);
     final provider = Provider.of<LessonCardProvider?>(context, listen: false);
 
-    if (user == null) return Loading();
+    if (user == null || provider == null) return Loading();
+
+    int typeOfTest = Provider.of<LessonCardProvider?>(context)!.getCurrentTypeOfTest;
 
     return StreamBuilder<List<LessonCardModel>?>(
         stream: DatabaseService(uid: user.uid)
@@ -86,9 +115,20 @@ class _MainLearningPageState extends State<MainLearningPage>
           if (snapshot.hasData) {
             List<LessonCardModel>? lessonCard = snapshot.data;
 
-            if (lessonCard!.isNotEmpty && provider != null) {
+            if (lessonCard!.isNotEmpty) {
               provider.setCardLessons(lessonCard);
             }
+
+            if(provider.index == 0){
+              provider.initTime();
+
+              if (isPractical) {
+                provider.initTest();
+              }
+            }
+
+            stopwatch.reset();
+            stopwatch.start();
 
             return Scaffold(
               body: Container(
@@ -105,6 +145,35 @@ class _MainLearningPageState extends State<MainLearningPage>
                     var cardLesson = providerCardLesson!.cardLessons;
                     double progress =
                         (providerCardLesson.index) / cardLesson.length;
+
+                    void updateDB() {
+                      _remainingTime.value = countDownTime;
+                      stopwatch.stop();
+                      provider.setStopwatch(stopwatch.elapsed);
+
+                      if (providerCardLesson.index == cardLesson.length - 1) {
+                        DatabaseService(uid: user.uid)
+                            .updateIsCompletedSubLesson(syllabus, lesson,
+                                cardLesson[providerCardLesson.index].lessonId);
+                        DatabaseService(uid: user.uid).updateExperience();
+                        DatabaseService(uid: user.uid)
+                            .updateIsCompletedLesson(syllabus, lesson);
+                        // put database func here
+                        debugPrint(provider.testResult.toString());
+                        Navigator.pushNamed(context, "/congratulation");
+                      } else {
+                        DatabaseService(uid: user.uid)
+                            .updateIsCompletedSubLesson(syllabus, lesson,
+                                cardLesson[providerCardLesson.index].lessonId);
+                        DatabaseService(uid: user.uid).updateExperience();
+                        providerCardLesson.increment();
+
+                      }
+                    }
+
+                    provider.updateDBFunction = updateDB;
+                    provider.showMessageFunction = showMessage;
+
                     return Container(
                       alignment: Alignment.center,
                       padding:
@@ -114,6 +183,13 @@ class _MainLearningPageState extends State<MainLearningPage>
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
+                          isPractical
+                              ? ValueListenableBuilder(
+                                  valueListenable: _remainingTime,
+                                  builder: (context, value, child) {
+                                    return Text(value.toString());
+                                  })
+                              : Container(),
                           Container(
                             height: 130,
                             decoration: const BoxDecoration(
@@ -227,8 +303,7 @@ class _MainLearningPageState extends State<MainLearningPage>
                           isPractical
                               ? Container()
                               : buildText.learningText(
-                                  cardLesson[providerCardLesson.index]
-                                      .lessonCardTitle),
+                                  provider.getCurrentLesson.lessonCardTitle),
                           const Padding(
                             padding: EdgeInsets.only(bottom: 5),
                           ),
@@ -267,8 +342,8 @@ class _MainLearningPageState extends State<MainLearningPage>
                                     : MediaQuery.of(context).size.height / 2.45,
                                 child: FutureBuilder(
                                     future: FireStorageService.loadImage(
-                                        cardLesson[providerCardLesson.index]
-                                            .lessonCardImage),
+                                        provider
+                                            .getCurrentLesson.lessonCardImage),
                                     builder: (context, snapshot) {
                                       if (snapshot.connectionState ==
                                           ConnectionState.done) {
@@ -324,8 +399,7 @@ class _MainLearningPageState extends State<MainLearningPage>
                           isPractical
                               ? Container()
                               : buildText.heading2Text(
-                                  cardLesson[providerCardLesson.index]
-                                      .lessonCardDesc),
+                                  provider.getCurrentLesson.lessonCardDesc),
                           const Padding(
                             padding: EdgeInsets.only(bottom: 13),
                           ),
@@ -350,156 +424,57 @@ class _MainLearningPageState extends State<MainLearningPage>
                                   ]),
                               child:
                                   // if is text field
-                                  typeOfTest == 1
-                                      ? Choices(options: ["A", "B", "c", "d"])
-                                      : TextField(
-                                          decoration: InputDecoration(
-                                            contentPadding:
-                                                const EdgeInsets.symmetric(
-                                                    horizontal: 20.0),
-                                            border: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(25),
-                                              borderSide: const BorderSide(
-                                                width: 0,
-                                                style: BorderStyle.none,
-                                              ),
-                                            ),
-                                            hintText: "Your answer",
-                                            labelStyle: GoogleFonts.montserrat(
-                                              fontSize: 12.8,
-                                              fontWeight: FontWeight.w400,
-                                              color: kTextFieldText,
-                                            ),
-                                            hintStyle: GoogleFonts.montserrat(
-                                              fontSize: 12.8,
-                                              fontWeight: FontWeight.w400,
-                                              color: kTextFieldText,
-                                            ),
-                                            fillColor: kTextLight,
-                                            filled: false,
-                                          ),
-                                          controller: _controller,
-                                          onSubmitted: (String value) async {
-                                            bool isCrt = checkAns(
-                                                value,
-                                                cardLesson[providerCardLesson
-                                                        .index]
-                                                    .lessonCardTitle);
-                                            if (isCrt){
-                                              if (providerCardLesson.index ==
-                                                  cardLesson.length - 1) {
-                                                DatabaseService(uid: user.uid)
-                                                    .updateIsCompletedSubLesson(
-                                                    syllabus,
-                                                    lesson,
-                                                    cardLesson[
-                                                    providerCardLesson
-                                                        .index]
-                                                        .lessonId);
-                                                DatabaseService(uid: user.uid)
-                                                    .updateExperience();
-                                                DatabaseService(uid: user.uid)
-                                                    .updateIsCompletedLesson(
-                                                    syllabus, lesson);
-                                                Navigator.pushNamed(
-                                                    context, "/congratulation");
-                                              } else {
-                                                DatabaseService(uid: user.uid)
-                                                    .updateIsCompletedSubLesson(
-                                                    syllabus,
-                                                    lesson,
-                                                    cardLesson[
-                                                    providerCardLesson
-                                                        .index]
-                                                        .lessonId);
-                                                DatabaseService(uid: user.uid)
-                                                    .updateExperience();
-                                                providerCardLesson.increment();
-                                              }
-                                            }
-
-                                          },
-                                        ),
+                                  typeOfTestWidget(typeOfTest)
                             ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 20),
-                            child: GestureDetector(
-                                onTap: () {
-                                  bool isCrt = true;
-                                  if (isPractical) {
-                                    isCrt = checkAns(
-                                        _controller.value.text,
-                                        cardLesson[providerCardLesson.index]
-                                            .lessonCardTitle);
-                                    _controller.clear();
-                                  }
-
-                                  if (isCrt){
-                                    if (providerCardLesson.index ==
-                                        cardLesson.length - 1) {
-                                      DatabaseService(uid: user.uid)
-                                          .updateIsCompletedSubLesson(
-                                          syllabus,
-                                          lesson,
-                                          cardLesson[providerCardLesson.index]
-                                              .lessonId);
-                                      DatabaseService(uid: user.uid)
-                                          .updateExperience();
-                                      DatabaseService(uid: user.uid)
-                                          .updateIsCompletedLesson(
-                                          syllabus, lesson);
-                                      Navigator.pushNamed(
-                                          context, "/congratulation");
-                                    } else {
-                                      DatabaseService(uid: user.uid)
-                                          .updateIsCompletedSubLesson(
-                                          syllabus,
-                                          lesson,
-                                          cardLesson[providerCardLesson.index]
-                                              .lessonId);
-                                      DatabaseService(uid: user.uid)
-                                          .updateExperience();
-                                      providerCardLesson.increment();
-                                    }
-                                  }
-
-                                },
-                                child: Stack(children: <Widget>[
-                                  Center(
-                                    child: Container(
-                                        alignment: Alignment.center,
-                                        width: 200,
-                                        decoration: const BoxDecoration(
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(20)),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: kButtonShadow,
-                                                offset: Offset(6, 6),
-                                                blurRadius: 6,
-                                              ),
-                                            ]),
-                                        child: Image.asset(
-                                          'assets/image/purple_button.png',
-                                          scale: 4,
-                                        )),
-                                  ),
-                                  Container(
-                                    height: 40,
-                                    alignment: Alignment.center,
-                                    padding: const EdgeInsets.only(top: 10),
-                                    child: Text(
-                                      'Next',
-                                      style: GoogleFonts.montserrat(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600,
-                                        color: kTextLight,
-                                      ),
-                                    ),
-                                  ),
-                                ])),
-                          ),
+                          isPractical && typeOfTest == 1
+                              ? Container()
+                              : Padding(
+                                  padding: const EdgeInsets.only(top: 20),
+                                  child: GestureDetector(
+                                      onTap: () {
+                                        if (isPractical) {
+                                          provider.checkAns();
+                                        } else {
+                                          provider.updateDB();
+                                        }
+                                      },
+                                      child: Stack(children: <Widget>[
+                                        Center(
+                                          child: Container(
+                                              alignment: Alignment.center,
+                                              width: 200,
+                                              decoration: const BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(20)),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: kButtonShadow,
+                                                      offset: Offset(6, 6),
+                                                      blurRadius: 6,
+                                                    ),
+                                                  ]),
+                                              child: Image.asset(
+                                                'assets/image/purple_button.png',
+                                                scale: 4,
+                                              )),
+                                        ),
+                                        Container(
+                                          height: 40,
+                                          alignment: Alignment.center,
+                                          padding:
+                                              const EdgeInsets.only(top: 10),
+                                          child: Text(
+                                            'Next',
+                                            style: GoogleFonts.montserrat(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w600,
+                                              color: kTextLight,
+                                            ),
+                                          ),
+                                        ),
+                                      ])),
+                                ),
                         ],
                       ),
                     );
@@ -513,20 +488,22 @@ class _MainLearningPageState extends State<MainLearningPage>
         });
   }
 
-  bool checkAns(String value, String ans) {
-    String msg = "Incorrect Answer";
-    bool isCrt = false;
-    if (value.toUpperCase().trim() == ans) {
-      msg = "Correct Answer";
-      isCrt = true;
-    }
+  void showMessage(bool isCrt) {
+    String msg = isCrt ? "Correct Answer" : "Incorrect Answer";
     ScaffoldMessenger.of(context).removeCurrentSnackBar();
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text(msg),
       backgroundColor: kPurpleLight,
     ));
-    _controller.clear();
-    return isCrt;
-    // if (!isCrt) Navigator.pushReplacementNamed(context, '/sublevel');
+  }
+
+  Widget typeOfTestWidget(type){
+    if (type == 0){
+      return const TextForm();
+    }else if(type == 1){
+      return const Choices();
+    } else{
+      return Container();
+    }
   }
 }
