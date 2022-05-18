@@ -82,7 +82,7 @@ class _SignUpState extends State<SignUp> {
                           // and use it to show a SnackBar.
                           ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         } else {
-                          Navigator.pop(context);
+                          Navigator.pushNamed(context, "/levelForm");
                         }
                       }
                     },

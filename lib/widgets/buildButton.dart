@@ -42,6 +42,9 @@ class buildButton extends StatelessWidget {
     } else if (buttonColor.contains('white')) {
       buttonColor = 'assets/image/white_button.png';
       textColor = kText;
+    } else if (buttonColor.contains('magenta')) {
+      buttonColor = 'assets/image/magenta_button.png';
+      textColor = kTextLight;
     }
 
     return GestureDetector(

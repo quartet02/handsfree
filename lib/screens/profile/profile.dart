@@ -69,6 +69,29 @@ class Profile extends StatelessWidget {
                               email: userAuth.email!,
                               experience: user.experience!),
                         ),
+
+                        breaker(20),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'Active Days',
+                            style: GoogleFonts.montserrat(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                              color: const Color(0xff1D283F),
+                            ),
+                          ),
+                        ),
+                        breaker(10),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: List.generate(
+                                  days.length,
+                                  (index) => DayActivity(
+                                      day: days[index],
+                                      activity: activities!.activity![index]))
+                              .toList(),
+                        ),
                         breaker(20),
                         Align(
                           alignment: Alignment.centerLeft,
@@ -96,29 +119,7 @@ class Profile extends StatelessWidget {
                             ],
                           ),
                         ),
-                        breaker(20),
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            'Active Days',
-                            style: GoogleFonts.montserrat(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w500,
-                              color: const Color(0xff1D283F),
-                            ),
-                          ),
-                        ),
-                        breaker(10),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: List.generate(
-                                  days.length,
-                                  (index) => DayActivity(
-                                      day: days[index],
-                                      activity: activities!.activity![index]))
-                              .toList(),
-                        ),
-                        breaker(120)
+                        // breaker(120)
                       ],
                     ),
                   ),

@@ -14,7 +14,7 @@ class ChoiceCard extends StatelessWidget {
     LessonCardProvider provider = Provider.of<LessonCardProvider>(context);
 
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         provider.setQuesInput = header;
         provider.checkAns();
       },
@@ -22,20 +22,21 @@ class ChoiceCard extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text( header.toUpperCase(),
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w800,
-            ),)
+            Text(
+              header.toUpperCase(),
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w800,
+              ),
+            )
           ],
         ),
-        width: 80,
+        width: 50,
         // change image container height if it's mcq
-        height: 80,
+        height: 50,
         decoration: const BoxDecoration(
-          borderRadius:
-          BorderRadius.all(Radius.circular(20)),
+          borderRadius: BorderRadius.all(Radius.circular(20)),
           boxShadow: [
             BoxShadow(
               color: kTextShadow,
@@ -44,8 +45,7 @@ class ChoiceCard extends StatelessWidget {
             ),
           ],
           image: DecorationImage(
-            image: AssetImage(
-                'assets/image/learning_big_rect.png'),
+            image: AssetImage('assets/image/learning_big_rect.png'),
           ),
         ),
       ),

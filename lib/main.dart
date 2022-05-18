@@ -9,6 +9,7 @@ import 'package:handsfree/provider/newsFeedProvider.dart';
 import 'package:handsfree/provider/subLessonProvider.dart';
 import 'package:handsfree/screens/FeedBack/feedback.dart';
 import 'package:handsfree/screens/authenticate/authenticate.dart';
+import 'package:handsfree/screens/authenticate/levelForm.dart';
 import 'package:handsfree/screens/authenticate/signIn.dart';
 import 'package:handsfree/screens/authenticate/signUp.dart';
 import 'package:handsfree/screens/chat/chat.dart';
@@ -19,6 +20,7 @@ import 'package:handsfree/screens/learn/congrats.dart';
 import 'package:handsfree/screens/learn/learn.dart';
 import 'package:handsfree/screens/learn/mainLearningPage.dart';
 import 'package:handsfree/screens/learn/subLesson.dart';
+import 'package:handsfree/screens/learn/timerOut.dart';
 import 'package:handsfree/screens/news/news.dart';
 import 'package:handsfree/screens/news/news_page.dart';
 import 'package:handsfree/screens/profile/profile.dart';
@@ -123,6 +125,8 @@ class MyApp extends StatelessWidget {
         "/viewFriendRequest": (context) => const FriendRequest(),
         "/searchGlobalUsers": (context) => const SearchGlobal(),
         "/showNews": (context) => const NewsPage(),
+        "/timerOut": (context) => const TimerOut(),
+        "/levelForm": (context) => const LevelForm(),
       },
     );
   }

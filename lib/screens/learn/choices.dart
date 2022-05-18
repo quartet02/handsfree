@@ -4,7 +4,6 @@ import 'package:handsfree/screens/learn/choiceCard.dart';
 import 'package:provider/provider.dart';
 
 class Choices extends StatelessWidget {
-
   const Choices({Key? key}) : super(key: key);
 
   @override
@@ -16,18 +15,20 @@ class Choices extends StatelessWidget {
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            Padding(
+                padding: EdgeInsets.only(
+                    left: MediaQuery.of(context).size.width / 40)),
             ChoiceCard(header: options[0]),
-            ChoiceCard(header: options[1])
+            ChoiceCard(header: options[1]),
+            ChoiceCard(header: options[2]),
+            ChoiceCard(header: options[3]),
+            Padding(
+                padding: EdgeInsets.only(
+                    left: MediaQuery.of(context).size.width / 40)),
           ],
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            ChoiceCard(header: options[2]),
-            ChoiceCard(header: options[3])
-          ],
-        )
       ],
     );
   }
