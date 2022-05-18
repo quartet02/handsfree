@@ -24,37 +24,18 @@ class NewsPage extends StatelessWidget {
                 child: Column(children: [
                   buildAuthorCard(context, news),
                   Breaker(i: 20),
-                  FutureBuilder(
-                      future: FireStorageService.loadImage(news.newsFeedImages),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.done) {
-                          return Container(
-                            width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.height * 0.3,
-                            decoration: BoxDecoration(
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(10)),
-                              image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: Image.network(snapshot.data as String)
-                                    .image,
-                              ),
-                            ),
-                          );
-                        } else if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return Container(
-                            padding: EdgeInsets.symmetric(
-                                horizontal:
-                                    MediaQuery.of(context).size.height / 100,
-                                vertical:
-                                    MediaQuery.of(context).size.height / 40),
-                            child: const CircularProgressIndicator(),
-                          );
-                        } else {
-                          return Container();
-                        }
-                      }),
+                  Container(
+                    height: MediaQuery.of(context).size.height * 0.3,
+                    width: MediaQuery.of(context).size.height * 0.3 * 16 / 9,
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image:
+                            Image.network(news.newsFeedImages as String).image,
+                      ),
+                    ),
+                  ),
                   Breaker(i: 20),
                   Container(child: buildText.heading3Text(news.newsFeedDesc)),
                 ]),
@@ -88,37 +69,20 @@ class NewsPage extends StatelessWidget {
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
         Row(
           children: [
-            FutureBuilder(
-                future: FireStorageService.loadImage(news.authorPic),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done) {
-                    return Padding(
-                      padding: const EdgeInsets.only(left: 10),
-                      child: Container(
-                        width: 50,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(20)),
-                          image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: Image.network(snapshot.data as String).image,
-                          ),
-                        ),
-                      ),
-                    );
-                  } else if (snapshot.connectionState ==
-                      ConnectionState.waiting) {
-                    return Container(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: MediaQuery.of(context).size.height / 100,
-                          vertical: MediaQuery.of(context).size.height / 40),
-                      child: const CircularProgressIndicator(),
-                    );
-                  } else {
-                    return Container();
-                  }
-                }),
+            Padding(
+              padding: const EdgeInsets.only(left: 10),
+              child: Container(
+                width: 50,
+                height: 50,
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.all(Radius.circular(20)),
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: Image.network(news.authorPic as String).image,
+                  ),
+                ),
+              ),
+            ),
             Breaker(i: 20, pos: PadPos.right),
             Column(
                 mainAxisAlignment: MainAxisAlignment.center,

@@ -15,35 +15,18 @@ class NewsTile extends StatelessWidget {
         child: Card(
           margin: const EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 0.0),
           child: ListTile(
-            leading: FutureBuilder(
-                future: FireStorageService.loadImage(news!.newsFeedImages),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData &&
-                      snapshot.connectionState == ConnectionState.done) {
-                    return Container(
-                        width: 50,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.2),
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(40)),
-                          image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: Image.network(snapshot.data as String).image,
-                          ),
-                        ));
-                  }
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Container(
-                      width: 50,
-                      height: 50,
-                      child: const CircularProgressIndicator(),
-                    );
-                  } else {
-                    debugPrint('Connection Failed');
-                    return Container();
-                  }
-                }),
+            leading: Container(
+              width: 50,
+              height: 50,
+              decoration: BoxDecoration(
+                color: Colors.black.withOpacity(0.2),
+                borderRadius: const BorderRadius.all(Radius.circular(40)),
+                image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: Image.network(news!.newsFeedImages).image,
+                ),
+              ),
+            ),
 
             // if you want to directly access from local, comment the child: and uncomment this
             // backgroundImage: AssetImage('assets/image/dummy_cat.png'),
