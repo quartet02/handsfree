@@ -40,7 +40,6 @@ class _SocialState extends State<Social> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             List<NewsFeedModel>? newsList = snapshot.data;
-
             return MultiProvider(
               providers: [
                 ChangeNotifierProvider(create: (_) => NewsFeedProvider()),

@@ -34,54 +34,34 @@ class SmallCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Container(
-                  height: communitySize,
-                  width: communitySize,
-                  alignment: Alignment.topCenter,
-                  margin: const EdgeInsets.only(top: 5.0),
-                  child: FutureBuilder(
-                      future: FireStorageService.loadImage(news.newsFeedImages),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.done) {
-                          return Container(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal:
-                                      MediaQuery.of(context).size.height / 100,
-                                  vertical:
-                                      MediaQuery.of(context).size.height / 40),
-                              child: Container(
-                                  decoration: BoxDecoration(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(10)),
-                                image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image: Image.network(snapshot.data as String)
-                                      .image,
-                                ),
-                              )));
-                        }
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return Container(
-                            padding: EdgeInsets.symmetric(
-                                horizontal:
-                                    MediaQuery.of(context).size.height / 100,
-                                vertical:
-                                    MediaQuery.of(context).size.height / 40),
-                            child: const CircularProgressIndicator(),
-                          );
-                        } else {
-                          print('Connection Failed');
-                          return Container();
-                        }
-                      }),
-                  // decoration: BoxDecoration(
-                  //   image: DecorationImage(
-                  //     alignment: Alignment.center,
-                  //     image: AssetImage(communityImage),
-                  //     scale: 4,
-                  //   ),
-                  // ),
-                ),
+                    height: communitySize,
+                    width: communitySize,
+                    alignment: Alignment.topCenter,
+                    margin: const EdgeInsets.only(top: 5.0),
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: MediaQuery.of(context).size.height / 100,
+                          vertical: MediaQuery.of(context).size.height / 40),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(10)),
+                          image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: Image.network(news.newsFeedImages as String)
+                                .image,
+                          ),
+                        ),
+                      ),
+                    )
+                    // decoration: BoxDecoration(
+                    //   image: DecorationImage(
+                    //     alignment: Alignment.center,
+                    //     image: AssetImage(communityImage),
+                    //     scale: 4,
+                    //   ),
+                    // ),
+                    ),
                 Container(
                     padding: EdgeInsets.symmetric(
                         horizontal: MediaQuery.of(context).size.width / 20),
