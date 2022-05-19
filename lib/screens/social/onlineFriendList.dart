@@ -55,6 +55,7 @@ class OnlineFriendList extends StatelessWidget {
                                       chatRooms[i].roomPicture =
                                           otherPerson.picture;
                                       return FriendBlock(
+                                        friendData: otherPerson,
                                         roomData: chatRooms[i],
                                         blockHeight: 65,
                                       );
@@ -63,6 +64,7 @@ class OnlineFriendList extends StatelessWidget {
                                       chatRooms[i].roomPicture =
                                           "assets/image/character.png";
                                       return FriendBlock(
+                                        friendData: null,
                                         roomData: chatRooms[i],
                                         blockHeight: 65,
                                       );
@@ -70,12 +72,14 @@ class OnlineFriendList extends StatelessWidget {
                                   });
                             } else {
                               return FriendBlock(
+                                friendData: null,
                                 roomData: chatRooms[i],
                                 blockHeight: 65,
                               );
                             }
                           } else {
                             return FriendBlock(
+                                friendData: null,
                                 roomData: chatRooms[index],
                                 blockHeight: 65,
                                 isFirst: true);
