@@ -62,6 +62,7 @@ class LessonCardProvider with ChangeNotifier {
 
   void setCardLessons(List<LessonCardModel> lessonCard) {
     cardLessons = lessonCard;
+    debugPrint("set card lesson, first card: " + lessonCard[index].lessonCardTitle);
   }
 
   void initMcqOptions(){
@@ -77,8 +78,9 @@ class LessonCardProvider with ChangeNotifier {
         n -= 1;
       }
     }
-    // debugPrint("index: "+index.toString());
-    // debugPrint("mcqOptions: " + mcqOptions.toString());
+    debugPrint("index: "+index.toString());
+    debugPrint("ans: "+cardLessons[index].lessonCardTitle);
+    debugPrint("mcqOptions: " + mcqOptions.toString());
     mcqOptions.shuffle();
   }
 
@@ -173,6 +175,10 @@ class LessonCardProvider with ChangeNotifier {
       "elapsedTime": elapsedTime,
     };
   }
+
+  void shuffleQuestions(){
+    cardLessons.shuffle();
+}
 }
 
 List<Map<String, dynamic>> lessonCardData = [

@@ -168,6 +168,30 @@ class DatabaseService {
         .map(_lessonCardList);
   }
 
+  // for future builder in mainLearningPage
+  Future<List<LessonCardModel>> getSelectedLessonCardList (
+      String syllabus, String lesson) async {
+    List<LessonCardModel> list = [];
+    QuerySnapshot<Map<String, dynamic>> snapshots = await userCollection
+        .doc(uid)
+        .collection('lessons')
+        .doc(syllabus)
+        .collection(lesson)
+        .get();
+
+    for (var doc in snapshots.docs){
+        Map<String, dynamic> temp = doc.data();
+        list.add(LessonCardModel(
+            lessonCardId: temp["lessonCardId"],
+            lessonCardTitle: temp["lessonCardTitle"],
+            lessonCardDesc: temp["lessonCardDesc"],
+            lessonCardImage: temp["lessonCardImage"],
+            lessonId: temp["lessonId"],
+            isCompleted: temp["isCompleted"]));
+    }
+    return list;
+  }
+
   //individual user login activity
   NewUserActivityLog _userActivityLog(DocumentSnapshot snapshot) {
     return NewUserActivityLog(
