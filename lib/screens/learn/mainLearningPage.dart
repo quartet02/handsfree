@@ -60,7 +60,7 @@ class _MainLearningPageState extends State<MainLearningPage>
         debugPrint(Provider.of<LessonCardProvider?>(context, listen: false)
             ?.testResult
             .toString());
-        Navigator.pushNamed(context, "/congratulation");
+        Navigator.pushNamed(context, "/timerOut");
       }
     });
   }
@@ -70,7 +70,7 @@ class _MainLearningPageState extends State<MainLearningPage>
     bool isPractical = Provider.of<LessonProvider>(context).getPractical;
     if (!isPractical) oneSecTimer.cancel();
 
-    debugPrint("main learning page is practical: $isPractical");
+    debugPrint("Main learning page is practical: $isPractical");
 
     LessonModel subLesson =
         context.read<SubLessonProvider>().getClickedSubLesson;
@@ -106,7 +106,8 @@ class _MainLearningPageState extends State<MainLearningPage>
 
     if (user == null || provider == null) return Loading();
 
-    int typeOfTest = Provider.of<LessonCardProvider?>(context)!.getCurrentTypeOfTest;
+    int typeOfTest =
+        Provider.of<LessonCardProvider?>(context)!.getCurrentTypeOfTest;
 
     return StreamBuilder<List<LessonCardModel>?>(
         stream: DatabaseService(uid: user.uid)
@@ -119,7 +120,7 @@ class _MainLearningPageState extends State<MainLearningPage>
               provider.setCardLessons(lessonCard);
             }
 
-            if(provider.index == 0){
+            if (provider.index == 0) {
               provider.initTime();
 
               if (isPractical) {
@@ -167,7 +168,6 @@ class _MainLearningPageState extends State<MainLearningPage>
                                 cardLesson[providerCardLesson.index].lessonId);
                         DatabaseService(uid: user.uid).updateExperience();
                         providerCardLesson.increment();
-
                       }
                     }
 
@@ -187,9 +187,20 @@ class _MainLearningPageState extends State<MainLearningPage>
                               ? ValueListenableBuilder(
                                   valueListenable: _remainingTime,
                                   builder: (context, value, child) {
-                                    return Text(value.toString());
+                                    return Text(
+                                      "Timer: " + value.toString(),
+                                      style: GoogleFonts.montserrat(
+                                        letterSpacing: 0,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w400,
+                                        color: kText,
+                                      ),
+                                    );
                                   })
                               : Container(),
+                          const Padding(
+                            padding: EdgeInsets.only(bottom: 10),
+                          ),
                           Container(
                             height: 130,
                             decoration: const BoxDecoration(
@@ -311,13 +322,10 @@ class _MainLearningPageState extends State<MainLearningPage>
                             alignment: AlignmentDirectional.center,
                             children: [
                               Container(
-                                width: typeOfTest == 1 && isPractical
-                                    ? MediaQuery.of(context).size.width / 3
-                                    : MediaQuery.of(context).size.width,
+                                width: MediaQuery.of(context).size.width,
                                 // change image container height if it's mcq
-                                height: typeOfTest == 1 && isPractical
-                                    ? MediaQuery.of(context).size.height / 5
-                                    : MediaQuery.of(context).size.height / 2.4,
+                                height:
+                                    MediaQuery.of(context).size.height / 2.4,
                                 decoration: const BoxDecoration(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(20)),
@@ -337,9 +345,8 @@ class _MainLearningPageState extends State<MainLearningPage>
                               Container(
                                 alignment: Alignment.bottomCenter,
                                 width: MediaQuery.of(context).size.width,
-                                height: typeOfTest == 1 && isPractical
-                                    ? MediaQuery.of(context).size.height / 4
-                                    : MediaQuery.of(context).size.height / 2.45,
+                                height:
+                                    MediaQuery.of(context).size.height / 2.45,
                                 child: FutureBuilder(
                                     future: FireStorageService.loadImage(
                                         provider
@@ -405,27 +412,28 @@ class _MainLearningPageState extends State<MainLearningPage>
                           ),
                           if (isPractical)
                             Container(
-                              margin:
-                                  const EdgeInsets.symmetric(horizontal: 20),
-                              decoration: BoxDecoration(
-                                  color: Colors.transparent,
-                                  image: const DecorationImage(
-                                    image: AssetImage(
-                                        'assets/image/text_field.png'),
-                                    fit: BoxFit.cover,
-                                  ),
-                                  borderRadius: BorderRadius.circular(25),
-                                  boxShadow: const [
-                                    BoxShadow(
-                                      color: kTextShadow,
-                                      offset: Offset(6, 6),
-                                      blurRadius: 6,
+                                width: MediaQuery.of(context).size.width / 0.8,
+                                // height: MediaQuery.of(context).size.height / 12,
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 10),
+                                decoration: BoxDecoration(
+                                    color: Colors.transparent,
+                                    image: const DecorationImage(
+                                      image: AssetImage(
+                                          'assets/image/text_field.png'),
+                                      fit: BoxFit.cover,
                                     ),
-                                  ]),
-                              child:
-                                  // if is text field
-                                  typeOfTestWidget(typeOfTest)
-                            ),
+                                    borderRadius: BorderRadius.circular(25),
+                                    boxShadow: const [
+                                      BoxShadow(
+                                        color: kTextShadow,
+                                        offset: Offset(6, 6),
+                                        blurRadius: 6,
+                                      ),
+                                    ]),
+                                child:
+                                    // if is text field
+                                    typeOfTestWidget(typeOfTest)),
                           isPractical && typeOfTest == 1
                               ? Container()
                               : Padding(
@@ -497,12 +505,12 @@ class _MainLearningPageState extends State<MainLearningPage>
     ));
   }
 
-  Widget typeOfTestWidget(type){
-    if (type == 0){
+  Widget typeOfTestWidget(type) {
+    if (type == 0) {
       return const TextForm();
-    }else if(type == 1){
+    } else if (type == 1) {
       return const Choices();
-    } else{
+    } else {
       return Container();
     }
   }
