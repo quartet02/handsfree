@@ -50,6 +50,7 @@ class ChatRoomList extends StatelessWidget {
                                       chatRooms[index].roomPicture =
                                           otherPerson.picture;
                                       return ContactCard(
+                                        id: otherPerson.uid,
                                         roomData: chatRooms[index],
                                       );
                                     } else {

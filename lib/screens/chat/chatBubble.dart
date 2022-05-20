@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:handsfree/models/messageModel.dart';
+import 'package:handsfree/models/newUser.dart';
+import 'package:handsfree/models/userProfile.dart';
+import 'package:handsfree/services/database.dart';
 import 'package:handsfree/widgets/constants.dart';
 
 class ChatBubble extends StatelessWidget {
-  const ChatBubble({
-    Key? key,
-    required this.message,
-    required this.isMe,
-    required this.showProfileIcon,
-  }) : super(key: key);
+  const ChatBubble(
+      {Key? key,
+      required this.message,
+      required this.isMe,
+      required this.showProfileIcon,
+      required this.id})
+      : super(key: key);
   final Messages message;
   final bool isMe;
   final bool showProfileIcon;
+  final String id;
 
   @override
   Widget build(BuildContext context) {
@@ -26,10 +31,16 @@ class ChatBubble extends StatelessWidget {
         children: <Widget>[
           Row(children: [
             !isMe && showProfileIcon
-                ? const CircleAvatar(
-                    radius: 16,
-                    backgroundImage: AssetImage("assets/image/character.png"),
-                    backgroundColor: Colors.transparent)
+                ? GestureDetector(
+                    child: const CircleAvatar(
+                        radius: 16,
+                        backgroundImage:
+                            AssetImage("assets/image/character.png"),
+                        backgroundColor: Colors.transparent),
+                    onTap: () async {
+                      Users user = await DatabaseService().getUserById(id);
+                      Navigator.pushNamed(context, "/profile", arguments: user);
+                    })
                 : const CircleAvatar(
                     radius: 16,
                     backgroundImage: null,

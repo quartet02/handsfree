@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:handsfree/models/chatModel.dart';
 import 'package:handsfree/models/messageModel.dart';
 import 'package:handsfree/models/newUser.dart';
+import 'package:handsfree/models/userProfile.dart';
 import 'package:handsfree/provider/messageTimeProvider.dart';
 import 'package:handsfree/screens/chat/chatBar.dart';
 import 'package:handsfree/services/database.dart';
@@ -27,7 +28,7 @@ class _ChatState extends State<Chat> {
     final userProvider = Provider.of<NewUserData?>(context)!;
     return Scaffold(
       body: Column(children: [
-        buildHeading(roomData, context),
+        buildHeading(roomData, context, userProvider),
         buildChatBody(roomData, userProvider),
         ChatBar(
           roomId: roomData.roomId,
@@ -38,12 +39,16 @@ class _ChatState extends State<Chat> {
 
   Widget buildChatbubble(
       Messages message, ChatRoom roomData, NewUserData userProvider) {
+    String id = roomData.participants[0] == userProvider.uid
+        ? roomData.createdBy
+        : roomData.participants[0];
     if (message.sentBy != userProvider.uid && message.sentBy != widget.prev) {
       widget.prev = message.sentBy;
       return ChatBubble(
           isMe: userProvider.uid == message.sentBy,
           message: message,
-          showProfileIcon: true);
+          showProfileIcon: true,
+          id: id);
     }
     // self and same sender
     else {
@@ -51,7 +56,8 @@ class _ChatState extends State<Chat> {
       return ChatBubble(
           isMe: userProvider.uid == message.sentBy,
           message: message,
-          showProfileIcon: false);
+          showProfileIcon: false,
+          id: id);
     }
   }
 
@@ -85,7 +91,11 @@ class _ChatState extends State<Chat> {
     );
   }
 
-  Widget buildHeading(ChatRoom roomData, BuildContext context) {
+  Widget buildHeading(
+      ChatRoom roomData, BuildContext context, NewUserData userProvider) {
+    String id = roomData.participants[0] == userProvider.uid
+        ? roomData.createdBy
+        : roomData.participants[0];
     return Stack(
       children: [
         Container(
@@ -102,25 +112,31 @@ class _ChatState extends State<Chat> {
           margin: EdgeInsets.only(top: MediaQuery.of(context).size.height / 10),
           padding: const EdgeInsets.symmetric(horizontal: 20),
           alignment: Alignment.topCenter,
-          child:
-              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+          child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+            // GestureDetector(
+            //   onTap: () {
+            //     Navigator.pop(context);
+            //   },
+            //   child: const Icon(
+            //     Icons.arrow_back_ios_new_rounded,
+            //     color: Colors.white,
+            //   ),
+            // ),
             GestureDetector(
-              onTap: () {
-                Navigator.pop(context);
+              onTap: () async {
+                Users user = await DatabaseService().getUserById(id);
+                Navigator.pushNamed(context, "/profile", arguments: user);
               },
-              child: const Icon(
-                Icons.arrow_back_ios_new_rounded,
-                color: Colors.white,
-              ),
+              child: buildText.bigTitle(roomData.roomName),
             ),
-            buildText.bigTitle(roomData.roomName),
-            GestureDetector(
-              onTap: () {},
-              child: const Icon(
-                Icons.more_vert_rounded,
-                color: Colors.white,
-              ),
-            ),
+
+            // GestureDetector(
+            //   onTap: () {},
+            //   child: const Icon(
+            //     Icons.more_vert_rounded,
+            //     color: Colors.white,
+            //   ),
+            // ),
           ]),
         ),
       ],

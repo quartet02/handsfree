@@ -282,6 +282,7 @@ class DatabaseService {
       'name': name,
       'uid': uid,
       'groups': FieldValue.arrayUnion([]),
+      "endorsedCount": 0,
     }).then((_) {
       print("Success!");
     });
@@ -2683,53 +2684,23 @@ class DatabaseService {
     });
 
     ///To Achievement Collection
+
+    ///From Endorsed Collection
+    await userCollection
+        .doc(uid)
+        .collection('endorsed')
+        .doc('endorsed')
+        .set({"endorsedList": FieldValue.arrayUnion([])});
+
+    ///To Endorsed Collection
   }
 
   Future<void> updateDB() async {
-    await userCollection.doc(uid).collection('achievement').doc('sensei').set({
-      "achievementId": 001,
-      "achievementName": "Sensei",
-      "achievementDesc": "Teach many people",
-      "achievementImage": "assets/achievement/sensei.png",
-      "isAchieved": false,
-    });
-
     await userCollection
         .doc(uid)
-        .collection('achievement')
-        .doc('theflash')
-        .set({
-      "achievementId": 002,
-      "achievementName": "The Flash",
-      "achievementDesc": "Complete the whole course in 24 hours",
-      "achievementImage": "assets/achievement/theflash.png",
-      "isAchieved": false,
-    });
-
-    await userCollection
-        .doc(uid)
-        .collection('achievement')
-        .doc('thegiver')
-        .set({
-      "achievementId": 003,
-      "achievementName": "The giver",
-      "achievementDesc":
-          "You are loved as you have contributed many materials <3",
-      "achievementImage": "assets/achievement/thegiver.png",
-      "isAchieved": false,
-    });
-
-    await userCollection
-        .doc(uid)
-        .collection('achievement')
-        .doc('whatacomeback')
-        .set({
-      "achievementId": 004,
-      "achievementName": "What a come back",
-      "achievementDesc": "Logged in after 1 month",
-      "achievementImage": "assets/achievement/whatacomeback.png",
-      "isAchieved": false,
-    });
+        .collection('endorsed')
+        .doc('endorsed')
+        .set({"endorsedList": FieldValue.arrayUnion([])});
   }
 
   Future<void> buildUserLog() async {
@@ -2908,6 +2879,28 @@ class DatabaseService {
         .map(_userListFromSnapshot);
 
     return StreamGroup.merge([a, b]).asBroadcastStream();
+  }
+
+  Stream<List<String>> getEndorsedList() {
+    return userCollection
+        .doc(uid)
+        .collection("endorsed")
+        .doc("endorsed")
+        .snapshots()
+        .map(_endorsedListFromSnapshot);
+  }
+
+  Future<List<String>> getFutureEndorsedList() {
+    return userCollection
+        .doc(uid)
+        .collection("endorsed")
+        .doc("endorsed")
+        .get()
+        .then((value) => List.from(value["endorsedList"]));
+  }
+
+  List<String> _endorsedListFromSnapshot(DocumentSnapshot snapshot) {
+    return List.from(snapshot["endorsedList"]);
   }
 
   Stream<List<NewsFeedModel>?> newsFeedByQuery(String query) {
@@ -3095,6 +3088,80 @@ class DatabaseService {
         .where("isAchieved", isEqualTo: true)
         .snapshots()
         .map(_achievementListFromSnapshot);
+  }
+
+  Future<Users> getUserById(String uid) {
+    return userCollection.doc(uid).get().then((value) {
+      return Users(
+          name: value["name"],
+          experience: value["experience"],
+          phoneNumber: value["phoneNumber"],
+          picture: value["picture"],
+          title: value["title"],
+          username: value["username"],
+          uid: uid);
+    });
+  }
+
+  Future<void> addEndorsed(String destUid) async {
+    await userCollection
+        .doc(destUid)
+        .update({"endorsedCount": FieldValue.increment(1)}).then((value) async {
+      List<String> current = await userCollection
+          .doc(uid)
+          .collection("endorsed")
+          .doc("endorsed")
+          .get()
+          .then((value) {
+        return List.from(value["endorsedList"]);
+      });
+      current.add(destUid);
+      await userCollection
+          .doc(uid)
+          .collection("endorsed")
+          .doc("endorsed")
+          .update({
+        "endorsedList": FieldValue.arrayUnion(<String>[destUid])
+      });
+    }).catchError((error) {
+      debugPrint(error.toString());
+    });
+  }
+
+  Future<void> removeEndorsed(String destUid) async {
+    int currentCount = await userCollection
+        .doc(destUid)
+        .get()
+        .then((value) => value["endorsedCount"] as int);
+    await userCollection
+        .doc(destUid)
+        .update({"endorsedCount": currentCount - 1}).then((value) async {
+      List<String> current = await userCollection
+          .doc(uid)
+          .collection("endorsed")
+          .doc("endorsed")
+          .get()
+          .then((value) {
+        return List.from(value["endorsedList"]);
+      });
+      current.add(destUid);
+      await userCollection
+          .doc(uid)
+          .collection("endorsed")
+          .doc("endorsed")
+          .update({
+        "endorsedList": FieldValue.arrayRemove(<String>[destUid])
+      });
+    }).catchError((error) {
+      debugPrint(error.toString());
+    });
+  }
+
+  Future<String> getEndorsementCount() {
+    return userCollection
+        .doc(uid)
+        .get()
+        .then((value) => value["endorsedCount"].toString());
   }
 
   Future<void> sendMessage(String roomId, String messageText, String senderName,
