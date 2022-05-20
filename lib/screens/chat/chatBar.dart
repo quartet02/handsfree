@@ -34,9 +34,10 @@ class _ChatBarState extends State<ChatBar> {
               // print("updating");
               // List<String> ids = await DatabaseService().usersId;
               // ids.forEach((id) async {
-              //   await DatabaseService(uid: id).buildUserLesson().onError(
+              //   await DatabaseService(uid: id).updateDB().onError(
               //       (error, stackTrace) => {debugPrint(error.toString())});
               // });
+
               // print("done");
             },
             child: Container(
