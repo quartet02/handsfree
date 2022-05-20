@@ -55,8 +55,8 @@ class PrepSendImage extends StatelessWidget {
               ),
               InkWell(
                 onTap: () async {
-                  print(imagePath[0]);
-                  print(imagePath[1]);
+                  // print(imagePath[0]);
+                  // print(imagePath[1]);
                   String downloadURL = await uploadFileByPath(
                     imagePath[0],
                     "chats_assets",

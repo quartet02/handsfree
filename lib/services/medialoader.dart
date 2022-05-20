@@ -18,7 +18,7 @@ class FireStorageService extends ChangeNotifier {
         .ref()
         .child(image)
         .getDownloadURL()
-        .onError((error, stackTrace) => image);
+        .onError((error, stackTrace) => error.toString());
   }
 }
 

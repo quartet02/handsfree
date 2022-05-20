@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:handsfree/models/achievementModel.dart';
 import 'package:handsfree/models/communityModel.dart';
 import 'package:handsfree/models/newsFeedModel.dart';
 import 'package:handsfree/models/chatModel.dart';
@@ -169,7 +170,7 @@ class DatabaseService {
   }
 
   // for future builder in mainLearningPage
-  Future<List<LessonCardModel>> getSelectedLessonCardList (
+  Future<List<LessonCardModel>> getSelectedLessonCardList(
       String syllabus, String lesson) async {
     List<LessonCardModel> list = [];
     QuerySnapshot<Map<String, dynamic>> snapshots = await userCollection
@@ -179,15 +180,15 @@ class DatabaseService {
         .collection(lesson)
         .get();
 
-    for (var doc in snapshots.docs){
-        Map<String, dynamic> temp = doc.data();
-        list.add(LessonCardModel(
-            lessonCardId: temp["lessonCardId"],
-            lessonCardTitle: temp["lessonCardTitle"],
-            lessonCardDesc: temp["lessonCardDesc"],
-            lessonCardImage: temp["lessonCardImage"],
-            lessonId: temp["lessonId"],
-            isCompleted: temp["isCompleted"]));
+    for (var doc in snapshots.docs) {
+      Map<String, dynamic> temp = doc.data();
+      list.add(LessonCardModel(
+          lessonCardId: temp["lessonCardId"],
+          lessonCardTitle: temp["lessonCardTitle"],
+          lessonCardDesc: temp["lessonCardDesc"],
+          lessonCardImage: temp["lessonCardImage"],
+          lessonId: temp["lessonId"],
+          isCompleted: temp["isCompleted"]));
     }
     return list;
   }
@@ -2634,11 +2635,104 @@ class DatabaseService {
     });
 
     ///To Overview Collection
+
+    ///From Achievement Collection
+    await userCollection.doc(uid).collection('achievement').doc('sensei').set({
+      "achievementId": 001,
+      "achievementName": "Sensei",
+      "achievementDesc": "Teach many people",
+      "achievementImage": "assets/achievement/sensei.png",
+      "isAchieved": false,
+    });
+
+    await userCollection
+        .doc(uid)
+        .collection('achievement')
+        .doc('theflash')
+        .set({
+      "achievementId": 002,
+      "achievementName": "The Flash",
+      "achievementDesc": "Complete the whole course in 24 hours",
+      "achievementImage": "assets/achievement/theflash.png",
+      "isAchieved": false,
+    });
+
+    await userCollection
+        .doc(uid)
+        .collection('achievement')
+        .doc('thegiver')
+        .set({
+      "achievementId": 003,
+      "achievementName": "The giver",
+      "achievementDesc":
+          "You are loved as you have contributed many materials <3",
+      "achievementImage": "assets/achievement/thegiver.png",
+      "isAchieved": false,
+    });
+
+    await userCollection
+        .doc(uid)
+        .collection('achievement')
+        .doc('whatacomeback')
+        .set({
+      "achievementId": 004,
+      "achievementName": "What a come back",
+      "achievementDesc": "Logged in after 1 month",
+      "achievementImage": "assets/achievement/whatacomeback.png",
+      "isAchieved": false,
+    });
+
+    ///To Achievement Collection
+  }
+
+  Future<void> updateDB() async {
+    await userCollection.doc(uid).collection('achievement').doc('sensei').set({
+      "achievementId": 001,
+      "achievementName": "Sensei",
+      "achievementDesc": "Teach many people",
+      "achievementImage": "assets/achievement/sensei.png",
+      "isAchieved": false,
+    });
+
+    await userCollection
+        .doc(uid)
+        .collection('achievement')
+        .doc('theflash')
+        .set({
+      "achievementId": 002,
+      "achievementName": "The Flash",
+      "achievementDesc": "Complete the whole course in 24 hours",
+      "achievementImage": "assets/achievement/theflash.png",
+      "isAchieved": false,
+    });
+
+    await userCollection
+        .doc(uid)
+        .collection('achievement')
+        .doc('thegiver')
+        .set({
+      "achievementId": 003,
+      "achievementName": "The giver",
+      "achievementDesc":
+          "You are loved as you have contributed many materials <3",
+      "achievementImage": "assets/achievement/thegiver.png",
+      "isAchieved": false,
+    });
+
+    await userCollection
+        .doc(uid)
+        .collection('achievement')
+        .doc('whatacomeback')
+        .set({
+      "achievementId": 004,
+      "achievementName": "What a come back",
+      "achievementDesc": "Logged in after 1 month",
+      "achievementImage": "assets/achievement/whatacomeback.png",
+      "isAchieved": false,
+    });
   }
 
   Future<void> buildUserLog() async {
-    print("reached");
-
     ///From Log Collection
     await userCollection.doc(uid).collection('log').doc('Activity').set({
       "lastLoginIn": Timestamp.now(),
@@ -2982,6 +3076,27 @@ class DatabaseService {
         .map(_messagesFromSnapshot);
   }
 
+  List<Achievement> _achievementListFromSnapshot(QuerySnapshot snapshot) {
+    // print("Number of achievement : " + snapshot.docs.length.toString());
+    return snapshot.docs.map((doc) {
+      return Achievement(
+        achievementId: doc["achievementId"].toString(),
+        achievementName: doc['achievementName'],
+        achievementDesc: doc["achievementDesc"],
+        achievementImage: doc["achievementImage"],
+      );
+    }).toList();
+  }
+
+  Stream<List<Achievement>> getAchievements() {
+    return userCollection
+        .doc(uid)
+        .collection("achievement")
+        .where("isAchieved", isEqualTo: true)
+        .snapshots()
+        .map(_achievementListFromSnapshot);
+  }
+
   Future<void> sendMessage(String roomId, String messageText, String senderName,
       {bool isMedia = false}) async {
     // add messages to collection "messages", if collection not found will create one
@@ -3042,7 +3157,6 @@ class DatabaseService {
 
   Future<void> saveToken(String? token, String uid) async {
     if (token == null) return;
-    print(token);
 
     final now = DateTime.now();
     final tokenUpdated = UserPreference.get("tokenUpdated");
@@ -3055,7 +3169,7 @@ class DatabaseService {
     } else {
       if (tokenUpdated != null) {
         lastUpdate = DateTime.parse(tokenUpdated);
-        print("Token last updated on $lastUpdate");
+        // print("Token last updated on $lastUpdate");
       }
 
       // update database after 1 month
