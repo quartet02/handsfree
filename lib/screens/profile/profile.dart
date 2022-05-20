@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:handsfree/models/achievementModel.dart';
 import 'package:handsfree/models/newUser.dart';
 import 'package:handsfree/screens/profile/achievementList.dart';
+import 'package:handsfree/screens/profile/endorsement.dart';
 import 'package:handsfree/screens/profile/profileCard.dart';
 import 'package:handsfree/services/database.dart';
 import 'package:handsfree/widgets/breaker.dart';
@@ -25,11 +26,28 @@ class Profile extends StatelessWidget {
     if (user == null) return Container();
     User userAuth = FirebaseAuth.instance.currentUser!;
 
+    Users profile = Users(
+        name: user.name!,
+        experience: user.experience!,
+        phoneNumber: user.phoneNumber!,
+        picture: user.picture!,
+        title: user.title!,
+        username: user.username!,
+        uid: user.uid!);
+
+    Users? specificProfile =
+        ModalRoute.of(context)!.settings.arguments as Users;
+
+    if (specificProfile.uid != "self") profile = specificProfile;
+
+    bool isSelf = user.uid == profile.uid;
+    String lastValue = "0";
+
     return StreamBuilder<NewUserActivityLog>(
-        stream: DatabaseService(uid: user.uid).activity,
+        stream: DatabaseService(uid: profile.uid).activity,
         builder: (context, snapshot2) {
           return StreamBuilder<List<Users>?>(
-            stream: DatabaseService(uid: user.uid).users,
+            stream: DatabaseService(uid: profile.uid).users,
             builder: (context, snapshot3) {
               if (snapshot2.hasData && snapshot3.hasData) {
                 NewUserActivityLog? activities = snapshot2.data;
@@ -38,7 +56,7 @@ class Profile extends StatelessWidget {
                 int i = 0;
                 for (Users each in userList!) {
                   i++;
-                  if (user.uid == each.uid) {
+                  if (profile.uid == each.uid) {
                     ranking = i;
                     break;
                   }
@@ -54,73 +72,134 @@ class Profile extends StatelessWidget {
                         right: 30),
                     physics: const BouncingScrollPhysics(),
                     children: [
-                      Align(
-                        alignment: Alignment.topRight,
-                        child: IconButton(
-                          icon: const Icon(Icons.settings),
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/settings');
-                          },
-                        ),
-                      ),
+                      isSelf
+                          ? Align(
+                              alignment: Alignment.topRight,
+                              child: IconButton(
+                                icon: const Icon(Icons.settings),
+                                onPressed: () {
+                                  Navigator.pushNamed(context, '/settings');
+                                },
+                              ),
+                            )
+                          : Breaker(i: 50),
                       ProfileCard(
+                        uid: profile.uid,
                         profile: ProfileDetails(
                             imageUrl:
                                 'assets/image/character.png' /*userData.picture!*/,
-                            username: user.username!,
-                            email: userAuth.email!,
-                            experience: user.experience!),
+                            username: profile.username,
+                            email: "",
+                            experience: profile.experience),
                       ),
                       Breaker(i: 20),
+                      isSelf
+                          ? Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                'Active Days',
+                                style: GoogleFonts.montserrat(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w500,
+                                  color: const Color(0xff1D283F),
+                                ),
+                              ),
+                            )
+                          : Container(),
+                      isSelf ? Breaker(i: 10) : Container(),
+                      isSelf
+                          ? Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: List.generate(
+                                  days.length,
+                                  (index) => DayActivity(
+                                      day: days[index],
+                                      activity: activities!
+                                          .activity![index])).toList(),
+                            )
+                          : Container(),
+                      Breaker(i: 25),
                       Align(
                         alignment: Alignment.centerLeft,
-                        child: Text(
-                          'Active Days',
-                          style: GoogleFonts.montserrat(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500,
-                            color: const Color(0xff1D283F),
-                          ),
-                        ),
-                      ),
-                      Breaker(i: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: List.generate(
-                                days.length,
-                                (index) => DayActivity(
-                                    day: days[index],
-                                    activity: activities!.activity![index]))
-                            .toList(),
-                      ),
-                      Breaker(i: 20),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Leaderboards",
-                              style: GoogleFonts.montserrat(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w500,
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(top: 13),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Leaderboards",
+                                      style: GoogleFonts.montserrat(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(
+                                      (isSelf ? "You are c" : "C") +
+                                          "urrently ranked top $ranking globally.",
+                                      style: GoogleFonts.montserrat(
+                                        fontSize: 12.8,
+                                        fontWeight: FontWeight.w400,
+                                        color: const Color(0xff1D283F),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              "You are currently $ranking in the whole world.",
-                              style: GoogleFonts.montserrat(
-                                fontSize: 12.8,
-                                fontWeight: FontWeight.w400,
-                                color: const Color(0xff1D283F),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  EndorseButton(
+                                      profile: profile, isSelf: isSelf),
+                                  FutureBuilder<String>(
+                                      future: DatabaseService(uid: profile.uid)
+                                          .getEndorsementCount(),
+                                      builder: (context, snapshot) {
+                                        if (snapshot.hasData &&
+                                            snapshot.connectionState ==
+                                                ConnectionState.done) {
+                                          lastValue = snapshot.data!;
+                                          return Text(
+                                            lastValue,
+                                            style: GoogleFonts.montserrat(
+                                              fontSize: 12.8,
+                                              fontWeight: FontWeight.w400,
+                                              color: const Color(0xff1D283F),
+                                            ),
+                                          );
+                                        } else if (snapshot.hasData &&
+                                            snapshot.connectionState ==
+                                                ConnectionState.waiting) {
+                                          return Text(
+                                            lastValue,
+                                            style: GoogleFonts.montserrat(
+                                              fontSize: 12.8,
+                                              fontWeight: FontWeight.w400,
+                                              color: const Color(0xff1D283F),
+                                            ),
+                                          );
+                                        } else {
+                                          return Text(
+                                            "",
+                                            style: GoogleFonts.montserrat(
+                                              fontSize: 12.8,
+                                              fontWeight: FontWeight.w400,
+                                              color: const Color(0xff1D283F),
+                                            ),
+                                          );
+                                        }
+                                      })
+                                ],
                               ),
-                            ),
-                          ],
-                        ),
+                            ]),
                       ),
-                      Breaker(i: 20),
+                      Breaker(i: 25),
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Column(
@@ -137,13 +216,14 @@ class Profile extends StatelessWidget {
                               height: 10,
                             ),
                             StreamBuilder<List<Achievement>>(
-                                stream: DatabaseService(uid: user.uid)
+                                stream: DatabaseService(uid: profile.uid)
                                     .getAchievements(),
                                 builder: (context, snapshot) {
                                   if (snapshot.hasData &&
                                       snapshot.connectionState ==
                                           ConnectionState.active) {
                                     return AchievementList(
+                                        isSelf: isSelf,
                                         achievements: snapshot.data!);
                                   } else {
                                     return Text(
@@ -162,11 +242,11 @@ class Profile extends StatelessWidget {
                       ),
                     ],
                   ),
-                  floatingActionButton: NavBar.Buttons(context),
+                  floatingActionButton: isSelf ? NavBar.Buttons(context) : null,
                   floatingActionButtonLocation:
-                      FloatingActionButtonLocation.centerDocked,
+                      isSelf ? FloatingActionButtonLocation.centerDocked : null,
                   extendBody: true,
-                  bottomNavigationBar: NavBar.bar(context, 4),
+                  bottomNavigationBar: isSelf ? NavBar.bar(context, 4) : null,
                 );
               } else {
                 debugPrint(snapshot2.error.toString());

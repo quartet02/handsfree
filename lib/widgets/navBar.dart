@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:handsfree/models/newUser.dart';
+import 'package:handsfree/models/userProfile.dart';
 import 'package:handsfree/services/database.dart';
 import 'package:handsfree/widgets/constants.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -52,7 +53,19 @@ class NavBar extends StatelessWidget {
       child: MaterialButton(
         onPressed: () {
           if (index != i) {
-            Navigator.pushReplacementNamed(context, location);
+            if (i == 4) {
+              Navigator.pushReplacementNamed(context, location,
+                  arguments: Users(
+                      name: "self",
+                      experience: -1000,
+                      phoneNumber: "self",
+                      picture: "self",
+                      title: "self",
+                      username: "self",
+                      uid: "self"));
+            } else {
+              Navigator.pushReplacementNamed(context, location);
+            }
           }
           index = i;
         },

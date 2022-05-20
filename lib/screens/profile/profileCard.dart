@@ -10,9 +10,11 @@ import 'profileDetails.dart';
 import 'experienceCard.dart';
 
 class ProfileCard extends StatelessWidget {
-  ProfileCard({Key? key, required this.profile}) : super(key: key);
+  ProfileCard({Key? key, required this.profile, required this.uid})
+      : super(key: key);
 
   final ProfileDetails profile;
+  final String uid;
   String? title;
   String? lvl;
   int? level;
@@ -46,7 +48,7 @@ class ProfileCard extends StatelessWidget {
     final user = Provider.of<NewUserData?>(context);
     calculate();
     if (user == null) return Loading();
-    DatabaseService(uid: user.uid)
+    DatabaseService(uid: uid)
         .updateSingleData(CollectionSelector.title, title!);
 
     return Column(

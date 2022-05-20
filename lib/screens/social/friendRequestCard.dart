@@ -31,8 +31,9 @@ class _FriendRequestCardState extends State<FriendRequestCard> {
     bool isSent = widget.isSent;
     if (user == null) return Loading();
     return GestureDetector(
-      onTap: () {
-        // Navigator.pushNamed(context, "/chatHome/chat", arguments: roomData);
+      onTap: () async {
+        Users user = await DatabaseService().getUserById(widget.userData.uid);
+        Navigator.pushNamed(context, "/profile", arguments: user);
       },
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 5),
@@ -57,8 +58,10 @@ class _FriendRequestCardState extends State<FriendRequestCard> {
             Row(
               children: [
                 GestureDetector(
-                  onTap: () {
-                    debugPrint("pressed profile pic");
+                  onTap: () async {
+                    Users user = await DatabaseService()
+                        .getUserById(widget.userData.uid);
+                    Navigator.pushNamed(context, "/profile", arguments: user);
                   },
                   child: Container(
                     height: 50,

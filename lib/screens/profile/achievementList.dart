@@ -5,17 +5,20 @@ import 'package:handsfree/services/medialoader.dart';
 import 'package:provider/provider.dart';
 
 class AchievementList extends StatelessWidget {
-  const AchievementList({Key? key, required this.achievements})
+  const AchievementList(
+      {Key? key, required this.achievements, required this.isSelf})
       : super(key: key);
 
   final List<Achievement> achievements;
-
+  final bool isSelf;
   @override
   Widget build(BuildContext context) {
     // achievements.forEach((elem) => print(elem.achievementImage));
     if (achievements.isEmpty) {
       return Text(
-        "Work hard to get achievements",
+        isSelf
+            ? "Work hard to get achievements"
+            : "Still signing to get my achievements",
         style: GoogleFonts.montserrat(
           fontSize: 12.8,
           fontWeight: FontWeight.w400,

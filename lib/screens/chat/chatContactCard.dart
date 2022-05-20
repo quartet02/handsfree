@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:handsfree/models/chatModel.dart';
+import 'package:handsfree/models/userProfile.dart';
+import 'package:handsfree/services/database.dart';
 import 'package:handsfree/widgets/breaker.dart';
 import 'package:handsfree/widgets/buildText.dart';
 import 'package:handsfree/widgets/constants.dart';
 
 class ContactCard extends StatelessWidget {
-  ContactCard({Key? key, required this.roomData}) : super(key: key);
+  ContactCard({Key? key, required this.roomData, this.id}) : super(key: key);
 
-  late final String id;
+  final String? id;
   final ChatRoom roomData;
 
   @override
@@ -36,8 +38,9 @@ class ContactCard extends StatelessWidget {
         child: Row(
           children: [
             GestureDetector(
-              onTap: () {
-                debugPrint("pressed profile pic");
+              onTap: () async {
+                Users user = await DatabaseService().getUserById(id!);
+                Navigator.pushNamed(context, "/profile", arguments: user);
               },
               child: Container(
                 height: 50,
