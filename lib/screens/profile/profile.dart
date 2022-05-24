@@ -170,7 +170,7 @@ class Profile extends StatelessWidget {
                                             style: GoogleFonts.montserrat(
                                               fontSize: 12.8,
                                               fontWeight: FontWeight.w400,
-                                              color: const Color(0xff1D283F),
+                                              color: Colors.black,
                                             ),
                                           );
                                         } else if (snapshot.hasData &&
@@ -181,7 +181,7 @@ class Profile extends StatelessWidget {
                                             style: GoogleFonts.montserrat(
                                               fontSize: 12.8,
                                               fontWeight: FontWeight.w400,
-                                              color: const Color(0xff1D283F),
+                                              color: Colors.black,
                                             ),
                                           );
                                         } else {
@@ -190,7 +190,7 @@ class Profile extends StatelessWidget {
                                             style: GoogleFonts.montserrat(
                                               fontSize: 12.8,
                                               fontWeight: FontWeight.w400,
-                                              color: const Color(0xff1D283F),
+                                              color: Colors.black,
                                             ),
                                           );
                                         }

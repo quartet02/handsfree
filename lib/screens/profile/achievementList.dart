@@ -27,6 +27,7 @@ class AchievementList extends StatelessWidget {
       );
     } else {
       return GridView.count(
+        physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         crossAxisCount: 3,
         children: List.generate(achievements.length, (index) {
@@ -44,7 +45,7 @@ class AchievementList extends StatelessWidget {
                         showDuration: const Duration(milliseconds: 2500),
                         message: achievements[index].achievementDesc,
                         child: Container(
-                          height: 80,
+                          height: MediaQuery.of(context).size.height / 14,
                           width: 80,
                           decoration: BoxDecoration(
                             image: DecorationImage(
