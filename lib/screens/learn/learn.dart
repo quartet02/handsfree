@@ -89,7 +89,7 @@ class _LearnState extends State<Learn> {
                   padding:
                       const EdgeInsets.only(left: 30, bottom: 5, right: 30),
                   margin: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height / 10),
+                      top: MediaQuery.of(context).size.height / 14),
                   child: ListView(
                     physics: const NeverScrollableScrollPhysics(),
                     children: [
