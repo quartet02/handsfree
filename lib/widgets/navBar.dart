@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 
 class NavBar extends StatelessWidget {
   const NavBar({Key? key}) : super(key: key);
-  static int index = 0;
+  static int index = 2;
 
   static BottomAppBar bar(BuildContext context, int currentPage) {
     const double RADIUS = 23;
