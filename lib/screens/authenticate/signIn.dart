@@ -63,6 +63,25 @@ class _SignInState extends State<SignIn> {
                   true,
                   false,
                   'Please enter some password'),
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, "/auth/forgetPassword");
+                },
+                child: Container(
+                  padding: const EdgeInsets.only(top: 20, left: 10),
+                  alignment: Alignment.topLeft,
+                  child: Text("Forget Passwords?",
+                      style: GoogleFonts.montserrat(
+                        fontSize: 12.8,
+                        fontWeight: FontWeight.w300,
+                        color: kText,
+                        fontStyle: FontStyle.italic,
+                      ),
+                      textAlign: TextAlign.start,
+                      softWrap: true,
+                      overflow: TextOverflow.visible),
+                ),
+              ),
               Padding(
                 padding: const EdgeInsets.only(top: 30),
                 child: GestureDetector(
@@ -121,63 +140,64 @@ class _SignInState extends State<SignIn> {
                       ),
                     ])),
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 30),
-                child: GestureDetector(
-                    onTap: () async {
-                      if (true) {
-                        dynamic results = await _auth.resetPassword(
-                            email: emailController.text);
-                        if (results[0] == 1) {
-                          // reset fail
-                          var snackBar = const SnackBar(
-                            content: Text("Reset fail. Please try again."),
-                            backgroundColor: kPurpleLight,
-                          );
 
-                          // Find the ScaffoldMessenger in the widget tree
-                          // and use it to show a SnackBar.
-                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                        } else {
-                          Navigator.pushReplacementNamed(context, '/signIn');
-                        }
-                      }
-                    },
-                    child: Stack(children: <Widget>[
-                      Center(
-                        child: Container(
-                            alignment: Alignment.center,
-                            width: 200,
-                            decoration: const BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(20)),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: kButtonShadow,
-                                    offset: Offset(6, 6),
-                                    blurRadius: 6,
-                                  ),
-                                ]),
-                            child: Image.asset(
-                              'assets/image/purple_button.png',
-                              scale: 4,
-                            )),
-                      ),
-                      Container(
-                        height: 40,
-                        alignment: Alignment.center,
-                        padding: const EdgeInsets.only(top: 10),
-                        child: Text(
-                          'Forget Password',
-                          style: GoogleFonts.montserrat(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: kTextLight,
-                          ),
-                        ),
-                      ),
-                    ])),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.only(top: 30),
+              //   child: GestureDetector(
+              //       onTap: () async {
+              //         if (true) {
+              //           dynamic results = await _auth.resetPassword(
+              //               email: emailController.text);
+              //           if (results[0] == 1) {
+              //             // reset fail
+              //             var snackBar = const SnackBar(
+              //               content: Text("Reset fail. Please try again."),
+              //               backgroundColor: kPurpleLight,
+              //             );
+
+              //             // Find the ScaffoldMessenger in the widget tree
+              //             // and use it to show a SnackBar.
+              //             ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              //           } else {
+              //             Navigator.pushReplacementNamed(context, '/signIn');
+              //           }
+              //         }
+              //       },
+              //       child: Stack(children: <Widget>[
+              //         Center(
+              //           child: Container(
+              //               alignment: Alignment.center,
+              //               width: 200,
+              //               decoration: const BoxDecoration(
+              //                   borderRadius:
+              //                       BorderRadius.all(Radius.circular(20)),
+              //                   boxShadow: [
+              //                     BoxShadow(
+              //                       color: kButtonShadow,
+              //                       offset: Offset(6, 6),
+              //                       blurRadius: 6,
+              //                     ),
+              //                   ]),
+              //               child: Image.asset(
+              //                 'assets/image/purple_button.png',
+              //                 scale: 4,
+              //               )),
+              //         ),
+              //         Container(
+              //           height: 40,
+              //           alignment: Alignment.center,
+              //           padding: const EdgeInsets.only(top: 10),
+              //           child: Text(
+              //             'Forget Password',
+              //             style: GoogleFonts.montserrat(
+              //               fontSize: 16,
+              //               fontWeight: FontWeight.w600,
+              //               color: kTextLight,
+              //             ),
+              //           ),
+              //         ),
+              //       ])),
+              // ),
             ],
           ),
         ),

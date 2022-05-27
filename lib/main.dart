@@ -10,6 +10,7 @@ import 'package:handsfree/provider/newsFeedProvider.dart';
 import 'package:handsfree/provider/subLessonProvider.dart';
 import 'package:handsfree/screens/FeedBack/feedback.dart';
 import 'package:handsfree/screens/authenticate/authenticate.dart';
+import 'package:handsfree/screens/authenticate/forgetPassword.dart';
 import 'package:handsfree/screens/authenticate/levelForm.dart';
 import 'package:handsfree/screens/authenticate/signIn.dart';
 import 'package:handsfree/screens/authenticate/signUp.dart';
@@ -104,6 +105,7 @@ class MyApp extends StatelessWidget {
         "/auth": (context) => const Authenticate(),
         "/auth/signIn": (context) => const SignIn(),
         "/auth/signUp": (context) => const SignUp(),
+        "/auth/forgetPassword": (context) => const ForgetPassword(),
         "/social": (context) => const Social(),
         "/dictionary": (context) => const Dictionary(),
         "/profile": (context) => const Profile(),
