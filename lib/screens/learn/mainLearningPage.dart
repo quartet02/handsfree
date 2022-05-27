@@ -113,7 +113,8 @@ class _MainLearningPageState extends State<MainLearningPage>
   @override
   Widget build(BuildContext context) {
     if (user == null || provider == null) return Loading();
-    int typeOfTest = Provider.of<LessonCardProvider?>(context)!.getCurrentTypeOfTest;
+    int typeOfTest =
+        Provider.of<LessonCardProvider?>(context)!.getCurrentTypeOfTest;
 
     return FutureBuilder<List<LessonCardModel>>(
         future: lessonListFromDB,
@@ -127,7 +128,7 @@ class _MainLearningPageState extends State<MainLearningPage>
 
               if (lessonCard!.isNotEmpty && firstTime) {
                 provider.initTime();
-                if(isPractical) {
+                if (isPractical) {
                   lessonCard.shuffle();
                   provider.setCardLessons(lessonCard);
                   provider.initTest();
@@ -189,7 +190,8 @@ class _MainLearningPageState extends State<MainLearningPage>
 
                       provider.updateDBFunction = updateDB;
                       provider.showMessageFunction = showMessage;
-                      debugPrint("Current alphabet: "+provider.getCurrentLesson.lessonCardTitle);
+                      debugPrint("Current alphabet: " +
+                          provider.getCurrentLesson.lessonCardTitle);
                       return Container(
                         alignment: Alignment.center,
                         padding: const EdgeInsets.only(
@@ -208,8 +210,16 @@ class _MainLearningPageState extends State<MainLearningPage>
                                         style: GoogleFonts.montserrat(
                                           letterSpacing: 0,
                                           fontSize: 16,
-                                          fontWeight: FontWeight.w400,
-                                          color: kText,
+                                          fontWeight: (value == 3 ||
+                                                  value == 2 ||
+                                                  value == 1)
+                                              ? FontWeight.w700
+                                              : FontWeight.w400,
+                                          color: (value == 3 ||
+                                                  value == 2 ||
+                                                  value == 1)
+                                              ? Colors.red
+                                              : kText,
                                         ),
                                       );
                                     })

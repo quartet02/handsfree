@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:handsfree/provider/lessonCardProvider.dart';
 import 'package:handsfree/screens/learn/choiceCard.dart';
+import 'package:handsfree/widgets/buildText.dart';
 import 'package:provider/provider.dart';
 
 class Choices extends StatelessWidget {
@@ -13,6 +14,9 @@ class Choices extends StatelessWidget {
 
     return Column(
       children: [
+        Padding(padding: EdgeInsets.only(top: 7)),
+        buildText.heading3Text("Please choose one if it."),
+        Padding(padding: EdgeInsets.only(top: 5)),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -29,6 +33,7 @@ class Choices extends StatelessWidget {
                     left: MediaQuery.of(context).size.width / 40)),
           ],
         ),
+        Padding(padding: EdgeInsets.only(top: 10)),
       ],
     );
   }

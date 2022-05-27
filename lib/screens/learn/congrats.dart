@@ -75,21 +75,11 @@ class _CongratulationState extends State<Congratulation> {
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       margin: const EdgeInsets.only(top: 14),
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Container(
-                            width: 130,
-                            height: 200,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                alignment: Alignment.topCenter,
-                                image: AssetImage(subLesson.lessonImage),
-                              ),
-                            ),
-                          ),
                           Column(
                             mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               const Padding(padding: EdgeInsets.only(top: 28)),
                               buildText
