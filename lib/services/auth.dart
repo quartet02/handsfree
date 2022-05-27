@@ -98,12 +98,13 @@ class AuthService {
     try {
       UserCredential result = await _auth.signInWithCredential(credential);
       User user = result.user!;
-      if(result.additionalUserInfo!.isNewUser){
+      if (result.additionalUserInfo!.isNewUser) {
         // init user database on successful registeration
         await DatabaseService(uid: user.uid)
           ..updateUserData(
               0,
-              user.displayName ?? user.email!.substring(0, user.email!.lastIndexOf('@')),
+              user.displayName ??
+                  user.email!.substring(0, user.email!.lastIndexOf('@')),
               user.phoneNumber ?? "",
               'assets/image/character.png',
               'Newbie Signer',
@@ -111,13 +112,13 @@ class AuthService {
           ..buildUserLesson()
           ..buildUserLog()
           ..buildUserFriend();
-      };
+      }
+      ;
       // add uid to SharedPreferences for easy access
       final pref = await SharedPreferences.getInstance();
       await pref.setString("uniqueId", user.uid);
 
       DatabaseService(uid: user.uid);
-
 
       return [0, 'Logged in successfully'];
     } on FirebaseAuthException catch (e) {
@@ -138,6 +139,13 @@ class AuthService {
 
   void signOut() async {
     await _auth.signOut();
+  }
+
+  Future resetPassword({required String email}) async {
+    await _auth
+        .sendPasswordResetEmail(email: email)
+        .then((value) => [0, "Reset Successfully"])
+        .catchError((e) => [1, "Reset Unsuccessfully"]);
   }
 
   Future<NewUserData?> _newUserDataFromFirebaseUser(User? user) async {
