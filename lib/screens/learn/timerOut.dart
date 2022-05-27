@@ -30,7 +30,7 @@ class TimerOut extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  buildText.textBox('Timers out!', 1, 35, TextOverflow.visible,
+                  buildText.textBox('Times out!', 1, 35, TextOverflow.visible,
                       FontWeight.w700),
                   Padding(
                     padding: EdgeInsets.only(
@@ -41,7 +41,7 @@ class TimerOut extends StatelessWidget {
                     padding: EdgeInsets.only(bottom: 30),
                   ),
                   buildText.textBox(
-                      'You have failed',
+                      'Try again next time!',
                       0,
                       20,
                       TextOverflow.visible,
