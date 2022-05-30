@@ -6,6 +6,8 @@ import 'package:handsfree/services/database.dart';
 import 'package:handsfree/widgets/buildText.dart';
 import 'package:handsfree/services/userPreference.dart';
 
+import '../../widgets/backButton.dart';
+
 class FriendRequest extends StatefulWidget {
   const FriendRequest({Key? key}) : super(key: key);
 
@@ -86,6 +88,7 @@ class _FriendRequestState extends State<FriendRequest> {
             ),
           ),
         ),
+        Button.backButton(context, 30, 9.5),
         Container(
             padding: const EdgeInsets.only(left: 40, bottom: 5, right: 40),
             margin:

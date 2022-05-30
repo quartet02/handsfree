@@ -11,6 +11,7 @@ import 'package:handsfree/widgets/constants.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/newUser.dart';
+import '../../widgets/backButton.dart';
 import '../../widgets/loadingWholeScreen.dart';
 import 'package:handsfree/services/userPreference.dart';
 
@@ -50,445 +51,458 @@ class _SettingsState extends State<Settings> {
               image: AssetImage('assets/image/purple_heading2.png'),
               fit: BoxFit.cover),
         ),
-        child: Container(
-          padding: const EdgeInsets.only(left: 30, bottom: 5, right: 30),
-          margin: EdgeInsets.only(top: MediaQuery.of(context).size.height / 10),
-          child: Column(
-            children: [
-              buildText.bigTitle("Settings"),
-              breaker(80),
-              ShaderMask(
-                shaderCallback: (Rect rect) {
-                  return const LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Colors.purple,
-                      Colors.transparent,
-                      Colors.transparent,
-                      Colors.purple
-                    ],
-                    stops: [
-                      0.0,
-                      0.1,
-                      0.9,
-                      1.0
-                    ], // 10% purple, 80% transparent, 10% purple
-                  ).createShader(rect);
-                },
-                blendMode: BlendMode.dstOut,
-                child: Container(
-                  alignment: Alignment.centerLeft,
-                  padding: const EdgeInsets.only(left: 0, bottom: 5, right: 0),
-                  height: MediaQuery.of(context).size.height / 1.37,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 0),
-                    child: ListView(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      scrollDirection: Axis.vertical,
-                      physics: const BouncingScrollPhysics(),
-                      children: [
-                        ///Your profile
-                        breaker(20),
-                        buildText.heading2Text("Your Profile"),
-                        breaker(20),
-                        subTitle("Name"),
-                        textBox(nameController, "name", CollectionSelector.name,
-                            user.uid!, user.name!),
-                        subTitle("Username"),
-                        textBox(
-                            usernameController,
-                            "username",
-                            CollectionSelector.username,
-                            user.uid!,
-                            user.username!),
-                        subTitle("Email"),
-                        textBox(
-                            emailController,
-                            "email",
-                            CollectionSelector.email,
-                            user.uid!,
-                            userAuth.email!,
-                            enabled: false),
-                        // subTitle("Password"),
-                        // textBox(passwordController, "password",
-                        //     CollectionSelector.password, user.uid!, ''),
-                        breaker(20),
-                        //======================================== CHANGE BUTTON ==============================================
-                        GestureDetector(
-                          onTap: () async {
-                            // ====================================== ADD CONDITION HERE ===================================
-                            var change = 0;
+        child: Stack(
+          children: [
+            Button.backButton(context, 30, 9.5),
+            Container(
+              padding: const EdgeInsets.only(left: 30, bottom: 5, right: 30),
+              margin:
+                  EdgeInsets.only(top: MediaQuery.of(context).size.height / 10),
+              child: Column(
+                children: [
+                  buildText.bigTitle("Settings"),
+                  breaker(80),
+                  ShaderMask(
+                    shaderCallback: (Rect rect) {
+                      return const LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Colors.purple,
+                          Colors.transparent,
+                          Colors.transparent,
+                          Colors.purple
+                        ],
+                        stops: [
+                          0.0,
+                          0.1,
+                          0.9,
+                          1.0
+                        ], // 10% purple, 80% transparent, 10% purple
+                      ).createShader(rect);
+                    },
+                    blendMode: BlendMode.dstOut,
+                    child: Container(
+                      alignment: Alignment.centerLeft,
+                      padding:
+                          const EdgeInsets.only(left: 0, bottom: 5, right: 0),
+                      height: MediaQuery.of(context).size.height / 1.37,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 0),
+                        child: ListView(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          scrollDirection: Axis.vertical,
+                          physics: const BouncingScrollPhysics(),
+                          children: [
+                            ///Your profile
+                            breaker(20),
+                            buildText.heading2Text("Your Profile"),
+                            breaker(20),
+                            subTitle("Name"),
+                            textBox(nameController, "name",
+                                CollectionSelector.name, user.uid!, user.name!),
+                            subTitle("Username"),
+                            textBox(
+                                usernameController,
+                                "username",
+                                CollectionSelector.username,
+                                user.uid!,
+                                user.username!),
+                            subTitle("Email"),
+                            textBox(
+                                emailController,
+                                "email",
+                                CollectionSelector.email,
+                                user.uid!,
+                                userAuth.email!,
+                                enabled: false),
+                            // subTitle("Password"),
+                            // textBox(passwordController, "password",
+                            //     CollectionSelector.password, user.uid!, ''),
+                            breaker(20),
+                            //======================================== CHANGE BUTTON ==============================================
+                            GestureDetector(
+                              onTap: () async {
+                                // ====================================== ADD CONDITION HERE ===================================
+                                var change = 0;
 
-                            user.name != nameController.text.trim() ||
-                                    nameController.text.trim() == ""
-                                ? await alterName(user)
-                                : change++;
-                            user.username != usernameController.text.trim() ||
-                                    usernameController.text.trim() == ""
-                                ? await alterUsername(user)
-                                : change++;
-                            // passwordController.text.isEmpty ||
-                            //         passwordController.text.trim() == ""
-                            //     ? change++
-                            //     : await alterPassword(user);
-                            FocusManager.instance.primaryFocus?.unfocus();
-                            if (change != 3) {
-                              var snackBar = const SnackBar(
-                                content: Text("Change Successful!"),
-                                backgroundColor: kPurpleLight,
-                              );
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(snackBar);
-                            }
-                          },
-                          child: Stack(
-                            children: <Widget>[
-                              Center(
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  width: 200,
-                                  decoration: const BoxDecoration(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(20)),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: kButtonShadow,
-                                          offset: Offset(6, 6),
-                                          blurRadius: 6,
-                                        ),
-                                      ]),
-                                  child: Image.asset(
-                                    'assets/image/purple_button.png',
-                                    scale: 4,
+                                user.name != nameController.text.trim() ||
+                                        nameController.text.trim() == ""
+                                    ? await alterName(user)
+                                    : change++;
+                                user.username !=
+                                            usernameController.text.trim() ||
+                                        usernameController.text.trim() == ""
+                                    ? await alterUsername(user)
+                                    : change++;
+                                // passwordController.text.isEmpty ||
+                                //         passwordController.text.trim() == ""
+                                //     ? change++
+                                //     : await alterPassword(user);
+                                FocusManager.instance.primaryFocus?.unfocus();
+                                if (change != 3) {
+                                  var snackBar = const SnackBar(
+                                    content: Text("Change Successful!"),
+                                    backgroundColor: kPurpleLight,
+                                  );
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBar);
+                                }
+                              },
+                              child: Stack(
+                                children: <Widget>[
+                                  Center(
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      width: 200,
+                                      decoration: const BoxDecoration(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(20)),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: kButtonShadow,
+                                              offset: Offset(6, 6),
+                                              blurRadius: 6,
+                                            ),
+                                          ]),
+                                      child: Image.asset(
+                                        'assets/image/purple_button.png',
+                                        scale: 4,
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ),
-                              Container(
-                                height: 40,
-                                alignment: Alignment.center,
-                                padding: const EdgeInsets.only(top: 10),
-                                child: Text(
-                                  "Change",
-                                  style: GoogleFonts.montserrat(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600,
-                                    color: kTextLight,
+                                  Container(
+                                    height: 40,
+                                    alignment: Alignment.center,
+                                    padding: const EdgeInsets.only(top: 10),
+                                    child: Text(
+                                      "Change Details",
+                                      style: GoogleFonts.montserrat(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600,
+                                        color: kTextLight,
+                                      ),
+                                    ),
                                   ),
-                                ),
+                                ],
                               ),
-                            ],
-                          ),
-                        ),
-                        breaker(10),
-                        //======================================== CHANGE BUTTON ==============================================
-                        GestureDetector(
-                          onTap: () async {
-                            // ====================================== ADD CONDITION HERE ===================================
-                            final AuthService _auth = AuthService();
-                            dynamic results = await _auth.resetPassword(
-                                email: userAuth.email!);
-                            if (results[0] == 1) {
-                              var snackBar = const SnackBar(
-                                content: Text(
-                                    "Change password fail. Please try again"),
-                                backgroundColor: kPurpleLight,
-                              );
-
-                              // Find the ScaffoldMessenger in the widget tree
-                              // and use it to show a SnackBar.
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(snackBar);
-                            } else {
-                              var snackBar = const SnackBar(
-                                content: Text(
-                                    "A change password email has been sent to you account."),
-                                backgroundColor: kPurpleLight,
-                              );
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(snackBar);
-                            }
-                          },
-                          child: Stack(
-                            children: <Widget>[
-                              Center(
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  width: 200,
-                                  decoration: const BoxDecoration(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(20)),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: kButtonShadow,
-                                          offset: Offset(6, 6),
-                                          blurRadius: 6,
-                                        ),
-                                      ]),
-                                  child: Image.asset(
-                                    'assets/image/purple_button.png',
-                                    scale: 4,
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                height: 40,
-                                alignment: Alignment.center,
-                                padding: const EdgeInsets.only(top: 10),
-                                child: Text(
-                                  "Change Password",
-                                  style: GoogleFonts.montserrat(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600,
-                                    color: kTextLight,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-
-                        ///General Setttings
-                        breaker(50),
-                        buildText.heading2Text("General"),
-                        breaker(20),
-                        Container(
-                          height: 50,
-                          decoration: BoxDecoration(
-                              color: Colors.transparent,
-                              image: const DecorationImage(
-                                image:
-                                    AssetImage('assets/image/rect_row_1.png'),
-                                fit: BoxFit.cover,
-                              ),
-                              borderRadius: BorderRadius.circular(15),
-                              boxShadow: const [
-                                BoxShadow(
-                                  color: kTextShadow,
-                                  offset: Offset(6, 6),
-                                  blurRadius: 6,
-                                ),
-                              ]),
-                          child: Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 15),
-                            child: Column(
-                              children: [
-                                // Row(
-                                //   mainAxisAlignment:
-                                //       MainAxisAlignment.spaceBetween,
-                                //   children: [
-                                //     buildText.heading3Text("Sound Effects"),
-                                //     toggleSwitch('isSound', null),
-                                //   ],
-                                // ),
-                                // Row(
-                                //   mainAxisAlignment:
-                                //       MainAxisAlignment.spaceBetween,
-                                //   children: [
-                                //     buildText.heading3Text("Dark Mode"),
-                                //     toggleSwitch('isDark', null),
-                                //   ],
-                                // ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    buildText
-                                        .heading3Text("Motivational message"),
-                                    toggleSwitch(
-                                        "isMotivational", "motivationNoti"),
-                                  ],
-                                ),
-                              ],
                             ),
-                          ),
-                        ),
-                        breaker(20),
-                        buildButton(
-                            text: "Helpdesk",
-                            word: "/helpCenter",
-                            buttonColor: "purple"),
-                        breaker(10),
-                        buildButton(
-                            text: "Feedback",
-                            word: "/feedback",
-                            buttonColor: "purple"),
-                        breaker(50),
+                            breaker(10),
+                            //======================================== CHANGE BUTTON ==============================================
+                            GestureDetector(
+                              onTap: () async {
+                                // ====================================== ADD CONDITION HERE ===================================
+                                final AuthService _auth = AuthService();
+                                dynamic results = await _auth.resetPassword(
+                                    email: userAuth.email!);
+                                if (results[0] == 1) {
+                                  var snackBar = const SnackBar(
+                                    content: Text(
+                                        "Change password fail. Please try again"),
+                                    backgroundColor: kPurpleLight,
+                                  );
 
-                        ///Notification
-                        buildText.heading2Text("Notification"),
-                        breaker(20),
-                        Container(
-                          height: 50,
-                          decoration: BoxDecoration(
-                              color: Colors.transparent,
-                              image: const DecorationImage(
-                                image:
-                                    AssetImage('assets/image/rect_row_1.png'),
-                                fit: BoxFit.cover,
+                                  // Find the ScaffoldMessenger in the widget tree
+                                  // and use it to show a SnackBar.
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBar);
+                                } else {
+                                  var snackBar = const SnackBar(
+                                    content: Text(
+                                        "A change password email has been sent to you account."),
+                                    backgroundColor: kPurpleLight,
+                                  );
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBar);
+                                }
+                              },
+                              child: Stack(
+                                children: <Widget>[
+                                  Center(
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      width: 200,
+                                      decoration: const BoxDecoration(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(20)),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: kButtonShadow,
+                                              offset: Offset(6, 6),
+                                              blurRadius: 6,
+                                            ),
+                                          ]),
+                                      child: Image.asset(
+                                        'assets/image/purple_button.png',
+                                        scale: 4,
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    height: 40,
+                                    alignment: Alignment.center,
+                                    padding: const EdgeInsets.only(top: 10),
+                                    child: Text(
+                                      "Change Password",
+                                      style: GoogleFonts.montserrat(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600,
+                                        color: kTextLight,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                              borderRadius: BorderRadius.circular(15),
-                              boxShadow: const [
-                                BoxShadow(
-                                  color: kTextShadow,
-                                  offset: Offset(6, 6),
-                                  blurRadius: 6,
-                                ),
-                              ]),
-                          child: Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 15),
-                            child: Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    buildText.heading3Text("Practice Reminder"),
-                                    toggleSwitch("isPractice", "practiceNoti"),
-                                  ],
-                                ),
-                                // Row(
-                                //   mainAxisAlignment:
-                                //       MainAxisAlignment.spaceBetween,
-                                //   children: [
-                                //     buildText.heading3Text("Smart Scheduling"),
-                                //     toggleSwitch("isSmartScheduling", null),
-                                //   ],
-                                // ),
-                              ],
                             ),
-                          ),
-                        ),
-                        breaker(20),
-                        Container(
-                          height: 100,
-                          decoration: BoxDecoration(
-                              color: Colors.transparent,
-                              image: const DecorationImage(
-                                image:
-                                    AssetImage('assets/image/rect_row_2.png'),
-                                fit: BoxFit.cover,
-                              ),
-                              borderRadius: BorderRadius.circular(15),
-                              boxShadow: const [
-                                BoxShadow(
-                                  color: kTextShadow,
-                                  offset: Offset(6, 6),
-                                  blurRadius: 6,
-                                ),
-                              ]),
-                          child: Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 15),
-                            child: Column(
-                              children: [
-                                // Row(
-                                //   mainAxisAlignment:
-                                //       MainAxisAlignment.spaceBetween,
-                                //   children: [
-                                //     buildText.heading3Text("Weekly Progress"),
-                                //     toggleSwitch("isWeeklyProgress", null),
-                                //   ],
-                                // ),
-                                // Row(
-                                //   mainAxisAlignment:
-                                //       MainAxisAlignment.spaceBetween,
-                                //   children: [
-                                //     buildText.heading3Text("New Friend"),
-                                //     toggleSwitch("isNewFriends", null),
-                                //   ],
-                                // ),
-                                // Row(
-                                //   mainAxisAlignment:
-                                //       MainAxisAlignment.spaceBetween,
-                                //   children: [
-                                //     buildText.heading3Text("Friend Activity"),
-                                //     toggleSwitch("isFriendActivity", null),
-                                //   ],
-                                // ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    buildText.heading3Text("Leaderboards"),
-                                    toggleSwitch("isLeaderboards", null),
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    buildText.heading3Text("News"),
-                                    toggleSwitch("isNews", "newsNoti"),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
 
-                        ///Privacy
-                        // buildText.heading2Text("Privacy"),
-                        // breaker(20),
-                        // Container(
-                        //   height: 50,
-                        //   decoration: BoxDecoration(
-                        //       color: Colors.transparent,
-                        //       image: const DecorationImage(
-                        //         image:
-                        //             AssetImage('assets/image/text_field.png'),
-                        //         fit: BoxFit.cover,
-                        //       ),
-                        //       borderRadius: BorderRadius.circular(15),
-                        //       boxShadow: const [
-                        //         BoxShadow(
-                        //           color: kTextShadow,
-                        //           offset: Offset(6, 6),
-                        //           blurRadius: 6,
-                        //         ),
-                        //       ]),
-                        //   child: Container(
-                        //     margin: const EdgeInsets.symmetric(horizontal: 15),
-                        //     child: Column(
-                        //       children: [
-                        //         Row(
-                        //           mainAxisAlignment:
-                        //               MainAxisAlignment.spaceBetween,
-                        //           children: [
-                        //             buildText.heading3Text(
-                        //                 "Tracking for Advertisement"),
-                        //             toggleSwitch(
-                        //                 "isTrackingForAdvertising", null),
-                        //           ],
-                        //         ),
-                        //       ],
-                        //     ),
-                        //   ),
-                        // ),
-                        breaker(20),
-                        buildButton(
-                            text: "Terms",
-                            word: "/terms",
-                            buttonColor: "purple"),
-                        breaker(20),
-                        buildButton(
-                            text: "Acknowledgement",
-                            word: "/acknowledgement",
-                            buttonColor: "purple"),
-                        breaker(20),
-                        buildButton(
-                          text: "Sign Out",
-                          word: "/home",
-                          buttonColor: "purple",
-                          isSignOut: true,
+                            ///General Setttings
+                            breaker(50),
+                            buildText.heading2Text("General"),
+                            breaker(20),
+                            Container(
+                              height: 50,
+                              decoration: BoxDecoration(
+                                  color: Colors.transparent,
+                                  image: const DecorationImage(
+                                    image: AssetImage(
+                                        'assets/image/rect_row_1.png'),
+                                    fit: BoxFit.cover,
+                                  ),
+                                  borderRadius: BorderRadius.circular(15),
+                                  boxShadow: const [
+                                    BoxShadow(
+                                      color: kTextShadow,
+                                      offset: Offset(6, 6),
+                                      blurRadius: 6,
+                                    ),
+                                  ]),
+                              child: Container(
+                                margin:
+                                    const EdgeInsets.symmetric(horizontal: 15),
+                                child: Column(
+                                  children: [
+                                    // Row(
+                                    //   mainAxisAlignment:
+                                    //       MainAxisAlignment.spaceBetween,
+                                    //   children: [
+                                    //     buildText.heading3Text("Sound Effects"),
+                                    //     toggleSwitch('isSound', null),
+                                    //   ],
+                                    // ),
+                                    // Row(
+                                    //   mainAxisAlignment:
+                                    //       MainAxisAlignment.spaceBetween,
+                                    //   children: [
+                                    //     buildText.heading3Text("Dark Mode"),
+                                    //     toggleSwitch('isDark', null),
+                                    //   ],
+                                    // ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        buildText.heading3Text(
+                                            "Motivational message"),
+                                        toggleSwitch(
+                                            "isMotivational", "motivationNoti"),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            breaker(20),
+                            buildButton(
+                                text: "Helpdesk",
+                                word: "/helpCenter",
+                                buttonColor: "purple"),
+                            breaker(10),
+                            buildButton(
+                                text: "Feedback",
+                                word: "/feedback",
+                                buttonColor: "purple"),
+                            breaker(50),
+
+                            ///Notification
+                            buildText.heading2Text("Notification"),
+                            breaker(20),
+                            Container(
+                              height: 50,
+                              decoration: BoxDecoration(
+                                  color: Colors.transparent,
+                                  image: const DecorationImage(
+                                    image: AssetImage(
+                                        'assets/image/rect_row_1.png'),
+                                    fit: BoxFit.cover,
+                                  ),
+                                  borderRadius: BorderRadius.circular(15),
+                                  boxShadow: const [
+                                    BoxShadow(
+                                      color: kTextShadow,
+                                      offset: Offset(6, 6),
+                                      blurRadius: 6,
+                                    ),
+                                  ]),
+                              child: Container(
+                                margin:
+                                    const EdgeInsets.symmetric(horizontal: 15),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        buildText
+                                            .heading3Text("Practice Reminder"),
+                                        toggleSwitch(
+                                            "isPractice", "practiceNoti"),
+                                      ],
+                                    ),
+                                    // Row(
+                                    //   mainAxisAlignment:
+                                    //       MainAxisAlignment.spaceBetween,
+                                    //   children: [
+                                    //     buildText.heading3Text("Smart Scheduling"),
+                                    //     toggleSwitch("isSmartScheduling", null),
+                                    //   ],
+                                    // ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            breaker(20),
+                            Container(
+                              height: 100,
+                              decoration: BoxDecoration(
+                                  color: Colors.transparent,
+                                  image: const DecorationImage(
+                                    image: AssetImage(
+                                        'assets/image/rect_row_2.png'),
+                                    fit: BoxFit.cover,
+                                  ),
+                                  borderRadius: BorderRadius.circular(15),
+                                  boxShadow: const [
+                                    BoxShadow(
+                                      color: kTextShadow,
+                                      offset: Offset(6, 6),
+                                      blurRadius: 6,
+                                    ),
+                                  ]),
+                              child: Container(
+                                margin:
+                                    const EdgeInsets.symmetric(horizontal: 15),
+                                child: Column(
+                                  children: [
+                                    // Row(
+                                    //   mainAxisAlignment:
+                                    //       MainAxisAlignment.spaceBetween,
+                                    //   children: [
+                                    //     buildText.heading3Text("Weekly Progress"),
+                                    //     toggleSwitch("isWeeklyProgress", null),
+                                    //   ],
+                                    // ),
+                                    // Row(
+                                    //   mainAxisAlignment:
+                                    //       MainAxisAlignment.spaceBetween,
+                                    //   children: [
+                                    //     buildText.heading3Text("New Friend"),
+                                    //     toggleSwitch("isNewFriends", null),
+                                    //   ],
+                                    // ),
+                                    // Row(
+                                    //   mainAxisAlignment:
+                                    //       MainAxisAlignment.spaceBetween,
+                                    //   children: [
+                                    //     buildText.heading3Text("Friend Activity"),
+                                    //     toggleSwitch("isFriendActivity", null),
+                                    //   ],
+                                    // ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        buildText.heading3Text("Leaderboards"),
+                                        toggleSwitch("isLeaderboards", null),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        buildText.heading3Text("News"),
+                                        toggleSwitch("isNews", "newsNoti"),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+
+                            ///Privacy
+                            // buildText.heading2Text("Privacy"),
+                            // breaker(20),
+                            // Container(
+                            //   height: 50,
+                            //   decoration: BoxDecoration(
+                            //       color: Colors.transparent,
+                            //       image: const DecorationImage(
+                            //         image:
+                            //             AssetImage('assets/image/text_field.png'),
+                            //         fit: BoxFit.cover,
+                            //       ),
+                            //       borderRadius: BorderRadius.circular(15),
+                            //       boxShadow: const [
+                            //         BoxShadow(
+                            //           color: kTextShadow,
+                            //           offset: Offset(6, 6),
+                            //           blurRadius: 6,
+                            //         ),
+                            //       ]),
+                            //   child: Container(
+                            //     margin: const EdgeInsets.symmetric(horizontal: 15),
+                            //     child: Column(
+                            //       children: [
+                            //         Row(
+                            //           mainAxisAlignment:
+                            //               MainAxisAlignment.spaceBetween,
+                            //           children: [
+                            //             buildText.heading3Text(
+                            //                 "Tracking for Advertisement"),
+                            //             toggleSwitch(
+                            //                 "isTrackingForAdvertising", null),
+                            //           ],
+                            //         ),
+                            //       ],
+                            //     ),
+                            //   ),
+                            // ),
+                            breaker(20),
+                            buildButton(
+                                text: "Terms",
+                                word: "/terms",
+                                buttonColor: "purple"),
+                            breaker(20),
+                            buildButton(
+                                text: "Acknowledgement",
+                                word: "/acknowledgement",
+                                buttonColor: "purple"),
+                            breaker(20),
+                            buildButton(
+                              text: "Sign Out",
+                              word: "/home",
+                              buttonColor: "purple",
+                              isSignOut: true,
+                            ),
+                            breaker(40),
+                          ],
                         ),
-                        breaker(40),
-                      ],
+                      ),
                     ),
                   ),
-                ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

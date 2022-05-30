@@ -6,6 +6,8 @@ import 'package:handsfree/widgets/buildText.dart';
 import 'package:handsfree/widgets/constants.dart';
 import 'package:intl/intl.dart';
 
+import '../../widgets/backButton.dart';
+
 class NewsPage extends StatelessWidget {
   const NewsPage({Key? key}) : super(key: key);
 
@@ -90,7 +92,7 @@ class NewsPage extends StatelessWidget {
                 children: [
                   buildText.heading3Text(news.author),
                   Breaker(i: 3),
-                  buildText.heading4Text(DateFormat('yyyy-MM-dd - kk:mm')
+                  buildText.heading4Text(DateFormat('yyyy-MM-dd - hh:mm a')
                       .format(news.timestamp.toDate())),
                 ]),
           ],
@@ -112,8 +114,9 @@ class NewsPage extends StatelessWidget {
             ),
           ),
         ),
+        Button.backButton(context, 30, 9),
         Container(
-            padding: const EdgeInsets.only(left: 40, bottom: 5, right: 40),
+            padding: const EdgeInsets.only(left: 50, bottom: 5, right: 40),
             margin:
                 EdgeInsets.only(top: MediaQuery.of(context).size.height / 10),
             alignment: Alignment.topCenter,

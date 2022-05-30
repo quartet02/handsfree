@@ -9,6 +9,7 @@ import 'package:handsfree/services/database.dart';
 import 'package:handsfree/widgets/buildText.dart';
 import 'package:provider/provider.dart';
 
+import '../../widgets/backButton.dart';
 import 'chatBubble.dart';
 
 class Chat extends StatefulWidget {
@@ -76,6 +77,7 @@ class _ChatState extends State<Chat> {
               Provider.of<MessageTimeProvider>(context, listen: false)
                   .store(messages);
               return ListView.builder(
+                  physics: BouncingScrollPhysics(),
                   reverse: true,
                   itemCount: messages.length,
                   itemBuilder: (context, index) {
@@ -108,6 +110,7 @@ class _ChatState extends State<Chat> {
             ),
           ),
         ),
+        Button.backButton(context, 30, 9.5),
         Container(
           margin: EdgeInsets.only(top: MediaQuery.of(context).size.height / 10),
           padding: const EdgeInsets.symmetric(horizontal: 20),

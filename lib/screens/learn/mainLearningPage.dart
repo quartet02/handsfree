@@ -15,6 +15,7 @@ import 'package:provider/provider.dart';
 
 import '../../models/newUser.dart';
 import '../../services/medialoader.dart';
+import '../../widgets/backButton.dart';
 import '../../widgets/loadingWholeScreen.dart';
 import 'package:themed/themed.dart';
 
@@ -192,172 +193,45 @@ class _MainLearningPageState extends State<MainLearningPage>
                       provider.showMessageFunction = showMessage;
                       debugPrint("Current alphabet: " +
                           provider.getCurrentLesson.lessonCardTitle);
-                      return Container(
-                        alignment: Alignment.center,
-                        padding: const EdgeInsets.only(
-                            left: 40, bottom: 5, right: 40),
-                        margin: EdgeInsets.only(
-                            top: MediaQuery.of(context).size.height / 15),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            isPractical
-                                ? ValueListenableBuilder(
-                                    valueListenable: _remainingTime,
-                                    builder: (context, value, child) {
-                                      return Text(
-                                        "Timer: " + value.toString(),
-                                        style: GoogleFonts.montserrat(
-                                          letterSpacing: 0,
-                                          fontSize: 16,
-                                          fontWeight: (value == 3 ||
-                                                  value == 2 ||
-                                                  value == 1)
-                                              ? FontWeight.w700
-                                              : FontWeight.w400,
-                                          color: (value == 3 ||
-                                                  value == 2 ||
-                                                  value == 1)
-                                              ? Colors.red
-                                              : kText,
-                                        ),
-                                      );
-                                    })
-                                : Container(),
-                            const Padding(
-                              padding: EdgeInsets.only(bottom: 10),
-                            ),
-                            Container(
-                              height: 130,
-                              decoration: const BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(20)),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: kTextShadow,
-                                    offset: Offset(10, 10),
-                                    blurRadius: 20,
-                                  ),
-                                ],
-                                image: DecorationImage(
-                                  alignment: Alignment.topCenter,
-                                  image: AssetImage(
-                                      'assets/image/learning_small_rect.png'),
-                                ),
-                              ),
-                              child: Stack(
-                                children: [
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 20),
-                                    margin: const EdgeInsets.only(top: 8),
-                                    child: Row(
-                                      children: <Widget>[
-                                        Container(
-                                          width: 130,
-                                          height: 200,
-                                          alignment: Alignment.center,
-                                          child: FutureBuilder(
-                                              future: getImage(
-                                                  subLesson.lessonImage),
-                                              builder: (context, snapshot) {
-                                                if (snapshot.connectionState ==
-                                                    ConnectionState.done) {
-                                                  return Container(
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width /
-                                                            1.2,
-                                                    height:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width /
-                                                            1.2,
-                                                    child:
-                                                        snapshot.data as Widget,
-                                                  );
-                                                }
-                                                if (snapshot.connectionState ==
-                                                    ConnectionState.waiting) {
-                                                  return Container(
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width /
-                                                            1.2,
-                                                    height:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width /
-                                                            1.2,
-                                                    child:
-                                                        const CircularProgressIndicator(),
-                                                  );
-                                                } else {
-                                                  debugPrint(
-                                                      'Connection Failed');
-                                                  return Container();
-                                                }
-                                              }),
-                                        ),
-                                        Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            const Padding(
-                                                padding:
-                                                    EdgeInsets.only(top: 28)),
-                                            buildText.learningHeading2Text(
-                                                subLesson.lessonName),
-                                            const Padding(
-                                              padding:
-                                                  EdgeInsets.only(bottom: 7),
-                                            ),
-                                            buildText.learningHeading3Text(
-                                                subLesson.lessonDesc),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    alignment: Alignment.bottomCenter,
-                                    margin: const EdgeInsets.only(bottom: 15),
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 20),
-                                    child: LinearPercentIndicator(
-                                      barRadius: Radius.circular(20),
-                                      percent: progress,
-                                      lineHeight: 8,
-                                      progressColor: kOrangeDeep,
-                                      animation: true,
-                                      animateFromLastPercent: true,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            const Padding(
-                              padding: EdgeInsets.only(bottom: 10),
-                            ),
-                            isPractical
-                                ? Container()
-                                : buildText.learningText(
-                                    provider.getCurrentLesson.lessonCardTitle),
-                            const Padding(
-                              padding: EdgeInsets.only(bottom: 5),
-                            ),
-                            Stack(
-                              alignment: AlignmentDirectional.center,
+                      return Stack(
+                        children: [
+                          Container(
+                            alignment: Alignment.center,
+                            padding: const EdgeInsets.only(
+                                left: 40, bottom: 5, right: 40),
+                            margin: EdgeInsets.only(
+                                top: MediaQuery.of(context).size.height / 15),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
+                                isPractical
+                                    ? ValueListenableBuilder(
+                                        valueListenable: _remainingTime,
+                                        builder: (context, value, child) {
+                                          return Text(
+                                            "Timer: " + value.toString(),
+                                            style: GoogleFonts.montserrat(
+                                              letterSpacing: 0,
+                                              fontSize: 16,
+                                              fontWeight: (value == 3 ||
+                                                      value == 2 ||
+                                                      value == 1)
+                                                  ? FontWeight.w700
+                                                  : FontWeight.w400,
+                                              color: (value == 3 ||
+                                                      value == 2 ||
+                                                      value == 1)
+                                                  ? Colors.red
+                                                  : kText,
+                                            ),
+                                          );
+                                        })
+                                    : Container(),
+                                const Padding(
+                                  padding: EdgeInsets.only(bottom: 10),
+                                ),
                                 Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  // change image container height if it's mcq
-                                  height:
-                                      MediaQuery.of(context).size.height / 2.4,
+                                  height: 130,
                                   decoration: const BoxDecoration(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(20)),
@@ -369,156 +243,299 @@ class _MainLearningPageState extends State<MainLearningPage>
                                       ),
                                     ],
                                     image: DecorationImage(
+                                      alignment: Alignment.topCenter,
                                       image: AssetImage(
-                                          'assets/image/learning_big_rect.png'),
+                                          'assets/image/learning_small_rect.png'),
                                     ),
                                   ),
+                                  child: Stack(
+                                    children: [
+                                      Container(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 20),
+                                        margin: const EdgeInsets.only(top: 8),
+                                        child: Row(
+                                          children: <Widget>[
+                                            Container(
+                                              width: 130,
+                                              height: 200,
+                                              alignment: Alignment.center,
+                                              child: FutureBuilder(
+                                                  future: getImage(
+                                                      subLesson.lessonImage),
+                                                  builder: (context, snapshot) {
+                                                    if (snapshot
+                                                            .connectionState ==
+                                                        ConnectionState.done) {
+                                                      return Container(
+                                                        width: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width /
+                                                            1.2,
+                                                        height: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width /
+                                                            1.2,
+                                                        child: snapshot.data
+                                                            as Widget,
+                                                      );
+                                                    }
+                                                    if (snapshot
+                                                            .connectionState ==
+                                                        ConnectionState
+                                                            .waiting) {
+                                                      return Container(
+                                                        width: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width /
+                                                            1.2,
+                                                        height: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width /
+                                                            1.2,
+                                                        child:
+                                                            const CircularProgressIndicator(),
+                                                      );
+                                                    } else {
+                                                      debugPrint(
+                                                          'Connection Failed');
+                                                      return Container();
+                                                    }
+                                                  }),
+                                            ),
+                                            Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                const Padding(
+                                                    padding: EdgeInsets.only(
+                                                        top: 28)),
+                                                buildText.learningHeading2Text(
+                                                    subLesson.lessonName),
+                                                const Padding(
+                                                  padding: EdgeInsets.only(
+                                                      bottom: 7),
+                                                ),
+                                                buildText.learningHeading3Text(
+                                                    subLesson.lessonDesc),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Container(
+                                        alignment: Alignment.bottomCenter,
+                                        margin:
+                                            const EdgeInsets.only(bottom: 15),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 20),
+                                        child: LinearPercentIndicator(
+                                          barRadius: Radius.circular(20),
+                                          percent: progress,
+                                          lineHeight: 8,
+                                          progressColor: kOrangeDeep,
+                                          animation: true,
+                                          animateFromLastPercent: true,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                                Container(
-                                  alignment: Alignment.bottomCenter,
-                                  width: MediaQuery.of(context).size.width,
-                                  height:
-                                      MediaQuery.of(context).size.height / 2.45,
-                                  child: FutureBuilder(
-                                      future: FireStorageService.loadImage(
-                                          provider.getCurrentLesson
-                                              .lessonCardImage),
-                                      builder: (context, snapshot) {
-                                        if (snapshot.connectionState ==
-                                            ConnectionState.done) {
-                                          return Container(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width /
-                                                1.2,
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .width /
-                                                1.2,
-                                            child: ChangeColors(
-                                                brightness: 0.1,
-                                                saturation: 0.2,
+                                const Padding(
+                                  padding: EdgeInsets.only(bottom: 10),
+                                ),
+                                isPractical
+                                    ? Container()
+                                    : buildText.learningText(provider
+                                        .getCurrentLesson.lessonCardTitle),
+                                const Padding(
+                                  padding: EdgeInsets.only(bottom: 5),
+                                ),
+                                Stack(
+                                  alignment: AlignmentDirectional.center,
+                                  children: [
+                                    Container(
+                                      width: MediaQuery.of(context).size.width,
+                                      // change image container height if it's mcq
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              2.4,
+                                      decoration: const BoxDecoration(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(20)),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: kTextShadow,
+                                            offset: Offset(10, 10),
+                                            blurRadius: 20,
+                                          ),
+                                        ],
+                                        image: DecorationImage(
+                                          image: AssetImage(
+                                              'assets/image/learning_big_rect.png'),
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      alignment: Alignment.bottomCenter,
+                                      width: MediaQuery.of(context).size.width,
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              2.45,
+                                      child: FutureBuilder(
+                                          future: FireStorageService.loadImage(
+                                              provider.getCurrentLesson
+                                                  .lessonCardImage),
+                                          builder: (context, snapshot) {
+                                            if (snapshot.connectionState ==
+                                                ConnectionState.done) {
+                                              return Container(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    1.2,
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    1.2,
+                                                child: ChangeColors(
+                                                    brightness: 0.1,
+                                                    saturation: 0.2,
+                                                    child: Container(
+                                                      decoration: BoxDecoration(
+                                                          image: DecorationImage(
+                                                              fit: BoxFit.cover,
+                                                              image: Image.network(
+                                                                      snapshot.data
+                                                                          as String)
+                                                                  .image,
+                                                              scale: 16)),
+                                                    )),
+                                              );
+                                            }
+                                            if (snapshot.connectionState ==
+                                                ConnectionState.waiting) {
+                                              return Container(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    1.2,
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    1.2,
+                                                child:
+                                                    const CircularProgressIndicator(),
+                                              );
+                                            } else {
+                                              debugPrint('Connection Failed');
+                                              return Container();
+                                            }
+                                          }),
+                                    ),
+                                  ],
+                                ),
+                                const Padding(
+                                  padding: EdgeInsets.only(bottom: 20),
+                                ),
+                                isPractical
+                                    ? Container()
+                                    : buildText.heading2Text(provider
+                                        .getCurrentLesson.lessonCardDesc),
+                                const Padding(
+                                  padding: EdgeInsets.only(bottom: 13),
+                                ),
+                                if (isPractical)
+                                  Container(
+                                      width: MediaQuery.of(context).size.width /
+                                          0.8,
+                                      // height: MediaQuery.of(context).size.height / 12,
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 10),
+                                      decoration: BoxDecoration(
+                                          color: Colors.transparent,
+                                          image: const DecorationImage(
+                                            image: AssetImage(
+                                                'assets/image/text_field.png'),
+                                            fit: BoxFit.cover,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(25),
+                                          boxShadow: const [
+                                            BoxShadow(
+                                              color: kTextShadow,
+                                              offset: Offset(6, 6),
+                                              blurRadius: 6,
+                                            ),
+                                          ]),
+                                      child:
+                                          // if is text field
+                                          typeOfTestWidget(typeOfTest)),
+                                isPractical && typeOfTest == 1
+                                    ? Container()
+                                    : Padding(
+                                        padding: const EdgeInsets.only(top: 20),
+                                        child: GestureDetector(
+                                            onTap: () {
+                                              if (isPractical) {
+                                                provider.checkAns();
+                                              } else {
+                                                provider.updateDB();
+                                              }
+                                            },
+                                            child: Stack(children: <Widget>[
+                                              Center(
                                                 child: Container(
-                                                  decoration: BoxDecoration(
-                                                      image: DecorationImage(
-                                                          fit: BoxFit.cover,
-                                                          image: Image.network(
-                                                                  snapshot.data
-                                                                      as String)
-                                                              .image,
-                                                          scale: 16)),
-                                                )),
-                                          );
-                                        }
-                                        if (snapshot.connectionState ==
-                                            ConnectionState.waiting) {
-                                          return Container(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width /
-                                                1.2,
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .width /
-                                                1.2,
-                                            child:
-                                                const CircularProgressIndicator(),
-                                          );
-                                        } else {
-                                          debugPrint('Connection Failed');
-                                          return Container();
-                                        }
-                                      }),
-                                ),
+                                                    alignment: Alignment.center,
+                                                    width: 200,
+                                                    decoration:
+                                                        const BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .all(Radius
+                                                                        .circular(
+                                                                            20)),
+                                                            boxShadow: [
+                                                          BoxShadow(
+                                                            color:
+                                                                kButtonShadow,
+                                                            offset:
+                                                                Offset(6, 6),
+                                                            blurRadius: 6,
+                                                          ),
+                                                        ]),
+                                                    child: Image.asset(
+                                                      'assets/image/purple_button.png',
+                                                      scale: 4,
+                                                    )),
+                                              ),
+                                              Container(
+                                                height: 40,
+                                                alignment: Alignment.center,
+                                                padding: const EdgeInsets.only(
+                                                    top: 10),
+                                                child: Text(
+                                                  'Next',
+                                                  style: GoogleFonts.montserrat(
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.w600,
+                                                    color: kTextLight,
+                                                  ),
+                                                ),
+                                              ),
+                                            ])),
+                                      ),
                               ],
                             ),
-                            const Padding(
-                              padding: EdgeInsets.only(bottom: 20),
-                            ),
-                            isPractical
-                                ? Container()
-                                : buildText.heading2Text(
-                                    provider.getCurrentLesson.lessonCardDesc),
-                            const Padding(
-                              padding: EdgeInsets.only(bottom: 13),
-                            ),
-                            if (isPractical)
-                              Container(
-                                  width:
-                                      MediaQuery.of(context).size.width / 0.8,
-                                  // height: MediaQuery.of(context).size.height / 12,
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10),
-                                  decoration: BoxDecoration(
-                                      color: Colors.transparent,
-                                      image: const DecorationImage(
-                                        image: AssetImage(
-                                            'assets/image/text_field.png'),
-                                        fit: BoxFit.cover,
-                                      ),
-                                      borderRadius: BorderRadius.circular(25),
-                                      boxShadow: const [
-                                        BoxShadow(
-                                          color: kTextShadow,
-                                          offset: Offset(6, 6),
-                                          blurRadius: 6,
-                                        ),
-                                      ]),
-                                  child:
-                                      // if is text field
-                                      typeOfTestWidget(typeOfTest)),
-                            isPractical && typeOfTest == 1
-                                ? Container()
-                                : Padding(
-                                    padding: const EdgeInsets.only(top: 20),
-                                    child: GestureDetector(
-                                        onTap: () {
-                                          if (isPractical) {
-                                            provider.checkAns();
-                                          } else {
-                                            provider.updateDB();
-                                          }
-                                        },
-                                        child: Stack(children: <Widget>[
-                                          Center(
-                                            child: Container(
-                                                alignment: Alignment.center,
-                                                width: 200,
-                                                decoration: const BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.all(
-                                                            Radius.circular(
-                                                                20)),
-                                                    boxShadow: [
-                                                      BoxShadow(
-                                                        color: kButtonShadow,
-                                                        offset: Offset(6, 6),
-                                                        blurRadius: 6,
-                                                      ),
-                                                    ]),
-                                                child: Image.asset(
-                                                  'assets/image/purple_button.png',
-                                                  scale: 4,
-                                                )),
-                                          ),
-                                          Container(
-                                            height: 40,
-                                            alignment: Alignment.center,
-                                            padding:
-                                                const EdgeInsets.only(top: 10),
-                                            child: Text(
-                                              'Next',
-                                              style: GoogleFonts.montserrat(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w600,
-                                                color: kTextLight,
-                                              ),
-                                            ),
-                                          ),
-                                        ])),
-                                  ),
-                          ],
-                        ),
+                          ),
+                          Button.blackBackButton(context, 15, 7),
+                        ],
                       );
                     }),
                   ),
