@@ -59,6 +59,7 @@ class _MainLearningPageState extends State<MainLearningPage>
   @override
   void initState() {
     super.initState();
+
     isPractical = context.read<LessonProvider>().getPractical;
     // 10 sec timer for practical
     oneSecTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
@@ -67,6 +68,8 @@ class _MainLearningPageState extends State<MainLearningPage>
       if (_remainingTime.value <= 0) {
         // Unable to answer in time
         timer.cancel();
+        DatabaseService(uid: user.uid)
+            .updateTestResult(syllabus, lesson, provider.testResult['numOfWrong'], provider.testResult['elapsedTime']);
         // Put database func here
         debugPrint(Provider.of<LessonCardProvider?>(context, listen: false)
             ?.testResult
@@ -173,6 +176,8 @@ class _MainLearningPageState extends State<MainLearningPage>
                           DatabaseService(uid: user.uid).updateExperience();
                           DatabaseService(uid: user.uid)
                               .updateIsCompletedLesson(syllabus, lesson);
+                          DatabaseService(uid: user.uid)
+                              .updateTestResult(syllabus, lesson, provider.testResult['numOfWrong'], provider.testResult['elapsedTime']);
                           // put database func here
                           debugPrint(provider.testResult.toString());
                           Navigator.pushNamed(context, "/congratulation");
