@@ -4,6 +4,7 @@ import 'package:handsfree/provider/dictionaryProvider.dart';
 import 'package:handsfree/screens/dictionary/searchBar.dart';
 import 'package:handsfree/screens/dictionary/searchGroup.dart';
 import 'package:handsfree/services/database.dart';
+import 'package:handsfree/services/predictImage.dart';
 import 'package:handsfree/widgets/buildButton.dart';
 import 'package:handsfree/widgets/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -24,11 +25,21 @@ class Dictionary extends StatefulWidget {
 
 class _DictionaryState extends State<Dictionary> {
   final searchController = TextEditingController();
+  // Move this function
+  // PredictImage.classifyImage(pickedFile, true);
+
   @override
   void initState() {
     _wordData = [];
     futureListConverter();
+    PredictImage();
     super.initState();
+  }
+
+  @override
+  void dispose(){
+    super.dispose();
+    PredictImage.dispose();
   }
 
   void futureListConverter() async {

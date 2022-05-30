@@ -63,6 +63,10 @@ android {
             signingConfig signingConfigs.release
         }
     }
+    aaptOptions {
+        noCompress 'tflite'
+        noCompress 'lite'
+    }
 }
 
 dependencies {
@@ -79,6 +83,12 @@ dependencies {
     // https://firebase.google.com/docs/android/setup#available-libraries
 
     implementation 'com.android.support:multidex:1.0.3'
+    configurations.all {
+        resolutionStrategy {
+            force 'com.squareup.okhttp:okhttp:2.7.5'
+            force 'com.squareup.okio:okio:1.17.5'
+        }
+    }
 }
 
 flutter {
