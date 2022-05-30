@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:handsfree/services/auth.dart';
 import 'package:handsfree/services/database.dart';
 import 'package:handsfree/services/firebase_messaging_service.dart';
 import 'package:handsfree/widgets/buildButton.dart';
@@ -35,12 +36,11 @@ class _SettingsState extends State<Settings> {
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<NewUserData?>(context);
+    final NewUserData user = Provider.of<NewUserData>(context);
 
     if (user == null) return Loading();
 
     User userAuth = FirebaseAuth.instance.currentUser!;
-
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
@@ -110,9 +110,9 @@ class _SettingsState extends State<Settings> {
                             user.uid!,
                             userAuth.email!,
                             enabled: false),
-                        subTitle("Password"),
-                        textBox(passwordController, "password",
-                            CollectionSelector.password, user.uid!, ''),
+                        // subTitle("Password"),
+                        // textBox(passwordController, "password",
+                        //     CollectionSelector.password, user.uid!, ''),
                         breaker(20),
                         buildButton(
                           text: "Sign Out",
@@ -135,10 +135,10 @@ class _SettingsState extends State<Settings> {
                                     usernameController.text.trim() == ""
                                 ? await alterUsername(user)
                                 : change++;
-                            passwordController.text.isEmpty ||
-                                    passwordController.text.trim() == ""
-                                ? change++
-                                : await alterPassword(user);
+                            // passwordController.text.isEmpty ||
+                            //         passwordController.text.trim() == ""
+                            //     ? change++
+                            //     : await alterPassword(user);
                             FocusManager.instance.primaryFocus?.unfocus();
                             if (change != 3) {
                               var snackBar = const SnackBar(
@@ -177,6 +177,73 @@ class _SettingsState extends State<Settings> {
                                 padding: const EdgeInsets.only(top: 10),
                                 child: Text(
                                   "Change",
+                                  style: GoogleFonts.montserrat(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                    color: kTextLight,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        breaker(20),
+                        //======================================== CHANGE BUTTON ==============================================
+                        GestureDetector(
+                          onTap: () async {
+                            // ====================================== ADD CONDITION HERE ===================================
+                            final AuthService _auth = AuthService();
+                            dynamic results = await _auth.resetPassword(
+                                email: userAuth.email!);
+                            if (results[0] == 1) {
+                              var snackBar = const SnackBar(
+                                content: Text(
+                                    "Change password fail. Please try again"),
+                                backgroundColor: kPurpleLight,
+                              );
+
+                              // Find the ScaffoldMessenger in the widget tree
+                              // and use it to show a SnackBar.
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
+                            } else {
+                              var snackBar = const SnackBar(
+                                content: Text(
+                                    "A change password email has been sent to you account."),
+                                backgroundColor: kPurpleLight,
+                              );
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
+                            }
+                          },
+                          child: Stack(
+                            children: <Widget>[
+                              Center(
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  width: 200,
+                                  decoration: const BoxDecoration(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(20)),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: kButtonShadow,
+                                          offset: Offset(6, 6),
+                                          blurRadius: 6,
+                                        ),
+                                      ]),
+                                  child: Image.asset(
+                                    'assets/image/purple_button.png',
+                                    scale: 4,
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                height: 40,
+                                alignment: Alignment.center,
+                                padding: const EdgeInsets.only(top: 10),
+                                child: Text(
+                                  "Change Password",
                                   style: GoogleFonts.montserrat(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w600,

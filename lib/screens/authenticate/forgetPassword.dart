@@ -97,23 +97,28 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                 padding: const EdgeInsets.only(top: 30),
                 child: GestureDetector(
                     onTap: () async {
-                      if (true) {
-                        dynamic results =
-                            await _auth.signInWithEmailAndPassword(
-                                emailController.text, passwordController.text);
-                        if (results[0] == 1) {
-                          // login fail
-                          var snackBar = const SnackBar(
-                            content: Text("Login fail. Please try again."),
-                            backgroundColor: kPurpleLight,
-                          );
+                      dynamic results = await _auth.resetPassword(
+                          email: emailController.text);
+                      if (results[0] == 1) {
+                        // login fail
+                        var snackBar = const SnackBar(
+                          content:
+                              Text("Reset password fail. Please try again"),
+                          backgroundColor: kPurpleLight,
+                        );
 
-                          // Find the ScaffoldMessenger in the widget tree
-                          // and use it to show a SnackBar.
-                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                        } else {
-                          Navigator.pushReplacementNamed(context, '/Learn');
-                        }
+                        // Find the ScaffoldMessenger in the widget tree
+                        // and use it to show a SnackBar.
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      } else {
+                        // login fail
+                        var snackBar = const SnackBar(
+                          content: Text(
+                              "A change password email has been sent to you account."),
+                          backgroundColor: kPurpleLight,
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        Navigator.pushReplacementNamed(context, '/auth/signIn');
                       }
                     },
                     child: Stack(children: <Widget>[
