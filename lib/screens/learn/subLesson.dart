@@ -226,7 +226,7 @@ class SubLevel extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Button.backButton(context, 30, 6),
+                    Button.backButton(context, 30, 7.5),
                   ],
                 ),
               ));

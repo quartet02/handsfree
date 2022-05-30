@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class Button extends StatelessWidget {
   const Button({Key? key}) : super(key: key);
@@ -15,6 +16,9 @@ class Button extends StatelessWidget {
       child: GestureDetector(
         onTap: () {
           Navigator.pop(context, true);
+          Clipboard.setData(const ClipboardData());
+          HapticFeedback.mediumImpact();
+          Feedback.forTap(context);
         },
         child: Container(
           height: 20,
@@ -38,6 +42,9 @@ class Button extends StatelessWidget {
       child: GestureDetector(
         onTap: () {
           Navigator.pop(context, true);
+          Clipboard.setData(const ClipboardData());
+          HapticFeedback.heavyImpact();
+          Feedback.forTap(context);
         },
         child: Container(
           height: 20,
