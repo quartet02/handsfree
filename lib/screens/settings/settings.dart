@@ -114,13 +114,6 @@ class _SettingsState extends State<Settings> {
                         // textBox(passwordController, "password",
                         //     CollectionSelector.password, user.uid!, ''),
                         breaker(20),
-                        buildButton(
-                          text: "Sign Out",
-                          word: "/home",
-                          buttonColor: "purple",
-                          isSignOut: true,
-                        ),
-                        breaker(20),
                         //======================================== CHANGE BUTTON ==============================================
                         GestureDetector(
                           onTap: () async {
@@ -187,7 +180,7 @@ class _SettingsState extends State<Settings> {
                             ],
                           ),
                         ),
-                        breaker(20),
+                        breaker(10),
                         //======================================== CHANGE BUTTON ==============================================
                         GestureDetector(
                           onTap: () async {
@@ -432,7 +425,6 @@ class _SettingsState extends State<Settings> {
                             ),
                           ),
                         ),
-                        breaker(50),
 
                         ///Privacy
                         // buildText.heading2Text("Privacy"),
@@ -477,11 +469,18 @@ class _SettingsState extends State<Settings> {
                             text: "Terms",
                             word: "/terms",
                             buttonColor: "purple"),
-                        breaker(10),
+                        breaker(20),
                         buildButton(
                             text: "Acknowledgement",
                             word: "/acknowledgement",
                             buttonColor: "purple"),
+                        breaker(20),
+                        buildButton(
+                          text: "Sign Out",
+                          word: "/home",
+                          buttonColor: "purple",
+                          isSignOut: true,
+                        ),
                         breaker(40),
                       ],
                     ),
