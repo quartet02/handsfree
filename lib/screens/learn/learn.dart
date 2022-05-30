@@ -188,29 +188,66 @@ class _LearnState extends State<Learn> {
                               padding: EdgeInsets.symmetric(
                                   horizontal:
                                       MediaQuery.of(context).size.width / 8),
-                              itemCount: lessons.length,
+                              itemCount: lessons.length - 2,
                               itemBuilder: (context, index) {
-                                return GestureDetector(
-                                  onTap: () {
-                                    Provider.of<LessonProvider>(context,
-                                            listen: false)
-                                        .setClickLesson(lessons[index]);
-                                    if (index >= 2) {
-                                      Provider.of<LessonProvider>(context,
-                                              listen: false)
-                                          .setPractical = true;
-                                      debugPrint("isPractical");
-                                    } else {
-                                      Provider.of<LessonProvider>(context,
-                                              listen: false)
-                                          .setPractical = false;
-                                      debugPrint("is not Practical");
-                                    }
-                                    Navigator.pushNamed(context, "/sublevel");
-                                  },
-                                  child: ColumnList(
-                                    lesson: lessons[index],
-                                  ),
+                                return
+                                    // GestureDetector(
+                                    //   onTap: () {
+                                    //     Provider.of<LessonProvider>(context,
+                                    //             listen: false)
+                                    //         .setClickLesson(lessons[index]);
+                                    //     if (index >= 2) {
+                                    //       Provider.of<LessonProvider>(context,
+                                    //               listen: false)
+                                    //           .setPractical = true;
+                                    //       debugPrint("isPractical");
+                                    //     } else {
+                                    //       Provider.of<LessonProvider>(context,
+                                    //               listen: false)
+                                    //           .setPractical = false;
+                                    //       debugPrint("is not Practical");
+                                    //     }
+                                    //     Navigator.pushNamed(context, "/sublevel");
+                                    //   },
+                                    //   child: ColumnList(
+                                    //     lesson: lessons[index],
+                                    //   ),
+                                    // );
+                                    Column(
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {
+                                        Provider.of<LessonProvider>(context,
+                                                listen: false)
+                                            .setClickLesson(lessons[index]);
+                                        Provider.of<LessonProvider>(context,
+                                                listen: false)
+                                            .setPractical = false;
+                                        debugPrint("is not Practical");
+                                        Navigator.pushNamed(
+                                            context, "/sublevel");
+                                      },
+                                      child: ColumnList(
+                                        lesson: lessons[index],
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        Provider.of<LessonProvider>(context,
+                                                listen: false)
+                                            .setClickLesson(lessons[index + 2]);
+                                        Provider.of<LessonProvider>(context,
+                                                listen: false)
+                                            .setPractical = true;
+                                        debugPrint("isPractical");
+                                        Navigator.pushNamed(
+                                            context, "/sublevel");
+                                      },
+                                      child: ColumnList(
+                                        lesson: lessons[index + 2],
+                                      ),
+                                    )
+                                  ],
                                 );
                               },
                             ),
