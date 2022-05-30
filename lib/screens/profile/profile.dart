@@ -20,6 +20,7 @@ class Profile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool firstTime = true;
     int ranking = 14;
     final days = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
     final user = Provider.of<NewUserData?>(context);
@@ -35,6 +36,15 @@ class Profile extends StatelessWidget {
         username: user.username!,
         uid: user.uid!);
 
+    Future updateActivity() async {
+      var activities =
+      await DatabaseService(uid: profile.uid).getActivityLog("List");
+      var time = await DatabaseService(uid: profile.uid).getActivityLog("Time");
+      await DatabaseService(uid: profile.uid)
+          .updateActivityLog(activities!, time!);
+      // set local user profileDetails
+    }
+
     Users? specificProfile =
         ModalRoute.of(context)!.settings.arguments as Users;
 
@@ -49,9 +59,16 @@ class Profile extends StatelessWidget {
           return StreamBuilder<List<Users>?>(
             stream: DatabaseService(uid: profile.uid).users,
             builder: (context, snapshot3) {
-              if (snapshot2.hasData && snapshot3.hasData) {
+
+              if (snapshot2.hasData && snapshot3.hasData){
                 NewUserActivityLog? activities = snapshot2.data;
                 List<Users>? userList = snapshot3.data;
+
+                if(firstTime) {
+                  DatabaseService(uid: profile.uid).updateActivityLog(
+                      activities?.activity, activities?.lastLoginIn);
+                  firstTime = false;
+                }
 
                 int i = 0;
                 for (Users each in userList!) {
@@ -90,7 +107,10 @@ class Profile extends StatelessWidget {
                                 'assets/image/character.png' /*userData.picture!*/,
                             username: profile.username,
                             email: "",
-                            experience: profile.experience),
+                            experience: snapshot3.data!
+                                .firstWhere(
+                                    (element) => element.uid == profile.uid)
+                                .experience),
                       ),
                       Breaker(i: 20),
                       isSelf

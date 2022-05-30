@@ -142,10 +142,13 @@ class AuthService {
   }
 
   Future resetPassword({required String email}) async {
+    List<dynamic> _status = [];
     await _auth
         .sendPasswordResetEmail(email: email)
-        .then((value) => [0, "Reset Successfully"])
-        .catchError((e) => [1, "Reset Unsuccessfully"]);
+        .then((value) => _status = [0, "Reset Successfully"])
+        .catchError((e) => _status = [1, "Reset Unsuccessfully"]);
+
+    return _status;
   }
 
   Future<NewUserData?> _newUserDataFromFirebaseUser(User? user) async {

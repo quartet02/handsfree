@@ -13,6 +13,8 @@ import '../../provider/lessonProvider.dart';
 import '../../services/medialoader.dart';
 import 'package:handsfree/models/lessonModel.dart';
 
+import '../../widgets/backButton.dart';
+
 List _lessonCompletionList = [];
 List<LessonModel>? _userModel;
 String _syllabus = 'Unknown';
@@ -62,157 +64,170 @@ class SubLevel extends StatelessWidget {
                       image: AssetImage('assets/image/purple_heading.png'),
                       fit: BoxFit.cover),
                 ),
-                child: Container(
-                  padding:
-                      const EdgeInsets.only(left: 30, bottom: 5, right: 30),
-                  margin: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height / 20),
-                  child: ListView(
-                    physics: const NeverScrollableScrollPhysics(),
-                    children: [
-                      Stack(
+                child: Stack(
+                  children: [
+                    Container(
+                      padding:
+                          const EdgeInsets.only(left: 30, bottom: 5, right: 30),
+                      margin: EdgeInsets.only(
+                          top: MediaQuery.of(context).size.height / 20),
+                      child: ListView(
+                        physics: const NeverScrollableScrollPhysics(),
                         children: [
-                          Container(
-                            alignment: Alignment.center,
-                            width: MediaQuery.of(context).size.width,
-                            height: 80,
-                            decoration: const BoxDecoration(
-                              image: DecorationImage(
-                                  alignment: Alignment.topCenter,
-                                  image: AssetImage(
-                                      'assets/image/sublevel_container.png'),
-                                  scale: 2),
-                            ),
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 53),
-                              child: Row(
-                                children: <Widget>[
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 10),
-                                    width: 100,
-                                    height: 200,
-                                    alignment: Alignment.center,
-                                    child: FutureBuilder(
-                                        future: getImage(lesson.lessonImage),
-                                        builder: (context, snapshot) {
-                                          if (snapshot.connectionState ==
-                                              ConnectionState.done) {
-                                            return Container(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width /
-                                                  1.2,
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .width /
-                                                  1.2,
-                                              child: snapshot.data as Widget,
-                                            );
-                                          }
-                                          if (snapshot.connectionState ==
-                                              ConnectionState.waiting) {
-                                            return Container(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width /
-                                                  1.2,
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .width /
-                                                  1.2,
-                                              child:
-                                                  CircularProgressIndicator(),
-                                            );
-                                          } else {
-                                            print('Connection Failed');
-                                            return Container();
-                                          }
-                                        }),
-                                  ),
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      const Padding(
-                                          padding: EdgeInsets.only(top: 20)),
-                                      buildText.learningHeading2Text(
-                                          lesson.lessonName),
-                                      const Padding(
-                                        padding: EdgeInsets.only(bottom: 5),
+                          Stack(
+                            children: [
+                              Container(
+                                alignment: Alignment.center,
+                                width: MediaQuery.of(context).size.width,
+                                height: 80,
+                                decoration: const BoxDecoration(
+                                  image: DecorationImage(
+                                      alignment: Alignment.topCenter,
+                                      image: AssetImage(
+                                          'assets/image/sublevel_container.png'),
+                                      scale: 2),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 53),
+                                  child: Row(
+                                    children: <Widget>[
+                                      Container(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 10),
+                                        width: 100,
+                                        height: 200,
+                                        alignment: Alignment.center,
+                                        child: FutureBuilder(
+                                            future:
+                                                getImage(lesson.lessonImage),
+                                            builder: (context, snapshot) {
+                                              if (snapshot.connectionState ==
+                                                  ConnectionState.done) {
+                                                return Container(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width /
+                                                      1.2,
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .width /
+                                                      1.2,
+                                                  child:
+                                                      snapshot.data as Widget,
+                                                );
+                                              }
+                                              if (snapshot.connectionState ==
+                                                  ConnectionState.waiting) {
+                                                return Container(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width /
+                                                      1.2,
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .width /
+                                                      1.2,
+                                                  child:
+                                                      CircularProgressIndicator(),
+                                                );
+                                              } else {
+                                                print('Connection Failed');
+                                                return Container();
+                                              }
+                                            }),
                                       ),
-                                      buildText.learningHeading3Text(
-                                          lesson.lessonDesc),
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          const Padding(
+                                              padding:
+                                                  EdgeInsets.only(top: 20)),
+                                          buildText.learningHeading2Text(
+                                              lesson.lessonName),
+                                          const Padding(
+                                            padding: EdgeInsets.only(bottom: 5),
+                                          ),
+                                          buildText.learningHeading3Text(
+                                              lesson.lessonDesc),
+                                        ],
+                                      ),
                                     ],
                                   ),
-                                ],
+                                ),
                               ),
-                            ),
+                            ],
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.only(bottom: 80),
+                          ),
+                          ShaderMask(
+                            shaderCallback: (Rect rect) {
+                              return const LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: [
+                                  Colors.purple,
+                                  Colors.transparent,
+                                  Colors.transparent,
+                                  Colors.purple
+                                ],
+                                stops: [
+                                  0.0,
+                                  0.05,
+                                  0.95,
+                                  1.0
+                                ], // 10% purple, 80% transparent, 10% purple
+                              ).createShader(rect);
+                            },
+                            blendMode: BlendMode.dstOut,
+                            child: Consumer<SubLessonProvider>(
+                                builder: (context, providerSubLesson, child) {
+                              var subLessons = providerSubLesson.subLessons;
+                              return Container(
+                                height:
+                                    MediaQuery.of(context).size.height / 1.6,
+                                width: MediaQuery.of(context).size.width,
+                                child: ListView.builder(
+                                  physics: const BouncingScrollPhysics(),
+                                  scrollDirection: Axis.vertical,
+                                  padding: EdgeInsets.only(
+                                      right:
+                                          MediaQuery.of(context).size.width / 8,
+                                      left: MediaQuery.of(context).size.width /
+                                          12),
+                                  itemCount: subLessons.length,
+                                  itemBuilder: (context, index) {
+                                    return GestureDetector(
+                                      onTap: () {
+                                        Provider.of<LessonCardProvider>(context,
+                                                listen: false)
+                                            .resetIndex();
+                                        Provider.of<SubLessonProvider>(context,
+                                                listen: false)
+                                            .setClickLesson(subLessons[index]);
+                                        Provider.of<SubLessonProvider>(context,
+                                                listen: false)
+                                            .setSyllabus(_syllabus);
+                                        Navigator.pushReplacementNamed(
+                                            context, "/mainLearningPage");
+                                      },
+                                      child:
+                                          ColumnList(lesson: subLessons[index]),
+                                    );
+                                  },
+                                ),
+                              );
+                            }),
                           ),
                         ],
                       ),
-                      const Padding(
-                        padding: EdgeInsets.only(bottom: 80),
-                      ),
-                      ShaderMask(
-                        shaderCallback: (Rect rect) {
-                          return const LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: [
-                              Colors.purple,
-                              Colors.transparent,
-                              Colors.transparent,
-                              Colors.purple
-                            ],
-                            stops: [
-                              0.0,
-                              0.05,
-                              0.95,
-                              1.0
-                            ], // 10% purple, 80% transparent, 10% purple
-                          ).createShader(rect);
-                        },
-                        blendMode: BlendMode.dstOut,
-                        child: Consumer<SubLessonProvider>(
-                            builder: (context, providerSubLesson, child) {
-                          var subLessons = providerSubLesson.subLessons;
-                          return Container(
-                            height: MediaQuery.of(context).size.height / 1.6,
-                            width: MediaQuery.of(context).size.width,
-                            child: ListView.builder(
-                              physics: const BouncingScrollPhysics(),
-                              scrollDirection: Axis.vertical,
-                              padding: EdgeInsets.only(
-                                  right: MediaQuery.of(context).size.width / 8,
-                                  left: MediaQuery.of(context).size.width / 12),
-                              itemCount: subLessons.length,
-                              itemBuilder: (context, index) {
-                                return GestureDetector(
-                                  onTap: () {
-                                    Provider.of<LessonCardProvider>(context,
-                                            listen: false)
-                                        .resetIndex();
-                                    Provider.of<SubLessonProvider>(context,
-                                            listen: false)
-                                        .setClickLesson(subLessons[index]);
-                                    Provider.of<SubLessonProvider>(context,
-                                            listen: false)
-                                        .setSyllabus(_syllabus);
-                                    Navigator.pushReplacementNamed(
-                                        context, "/mainLearningPage");
-                                  },
-                                  child: ColumnList(lesson: subLessons[index]),
-                                );
-                              },
-                            ),
-                          );
-                        }),
-                      ),
-                    ],
-                  ),
+                    ),
+                    Button.backButton(context, 30, 7.5),
+                  ],
                 ),
               ));
             } else {

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:handsfree/widgets/buildText.dart';
 
+import '../../widgets/backButton.dart';
+
 class Terms extends StatelessWidget {
   Terms({Key? key}) : super(key: key);
 
@@ -15,132 +17,139 @@ class Terms extends StatelessWidget {
               image: AssetImage('assets/image/purple_heading2.png'),
               fit: BoxFit.cover),
         ),
-        child: Container(
-          padding: const EdgeInsets.only(left: 40, bottom: 5, right: 40),
-          margin: EdgeInsets.only(top: MediaQuery.of(context).size.height / 10),
-          child: Column(
-            children: [
-              buildText.bigTitle("Terms & Conditions"),
-              breaker(80),
-              ShaderMask(
-                shaderCallback: (Rect rect) {
-                  return const LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Colors.purple,
-                      Colors.transparent,
-                      Colors.transparent,
-                      Colors.purple
-                    ],
-                    stops: [
-                      0.0,
-                      0.1,
-                      0.9,
-                      1.0
-                    ], // 10% purple, 80% transparent, 10% purple
-                  ).createShader(rect);
-                },
-                blendMode: BlendMode.dstOut,
-                child: Container(
-                  height: MediaQuery.of(context).size.height * 0.7,
-                  child: ListView(
-                    physics: const BouncingScrollPhysics(),
-                    scrollDirection: Axis.vertical,
-                    children: [
-                      buildText.heading2Text("1. General"),
-                      breaker(20),
-                      buildText.heading3Text(general),
-                      breaker(10),
-                      buildText.heading3Text(disclaimer),
-                      breaker(40),
-                      buildText.heading2Text(
-                          "2. Description of Website and Service"),
-                      breaker(20),
-                      buildText.heading3Text(descWebsiteService),
-                      breaker(40),
-                      buildText.heading2Text(
-                          "3. Registration, Submission of Content"),
-                      breaker(20),
-                      buildText.heading3Text(register),
-                      breaker(40),
-                      buildText.heading2Text(
-                          "4. Your Representations and Warranties"),
-                      breaker(20),
-                      buildText.heading3Text(warranties),
-                      breaker(40),
-                      buildText.heading2Text("5. Inappropriate Use"),
-                      breaker(20),
-                      buildText.heading3Text(inappropriateUse),
-                      breaker(40),
-                      buildText.heading2Text("6. Indemnification of Handsfree"),
-                      breaker(20),
-                      buildText.heading3Text(indemnification),
-                      breaker(40),
-                      buildText.heading2Text("7. License to Apps"),
-                      breaker(20),
-                      buildText.heading3Text(license),
-                      breaker(40),
-                      buildText.heading2Text(
-                          "8. Third-Party Links, Sites, and Services"),
-                      breaker(20),
-                      buildText.heading3Text(services),
-                      breaker(40),
-                      buildText.heading2Text(
-                          "9. NO REPRESENTATIONS OR WARRANTIES BY HANDSFREE"),
-                      breaker(20),
-                      buildText.heading3Text(representations),
-                      breaker(40),
-                      buildText.heading2Text(
-                          "10. LIMITATION ON TYPES OF DAMAGES/LIMITATION OF LIABILITY"),
-                      breaker(20),
-                      buildText.heading3Text(liability),
-                      breaker(40),
-                      buildText.heading2Text("11. Termination"),
-                      breaker(20),
-                      buildText.heading3Text(termination),
-                      breaker(40),
-                      buildText.heading2Text(
-                          "12. Proprietary Rights in Service Content and Activity Materials"),
-                      breaker(20),
-                      buildText.heading3Text(materials),
-                      breaker(40),
-                      buildText.heading2Text("13. Trademarks"),
-                      breaker(20),
-                      buildText.heading3Text(trademarks),
-                      breaker(40),
-                      buildText.heading2Text("14. Privacy"),
-                      breaker(20),
-                      buildText.heading3Text(privacy),
-                      breaker(40),
-                      buildText.heading2Text("15. Promotion Code Terms"),
-                      breaker(20),
-                      buildText.heading3Text(promotion),
-                      breaker(40),
-                      buildText.heading2Text(
-                          "16. Notice for Claims of Copyright Violations and Agent for Notice"),
-                      breaker(20),
-                      buildText.heading3Text(copyright),
-                      breaker(40),
-                      buildText.heading2Text(
-                          "17. Governing Law and Arbitration; No Class Action"),
-                      breaker(20),
-                      buildText.heading3Text(law),
-                      breaker(40),
-                      buildText.heading2Text("18. Language"),
-                      breaker(20),
-                      buildText.heading3Text(language),
-                      breaker(40),
-                      buildText.heading2Text("19. Miscellaneous"),
-                      breaker(20),
-                      buildText.heading3Text(miscellaneous),
-                      breaker(30),
-                    ],
-                  ),
-                ),
-              )
-            ],
-          ),
+        child: Stack(
+          children: [
+            Button.backButton(context, 30, 9.5),
+            Container(
+              padding: const EdgeInsets.only(left: 40, bottom: 5, right: 40),
+              margin:
+                  EdgeInsets.only(top: MediaQuery.of(context).size.height / 10),
+              child: Column(
+                children: [
+                  buildText.bigTitle("Terms & Conditions"),
+                  breaker(80),
+                  ShaderMask(
+                    shaderCallback: (Rect rect) {
+                      return const LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Colors.purple,
+                          Colors.transparent,
+                          Colors.transparent,
+                          Colors.purple
+                        ],
+                        stops: [
+                          0.0,
+                          0.1,
+                          0.9,
+                          1.0
+                        ], // 10% purple, 80% transparent, 10% purple
+                      ).createShader(rect);
+                    },
+                    blendMode: BlendMode.dstOut,
+                    child: Container(
+                      height: MediaQuery.of(context).size.height * 0.7,
+                      child: ListView(
+                        physics: const BouncingScrollPhysics(),
+                        scrollDirection: Axis.vertical,
+                        children: [
+                          buildText.heading2Text("1. General"),
+                          breaker(20),
+                          buildText.heading3Text(general),
+                          breaker(10),
+                          buildText.heading3Text(disclaimer),
+                          breaker(40),
+                          buildText.heading2Text(
+                              "2. Description of Website and Service"),
+                          breaker(20),
+                          buildText.heading3Text(descWebsiteService),
+                          breaker(40),
+                          buildText.heading2Text(
+                              "3. Registration, Submission of Content"),
+                          breaker(20),
+                          buildText.heading3Text(register),
+                          breaker(40),
+                          buildText.heading2Text(
+                              "4. Your Representations and Warranties"),
+                          breaker(20),
+                          buildText.heading3Text(warranties),
+                          breaker(40),
+                          buildText.heading2Text("5. Inappropriate Use"),
+                          breaker(20),
+                          buildText.heading3Text(inappropriateUse),
+                          breaker(40),
+                          buildText
+                              .heading2Text("6. Indemnification of Handsfree"),
+                          breaker(20),
+                          buildText.heading3Text(indemnification),
+                          breaker(40),
+                          buildText.heading2Text("7. License to Apps"),
+                          breaker(20),
+                          buildText.heading3Text(license),
+                          breaker(40),
+                          buildText.heading2Text(
+                              "8. Third-Party Links, Sites, and Services"),
+                          breaker(20),
+                          buildText.heading3Text(services),
+                          breaker(40),
+                          buildText.heading2Text(
+                              "9. NO REPRESENTATIONS OR WARRANTIES BY HANDSFREE"),
+                          breaker(20),
+                          buildText.heading3Text(representations),
+                          breaker(40),
+                          buildText.heading2Text(
+                              "10. LIMITATION ON TYPES OF DAMAGES/LIMITATION OF LIABILITY"),
+                          breaker(20),
+                          buildText.heading3Text(liability),
+                          breaker(40),
+                          buildText.heading2Text("11. Termination"),
+                          breaker(20),
+                          buildText.heading3Text(termination),
+                          breaker(40),
+                          buildText.heading2Text(
+                              "12. Proprietary Rights in Service Content and Activity Materials"),
+                          breaker(20),
+                          buildText.heading3Text(materials),
+                          breaker(40),
+                          buildText.heading2Text("13. Trademarks"),
+                          breaker(20),
+                          buildText.heading3Text(trademarks),
+                          breaker(40),
+                          buildText.heading2Text("14. Privacy"),
+                          breaker(20),
+                          buildText.heading3Text(privacy),
+                          breaker(40),
+                          buildText.heading2Text("15. Promotion Code Terms"),
+                          breaker(20),
+                          buildText.heading3Text(promotion),
+                          breaker(40),
+                          buildText.heading2Text(
+                              "16. Notice for Claims of Copyright Violations and Agent for Notice"),
+                          breaker(20),
+                          buildText.heading3Text(copyright),
+                          breaker(40),
+                          buildText.heading2Text(
+                              "17. Governing Law and Arbitration; No Class Action"),
+                          breaker(20),
+                          buildText.heading3Text(law),
+                          breaker(40),
+                          buildText.heading2Text("18. Language"),
+                          breaker(20),
+                          buildText.heading3Text(language),
+                          breaker(40),
+                          buildText.heading2Text("19. Miscellaneous"),
+                          breaker(20),
+                          buildText.heading3Text(miscellaneous),
+                          breaker(30),
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

@@ -10,6 +10,8 @@ import 'package:handsfree/widgets/constants.dart';
 import 'package:handsfree/services/userPreference.dart';
 import 'package:provider/provider.dart';
 
+import '../../widgets/backButton.dart';
+
 class SearchGlobal extends StatefulWidget {
   const SearchGlobal({Key? key}) : super(key: key);
 
@@ -69,6 +71,7 @@ class _SearchGlobalState extends State<SearchGlobal> {
             ),
           ),
         ),
+        Button.backButton(context, 30, 9.5),
         Container(
             margin:
                 EdgeInsets.only(top: MediaQuery.of(context).size.height / 10),

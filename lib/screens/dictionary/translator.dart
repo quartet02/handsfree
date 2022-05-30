@@ -5,6 +5,7 @@ import 'package:handsfree/widgets/buildText.dart';
 import 'package:handsfree/widgets/constants.dart';
 import 'package:themed/themed.dart';
 import '../../services/medialoader.dart';
+import '../../widgets/backButton.dart';
 
 class Translator extends StatefulWidget {
   final String? word;
@@ -38,106 +39,111 @@ class _TranslatorState extends State<Translator> {
                 image: AssetImage('assets/image/magenta_heading.png'),
                 fit: BoxFit.cover),
           ),
-          child: Container(
-            width: MediaQuery.of(context).size.width,
-            padding: const EdgeInsets.only(left: 40, bottom: 5, right: 40),
-            margin:
-                EdgeInsets.only(top: MediaQuery.of(context).size.height / 10),
-            child: Column(
-              children: [
-                buildText.bigTitle("Dictionary"),
-                const SizedBox(height: 20),
-                Container(
-                  height: MediaQuery.of(context).size.height / 2.4,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                    boxShadow: [
-                      BoxShadow(
-                        color: kTextShadow,
-                        offset: Offset(10, 10),
-                        blurRadius: 20,
-                      ),
-                    ],
-                    image: DecorationImage(
-                      image: AssetImage('assets/image/learning_big_rect.png'),
-                    ),
-                  ),
-
-                  // something happen here, dont know how to settle, just some annoying exception
-
-                  child: FutureBuilder(
-                      future: FireStorageService.loadImage(widget.imgUrl!),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return Container(
-                            width: MediaQuery.of(context).size.width / 1.2,
-                            height: MediaQuery.of(context).size.width / 1.2,
-                            child: const CircularProgressIndicator(
-                              strokeWidth: 1.0,
-                            ),
-                          );
-                        } else if (snapshot.connectionState ==
-                            ConnectionState.done) {
-                          if (snapshot.hasData) {
-                            try {
-                              return ChangeColors(
-                                brightness: 0.1,
-                                saturation: 0.2,
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      fit: BoxFit.cover,
-                                      scale: 4,
-                                      image:
-                                          Image.network(snapshot.data as String)
-                                              .image,
-                                    ),
-                                  ),
-                                ),
-                              );
-                            } catch (e) {
-                              return Container(
-                                child: Text(
-                                  'Coming Soon!',
-                                  style: GoogleFonts.montserrat(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w400,
-                                    color: kText,
-                                  ),
-                                ),
-                              );
-                            }
-                          }
-                        }
-                        return Container(
-                          child: Text(
-                            'Error occured while loading iamge',
-                            style: GoogleFonts.montserrat(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w400,
-                              color: kText,
-                            ),
+          child: Stack(
+            children: [
+              Button.backButton(context, 30, 9.5),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                padding: const EdgeInsets.only(left: 40, bottom: 5, right: 50),
+                margin: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height / 10),
+                child: Column(
+                  children: [
+                    buildText.bigTitle("Dictionary"),
+                    SizedBox(height: MediaQuery.of(context).size.height / 8),
+                    Container(
+                      height: MediaQuery.of(context).size.height / 2.3,
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        boxShadow: [
+                          BoxShadow(
+                            color: kTextShadow,
+                            offset: Offset(10, 10),
+                            blurRadius: 20,
                           ),
-                        );
-                      }),
+                        ],
+                        image: DecorationImage(
+                          image: AssetImage('assets/image/dictionary_rect.png'),
+                        ),
+                      ),
+
+                      // something happen here, dont know how to settle, just some annoying exception
+
+                      child: FutureBuilder(
+                          future: FireStorageService.loadImage(widget.imgUrl!),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return Container(
+                                width: MediaQuery.of(context).size.width / 1.2,
+                                height: MediaQuery.of(context).size.width / 1.2,
+                                child: const CircularProgressIndicator(
+                                  strokeWidth: 1.0,
+                                ),
+                              );
+                            } else if (snapshot.connectionState ==
+                                ConnectionState.done) {
+                              if (snapshot.hasData) {
+                                try {
+                                  return ChangeColors(
+                                    brightness: 0.1,
+                                    saturation: 0.2,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          fit: BoxFit.cover,
+                                          scale: 4,
+                                          image: Image.network(
+                                                  snapshot.data as String)
+                                              .image,
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                } catch (e) {
+                                  return Container(
+                                    child: Text(
+                                      'Coming Soon!',
+                                      style: GoogleFonts.montserrat(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w400,
+                                        color: kText,
+                                      ),
+                                    ),
+                                  );
+                                }
+                              }
+                            }
+                            return Container(
+                              child: Text(
+                                'Error occured while loading iamge',
+                                style: GoogleFonts.montserrat(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w400,
+                                  color: kText,
+                                ),
+                              ),
+                            );
+                          }),
+                    ),
+                    Container(
+                      width: double.infinity,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(height: 30),
+                          buildText.learningText(widget.word!),
+                          Text(widget.phoneticSymbol!),
+                          const SizedBox(height: 20),
+                          buildText.heading3Text(widget.definition!),
+                        ],
+                      ),
+                    )
+                  ],
                 ),
-                Container(
-                  width: double.infinity,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(height: 30),
-                      buildText.learningText(widget.word!),
-                      Text(widget.phoneticSymbol!),
-                      const SizedBox(height: 20),
-                      buildText.heading3Text(widget.definition!),
-                    ],
-                  ),
-                )
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

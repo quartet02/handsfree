@@ -7,6 +7,8 @@ import 'package:handsfree/widgets/buildText.dart';
 import 'package:handsfree/widgets/constants.dart';
 import 'package:provider/provider.dart';
 
+import '../../widgets/backButton.dart';
+
 class ChatHome extends StatefulWidget {
   ChatHome({Key? key}) : super(key: key);
 
@@ -28,21 +30,28 @@ class _ChatHomeState extends State<ChatHome> {
                 image: AssetImage('assets/image/orange_heading.png'),
                 fit: BoxFit.cover),
           ),
-          child: Column(
+          child: Stack(
             children: [
-              Container(
-                  padding: const EdgeInsets.only(bottom: 5),
-                  margin: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height / 10),
-                  child: buildText.bigTitle("Chat")),
-              Breaker(i: 8),
-              Container(
-                margin: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height / 20, bottom: 10),
-                child: const SearchBar(
-                    prompt: "Search for a friend", provider: Providers.friend),
+              Button.backButton(context, 0, 9.5),
+              Column(
+                children: [
+                  Container(
+                      padding: const EdgeInsets.only(bottom: 5),
+                      margin: EdgeInsets.only(
+                          top: MediaQuery.of(context).size.height / 10),
+                      child: buildText.bigTitle("Chat")),
+                  Breaker(i: 8),
+                  Container(
+                    margin: EdgeInsets.only(
+                        top: MediaQuery.of(context).size.height / 20,
+                        bottom: 10),
+                    child: const SearchBar(
+                        prompt: "Search for a friend",
+                        provider: Providers.friend),
+                  ),
+                  const ChatRoomList(),
+                ],
               ),
-              const ChatRoomList(),
             ],
           ),
         ),

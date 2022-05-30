@@ -89,6 +89,25 @@ class DatabaseService {
       'isCompleted': true,
     });
   }
+  
+  Future updateTestResult(String syllabus, String lesson, List<int> numOfWrong, List<Duration> elapsedTime){
+    debugPrint(numOfWrong.toString());
+    debugPrint(elapsedTime.toString());
+    List<int> time = [];
+    for(Duration each in elapsedTime){
+      time.add(each.inMicroseconds);
+    }
+    return userCollection
+        .doc(uid)
+        .collection('lessons')
+        .doc(syllabus)
+        .collection('lessonsOverview')
+        .doc(lesson)
+        .update({
+      'numOfWrong': numOfWrong,
+      'elapsedTime': time,
+    });
+  }
 
   Future updateIsCompletedLesson(String syllabus, String lesson) {
     return userCollection
@@ -227,16 +246,17 @@ class DatabaseService {
     return;
   }
 
-  Future updateActivityLog(List activityLog, Timestamp time) {
+  Future updateActivityLog(List? activityLog, Timestamp? time) {
+
     DateTime now = DateTime.now();
-    DateTime last = DateTime.parse(time.toDate().toString());
+    DateTime last = DateTime.parse(time!.toDate().toString());
     double days = daysBetween(last, now);
 
     ///refresh on sunday
     ///login on saturday, skip sunday, login on monday
     ///duration more than 7 days
     ///on same date(Friday and Friday, but different week)
-    activityLog[now.weekday < 7 ? now.weekday : 0] = true;
+    activityLog![now.weekday < 7 ? now.weekday : 0] = true;
     if (now.weekday == 7 ||
         (now.weekday < last.weekday && last.weekday != 7) ||
         days >= 7 ||

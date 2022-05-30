@@ -122,34 +122,36 @@ class _LearnState extends State<Learn> {
                                 ),
                               ],
                             ),
-                            Container(
-                              alignment: Alignment.centerRight,
-                              width: 60,
-                              height: 60,
-                              child: Stack(children: <Widget>[
-                                Image.asset(
-                                  'assets/image/large_progress_bar.png',
-                                  scale: 4,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(7),
-                                  child: CircularPercentIndicator(
-                                    radius: 22.0,
-                                    lineWidth: 5.0,
-                                    percent: progress,
-                                    // center: new Text("100%"),
-                                    progressColor: kOrangeMid,
+                            progress == 0
+                                ? Container()
+                                : Container(
+                                    alignment: Alignment.centerRight,
+                                    width: 60,
+                                    height: 60,
+                                    child: Stack(children: <Widget>[
+                                      Image.asset(
+                                        'assets/image/large_progress_bar.png',
+                                        scale: 4,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(7),
+                                        child: CircularPercentIndicator(
+                                          radius: 22.0,
+                                          lineWidth: 5.0,
+                                          percent: progress,
+                                          // center: new Text("100%"),
+                                          progressColor: kOrangeMid,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(13.0),
+                                        child: Image.asset(
+                                          'assets/image/small_progress_bar.png',
+                                          scale: 4,
+                                        ),
+                                      ),
+                                    ]),
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(13.0),
-                                  child: Image.asset(
-                                    'assets/image/small_progress_bar.png',
-                                    scale: 4,
-                                  ),
-                                ),
-                              ]),
-                            ),
                           ],
                         ),
                       ),
@@ -188,29 +190,66 @@ class _LearnState extends State<Learn> {
                               padding: EdgeInsets.symmetric(
                                   horizontal:
                                       MediaQuery.of(context).size.width / 8),
-                              itemCount: lessons.length,
+                              itemCount: lessons.length - 2,
                               itemBuilder: (context, index) {
-                                return GestureDetector(
-                                  onTap: () {
-                                    Provider.of<LessonProvider>(context,
-                                            listen: false)
-                                        .setClickLesson(lessons[index]);
-                                    if (index >= 2) {
-                                      Provider.of<LessonProvider>(context,
-                                              listen: false)
-                                          .setPractical = true;
-                                      debugPrint("isPractical");
-                                    } else {
-                                      Provider.of<LessonProvider>(context,
-                                              listen: false)
-                                          .setPractical = false;
-                                      debugPrint("is not Practical");
-                                    }
-                                    Navigator.pushNamed(context, "/sublevel");
-                                  },
-                                  child: ColumnList(
-                                    lesson: lessons[index],
-                                  ),
+                                return
+                                    // GestureDetector(
+                                    //   onTap: () {
+                                    //     Provider.of<LessonProvider>(context,
+                                    //             listen: false)
+                                    //         .setClickLesson(lessons[index]);
+                                    //     if (index >= 2) {
+                                    //       Provider.of<LessonProvider>(context,
+                                    //               listen: false)
+                                    //           .setPractical = true;
+                                    //       debugPrint("isPractical");
+                                    //     } else {
+                                    //       Provider.of<LessonProvider>(context,
+                                    //               listen: false)
+                                    //           .setPractical = false;
+                                    //       debugPrint("is not Practical");
+                                    //     }
+                                    //     Navigator.pushNamed(context, "/sublevel");
+                                    //   },
+                                    //   child: ColumnList(
+                                    //     lesson: lessons[index],
+                                    //   ),
+                                    // );
+                                    Column(
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {
+                                        Provider.of<LessonProvider>(context,
+                                                listen: false)
+                                            .setClickLesson(lessons[index]);
+                                        Provider.of<LessonProvider>(context,
+                                                listen: false)
+                                            .setPractical = false;
+                                        debugPrint("is not Practical");
+                                        Navigator.pushNamed(
+                                            context, "/sublevel");
+                                      },
+                                      child: ColumnList(
+                                        lesson: lessons[index],
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        Provider.of<LessonProvider>(context,
+                                                listen: false)
+                                            .setClickLesson(lessons[index + 2]);
+                                        Provider.of<LessonProvider>(context,
+                                                listen: false)
+                                            .setPractical = true;
+                                        debugPrint("isPractical");
+                                        Navigator.pushNamed(
+                                            context, "/sublevel");
+                                      },
+                                      child: ColumnList(
+                                        lesson: lessons[index + 2],
+                                      ),
+                                    )
+                                  ],
                                 );
                               },
                             ),
