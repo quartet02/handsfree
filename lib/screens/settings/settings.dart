@@ -11,7 +11,7 @@ import 'package:handsfree/widgets/constants.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/newUser.dart';
-import '../../widgets/backButton.dart';
+import 'package:handsfree/widgets/backButton.dart';
 import '../../widgets/loadingWholeScreen.dart';
 import 'package:handsfree/services/userPreference.dart';
 

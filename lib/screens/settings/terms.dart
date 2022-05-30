@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:handsfree/widgets/buildText.dart';
 
-import '../../widgets/backButton.dart';
+import 'package:handsfree/widgets/backButton.dart';
 
 class Terms extends StatelessWidget {
   Terms({Key? key}) : super(key: key);

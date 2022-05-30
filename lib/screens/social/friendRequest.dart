@@ -5,8 +5,7 @@ import 'package:handsfree/screens/social/friendRequestCard.dart';
 import 'package:handsfree/services/database.dart';
 import 'package:handsfree/widgets/buildText.dart';
 import 'package:handsfree/services/userPreference.dart';
-
-import '../../widgets/backButton.dart';
+import 'package:handsfree/widgets/backButton.dart';
 
 class FriendRequest extends StatefulWidget {
   const FriendRequest({Key? key}) : super(key: key);

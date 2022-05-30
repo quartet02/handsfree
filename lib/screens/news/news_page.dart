@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:handsfree/models/newsFeedModel.dart';
 import 'package:handsfree/services/medialoader.dart';
+import 'package:handsfree/widgets/backButton.dart';
 import 'package:handsfree/widgets/breaker.dart';
 import 'package:handsfree/widgets/buildText.dart';
 import 'package:handsfree/widgets/constants.dart';
