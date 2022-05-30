@@ -90,7 +90,10 @@ class Profile extends StatelessWidget {
                                 'assets/image/character.png' /*userData.picture!*/,
                             username: profile.username,
                             email: "",
-                            experience: profile.experience),
+                            experience: snapshot3.data!
+                                .firstWhere(
+                                    (element) => element.uid == profile.uid)
+                                .experience),
                       ),
                       Breaker(i: 20),
                       isSelf
