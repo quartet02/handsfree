@@ -12,7 +12,14 @@ class HandSignPredictionView extends StatefulWidget {
   final double width;
   final double height;
 
-  const HandSignPredictionView({Key? key, required this.title, required this.onImage, required this.initialDirection, required this.width, required this.height}) : super(key: key);
+  const HandSignPredictionView(
+      {Key? key,
+      required this.title,
+      required this.onImage,
+      required this.initialDirection,
+      required this.width,
+      required this.height})
+      : super(key: key);
 
   @override
   State<HandSignPredictionView> createState() => _HandSignPredictionViewState();
@@ -24,9 +31,9 @@ class _HandSignPredictionViewState extends State<HandSignPredictionView> {
   String predictedLabel = '';
 
   @override
-  initState(){
+  initState() {
     super.initState();
-    for(int i = 0; i< camerasAvailable.length; i++){
+    for (int i = 0; i < camerasAvailable.length; i++) {
       if (camerasAvailable[i].lensDirection == widget.initialDirection)
         camera = camerasAvailable[i];
     }
@@ -34,30 +41,30 @@ class _HandSignPredictionViewState extends State<HandSignPredictionView> {
   }
 
   @override
-  void dispose(){
+  void dispose() {
     _stopLiveFeed();
     super.dispose();
   }
 
-  Future _startLiveFeed() async{
-    _controller = CameraController(camera, ResolutionPreset.medium, enableAudio: false);
-    _controller.initialize().then((value){
+  Future _startLiveFeed() async {
+    _controller =
+        CameraController(camera, ResolutionPreset.medium, enableAudio: false);
+    _controller.initialize().then((value) {
       if (!mounted) return;
       _controller.startImageStream(_processCameraImage);
-      setState(() {
-
-      });
+      setState(() {});
     });
   }
 
-  Future _processCameraImage(CameraImage cameraImage) async{
+  Future _processCameraImage(CameraImage cameraImage) async {
     final WriteBuffer allBytes = WriteBuffer();
     for (final Plane plane in cameraImage.planes) {
       allBytes.putUint8List(plane.bytes);
     }
     final bytes = allBytes.done().buffer.asUint8List();
 
-    final Size imageSize = Size(cameraImage.width.toDouble(), cameraImage.height.toDouble());
+    final Size imageSize =
+        Size(cameraImage.width.toDouble(), cameraImage.height.toDouble());
 
     final InputImageRotation imageRotation =
         InputImageRotationValue.fromRawValue(camera.sensorOrientation) ??
@@ -68,7 +75,7 @@ class _HandSignPredictionViewState extends State<HandSignPredictionView> {
             InputImageFormat.nv21;
 
     final planeData = cameraImage.planes.map(
-          (Plane plane) {
+      (Plane plane) {
         return InputImagePlaneMetadata(
           bytesPerRow: plane.bytesPerRow,
           height: plane.height,
@@ -84,17 +91,18 @@ class _HandSignPredictionViewState extends State<HandSignPredictionView> {
       planeData: planeData,
     );
 
-    final inputImage = InputImage.fromBytes(bytes: bytes, inputImageData: inputImageData);
+    final inputImage =
+        InputImage.fromBytes(bytes: bytes, inputImageData: inputImageData);
     widget.onImage(inputImage);
   }
 
-  Future _stopLiveFeed() async{
+  Future _stopLiveFeed() async {
     await _controller.stopImageStream();
     await _controller.dispose();
   }
 
-  Widget _liveFeedBody(){
-    if (_controller.value.isInitialized == false){
+  Widget _liveFeedBody() {
+    if (_controller.value.isInitialized == false) {
       return Container();
     }
 
@@ -113,20 +121,6 @@ class _HandSignPredictionViewState extends State<HandSignPredictionView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Padding(
-              padding: EdgeInsets.all(0.8),
-          child: Text('Keep your hand inside the frame',),
-          ),
-          Container(
-            alignment: Alignment.center,
-            child: _liveFeedBody(),
-          ),
-        ],
-      ),
-    );
+    return _liveFeedBody();
   }
 }

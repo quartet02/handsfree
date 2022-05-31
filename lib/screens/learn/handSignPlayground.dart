@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:handsfree/services/predictImage.dart';
+import 'package:handsfree/widgets/buildText.dart';
 import 'package:handsfree/widgets/HandSignPredictionView.dart';
 
+import '../../widgets/backButton.dart';
 import '../../widgets/constants.dart';
 
 class HandSignPlayground extends StatefulWidget {
-  final double width = 0;
-  final double height = 0;
   // const HandSignPlayground({Key? key, required this.width, required this.height}) : super(key: key);
 
   @override
@@ -35,6 +35,7 @@ class _HandSignPlaygroundState extends State<HandSignPlayground> {
     super.dispose();
   }
 
+  double confidence = 0;
   Future<void> processImage(InputImage inputImage) async {
     if (_isBusy) return;
     _isBusy = true;
@@ -48,7 +49,8 @@ class _HandSignPlaygroundState extends State<HandSignPlayground> {
     if (mounted) {
       setState(() {
         for (int i = 0; i < labels.length; i++) {
-          output += '' + labels[i] + ', ' + confidences[i].toString();
+          output += '' + labels[i];
+          confidence = confidences[i];
         }
       });
     }
@@ -56,10 +58,17 @@ class _HandSignPlaygroundState extends State<HandSignPlayground> {
     labels.forEach(debugPrint);
   }
 
+  Widget breaker(double i) {
+    return Padding(
+      padding: EdgeInsets.only(bottom: i),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        height: MediaQuery.of(context).size.height,
         decoration: const BoxDecoration(
           image: DecorationImage(
               alignment: Alignment.topCenter,
@@ -68,23 +77,64 @@ class _HandSignPlaygroundState extends State<HandSignPlayground> {
         ),
         child: Stack(
           children: [
-            HandSignPredictionView(
-              title: 'Hand Sign Classifier',
-              onImage: (inputImage) {
-                processImage(inputImage);
-              },
-              initialDirection: CameraLensDirection.front,
-              height: widget.height,
-              width: widget.width,
-            ),
-            Text(
-              'Labels: \n' + output,
-              style: GoogleFonts.montserrat(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-                color: kText,
+            Button.backButton(context, 30, 8),
+            Container(
+              padding: const EdgeInsets.only(left: 40, bottom: 5, right: 40),
+              margin:
+                  EdgeInsets.only(top: MediaQuery.of(context).size.height / 10),
+              child: Column(
+                children: [
+                  buildText.bigTitle("Hand Sign\nPlayground"),
+                  breaker(MediaQuery.of(context).size.height / 8),
+                  buildText.heading3Text('Keep your hand inside the frame.'),
+                  breaker(MediaQuery.of(context).size.height / 60),
+                  Stack(
+                    children: [
+                      Container(
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          boxShadow: [
+                            BoxShadow(
+                              color: kTextShadow,
+                              offset: Offset(10, 10),
+                              blurRadius: 20,
+                            ),
+                          ],
+                          image: DecorationImage(
+                              alignment: Alignment.topCenter,
+                              image: AssetImage(
+                                  'assets/image/dictionary_rect.png'),
+                              fit: BoxFit.cover),
+                        ),
+                        height: MediaQuery.of(context).size.height / 2,
+                        width: MediaQuery.of(context).size.width / 1.2,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                            top: MediaQuery.of(context).size.height / 55),
+                        child: Center(
+                          child: HandSignPredictionView(
+                            title: 'Hand Sign Classifier',
+                            onImage: (inputImage) {
+                              processImage(inputImage);
+                            },
+                            initialDirection: CameraLensDirection.front,
+                            height: MediaQuery.of(context).size.height / 2.2,
+                            width: MediaQuery.of(context).size.width / 1.4,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  breaker(MediaQuery.of(context).size.height / 25),
+                  buildText.heading2Text('Labels: ' + output),
+                  breaker(MediaQuery.of(context).size.height / 80),
+                  buildText.heading3Text(confidence > 0.7
+                      ? "Please posititon your hand better"
+                      : "Keep it up. You have done well."),
+                ],
               ),
-            )
+            ),
           ],
         ),
       ),

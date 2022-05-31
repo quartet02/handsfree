@@ -45,7 +45,7 @@ class buildText extends StatelessWidget {
 
   static Widget bigTitle(String text,
       [Color colour = kTextLight,
-      TextAlign textAlignment = TextAlign.start,
+      TextAlign textAlignment = TextAlign.center,
       TextOverflow tovf = TextOverflow.visible]) {
     return textBox(text, 2, 25, tovf, FontWeight.w800, textAlignment, colour);
   }

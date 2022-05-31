@@ -21,13 +21,18 @@ class Button extends StatelessWidget {
           Feedback.forTap(context);
         },
         child: Container(
-          height: 20,
-          width: 15,
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-                // alignment: Alignment.topLeft,
-                image: AssetImage('assets/image/back_button.png'),
-                fit: BoxFit.cover),
+          padding: EdgeInsets.all(5),
+          height: 30,
+          width: 30,
+          child: Container(
+            height: 20,
+            width: 15,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                  // alignment: Alignment.topLeft,
+                  image: AssetImage('assets/image/back_button.png'),
+                  fit: BoxFit.cover),
+            ),
           ),
         ),
       ),
@@ -47,23 +52,28 @@ class Button extends StatelessWidget {
           Feedback.forTap(context);
         },
         child: Container(
-          height: 20,
-          width: 15,
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-                // alignment: Alignment.topLeft,
-                image: AssetImage('assets/image/black_back_button.png'),
-                fit: BoxFit.cover),
+          padding: EdgeInsets.all(5),
+          height: 30,
+          width: 30,
+          child: Container(
+            height: 20,
+            width: 15,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                  // alignment: Alignment.topLeft,
+                  image: AssetImage('assets/image/black_back_button.png'),
+                  fit: BoxFit.cover),
+            ),
           ),
         ),
       ),
     );
   }
 
-  static Widget playgroungButton(BuildContext context) {
+  static Widget playgroundButton(BuildContext context) {
     return Positioned(
       right: 50,
-      top: MediaQuery.of(context).size.height / 8.5,
+      top: MediaQuery.of(context).size.height / 2.9,
       child: GestureDetector(
         onTap: () {
           Navigator.pushNamed(context, "/handsignPlayground");
