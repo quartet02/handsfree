@@ -64,6 +64,11 @@ class _MainLearningPageState extends State<MainLearningPage>
     super.initState();
 
     isPractical = context.read<LessonProvider>().getPractical;
+    if (!isPractical) {
+      Provider.of<LessonCardProvider?>(context, listen: false)
+          ?.setCurrentTypeOfTest = -1;
+    }
+
     // 10 sec timer for practical
     oneSecTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
       _remainingTime.value = _remainingTime.value - 1;
@@ -71,9 +76,11 @@ class _MainLearningPageState extends State<MainLearningPage>
       if (_remainingTime.value <= 0) {
         // Unable to answer in time
         timer.cancel();
-        DatabaseService(uid: user.uid)
-            .updateTestResult(syllabus, lesson, provider.testResult['numOfWrong'], provider.testResult['elapsedTime']);
-        // Put database func here
+        DatabaseService(uid: user.uid).updateTestResult(
+            syllabus,
+            lesson,
+            provider.testResult['numOfWrong'],
+            provider.testResult['elapsedTime']);
         debugPrint(Provider.of<LessonCardProvider?>(context, listen: false)
             ?.testResult
             .toString());
@@ -136,7 +143,6 @@ class _MainLearningPageState extends State<MainLearningPage>
               List<LessonCardModel>? lessonCard = snapshot.data;
 
               if (lessonCard!.isNotEmpty && firstTime) {
-                provider.initTime();
                 if (isPractical) {
                   lessonCard.shuffle();
                   provider.setCardLessons(lessonCard);
@@ -145,6 +151,7 @@ class _MainLearningPageState extends State<MainLearningPage>
                   provider.setCardLessons(lessonCard);
                 }
                 firstTime = false;
+                provider.initTime();
               }
 
               stopwatch.reset();
@@ -182,9 +189,11 @@ class _MainLearningPageState extends State<MainLearningPage>
                           DatabaseService(uid: user.uid).updateExperience();
                           DatabaseService(uid: user.uid)
                               .updateIsCompletedLesson(syllabus, lesson);
-                          DatabaseService(uid: user.uid)
-                              .updateTestResult(syllabus, lesson, provider.testResult['numOfWrong'], provider.testResult['elapsedTime']);
-                          // put database func here
+                          DatabaseService(uid: user.uid).updateTestResult(
+                              syllabus,
+                              lesson,
+                              provider.testResult['numOfWrong'],
+                              provider.testResult['elapsedTime']);
                           debugPrint(provider.testResult.toString());
                           Navigator.pushNamed(context, "/congratulation");
                         } else {
@@ -201,8 +210,7 @@ class _MainLearningPageState extends State<MainLearningPage>
 
                       provider.updateDBFunction = updateDB;
                       provider.showMessageFunction = showMessage;
-                      debugPrint("Current alphabet: " +
-                          provider.getCurrentLesson.lessonCardTitle);
+
                       return Stack(
                         children: [
                           Container(
