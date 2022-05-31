@@ -88,6 +88,9 @@ class _MainLearningPageState extends State<MainLearningPage>
     // cancel timer if isn't practical
     if (!isPractical) {
       oneSecTimer.cancel();
+      context.read<LessonCardProvider?>()?.setCurrentTypeOfTest=-1;
+      debugPrint("type of test in init mainLearningPage");
+      debugPrint(context.read<LessonCardProvider?>()?.currentTypeOfTest.toString());
     }
     subLesson = context.read<SubLessonProvider>().getClickedSubLesson;
     syllabus = context.read<SubLessonProvider>().getSyllabus;
@@ -127,6 +130,7 @@ class _MainLearningPageState extends State<MainLearningPage>
     if (user == null || provider == null) return Loading();
     typeOfTest =
         Provider.of<LessonCardProvider?>(context)!.getCurrentTypeOfTest;
+    debugPrint("type of test in mainLearningPage: " + typeOfTest.toString());
     // use this widget
     // return HandSignPlayground(width, height);
 
