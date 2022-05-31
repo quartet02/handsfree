@@ -48,9 +48,9 @@ class PredictImage {
     }
 
     return {
-      "index": _predictedIndexes,
-      "confidence": _predictedConfidences,
-      "label": _predictedLabels,
+      "indexes": _predictedIndexes,
+      "confidences": _predictedConfidences,
+      "labels": _predictedLabels,
     };
   }
 
