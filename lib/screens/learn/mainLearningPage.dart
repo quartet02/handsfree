@@ -46,6 +46,7 @@ class _MainLearningPageState extends State<MainLearningPage>
   late String syllabus;
   late String lesson;
   late final bool isPractical;
+  late int typeOfTest;
 
   @override
   void dispose() {
@@ -70,7 +71,7 @@ class _MainLearningPageState extends State<MainLearningPage>
     oneSecTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
       _remainingTime.value = _remainingTime.value - 1;
 
-      if (_remainingTime.value <= 0) {
+      if (_remainingTime.value <= 0 && typeOfTest != 2) {
         // Unable to answer in time
         timer.cancel();
         DatabaseService(uid: user.uid).updateTestResult(
@@ -124,9 +125,8 @@ class _MainLearningPageState extends State<MainLearningPage>
   @override
   Widget build(BuildContext context) {
     if (user == null || provider == null) return Loading();
-    int typeOfTest =
+    typeOfTest =
         Provider.of<LessonCardProvider?>(context)!.getCurrentTypeOfTest;
-
     // use this widget
     // return HandSignPlayground(width, height);
 

@@ -4,7 +4,7 @@ import 'dart:math';
 
 class LessonCardProvider with ChangeNotifier {
   int index = 0;
-  static const int numTypeOfTest = 2;
+  static const int numTypeOfTest = 3;
   // randomly set test type, -1=>learn, 0=> text field, 1=> MCQ, 2 => Camera
   // [0, max)
   int currentTypeOfTest = Random().nextInt(numTypeOfTest);
@@ -144,10 +144,10 @@ class LessonCardProvider with ChangeNotifier {
     quesInput = "";
     submissionTrigger();
     if (currentQuesCrt) {
-      if (index == cardLessons.length - 2)
-        setCurrentTypeOfTest = 2;
-      else
-        setCurrentTypeOfTest = Random().nextInt(numTypeOfTest);
+      // if (index == cardLessons.length - 2)
+      //   setCurrentTypeOfTest = 2;
+      // else
+      setCurrentTypeOfTest = Random().nextInt(numTypeOfTest);
       updateDB();
     }
   }
