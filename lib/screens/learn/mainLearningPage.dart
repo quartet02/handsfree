@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:handsfree/models/lessonCardModel.dart';
 import 'package:handsfree/models/lessonModel.dart';
@@ -64,10 +65,6 @@ class _MainLearningPageState extends State<MainLearningPage>
     super.initState();
 
     isPractical = context.read<LessonProvider>().getPractical;
-    if (!isPractical) {
-      Provider.of<LessonCardProvider?>(context, listen: false)
-          ?.setCurrentTypeOfTest = -1;
-    }
 
     // 10 sec timer for practical
     oneSecTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
@@ -88,8 +85,13 @@ class _MainLearningPageState extends State<MainLearningPage>
       }
     });
     // cancel timer if isn't practical
-    if (!isPractical) oneSecTimer.cancel();
-
+    if (!isPractical) {
+      oneSecTimer.cancel();
+      context.read<LessonCardProvider>().setCurrentTypeOfTest = -1;
+    } else {
+      context.read<LessonCardProvider>().setCurrentTypeOfTest =
+          Random().nextInt(2);
+    }
     subLesson = context.read<SubLessonProvider>().getClickedSubLesson;
     syllabus = context.read<SubLessonProvider>().getSyllabus;
     lesson = 'Unknown';
@@ -492,9 +494,7 @@ class _MainLearningPageState extends State<MainLearningPage>
                                               blurRadius: 6,
                                             ),
                                           ]),
-                                      child:
-                                          // if is text field
-                                          typeOfTestWidget(typeOfTest)),
+                                      child: typeOfTestWidget(typeOfTest)),
                                 isPractical && typeOfTest == 1
                                     ? Container()
                                     : Padding(
@@ -575,7 +575,8 @@ class _MainLearningPageState extends State<MainLearningPage>
     ));
   }
 
-  Widget typeOfTestWidget(type) {
+  Widget typeOfTestWidget(int type) {
+    debugPrint("type of test widget: " + type.toString());
     if (type == 0) {
       return const TextForm();
     } else if (type == 1) {

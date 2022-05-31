@@ -4,9 +4,10 @@ import 'dart:math';
 
 class LessonCardProvider with ChangeNotifier {
   int index = 0;
-  // randomly set test type, 0=> text field, 1=> MCQ
+  static const int numTypeOfTest = 2;
+  // randomly set test type, -1=>learn, 0=> text field, 1=> MCQ
   // [0, max)
-  int currentTypeOfTest = Random().nextInt(2);
+  int currentTypeOfTest = Random().nextInt(numTypeOfTest);
   List<int> numOfWrong = [];
   bool currentQuesCrt = false;
   String quesInput = "";
@@ -15,6 +16,8 @@ class LessonCardProvider with ChangeNotifier {
   Function submissionTrigger = () => {}; // for text form onSubmitted
   List<String> mcqOptions = [];
   List<Duration> elapsedTime = [];
+  List<String> lessonsId = [];
+  List<int> allTypeOfTest = [];
 
   List<LessonCardModel> cardLessons = lessonCardData
       .map(
@@ -62,6 +65,11 @@ class LessonCardProvider with ChangeNotifier {
 
   void setCardLessons(List<LessonCardModel> lessonCard) {
     cardLessons = lessonCard;
+    allTypeOfTest = List.filled(cardLessons.length, -1);
+    lessonsId.clear();
+    for (int i =0; i <lessonCard.length; i++){
+      lessonsId.add(cardLessons[i].lessonCardId.toString());
+    }
     debugPrint("set card lesson, first card: " + lessonCard[index].lessonCardTitle);
   }
 
@@ -91,6 +99,7 @@ class LessonCardProvider with ChangeNotifier {
   void initTest(){
     // if (index==0) return;
     numOfWrong = List.filled(cardLessons.length, 0);
+    allTypeOfTest[index] = currentTypeOfTest;
     if (currentTypeOfTest == 1){
       initMcqOptions();
     }
@@ -131,7 +140,7 @@ class LessonCardProvider with ChangeNotifier {
     quesInput = "";
     submissionTrigger();
     if (currentQuesCrt) {
-      currentTypeOfTest = Random().nextInt(100) % 2;
+      setCurrentTypeOfTest = Random().nextInt(numTypeOfTest);
       updateDB();
     }
   }
@@ -146,6 +155,7 @@ class LessonCardProvider with ChangeNotifier {
 
   set setCurrentTypeOfTest(int type) {
     currentTypeOfTest = type;
+    allTypeOfTest[index] = type;
     notifyListeners();
   }
 
@@ -171,6 +181,8 @@ class LessonCardProvider with ChangeNotifier {
 
   Map<String, List> get testResult{
     return {
+      "lessonsId": lessonsId,
+      "allTypeOfTest": allTypeOfTest,
       "numOfWrong" : numOfWrong,
       "elapsedTime": elapsedTime,
     };
