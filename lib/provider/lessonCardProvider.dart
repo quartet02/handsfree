@@ -18,8 +18,6 @@ class LessonCardProvider with ChangeNotifier {
   List<Duration> elapsedTime = [];
   List<String> lessonsId = [];
   List<int> allTypeOfTest = [];
-  bool testing = false;
-  int testingTypeOfTest = 2;
 
   List<LessonCardModel> cardLessons = lessonCardData
       .map(
@@ -46,7 +44,7 @@ class LessonCardProvider with ChangeNotifier {
     updateDB = f;
   }
 
-  set submissionTriggerFunction(Function f){
+  set submissionTriggerFunction(Function f) {
     submissionTrigger = f;
   }
 
@@ -68,41 +66,44 @@ class LessonCardProvider with ChangeNotifier {
   void setCardLessons(List<LessonCardModel> lessonCard) {
     cardLessons = lessonCard;
     lessonsId.clear();
-    for (int i =0; i <lessonCard.length; i++){
+    for (int i = 0; i < lessonCard.length; i++) {
       lessonsId.add(cardLessons[i].lessonCardId.toString());
     }
-    debugPrint("set card lesson, first card: " + lessonCard[index].lessonCardTitle);
+    debugPrint(
+        "set card lesson, first card: " + lessonCard[index].lessonCardTitle);
+    debugPrint("current type of test in set card lessons: " + currentTypeOfTest.toString());
   }
 
-  void initMcqOptions(){
+  void initMcqOptions() {
     mcqOptions.clear();
     mcqOptions.add(cardLessons[index].lessonCardTitle);
     int n = 3;
     int rand;
 
-    while (n!=0){
+    while (n != 0) {
       rand = Random().nextInt(cardLessons.length);
-      if (rand != index && !mcqOptions.contains(cardLessons[rand].lessonCardTitle)){
+      if (rand != index &&
+          !mcqOptions.contains(cardLessons[rand].lessonCardTitle)) {
         mcqOptions.add(cardLessons[rand].lessonCardTitle);
         n -= 1;
       }
     }
-    debugPrint("index: "+index.toString());
-    debugPrint("ans: "+cardLessons[index].lessonCardTitle);
+    debugPrint("index: " + index.toString());
+    debugPrint("ans: " + cardLessons[index].lessonCardTitle);
     debugPrint("mcqOptions: " + mcqOptions.toString());
     mcqOptions.shuffle();
   }
 
-  void initTime(){
+  void initTime() {
     elapsedTime = List.filled(cardLessons.length, Duration(milliseconds: 0));
   }
 
-  void initTest(){
+  void initTest() {
     // if (index==0) return;
     numOfWrong = List.filled(cardLessons.length, 0);
     allTypeOfTest = List.filled(cardLessons.length, 0);
     allTypeOfTest[index] = currentTypeOfTest;
-    if (currentTypeOfTest == 1){
+    if (currentTypeOfTest == 1) {
       initMcqOptions();
     }
   }
@@ -110,14 +111,15 @@ class LessonCardProvider with ChangeNotifier {
   void increment() {
     index++;
     currentQuesCrt = false;
-    if (currentTypeOfTest == 1){
+    if (currentTypeOfTest == 1) {
       initMcqOptions();
     }
     notifyListeners();
   }
 
-  void resetIndex() {
+  void reset() {
     index = 0;
+    currentTypeOfTest = Random().nextInt(numTypeOfTest);
     notifyListeners();
   }
 
@@ -142,9 +144,10 @@ class LessonCardProvider with ChangeNotifier {
     quesInput = "";
     submissionTrigger();
     if (currentQuesCrt) {
-      setCurrentTypeOfTest = Random().nextInt(numTypeOfTest);
-      if(testing)
-        setCurrentTypeOfTest = testingTypeOfTest;
+      if (index == cardLessons.length - 2)
+        setCurrentTypeOfTest = 2;
+      else
+        setCurrentTypeOfTest = Random().nextInt(numTypeOfTest);
       updateDB();
     }
   }
@@ -159,10 +162,10 @@ class LessonCardProvider with ChangeNotifier {
 
   set setCurrentTypeOfTest(int type) {
     currentTypeOfTest = type;
-    try{
+    debugPrint("current type of test: "+currentTypeOfTest.toString());
+    try {
       allTypeOfTest[index] = type;
-
-    } catch(e){
+    } catch (e) {
       return;
     }
     notifyListeners();
@@ -180,7 +183,7 @@ class LessonCardProvider with ChangeNotifier {
     return currentQuesCrt;
   }
 
-  List<String> get getMcqOptions{
+  List<String> get getMcqOptions {
     return mcqOptions;
   }
 
@@ -188,18 +191,18 @@ class LessonCardProvider with ChangeNotifier {
     return currentTypeOfTest;
   }
 
-  Map<String, List> get testResult{
+  Map<String, List> get testResult {
     return {
       "lessonsId": lessonsId,
       "allTypeOfTest": allTypeOfTest,
-      "numOfWrong" : numOfWrong,
+      "numOfWrong": numOfWrong,
       "elapsedTime": elapsedTime,
     };
   }
 
-  void shuffleQuestions(){
+  void shuffleQuestions() {
     cardLessons.shuffle();
-}
+  }
 }
 
 List<Map<String, dynamic>> lessonCardData = [

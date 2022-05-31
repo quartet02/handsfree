@@ -63,7 +63,6 @@ class _MainLearningPageState extends State<MainLearningPage>
   @override
   void initState() {
     super.initState();
-
     isPractical = context.read<LessonProvider>().getPractical;
 
     // 10 sec timer for practical
@@ -195,6 +194,7 @@ class _MainLearningPageState extends State<MainLearningPage>
                           debugPrint(provider.testResult.toString());
                           Navigator.pushNamed(context, "/congratulation");
                         } else {
+
                           DatabaseService(uid: user.uid)
                               .updateIsCompletedSubLesson(
                                   syllabus,
@@ -203,6 +203,10 @@ class _MainLearningPageState extends State<MainLearningPage>
                                       .lessonId);
                           DatabaseService(uid: user.uid).updateExperience();
                           providerCardLesson.increment();
+                          if (providerCardLesson.index ==
+                              cardLesson.length - 1) {
+                            oneSecTimer.cancel();
+                          }
                         }
                       }
 
