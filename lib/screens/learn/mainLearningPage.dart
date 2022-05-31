@@ -5,10 +5,11 @@ import 'package:handsfree/models/lessonModel.dart';
 import 'package:handsfree/provider/lessonCardProvider.dart';
 import 'package:handsfree/provider/lessonProvider.dart';
 import 'package:handsfree/provider/subLessonProvider.dart';
+import 'package:handsfree/screens/learn/handSignPlayground.dart';
 import 'package:handsfree/screens/learn/textForm.dart';
 import 'package:handsfree/services/database.dart';
 import 'package:handsfree/widgets/buildText.dart';
-import 'package:handsfree/widgets/cameraModel.dart';
+import 'package:handsfree/widgets/HandSignPredictionView.dart';
 import 'package:handsfree/widgets/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/percent_indicator.dart';
@@ -120,6 +121,9 @@ class _MainLearningPageState extends State<MainLearningPage>
     if (user == null || provider == null) return Loading();
     int typeOfTest =
         Provider.of<LessonCardProvider?>(context)!.getCurrentTypeOfTest;
+
+    // use this widget
+    // return HandSignPlayground();
 
     return FutureBuilder<List<LessonCardModel>>(
         future: lessonListFromDB,

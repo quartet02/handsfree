@@ -54,6 +54,30 @@ class PredictImage {
     };
   }
 
+  static Future classifyImages(InputImage inputImage) async {
+    if (_canProcess == false) _initializeDetector('assets/tflite/model.tflite', 3, 0.4);
+    clearData();
+
+    final List<ImageLabel> labels =
+    await _imageLabeler.processImage(inputImage);
+
+    debugPrint("predictions: ");
+
+    for (ImageLabel label in labels) {
+      _predictedIndexes.add(label.index);
+      _predictedConfidences.add(label.confidence);
+      _predictedLabels.add(label.label);
+      debugPrint(label.label);
+      debugPrint(label.confidence.toString());
+    }
+
+    return {
+      "index": _predictedIndexes,
+      "confidence": _predictedConfidences,
+      "label": _predictedLabels,
+    };
+  }
+
   static void _initializeDetector(String modelPath, int maxCount, double confidenceThreshold) async {
     modelPath = await _getModel(modelPath);
     final options = LocalLabelerOptions(
