@@ -155,7 +155,7 @@ class LessonCardProvider with ChangeNotifier {
 
   set setCurrentTypeOfTest(int type) {
     currentTypeOfTest = type;
-    allTypeOfTest[index] = type;
+    if(index != 0) allTypeOfTest[index] = type;
     notifyListeners();
   }
 
