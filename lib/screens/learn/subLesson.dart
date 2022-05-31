@@ -206,7 +206,7 @@ class SubLevel extends StatelessWidget {
                                       onTap: () {
                                         Provider.of<LessonCardProvider>(context,
                                                 listen: false)
-                                            .resetIndex();
+                                            .reset();
                                         Provider.of<SubLessonProvider>(context,
                                                 listen: false)
                                             .setClickLesson(subLessons[index]);

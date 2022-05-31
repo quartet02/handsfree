@@ -7,6 +7,7 @@ import 'package:handsfree/provider/lessonCardProvider.dart';
 import 'package:handsfree/provider/lessonProvider.dart';
 import 'package:handsfree/provider/subLessonProvider.dart';
 import 'package:handsfree/screens/learn/handSignPlayground.dart';
+import 'package:handsfree/screens/learn/testHandSignPhoto.dart';
 import 'package:handsfree/screens/learn/textForm.dart';
 import 'package:handsfree/services/database.dart';
 import 'package:handsfree/widgets/buildText.dart';
@@ -45,6 +46,7 @@ class _MainLearningPageState extends State<MainLearningPage>
   late String syllabus;
   late String lesson;
   late final bool isPractical;
+  late int typeOfTest;
 
   @override
   void dispose() {
@@ -63,14 +65,13 @@ class _MainLearningPageState extends State<MainLearningPage>
   @override
   void initState() {
     super.initState();
-
     isPractical = context.read<LessonProvider>().getPractical;
 
     // 10 sec timer for practical
     oneSecTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
       _remainingTime.value = _remainingTime.value - 1;
 
-      if (_remainingTime.value <= 0) {
+      if (_remainingTime.value <= 0 && typeOfTest != 2) {
         // Unable to answer in time
         timer.cancel();
         DatabaseService(uid: user.uid).updateTestResult(
@@ -124,9 +125,8 @@ class _MainLearningPageState extends State<MainLearningPage>
   @override
   Widget build(BuildContext context) {
     if (user == null || provider == null) return Loading();
-    int typeOfTest =
+    typeOfTest =
         Provider.of<LessonCardProvider?>(context)!.getCurrentTypeOfTest;
-
     // use this widget
     // return HandSignPlayground(width, height);
 
@@ -203,6 +203,10 @@ class _MainLearningPageState extends State<MainLearningPage>
                                       .lessonId);
                           DatabaseService(uid: user.uid).updateExperience();
                           providerCardLesson.increment();
+                          if (providerCardLesson.index ==
+                              cardLesson.length - 1) {
+                            oneSecTimer.cancel();
+                          }
                         }
                       }
 
@@ -220,7 +224,7 @@ class _MainLearningPageState extends State<MainLearningPage>
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                isPractical
+                                isPractical && typeOfTest != 2
                                     ? ValueListenableBuilder(
                                         valueListenable: _remainingTime,
                                         builder: (context, value, child) {
@@ -366,97 +370,14 @@ class _MainLearningPageState extends State<MainLearningPage>
                                 const Padding(
                                   padding: EdgeInsets.only(bottom: 10),
                                 ),
-                                isPractical || typeOfTest != 2
+                                isPractical && typeOfTest != 2
                                     ? Container()
                                     : buildText.learningText(provider
                                         .getCurrentLesson.lessonCardTitle),
                                 const Padding(
                                   padding: EdgeInsets.only(bottom: 5),
                                 ),
-                                Stack(
-                                  alignment: AlignmentDirectional.center,
-                                  children: [
-                                    Container(
-                                      width: MediaQuery.of(context).size.width,
-                                      // change image container height if it's mcq
-                                      height:
-                                          MediaQuery.of(context).size.height /
-                                              2.4,
-                                      decoration: const BoxDecoration(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(20)),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: kTextShadow,
-                                            offset: Offset(10, 10),
-                                            blurRadius: 20,
-                                          ),
-                                        ],
-                                        image: DecorationImage(
-                                          image: AssetImage(
-                                              'assets/image/learning_big_rect.png'),
-                                        ),
-                                      ),
-                                    ),
-                                    Container(
-                                      alignment: Alignment.bottomCenter,
-                                      width: MediaQuery.of(context).size.width,
-                                      height:
-                                          MediaQuery.of(context).size.height /
-                                              2.45,
-                                      child: FutureBuilder(
-                                          future: FireStorageService.loadImage(
-                                              provider.getCurrentLesson
-                                                  .lessonCardImage),
-                                          builder: (context, snapshot) {
-                                            if (snapshot.connectionState ==
-                                                ConnectionState.done) {
-                                              return Container(
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    1.2,
-                                                height: MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    1.2,
-                                                child: ChangeColors(
-                                                    brightness: 0.1,
-                                                    saturation: 0.2,
-                                                    child: Container(
-                                                      decoration: BoxDecoration(
-                                                          image: DecorationImage(
-                                                              fit: BoxFit.cover,
-                                                              image: Image.network(
-                                                                      snapshot.data
-                                                                          as String)
-                                                                  .image,
-                                                              scale: 16)),
-                                                    )),
-                                              );
-                                            }
-                                            if (snapshot.connectionState ==
-                                                ConnectionState.waiting) {
-                                              return Container(
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    1.2,
-                                                height: MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    1.2,
-                                                child:
-                                                    const CircularProgressIndicator(),
-                                              );
-                                            } else {
-                                              debugPrint('Connection Failed');
-                                              return Container();
-                                            }
-                                          }),
-                                    ),
-                                  ],
-                                ),
+                                typeOfTestMiddleImage(typeOfTest),
                                 const Padding(
                                   padding: EdgeInsets.only(bottom: 20),
                                 ),
@@ -491,60 +412,9 @@ class _MainLearningPageState extends State<MainLearningPage>
                                             ),
                                           ]),
                                       child: typeOfTestWidget(typeOfTest)),
-                                isPractical && typeOfTest == 1
-                                    ? Container()
-                                    : Padding(
-                                        padding: const EdgeInsets.only(top: 20),
-                                        child: GestureDetector(
-                                            onTap: () {
-                                              if (isPractical) {
-                                                provider.checkAns();
-                                              } else {
-                                                provider.updateDB();
-                                              }
-                                            },
-                                            child: Stack(children: <Widget>[
-                                              Center(
-                                                child: Container(
-                                                    alignment: Alignment.center,
-                                                    width: 200,
-                                                    decoration:
-                                                        const BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .all(Radius
-                                                                        .circular(
-                                                                            20)),
-                                                            boxShadow: [
-                                                          BoxShadow(
-                                                            color:
-                                                                kButtonShadow,
-                                                            offset:
-                                                                Offset(6, 6),
-                                                            blurRadius: 6,
-                                                          ),
-                                                        ]),
-                                                    child: Image.asset(
-                                                      'assets/image/purple_button.png',
-                                                      scale: 4,
-                                                    )),
-                                              ),
-                                              Container(
-                                                height: 40,
-                                                alignment: Alignment.center,
-                                                padding: const EdgeInsets.only(
-                                                    top: 10),
-                                                child: Text(
-                                                  'Next',
-                                                  style: GoogleFonts.montserrat(
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.w600,
-                                                    color: kTextLight,
-                                                  ),
-                                                ),
-                                              ),
-                                            ])),
-                                      ),
+                                isPractical
+                                    ? typeOfTestBottomButton(typeOfTest)
+                                    : typeOfTestBottomButton(0)
                               ],
                             ),
                           ),
@@ -580,6 +450,177 @@ class _MainLearningPageState extends State<MainLearningPage>
       return const Choices();
     } else {
       return Container();
+    }
+  }
+
+  Widget typeOfTestMiddleImage(int type) {
+    if (type != 2) {
+      return Stack(
+        alignment: AlignmentDirectional.center,
+        children: [
+          Container(
+            width: MediaQuery.of(context).size.width,
+            // change image container height if it's mcq
+            height: MediaQuery.of(context).size.height / 2.4,
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(20)),
+              boxShadow: [
+                BoxShadow(
+                  color: kTextShadow,
+                  offset: Offset(10, 10),
+                  blurRadius: 20,
+                ),
+              ],
+              image: DecorationImage(
+                image: AssetImage('assets/image/learning_big_rect.png'),
+              ),
+            ),
+          ),
+          Container(
+            alignment: Alignment.bottomCenter,
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height / 2.45,
+            child: FutureBuilder(
+                future: FireStorageService.loadImage(
+                    provider.getCurrentLesson.lessonCardImage),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    return Container(
+                      width: MediaQuery.of(context).size.width / 1.2,
+                      height: MediaQuery.of(context).size.width / 1.2,
+                      child: ChangeColors(
+                          brightness: 0.1,
+                          saturation: 0.2,
+                          child: Container(
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image:
+                                        Image.network(snapshot.data as String)
+                                            .image,
+                                    scale: 16)),
+                          )),
+                    );
+                  }
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Container(
+                      width: MediaQuery.of(context).size.width / 1.2,
+                      height: MediaQuery.of(context).size.width / 1.2,
+                      child: const CircularProgressIndicator(),
+                    );
+                  } else {
+                    debugPrint('Connection Failed');
+                    return Container();
+                  }
+                }),
+          ),
+        ],
+      );
+    }
+    return TestHandSignPhoto(title: provider.getCurrentLesson.lessonCardTitle);
+  }
+
+  Widget typeOfTestBottomButton(int type) {
+    switch (type) {
+      case 0:
+      case 2:
+        return Padding(
+          padding: const EdgeInsets.only(top: 20),
+          child: GestureDetector(
+              onTap: () {
+                if (isPractical) {
+                  provider.checkAns();
+                } else {
+                  provider.updateDB();
+                }
+              },
+              child: Stack(children: <Widget>[
+                Center(
+                  child: Container(
+                      alignment: Alignment.center,
+                      width: 200,
+                      decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          boxShadow: [
+                            BoxShadow(
+                              color: kButtonShadow,
+                              offset: Offset(6, 6),
+                              blurRadius: 6,
+                            ),
+                          ]),
+                      child: Image.asset(
+                        'assets/image/purple_button.png',
+                        scale: 4,
+                      )),
+                ),
+                Container(
+                  height: 40,
+                  alignment: Alignment.center,
+                  padding: const EdgeInsets.only(top: 10),
+                  child: Text(
+                    'Next',
+                    style: GoogleFonts.montserrat(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: kTextLight,
+                    ),
+                  ),
+                ),
+              ])),
+        );
+      case 1:
+        return Container();
+      // case 2:
+      //   return Padding(
+      //     padding: const EdgeInsets.only(top: 20),
+      //     child: GestureDetector(
+      //         onTap: () {
+      //             provider.checkAns();
+      //         },
+      //         child: Stack(children: <Widget>[
+      //           Center(
+      //             child: Container(
+      //                 alignment: Alignment.center,
+      //                 width: 200,
+      //                 decoration:
+      //                 const BoxDecoration(
+      //                     borderRadius:
+      //                     BorderRadius
+      //                         .all(Radius
+      //                         .circular(
+      //                         20)),
+      //                     boxShadow: [
+      //                       BoxShadow(
+      //                         color:
+      //                         kButtonShadow,
+      //                         offset:
+      //                         Offset(6, 6),
+      //                         blurRadius: 6,
+      //                       ),
+      //                     ]),
+      //                 child: Image.asset(
+      //                   'assets/image/purple_button.png',
+      //                   scale: 4,
+      //                 )),
+      //           ),
+      //           Container(
+      //             height: 40,
+      //             alignment: Alignment.center,
+      //             padding: const EdgeInsets.only(
+      //                 top: 10),
+      //             child: Text(
+      //               'Take Photo',
+      //               style: GoogleFonts.montserrat(
+      //                 fontSize: 16,
+      //                 fontWeight: FontWeight.w600,
+      //                 color: kTextLight,
+      //               ),
+      //             ),
+      //           ),
+      //         ])),
+      //   );
+      default:
+        return Container();
     }
   }
 }
