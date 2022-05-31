@@ -87,10 +87,6 @@ class _MainLearningPageState extends State<MainLearningPage>
     // cancel timer if isn't practical
     if (!isPractical) {
       oneSecTimer.cancel();
-      context.read<LessonCardProvider>().setCurrentTypeOfTest = -1;
-    } else {
-      context.read<LessonCardProvider>().setCurrentTypeOfTest =
-          Random().nextInt(2);
     }
     subLesson = context.read<SubLessonProvider>().getClickedSubLesson;
     syllabus = context.read<SubLessonProvider>().getSyllabus;
@@ -370,7 +366,7 @@ class _MainLearningPageState extends State<MainLearningPage>
                                 const Padding(
                                   padding: EdgeInsets.only(bottom: 10),
                                 ),
-                                isPractical
+                                isPractical || typeOfTest != 2
                                     ? Container()
                                     : buildText.learningText(provider
                                         .getCurrentLesson.lessonCardTitle),

@@ -5,7 +5,7 @@ import 'dart:math';
 class LessonCardProvider with ChangeNotifier {
   int index = 0;
   static const int numTypeOfTest = 2;
-  // randomly set test type, -1=>learn, 0=> text field, 1=> MCQ
+  // randomly set test type, -1=>learn, 0=> text field, 1=> MCQ, 2 => Camera
   // [0, max)
   int currentTypeOfTest = Random().nextInt(numTypeOfTest);
   List<int> numOfWrong = [];
@@ -18,6 +18,8 @@ class LessonCardProvider with ChangeNotifier {
   List<Duration> elapsedTime = [];
   List<String> lessonsId = [];
   List<int> allTypeOfTest = [];
+  bool testing = false;
+  int testingTypeOfTest = 2;
 
   List<LessonCardModel> cardLessons = lessonCardData
       .map(
@@ -65,7 +67,6 @@ class LessonCardProvider with ChangeNotifier {
 
   void setCardLessons(List<LessonCardModel> lessonCard) {
     cardLessons = lessonCard;
-    allTypeOfTest = List.filled(cardLessons.length, -1);
     lessonsId.clear();
     for (int i =0; i <lessonCard.length; i++){
       lessonsId.add(cardLessons[i].lessonCardId.toString());
@@ -99,6 +100,7 @@ class LessonCardProvider with ChangeNotifier {
   void initTest(){
     // if (index==0) return;
     numOfWrong = List.filled(cardLessons.length, 0);
+    allTypeOfTest = List.filled(cardLessons.length, 0);
     allTypeOfTest[index] = currentTypeOfTest;
     if (currentTypeOfTest == 1){
       initMcqOptions();
@@ -141,6 +143,8 @@ class LessonCardProvider with ChangeNotifier {
     submissionTrigger();
     if (currentQuesCrt) {
       setCurrentTypeOfTest = Random().nextInt(numTypeOfTest);
+      if(testing)
+        setCurrentTypeOfTest = testingTypeOfTest;
       updateDB();
     }
   }
@@ -155,7 +159,12 @@ class LessonCardProvider with ChangeNotifier {
 
   set setCurrentTypeOfTest(int type) {
     currentTypeOfTest = type;
-    if(index != 0) allTypeOfTest[index] = type;
+    try{
+      allTypeOfTest[index] = type;
+
+    } catch(e){
+      return;
+    }
     notifyListeners();
   }
 
