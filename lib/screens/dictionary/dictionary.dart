@@ -37,7 +37,7 @@ class _DictionaryState extends State<Dictionary> {
   }
 
   @override
-  void dispose(){
+  void dispose() {
     super.dispose();
     PredictImage.dispose();
   }
@@ -91,8 +91,7 @@ class _DictionaryState extends State<Dictionary> {
                   !isVisible
                       ? GestureDetector(
                           onTap: () {
-                            // Navigator.pushReplacementNamed(
-                            //     context, '/translator');
+                            Navigator.pushNamed(context, '/camera');
                           },
                           child: Stack(
                             children: <Widget>[
@@ -127,7 +126,7 @@ class _DictionaryState extends State<Dictionary> {
                       : Container(),
                   !isVisible
                       ? Text(
-                          'Text-to-Sign',
+                          'Sign-to-Text',
                           style: GoogleFonts.montserrat(
                             fontSize: 25,
                             fontWeight: FontWeight.w700,
@@ -155,16 +154,16 @@ class _DictionaryState extends State<Dictionary> {
                           padding: EdgeInsets.only(bottom: 5),
                         )
                       : Container(),
-                  !isVisible
-                      ? Text(
-                          'Coming Soon!',
-                          style: GoogleFonts.montserrat(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w400,
-                            color: kText,
-                          ),
-                        )
-                      : Container(),
+                  // !isVisible
+                  //     ? Text(
+                  //         'Coming Soon!',
+                  //         style: GoogleFonts.montserrat(
+                  //           fontSize: 20,
+                  //           fontWeight: FontWeight.w400,
+                  //           color: kText,
+                  //         ),
+                  //       )
+                  //     : Container(),
                 ],
               ),
             ),

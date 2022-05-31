@@ -584,7 +584,7 @@ class DatabaseService {
         .collection('Lesson 2')
         .doc('f')
         .set({
-      "lessonCardId": 001,
+      "lessonCardId": 006,
       "lessonCardTitle": "F",
       "lessonCardDesc": "Alphabet F",
       "lessonCardImage": "assets/word/f.png",
@@ -599,7 +599,7 @@ class DatabaseService {
         .collection('Lesson 2')
         .doc('g')
         .set({
-      "lessonCardId": 002,
+      "lessonCardId": 007,
       "lessonCardTitle": "G",
       "lessonCardDesc": "Alphabet G",
       "lessonCardImage": "assets/word/g.png",
@@ -614,7 +614,7 @@ class DatabaseService {
         .collection('Lesson 2')
         .doc('h')
         .set({
-      "lessonCardId": 003,
+      "lessonCardId": 008,
       "lessonCardTitle": "H",
       "lessonCardDesc": "Alphabet H",
       "lessonCardImage": "assets/word/h.png",
@@ -629,7 +629,7 @@ class DatabaseService {
         .collection('Lesson 2')
         .doc('i')
         .set({
-      "lessonCardId": 004,
+      "lessonCardId": 009,
       "lessonCardTitle": "I",
       "lessonCardDesc": "Alphabet I",
       "lessonCardImage": "assets/word/i.png",
@@ -644,7 +644,7 @@ class DatabaseService {
         .collection('Lesson 2')
         .doc('j')
         .set({
-      "lessonCardId": 005,
+      "lessonCardId": 010,
       "lessonCardTitle": "J",
       "lessonCardDesc": "Alphabet J",
       "lessonCardImage": "assets/word/j.gif",
@@ -660,7 +660,7 @@ class DatabaseService {
         .collection('Lesson 3')
         .doc('k')
         .set({
-      "lessonCardId": 001,
+      "lessonCardId": 011,
       "lessonCardTitle": "K",
       "lessonCardDesc": "Alphabet K",
       "lessonCardImage": "assets/word/k.png",
@@ -675,7 +675,7 @@ class DatabaseService {
         .collection('Lesson 3')
         .doc('l')
         .set({
-      "lessonCardId": 002,
+      "lessonCardId": 012,
       "lessonCardTitle": "L",
       "lessonCardDesc": "Alphabet L",
       "lessonCardImage": "assets/word/l.png",
@@ -690,7 +690,7 @@ class DatabaseService {
         .collection('Lesson 3')
         .doc('m')
         .set({
-      "lessonCardId": 003,
+      "lessonCardId": 013,
       "lessonCardTitle": "M",
       "lessonCardDesc": "Alphabet M",
       "lessonCardImage": "assets/word/m.png",
@@ -705,7 +705,7 @@ class DatabaseService {
         .collection('Lesson 3')
         .doc('n')
         .set({
-      "lessonCardId": 004,
+      "lessonCardId": 014,
       "lessonCardTitle": "N",
       "lessonCardDesc": "Alphabet n",
       "lessonCardImage": "assets/word/n.png",
@@ -720,7 +720,7 @@ class DatabaseService {
         .collection('Lesson 3')
         .doc('o')
         .set({
-      "lessonCardId": 005,
+      "lessonCardId": 015,
       "lessonCardTitle": "O",
       "lessonCardDesc": "Alphabet O",
       "lessonCardImage": "assets/word/o.png",
@@ -736,7 +736,7 @@ class DatabaseService {
         .collection('Lesson 4')
         .doc('p')
         .set({
-      "lessonCardId": 001,
+      "lessonCardId": 016,
       "lessonCardTitle": "P",
       "lessonCardDesc": "Alphabet P",
       "lessonCardImage": "assets/word/p.png",
@@ -751,7 +751,7 @@ class DatabaseService {
         .collection('Lesson 4')
         .doc('q')
         .set({
-      "lessonCardId": 002,
+      "lessonCardId": 017,
       "lessonCardTitle": "Q",
       "lessonCardDesc": "Alphabet Q",
       "lessonCardImage": "assets/word/q.png",
@@ -766,7 +766,7 @@ class DatabaseService {
         .collection('Lesson 4')
         .doc('r')
         .set({
-      "lessonCardId": 003,
+      "lessonCardId": 018,
       "lessonCardTitle": "R",
       "lessonCardDesc": "Alphabet R",
       "lessonCardImage": "assets/word/r.png",
@@ -781,7 +781,7 @@ class DatabaseService {
         .collection('Lesson 4')
         .doc('s')
         .set({
-      "lessonCardId": 004,
+      "lessonCardId": 019,
       "lessonCardTitle": "S",
       "lessonCardDesc": "Alphabet S",
       "lessonCardImage": "assets/word/s.png",
@@ -796,7 +796,7 @@ class DatabaseService {
         .collection('Lesson 4')
         .doc('t')
         .set({
-      "lessonCardId": 005,
+      "lessonCardId": 020,
       "lessonCardTitle": "T",
       "lessonCardDesc": "Alphabet T",
       "lessonCardImage": "assets/word/t.png",
@@ -812,7 +812,7 @@ class DatabaseService {
         .collection('Lesson 5')
         .doc('u')
         .set({
-      "lessonCardId": 001,
+      "lessonCardId": 021,
       "lessonCardTitle": "U",
       "lessonCardDesc": "Alphabet U",
       "lessonCardImage": "assets/word/u.png",
@@ -827,7 +827,7 @@ class DatabaseService {
         .collection('Lesson 5')
         .doc('v')
         .set({
-      "lessonCardId": 002,
+      "lessonCardId": 022,
       "lessonCardTitle": "V",
       "lessonCardDesc": "Alphabet V",
       "lessonCardImage": "assets/word/v.png",
@@ -842,7 +842,7 @@ class DatabaseService {
         .collection('Lesson 5')
         .doc('w')
         .set({
-      "lessonCardId": 003,
+      "lessonCardId": 023,
       "lessonCardTitle": "W",
       "lessonCardDesc": "Alphabet W",
       "lessonCardImage": "assets/word/w.png",
@@ -857,7 +857,7 @@ class DatabaseService {
         .collection('Lesson 5')
         .doc('x')
         .set({
-      "lessonCardId": 004,
+      "lessonCardId": 024,
       "lessonCardTitle": "X",
       "lessonCardDesc": "Alphabet X",
       "lessonCardImage": "assets/word/x.png",
@@ -872,7 +872,7 @@ class DatabaseService {
         .collection('Lesson 5')
         .doc('y')
         .set({
-      "lessonCardId": 005,
+      "lessonCardId": 025,
       "lessonCardTitle": "Y",
       "lessonCardDesc": "Alphabet Y",
       "lessonCardImage": "assets/word/y.png",
@@ -887,7 +887,7 @@ class DatabaseService {
         .collection('Lesson 5')
         .doc('z')
         .set({
-      "lessonCardId": 006,
+      "lessonCardId": 026,
       "lessonCardTitle": "Z",
       "lessonCardDesc": "Alphabet Z",
       "lessonCardImage": "assets/word/z.gif",
@@ -905,7 +905,7 @@ class DatabaseService {
         .collection('Lesson 1')
         .doc('hello')
         .set({
-      "lessonCardId": 001,
+      "lessonCardId": 027,
       "lessonCardTitle": "Hello",
       "lessonCardDesc": "Sign of 'Hello'",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
@@ -920,7 +920,7 @@ class DatabaseService {
         .collection('Lesson 1')
         .doc('hey')
         .set({
-      "lessonCardId": 002,
+      "lessonCardId": 028,
       "lessonCardTitle": "Hey",
       "lessonCardDesc": "Sign of 'Hey'",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
@@ -935,7 +935,7 @@ class DatabaseService {
         .collection('Lesson 1')
         .doc('whatsup')
         .set({
-      "lessonCardId": 003,
+      "lessonCardId": 029,
       "lessonCardTitle": "What's up",
       "lessonCardDesc": "Sign of 'What's up'",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
@@ -950,7 +950,7 @@ class DatabaseService {
         .collection('Lesson 1')
         .doc('my')
         .set({
-      "lessonCardId": 004,
+      "lessonCardId": 030,
       "lessonCardTitle": "My",
       "lessonCardDesc": "Sign of 'My'",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
@@ -965,7 +965,7 @@ class DatabaseService {
         .collection('Lesson 1')
         .doc('name')
         .set({
-      "lessonCardId": 005,
+      "lessonCardId": 031,
       "lessonCardTitle": "Name",
       "lessonCardDesc": "Sign of 'Name'",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
@@ -981,7 +981,7 @@ class DatabaseService {
         .collection('Lesson 2')
         .doc('nice')
         .set({
-      "lessonCardId": 001,
+      "lessonCardId": 032,
       "lessonCardTitle": "Nice",
       "lessonCardDesc": "Sign of 'Nice'",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
@@ -996,7 +996,7 @@ class DatabaseService {
         .collection('Lesson 2')
         .doc('meet')
         .set({
-      "lessonCardId": 002,
+      "lessonCardId": 033,
       "lessonCardTitle": "Meet",
       "lessonCardDesc": "Sign of 'Meet'",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
@@ -1011,7 +1011,7 @@ class DatabaseService {
         .collection('Lesson 2')
         .doc('i')
         .set({
-      "lessonCardId": 003,
+      "lessonCardId": 034,
       "lessonCardTitle": "I",
       "lessonCardDesc": "Sign of 'I', which people use to mention themselves",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
@@ -1026,7 +1026,7 @@ class DatabaseService {
         .collection('Lesson 2')
         .doc('learn')
         .set({
-      "lessonCardId": 004,
+      "lessonCardId": 035,
       "lessonCardTitle": "Learn",
       "lessonCardDesc": "Sign of 'Learn'",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
@@ -1041,7 +1041,7 @@ class DatabaseService {
         .collection('Lesson 2')
         .doc('sign')
         .set({
-      "lessonCardId": 005,
+      "lessonCardId": 036,
       "lessonCardTitle": "Sign",
       "lessonCardDesc": "Sign of 'Sign'",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
@@ -1057,7 +1057,7 @@ class DatabaseService {
         .collection('Lesson 3')
         .doc('your')
         .set({
-      "lessonCardId": 001,
+      "lessonCardId": 037,
       "lessonCardTitle": "Your",
       "lessonCardDesc": "Sign of 'Your'",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
@@ -1072,7 +1072,7 @@ class DatabaseService {
         .collection('Lesson 3')
         .doc('what')
         .set({
-      "lessonCardId": 002,
+      "lessonCardId": 038,
       "lessonCardTitle": "What",
       "lessonCardDesc":
           "Sign of 'What', this sign is usually shown at the last of the signing sentence.",
@@ -1088,7 +1088,7 @@ class DatabaseService {
         .collection('Lesson 3')
         .doc('you')
         .set({
-      "lessonCardId": 003,
+      "lessonCardId": 039,
       "lessonCardTitle": "You",
       "lessonCardDesc": "Sign of 'You'",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
@@ -1103,7 +1103,7 @@ class DatabaseService {
         .collection('Lesson 3')
         .doc('from')
         .set({
-      "lessonCardId": 004,
+      "lessonCardId": 040,
       "lessonCardTitle": "From",
       "lessonCardDesc": "Sign of 'From'",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
@@ -1118,7 +1118,7 @@ class DatabaseService {
         .collection('Lesson 3')
         .doc('where')
         .set({
-      "lessonCardId": 005,
+      "lessonCardId": 041,
       "lessonCardTitle": "Where",
       "lessonCardDesc":
           "Sign of 'Where', this sign is usually shown at the last of the signing sentence.",
@@ -1135,7 +1135,7 @@ class DatabaseService {
         .collection('Lesson 4')
         .doc('imfine')
         .set({
-      "lessonCardId": 001,
+      "lessonCardId": 042,
       "lessonCardTitle": "I'm fine",
       "lessonCardDesc": "Sign of 'I'm fine'",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
@@ -1150,7 +1150,7 @@ class DatabaseService {
         .collection('Lesson 4')
         .doc('please')
         .set({
-      "lessonCardId": 002,
+      "lessonCardId": 043,
       "lessonCardTitle": "Please",
       "lessonCardDesc": "Sign of 'Please'",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
@@ -1165,7 +1165,7 @@ class DatabaseService {
         .collection('Lesson 4')
         .doc('tq')
         .set({
-      "lessonCardId": 003,
+      "lessonCardId": 044,
       "lessonCardTitle": "Thank you",
       "lessonCardDesc": "Sign of 'Thank you'",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
@@ -1180,7 +1180,7 @@ class DatabaseService {
         .collection('Lesson 4')
         .doc('xcuseme')
         .set({
-      "lessonCardId": 004,
+      "lessonCardId": 045,
       "lessonCardTitle": "Excuse me",
       "lessonCardDesc": "Sign of 'Excuse me'",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
@@ -1195,7 +1195,7 @@ class DatabaseService {
         .collection('Lesson 4')
         .doc('favourite')
         .set({
-      "lessonCardId": 005,
+      "lessonCardId": 046,
       "lessonCardTitle": "Favourite",
       "lessonCardDesc": "Sign of 'Favourite'",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
@@ -1211,7 +1211,7 @@ class DatabaseService {
         .collection('Lesson 5')
         .doc('place')
         .set({
-      "lessonCardId": 001,
+      "lessonCardId": 047,
       "lessonCardTitle": "Place",
       "lessonCardDesc": "Sign of 'Place'",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
@@ -1226,7 +1226,7 @@ class DatabaseService {
         .collection('Lesson 5')
         .doc('movie')
         .set({
-      "lessonCardId": 002,
+      "lessonCardId": 048,
       "lessonCardTitle": "Movie",
       "lessonCardDesc": "Sign of 'Movie'",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
@@ -1241,7 +1241,7 @@ class DatabaseService {
         .collection('Lesson 5')
         .doc('whatdo')
         .set({
-      "lessonCardId": 003,
+      "lessonCardId": 049,
       "lessonCardTitle": "What do",
       "lessonCardDesc":
           "Sign of 'What do', this sign is usually shown at the last of signing sentence.",
@@ -1257,7 +1257,7 @@ class DatabaseService {
         .collection('Lesson 5')
         .doc('word')
         .set({
-      "lessonCardId": 004,
+      "lessonCardId": 050,
       "lessonCardTitle": "Work",
       "lessonCardDesc": "Sign of 'Work'",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
@@ -1272,7 +1272,7 @@ class DatabaseService {
         .collection('Lesson 5')
         .doc('time')
         .set({
-      "lessonCardId": 005,
+      "lessonCardId": 051,
       "lessonCardTitle": "Time",
       "lessonCardDesc": "Sign of 'Time'",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
@@ -1287,7 +1287,7 @@ class DatabaseService {
         .collection('Lesson 5')
         .doc('bathroom')
         .set({
-      "lessonCardId": 006,
+      "lessonCardId": 052,
       "lessonCardTitle": "Bathroom",
       "lessonCardDesc": "Sign of 'Bathroom'",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
@@ -1303,7 +1303,7 @@ class DatabaseService {
         .collection('Lesson 6')
         .doc('how')
         .set({
-      "lessonCardId": 001,
+      "lessonCardId": 053,
       "lessonCardTitle": "How",
       "lessonCardDesc": "Sign of 'How'",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
@@ -1318,7 +1318,7 @@ class DatabaseService {
         .collection('Lesson 6')
         .doc('meaning')
         .set({
-      "lessonCardId": 002,
+      "lessonCardId": 054,
       "lessonCardTitle": "Meaning",
       "lessonCardDesc":
           "Sign of 'Meaning', which is used to ask the meaning the sign shown.",
@@ -1334,7 +1334,7 @@ class DatabaseService {
         .collection('Lesson 6')
         .doc('goodbye')
         .set({
-      "lessonCardId": 003,
+      "lessonCardId": 055,
       "lessonCardTitle": "Goodbye",
       "lessonCardDesc": "Sign of 'Goodbye'",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
@@ -1349,7 +1349,7 @@ class DatabaseService {
         .collection('Lesson 6')
         .doc('culater')
         .set({
-      "lessonCardId": 004,
+      "lessonCardId": 056,
       "lessonCardTitle": "See you later",
       "lessonCardDesc": "Sign of 'See you later'",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
@@ -1364,7 +1364,7 @@ class DatabaseService {
         .collection('Lesson 6')
         .doc('takecare')
         .set({
-      "lessonCardId": 005,
+      "lessonCardId": 057,
       "lessonCardTitle": "Take care",
       "lessonCardDesc": "Sign of 'Take care'",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
@@ -1379,7 +1379,7 @@ class DatabaseService {
         .collection('Lesson 6')
         .doc('howareyou')
         .set({
-      "lessonCardId": 006,
+      "lessonCardId": 058,
       "lessonCardTitle": "How are you",
       "lessonCardDesc": "Sign of 'How are you'",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
@@ -1473,7 +1473,7 @@ class DatabaseService {
         .collection('Lesson 2')
         .doc('f')
         .set({
-      "lessonCardId": 001,
+      "lessonCardId": 006,
       "lessonCardTitle": "F",
       "lessonCardDesc": "Alphabet F",
       "lessonCardImage": "assets/word/f.png",
@@ -1488,7 +1488,7 @@ class DatabaseService {
         .collection('Lesson 2')
         .doc('g')
         .set({
-      "lessonCardId": 002,
+      "lessonCardId": 007,
       "lessonCardTitle": "G",
       "lessonCardDesc": "Alphabet G",
       "lessonCardImage": "assets/word/g.png",
@@ -1503,7 +1503,7 @@ class DatabaseService {
         .collection('Lesson 2')
         .doc('h')
         .set({
-      "lessonCardId": 003,
+      "lessonCardId": 008,
       "lessonCardTitle": "H",
       "lessonCardDesc": "Alphabet H",
       "lessonCardImage": "assets/word/h.png",
@@ -1518,7 +1518,7 @@ class DatabaseService {
         .collection('Lesson 2')
         .doc('i')
         .set({
-      "lessonCardId": 004,
+      "lessonCardId": 009,
       "lessonCardTitle": "I",
       "lessonCardDesc": "Alphabet I",
       "lessonCardImage": "assets/word/i.png",
@@ -1533,7 +1533,7 @@ class DatabaseService {
         .collection('Lesson 2')
         .doc('j')
         .set({
-      "lessonCardId": 005,
+      "lessonCardId": 010,
       "lessonCardTitle": "J",
       "lessonCardDesc": "Alphabet J",
       "lessonCardImage": "assets/word/j.gif",
@@ -1549,7 +1549,7 @@ class DatabaseService {
         .collection('Lesson 3')
         .doc('k')
         .set({
-      "lessonCardId": 001,
+      "lessonCardId": 011,
       "lessonCardTitle": "K",
       "lessonCardDesc": "Alphabet K",
       "lessonCardImage": "assets/word/k.png",
@@ -1564,7 +1564,7 @@ class DatabaseService {
         .collection('Lesson 3')
         .doc('l')
         .set({
-      "lessonCardId": 002,
+      "lessonCardId": 012,
       "lessonCardTitle": "L",
       "lessonCardDesc": "Alphabet L",
       "lessonCardImage": "assets/word/l.png",
@@ -1579,7 +1579,7 @@ class DatabaseService {
         .collection('Lesson 3')
         .doc('m')
         .set({
-      "lessonCardId": 003,
+      "lessonCardId": 013,
       "lessonCardTitle": "M",
       "lessonCardDesc": "Alphabet M",
       "lessonCardImage": "assets/word/m.png",
@@ -1594,7 +1594,7 @@ class DatabaseService {
         .collection('Lesson 3')
         .doc('n')
         .set({
-      "lessonCardId": 004,
+      "lessonCardId": 014,
       "lessonCardTitle": "N",
       "lessonCardDesc": "Alphabet n",
       "lessonCardImage": "assets/word/n.png",
@@ -1609,7 +1609,7 @@ class DatabaseService {
         .collection('Lesson 3')
         .doc('o')
         .set({
-      "lessonCardId": 005,
+      "lessonCardId": 015,
       "lessonCardTitle": "O",
       "lessonCardDesc": "Alphabet O",
       "lessonCardImage": "assets/word/o.png",
@@ -1625,7 +1625,7 @@ class DatabaseService {
         .collection('Lesson 4')
         .doc('p')
         .set({
-      "lessonCardId": 001,
+      "lessonCardId": 016,
       "lessonCardTitle": "P",
       "lessonCardDesc": "Alphabet P",
       "lessonCardImage": "assets/word/p.png",
@@ -1640,7 +1640,7 @@ class DatabaseService {
         .collection('Lesson 4')
         .doc('q')
         .set({
-      "lessonCardId": 002,
+      "lessonCardId": 017,
       "lessonCardTitle": "Q",
       "lessonCardDesc": "Alphabet Q",
       "lessonCardImage": "assets/word/q.png",
@@ -1655,7 +1655,7 @@ class DatabaseService {
         .collection('Lesson 4')
         .doc('r')
         .set({
-      "lessonCardId": 003,
+      "lessonCardId": 018,
       "lessonCardTitle": "R",
       "lessonCardDesc": "Alphabet R",
       "lessonCardImage": "assets/word/r.png",
@@ -1670,7 +1670,7 @@ class DatabaseService {
         .collection('Lesson 4')
         .doc('s')
         .set({
-      "lessonCardId": 004,
+      "lessonCardId": 019,
       "lessonCardTitle": "S",
       "lessonCardDesc": "Alphabet S",
       "lessonCardImage": "assets/word/s.png",
@@ -1685,7 +1685,7 @@ class DatabaseService {
         .collection('Lesson 4')
         .doc('t')
         .set({
-      "lessonCardId": 005,
+      "lessonCardId": 020,
       "lessonCardTitle": "T",
       "lessonCardDesc": "Alphabet T",
       "lessonCardImage": "assets/word/t.png",
@@ -1701,7 +1701,7 @@ class DatabaseService {
         .collection('Lesson 5')
         .doc('u')
         .set({
-      "lessonCardId": 001,
+      "lessonCardId": 021,
       "lessonCardTitle": "U",
       "lessonCardDesc": "Alphabet U",
       "lessonCardImage": "assets/word/u.png",
@@ -1716,7 +1716,7 @@ class DatabaseService {
         .collection('Lesson 5')
         .doc('v')
         .set({
-      "lessonCardId": 002,
+      "lessonCardId": 022,
       "lessonCardTitle": "V",
       "lessonCardDesc": "Alphabet V",
       "lessonCardImage": "assets/word/v.png",
@@ -1731,7 +1731,7 @@ class DatabaseService {
         .collection('Lesson 5')
         .doc('w')
         .set({
-      "lessonCardId": 003,
+      "lessonCardId": 023,
       "lessonCardTitle": "W",
       "lessonCardDesc": "Alphabet W",
       "lessonCardImage": "assets/word/w.png",
@@ -1746,7 +1746,7 @@ class DatabaseService {
         .collection('Lesson 5')
         .doc('x')
         .set({
-      "lessonCardId": 004,
+      "lessonCardId": 024,
       "lessonCardTitle": "X",
       "lessonCardDesc": "Alphabet X",
       "lessonCardImage": "assets/word/x.png",
@@ -1761,7 +1761,7 @@ class DatabaseService {
         .collection('Lesson 5')
         .doc('y')
         .set({
-      "lessonCardId": 005,
+      "lessonCardId": 025,
       "lessonCardTitle": "Y",
       "lessonCardDesc": "Alphabet Y",
       "lessonCardImage": "assets/word/y.png",
@@ -1776,7 +1776,7 @@ class DatabaseService {
         .collection('Lesson 5')
         .doc('z')
         .set({
-      "lessonCardId": 006,
+      "lessonCardId": 026,
       "lessonCardTitle": "Z",
       "lessonCardDesc": "Alphabet Z",
       "lessonCardImage": "assets/word/z.gif",
@@ -1794,7 +1794,7 @@ class DatabaseService {
         .collection('Lesson 1')
         .doc('hello')
         .set({
-      "lessonCardId": 001,
+      "lessonCardId": 027,
       "lessonCardTitle": "Hello",
       "lessonCardDesc": "Sign of 'Hello'",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
@@ -1809,7 +1809,7 @@ class DatabaseService {
         .collection('Lesson 1')
         .doc('hey')
         .set({
-      "lessonCardId": 002,
+      "lessonCardId": 028,
       "lessonCardTitle": "Hey",
       "lessonCardDesc": "Sign of 'Hey'",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
@@ -1824,7 +1824,7 @@ class DatabaseService {
         .collection('Lesson 1')
         .doc('whatsup')
         .set({
-      "lessonCardId": 003,
+      "lessonCardId": 029,
       "lessonCardTitle": "What's up",
       "lessonCardDesc": "Sign of 'What's up'",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
@@ -1839,7 +1839,7 @@ class DatabaseService {
         .collection('Lesson 1')
         .doc('my')
         .set({
-      "lessonCardId": 004,
+      "lessonCardId": 030,
       "lessonCardTitle": "My",
       "lessonCardDesc": "Sign of 'My'",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
@@ -1854,7 +1854,7 @@ class DatabaseService {
         .collection('Lesson 1')
         .doc('name')
         .set({
-      "lessonCardId": 005,
+      "lessonCardId": 031,
       "lessonCardTitle": "Name",
       "lessonCardDesc": "Sign of 'Name'",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
@@ -1870,7 +1870,7 @@ class DatabaseService {
         .collection('Lesson 2')
         .doc('nice')
         .set({
-      "lessonCardId": 001,
+      "lessonCardId": 032,
       "lessonCardTitle": "Nice",
       "lessonCardDesc": "Sign of 'Nice'",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
@@ -1885,7 +1885,7 @@ class DatabaseService {
         .collection('Lesson 2')
         .doc('meet')
         .set({
-      "lessonCardId": 002,
+      "lessonCardId": 033,
       "lessonCardTitle": "Meet",
       "lessonCardDesc": "Sign of 'Meet'",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
@@ -1900,7 +1900,7 @@ class DatabaseService {
         .collection('Lesson 2')
         .doc('i')
         .set({
-      "lessonCardId": 003,
+      "lessonCardId": 034,
       "lessonCardTitle": "I",
       "lessonCardDesc": "Sign of 'I', which people use to mention themselves",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
@@ -1915,7 +1915,7 @@ class DatabaseService {
         .collection('Lesson 2')
         .doc('learn')
         .set({
-      "lessonCardId": 004,
+      "lessonCardId": 035,
       "lessonCardTitle": "Learn",
       "lessonCardDesc": "Sign of 'Learn'",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
@@ -1930,7 +1930,7 @@ class DatabaseService {
         .collection('Lesson 2')
         .doc('sign')
         .set({
-      "lessonCardId": 005,
+      "lessonCardId": 036,
       "lessonCardTitle": "Sign",
       "lessonCardDesc": "Sign of 'Sign'",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
@@ -1946,7 +1946,7 @@ class DatabaseService {
         .collection('Lesson 3')
         .doc('your')
         .set({
-      "lessonCardId": 001,
+      "lessonCardId": 037,
       "lessonCardTitle": "Your",
       "lessonCardDesc": "Sign of 'Your'",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
@@ -1961,7 +1961,7 @@ class DatabaseService {
         .collection('Lesson 3')
         .doc('what')
         .set({
-      "lessonCardId": 002,
+      "lessonCardId": 038,
       "lessonCardTitle": "What",
       "lessonCardDesc":
           "Sign of 'What', this sign is usually shown at the last of the signing sentence.",
@@ -1977,7 +1977,7 @@ class DatabaseService {
         .collection('Lesson 3')
         .doc('you')
         .set({
-      "lessonCardId": 003,
+      "lessonCardId": 039,
       "lessonCardTitle": "You",
       "lessonCardDesc": "Sign of 'You'",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
@@ -1992,7 +1992,7 @@ class DatabaseService {
         .collection('Lesson 3')
         .doc('from')
         .set({
-      "lessonCardId": 004,
+      "lessonCardId": 040,
       "lessonCardTitle": "From",
       "lessonCardDesc": "Sign of 'From'",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
@@ -2007,7 +2007,7 @@ class DatabaseService {
         .collection('Lesson 3')
         .doc('where')
         .set({
-      "lessonCardId": 005,
+      "lessonCardId": 041,
       "lessonCardTitle": "Where",
       "lessonCardDesc":
           "Sign of 'Where', this sign is usually shown at the last of the signing sentence.",
@@ -2024,7 +2024,7 @@ class DatabaseService {
         .collection('Lesson 4')
         .doc('imfine')
         .set({
-      "lessonCardId": 001,
+      "lessonCardId": 042,
       "lessonCardTitle": "I'm fine",
       "lessonCardDesc": "Sign of 'I'm fine'",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
@@ -2039,7 +2039,7 @@ class DatabaseService {
         .collection('Lesson 4')
         .doc('please')
         .set({
-      "lessonCardId": 002,
+      "lessonCardId": 043,
       "lessonCardTitle": "Please",
       "lessonCardDesc": "Sign of 'Please'",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
@@ -2054,7 +2054,7 @@ class DatabaseService {
         .collection('Lesson 4')
         .doc('tq')
         .set({
-      "lessonCardId": 003,
+      "lessonCardId": 044,
       "lessonCardTitle": "Thank you",
       "lessonCardDesc": "Sign of 'Thank you'",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
@@ -2069,7 +2069,7 @@ class DatabaseService {
         .collection('Lesson 4')
         .doc('xcuseme')
         .set({
-      "lessonCardId": 004,
+      "lessonCardId": 045,
       "lessonCardTitle": "Excuse me",
       "lessonCardDesc": "Sign of 'Excuse me'",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
@@ -2084,7 +2084,7 @@ class DatabaseService {
         .collection('Lesson 4')
         .doc('favourite')
         .set({
-      "lessonCardId": 005,
+      "lessonCardId": 046,
       "lessonCardTitle": "Favourite",
       "lessonCardDesc": "Sign of 'Favourite'",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
@@ -2100,7 +2100,7 @@ class DatabaseService {
         .collection('Lesson 5')
         .doc('place')
         .set({
-      "lessonCardId": 001,
+      "lessonCardId": 047,
       "lessonCardTitle": "Place",
       "lessonCardDesc": "Sign of 'Place'",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
@@ -2115,7 +2115,7 @@ class DatabaseService {
         .collection('Lesson 5')
         .doc('movie')
         .set({
-      "lessonCardId": 002,
+      "lessonCardId": 048,
       "lessonCardTitle": "Movie",
       "lessonCardDesc": "Sign of 'Movie'",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
@@ -2130,7 +2130,7 @@ class DatabaseService {
         .collection('Lesson 5')
         .doc('whatdo')
         .set({
-      "lessonCardId": 003,
+      "lessonCardId": 049,
       "lessonCardTitle": "What do",
       "lessonCardDesc":
           "Sign of 'What do', this sign is usually shown at the last of signing sentence.",
@@ -2146,7 +2146,7 @@ class DatabaseService {
         .collection('Lesson 5')
         .doc('word')
         .set({
-      "lessonCardId": 004,
+      "lessonCardId": 050,
       "lessonCardTitle": "Work",
       "lessonCardDesc": "Sign of 'Work'",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
@@ -2161,7 +2161,7 @@ class DatabaseService {
         .collection('Lesson 5')
         .doc('time')
         .set({
-      "lessonCardId": 005,
+      "lessonCardId": 051,
       "lessonCardTitle": "Time",
       "lessonCardDesc": "Sign of 'Time'",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
@@ -2176,7 +2176,7 @@ class DatabaseService {
         .collection('Lesson 5')
         .doc('bathroom')
         .set({
-      "lessonCardId": 006,
+      "lessonCardId": 052,
       "lessonCardTitle": "Bathroom",
       "lessonCardDesc": "Sign of 'Bathroom'",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
@@ -2192,7 +2192,7 @@ class DatabaseService {
         .collection('Lesson 6')
         .doc('how')
         .set({
-      "lessonCardId": 001,
+      "lessonCardId": 053,
       "lessonCardTitle": "How",
       "lessonCardDesc": "Sign of 'How'",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
@@ -2207,7 +2207,7 @@ class DatabaseService {
         .collection('Lesson 6')
         .doc('meaning')
         .set({
-      "lessonCardId": 002,
+      "lessonCardId": 054,
       "lessonCardTitle": "Meaning",
       "lessonCardDesc":
           "Sign of 'Meaning', which is used to ask the meaning the sign shown.",
@@ -2223,7 +2223,7 @@ class DatabaseService {
         .collection('Lesson 6')
         .doc('goodbye')
         .set({
-      "lessonCardId": 003,
+      "lessonCardId": 055,
       "lessonCardTitle": "Goodbye",
       "lessonCardDesc": "Sign of 'Goodbye'",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
@@ -2238,7 +2238,7 @@ class DatabaseService {
         .collection('Lesson 6')
         .doc('culater')
         .set({
-      "lessonCardId": 004,
+      "lessonCardId": 056,
       "lessonCardTitle": "See you later",
       "lessonCardDesc": "Sign of 'See you later'",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
@@ -2253,7 +2253,7 @@ class DatabaseService {
         .collection('Lesson 6')
         .doc('takecare')
         .set({
-      "lessonCardId": 005,
+      "lessonCardId": 057,
       "lessonCardTitle": "Take care",
       "lessonCardDesc": "Sign of 'Take care'",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
@@ -2268,7 +2268,7 @@ class DatabaseService {
         .collection('Lesson 6')
         .doc('howareyou')
         .set({
-      "lessonCardId": 006,
+      "lessonCardId": 058,
       "lessonCardTitle": "How are you",
       "lessonCardDesc": "Sign of 'How are you'",
       "lessonCardImage": "assets/image/lesson_1_thumbnail.png",

@@ -34,8 +34,9 @@ class _HandSignPredictionViewState extends State<HandSignPredictionView> {
   initState() {
     super.initState();
     for (int i = 0; i < camerasAvailable.length; i++) {
-      if (camerasAvailable[i].lensDirection == widget.initialDirection)
+      if (camerasAvailable[i].lensDirection == widget.initialDirection) {
         camera = camerasAvailable[i];
+      }
     }
     _startLiveFeed();
   }
