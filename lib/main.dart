@@ -19,6 +19,7 @@ import 'package:handsfree/screens/chat/chatHome.dart';
 import 'package:handsfree/screens/dictionary/dictionary.dart';
 import 'package:handsfree/screens/home/home.dart';
 import 'package:handsfree/screens/learn/congrats.dart';
+import 'package:handsfree/screens/learn/handSignPlayground.dart';
 import 'package:handsfree/screens/learn/learn.dart';
 import 'package:handsfree/screens/learn/mainLearningPage.dart';
 import 'package:handsfree/screens/learn/subLesson.dart';
@@ -131,6 +132,7 @@ class MyApp extends StatelessWidget {
         "/showNews": (context) => const NewsPage(),
         "/timerOut": (context) => const TimerOut(),
         "/levelForm": (context) => const LevelForm(),
+        "/handsignPlayground": (context) => HandSignPlayground(),
       },
     );
   }

@@ -59,4 +59,26 @@ class Button extends StatelessWidget {
       ),
     );
   }
+
+  static Widget playgroungButton(BuildContext context) {
+    return Positioned(
+      right: 50,
+      top: MediaQuery.of(context).size.height / 8.5,
+      child: GestureDetector(
+        onTap: () {
+          Navigator.pushNamed(context, "/handsignPlayground");
+        },
+        child: Container(
+          height: 50,
+          width: 50,
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+                // alignment: Alignment.topLeft,
+                image: AssetImage('assets/image/party_horn.png'),
+                fit: BoxFit.cover),
+          ),
+        ),
+      ),
+    );
+  }
 }
