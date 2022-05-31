@@ -549,6 +549,7 @@ class _MainLearningPageState extends State<MainLearningPage>
                             ),
                           ),
                           Button.blackBackButton(context, 15, 7),
+                          Button.playgroungButton(context),
                         ],
                       );
                     }),
