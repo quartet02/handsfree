@@ -1,9 +1,13 @@
 import 'dart:io';
 
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:handsfree/models/newUser.dart';
+import 'package:handsfree/provider/dictionaryProvider.dart';
+import 'package:handsfree/screens/dictionary/translator.dart';
 import 'package:handsfree/services/database.dart';
 import 'package:handsfree/services/medialoader.dart';
+import 'package:handsfree/services/predictImage.dart';
 import 'package:handsfree/services/userPreference.dart';
 import 'package:handsfree/widgets/loading.dart';
 import 'package:path/path.dart';
@@ -11,11 +15,14 @@ import 'package:provider/provider.dart';
 
 class PrepSendImage extends StatelessWidget {
   const PrepSendImage({Key? key}) : super(key: key);
+
+  // caster: null safety
+  T? cast<T>(x) => x is T ? x : null;
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<NewUserData?>(context);
-    final List<String> imagePath =
-        ModalRoute.of(context)!.settings.arguments as List<String>;
+    final List<dynamic> imagePath =
+        ModalRoute.of(context)!.settings.arguments as List<dynamic>;
     if (user == null) return Loading();
     return Scaffold(
       backgroundColor: Colors.black,
@@ -24,7 +31,7 @@ class PrepSendImage extends StatelessWidget {
           Expanded(
             flex: 7,
             child: Container(
-              child: Image.file(File(imagePath[0])),
+              child: Image.file(File(imagePath[0]!)),
             ),
           ),
           Expanded(
@@ -35,7 +42,7 @@ class PrepSendImage extends StatelessWidget {
               InkWell(
                 onTap: () async {
                   Navigator.pop(context);
-                  await File(imagePath[0]).delete();
+                  await File(imagePath[0]!).delete();
                 },
                 child: Stack(
                   alignment: Alignment.center,
@@ -55,18 +62,49 @@ class PrepSendImage extends StatelessWidget {
               ),
               InkWell(
                 onTap: () async {
-                  // print(imagePath[0]);
-                  // print(imagePath[1]);
-                  String downloadURL = await uploadFileByPath(
-                    imagePath[0],
-                    "chats_assets",
-                    imagePath[1],
-                  );
-                  await DatabaseService(uid: UserPreference.get("uniqueId"))
-                      .sendMessage(imagePath[1], downloadURL, user.name!,
-                          isMedia: true);
+                  String? chatRoomId = cast<String>(imagePath[1]);
+                  print(chatRoomId);
+                  // check if null means chat mode, others is ML mode
+                  if (chatRoomId != null) {
+                    String downloadURL = await uploadFileByPath(
+                      imagePath[0]!,
+                      "chats_assets",
+                      chatRoomId,
+                    );
+                    await DatabaseService(uid: UserPreference.get("uniqueId"))
+                        .sendMessage(chatRoomId, downloadURL, user.name!,
+                            isMedia: true);
+                  } else {
+                    PredictImage();
+                    String result = await PredictImage.classifyImage(
+                        cast<XFile>(imagePath[2])!, true);
+                    debugPrint(result);
+                    List? wordData = await DatabaseService().getWordData();
+                    for (Map each in wordData) {
+                      if (each['word'] == result) {
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                            builder: (context) => Translator(
+                                each['word'],
+                                each['definition'],
+                                each['phoneticSymbol'],
+                                each['imgUrl']),
+                            maintainState: false));
+                        break;
+                      } else {
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                            builder: (context) => const Translator(
+                                'Unknown', 'Unknown', 'Unknown', 'Unknown'),
+                            maintainState: false));
+                      }
+                    }
+                    await File(imagePath[0]!).delete();
+
+                    return;
+                  }
+
                   Navigator.pop(context);
-                  await File(imagePath[0]).delete();
+                  Navigator.pop(context);
+                  await File(imagePath[0]!).delete();
                 },
                 child: Stack(
                   alignment: Alignment.center,

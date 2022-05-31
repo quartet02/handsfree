@@ -45,8 +45,9 @@ class _CameraScreenState extends State<CameraScreen>
     // instantiation of the camera controller
     final CameraController cameraController = CameraController(
       cameraDescription,
-      ResolutionPreset.high,
+      ResolutionPreset.medium,
       imageFormatGroup: ImageFormatGroup.jpeg,
+      enableAudio: false,
     );
 
     //dispose previous camera controller
@@ -130,8 +131,8 @@ class _CameraScreenState extends State<CameraScreen>
 
   @override
   Widget build(BuildContext context) {
-    final String chatRoomId =
-        ModalRoute.of(context)!.settings.arguments as String;
+    final String? chatRoomId =
+        ModalRoute.of(context)!.settings.arguments as String?;
     return Scaffold(
       backgroundColor: Colors.black,
       body: _isCameraInitialized
@@ -317,7 +318,7 @@ class _CameraScreenState extends State<CameraScreen>
         ]);
   }
 
-  Widget actionBar(String chatRoomId) {
+  Widget actionBar(String? chatRoomId) {
     return Align(
       alignment: Alignment.bottomCenter,
       child: Row(
@@ -341,9 +342,10 @@ class _CameraScreenState extends State<CameraScreen>
                   '${directory.path}/$currentUnix.$fileFormat',
                 );
 
-                Navigator.pushNamed(context, "/prepsend", arguments: <String>[
+                Navigator.pushNamed(context, "/prepsend", arguments: <dynamic>[
                   '${directory.path}/$currentUnix.$fileFormat',
-                  chatRoomId
+                  chatRoomId,
+                  pickedFile
                 ]);
               }
             },
@@ -385,7 +387,7 @@ class _CameraScreenState extends State<CameraScreen>
     );
   }
 
-  Widget takePictureButton(String chatRoomId) {
+  Widget takePictureButton(String? chatRoomId) {
     return InkWell(
       onTap: () async {
         XFile? rawImage = await takePicture();
@@ -399,14 +401,15 @@ class _CameraScreenState extends State<CameraScreen>
           '${directory.path}/$currentUnix.$fileFormat',
         );
 
-        Navigator.pushNamed(context, "/prepsend", arguments: <String>[
+        Navigator.pushNamed(context, "/prepsend", arguments: <dynamic>[
           '${directory.path}/$currentUnix.$fileFormat',
-          chatRoomId
+          chatRoomId,
+          rawImage
         ]);
       },
       child: Stack(
         alignment: Alignment.center,
-        children: [
+        children: const [
           Icon(Icons.circle, color: Colors.white38, size: 80),
           Icon(Icons.circle, color: Colors.white, size: 65),
         ],
