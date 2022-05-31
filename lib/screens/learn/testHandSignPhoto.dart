@@ -49,7 +49,7 @@ class _TestHandSignPhotoState extends State<TestHandSignPhoto> {
           padding: const EdgeInsets.only(top: 20),
           child: GestureDetector(
               onTap: () async {
-                _getFromCamera();
+                await _getFromCamera();
                 Map<String, dynamic> results = await PredictImage.classifyImage(pickedFile!, false);
                 debugPrint("Hand Sign in quiz: ");
                 debugPrint(results.toString());
