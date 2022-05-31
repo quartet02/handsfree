@@ -123,7 +123,7 @@ class _MainLearningPageState extends State<MainLearningPage>
         Provider.of<LessonCardProvider?>(context)!.getCurrentTypeOfTest;
 
     // use this widget
-    // return HandSignPlayground();
+    // return HandSignPlayground(width, height);
 
     return FutureBuilder<List<LessonCardModel>>(
         future: lessonListFromDB,

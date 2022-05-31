@@ -5,7 +5,8 @@ import 'package:handsfree/services/predictImage.dart';
 import 'package:handsfree/widgets/HandSignPredictionView.dart';
 
 class HandSignPlayground extends StatefulWidget {
-  const HandSignPlayground({Key? key}) : super(key: key);
+  final double width, height;
+  const HandSignPlayground({Key? key, required this.width, required this.height}) : super(key: key);
 
   @override
   State<HandSignPlayground> createState() => _HandSignPlaygroundState();
@@ -61,8 +62,8 @@ class _HandSignPlaygroundState extends State<HandSignPlayground> {
             processImage(inputImage);
           },
           initialDirection: CameraLensDirection.front,
-          height: MediaQuery.of(context).size.height /3,
-          width: MediaQuery.of(context).size.width /2,
+          height: widget.height,
+          width: widget.width,
         ),
         Text(
           'Labels: \n' + output,
