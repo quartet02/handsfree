@@ -535,6 +535,7 @@ class _MainLearningPageState extends State<MainLearningPage>
           padding: const EdgeInsets.only(top: 20),
           child: GestureDetector(
               onTap: () {
+                provider.currentIndexTypeOfTest();
                 if (isPractical) {
                   provider.checkAns();
                 } else {

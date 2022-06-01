@@ -102,7 +102,6 @@ class LessonCardProvider with ChangeNotifier {
     // if (index==0) return;
     numOfWrong = List.filled(cardLessons.length, 0);
     allTypeOfTest = List.filled(cardLessons.length, 0);
-    allTypeOfTest[index] = currentTypeOfTest;
     if (currentTypeOfTest == 1) {
       initMcqOptions();
     }
@@ -201,6 +200,10 @@ class LessonCardProvider with ChangeNotifier {
 
   void shuffleQuestions() {
     cardLessons.shuffle();
+  }
+
+  void currentIndexTypeOfTest(){
+    allTypeOfTest[index] = currentTypeOfTest;
   }
 }
 
