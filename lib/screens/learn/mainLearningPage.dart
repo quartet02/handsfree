@@ -77,6 +77,8 @@ class _MainLearningPageState extends State<MainLearningPage>
         DatabaseService(uid: user.uid).updateTestResult(
             syllabus,
             lesson,
+            provider.testResult['lessonId'],
+            provider.testResult['allTypeOfTest'],
             provider.testResult['numOfWrong'],
             provider.testResult['elapsedTime']);
         debugPrint(Provider.of<LessonCardProvider?>(context, listen: false)
@@ -194,6 +196,8 @@ class _MainLearningPageState extends State<MainLearningPage>
                           DatabaseService(uid: user.uid).updateTestResult(
                               syllabus,
                               lesson,
+                              provider.testResult['lessonId'],
+                              provider.testResult['allTypeOfTest'],
                               provider.testResult['numOfWrong'],
                               provider.testResult['elapsedTime']);
                           debugPrint(provider.testResult.toString());

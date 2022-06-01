@@ -90,7 +90,7 @@ class DatabaseService {
     });
   }
   
-  Future updateTestResult(String syllabus, String lesson, List<int> numOfWrong, List<Duration> elapsedTime){
+  Future updateTestResult(String syllabus, String lesson, List<String> lessonId, List<int> allTypeOfTest, List<int> numOfWrong, List<Duration> elapsedTime){
     debugPrint(numOfWrong.toString());
     debugPrint(elapsedTime.toString());
     List<int> time = [];
@@ -104,6 +104,8 @@ class DatabaseService {
         .collection('lessonsOverview')
         .doc(lesson)
         .update({
+      'lessonId': lessonId,
+      'allTypeOfTest': allTypeOfTest,
       'numOfWrong': numOfWrong,
       'elapsedTime': time,
     });
