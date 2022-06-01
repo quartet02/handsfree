@@ -118,7 +118,7 @@ class _HandSignPlaygroundState extends State<HandSignPlayground> {
                             onImage: (inputImage) {
                               processImage(inputImage);
                             },
-                            initialDirection: CameraLensDirection.front,
+                            initialDirection: CameraLensDirection.back,
                             height: MediaQuery.of(context).size.height / 2.2,
                             width: MediaQuery.of(context).size.width / 1.4,
                           ),
