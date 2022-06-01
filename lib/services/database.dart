@@ -104,7 +104,7 @@ class DatabaseService {
         .collection('lessonsOverview')
         .doc(lesson)
         .update({
-      'lessonId': lessonId,
+      'testLessonsId': lessonId,
       'allTypeOfTest': allTypeOfTest,
       'numOfWrong': numOfWrong,
       'elapsedTime': time,
@@ -201,8 +201,13 @@ class DatabaseService {
         .collection(lesson)
         .get();
 
+    debugPrint("FirebaseGetSelectedLessonCardList: "+syllabus+" "+lesson+ "sfsf");
+
     for (var doc in snapshots.docs) {
       Map<String, dynamic> temp = doc.data();
+      debugPrint("yayyy");
+      debugPrint(temp.toString());
+
       list.add(LessonCardModel(
           lessonCardId: temp["lessonCardId"],
           lessonCardTitle: temp["lessonCardTitle"],
@@ -210,7 +215,9 @@ class DatabaseService {
           lessonCardImage: temp["lessonCardImage"],
           lessonId: temp["lessonId"],
           isCompleted: temp["isCompleted"]));
+
     }
+
     return list;
   }
 
