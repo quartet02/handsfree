@@ -10,6 +10,8 @@ import '../../widgets/backButton.dart';
 import '../../widgets/constants.dart';
 
 class HandSignPlayground extends StatefulWidget {
+  const HandSignPlayground({Key? key}) : super(key: key);
+
   // const HandSignPlayground({Key? key, required this.width, required this.height}) : super(key: key);
 
   @override

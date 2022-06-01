@@ -419,7 +419,13 @@ class _MainLearningPageState extends State<MainLearningPage>
                             ),
                           ),
                           Button.blackBackButton(context, 15, 7),
-                          Button.playgroundButton(context),
+                          isPractical
+                              ? Container()
+                              : Button.playgroundButton(context),
+                          isPractical && typeOfTest == 2?
+                              Button.reportButton(context, provider
+                                  .getCurrentLesson.lessonCardTitle)
+                              :Container()
                         ],
                       );
                     }),

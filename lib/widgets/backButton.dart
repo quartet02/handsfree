@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:handsfree/provider/lessonCardProvider.dart';
+import 'package:provider/provider.dart';
 
 class Button extends StatelessWidget {
   const Button({Key? key}) : super(key: key);
@@ -84,6 +86,28 @@ class Button extends StatelessWidget {
           decoration: const BoxDecoration(
             image: DecorationImage(
                 // alignment: Alignment.topLeft,
+                image: AssetImage('assets/image/party_horn.png'),
+                fit: BoxFit.cover),
+          ),
+        ),
+      ),
+    );
+  }
+
+  static Widget reportButton(BuildContext context, String title) {
+    return Positioned(
+      right: 50,
+      top: MediaQuery.of(context).size.height / 2.5,
+      child: GestureDetector(
+        onTap: () {
+          Provider.of<LessonCardProvider>(context, listen: false).setQuesInput = title;
+        },
+        child: Container(
+          height: 50,
+          width: 50,
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              // alignment: Alignment.topLeft,
                 image: AssetImage('assets/image/party_horn.png'),
                 fit: BoxFit.cover),
           ),
