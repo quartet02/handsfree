@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:handsfree/provider/lessonCardProvider.dart';
 import 'package:handsfree/provider/subLessonProvider.dart';
 import 'package:handsfree/screens/learn/subLesson.dart';
 import 'package:handsfree/services/database.dart';
@@ -226,6 +229,9 @@ class _LearnState extends State<Learn> {
                                                 listen: false)
                                             .setPractical = false;
                                         debugPrint("is not Practical");
+                                        Provider.of<LessonCardProvider>(context,
+                                            listen: false)
+                                            .setCurrentTypeOfTest = -1;
                                         Navigator.pushNamed(
                                             context, "/sublevel");
                                       },
@@ -241,6 +247,9 @@ class _LearnState extends State<Learn> {
                                         Provider.of<LessonProvider>(context,
                                                 listen: false)
                                             .setPractical = true;
+                                        Provider.of<LessonCardProvider>(context,
+                                            listen: false)
+                                            .setCurrentTypeOfTest = Random().nextInt(3);
                                         debugPrint("isPractical");
                                         Navigator.pushNamed(
                                             context, "/sublevel");

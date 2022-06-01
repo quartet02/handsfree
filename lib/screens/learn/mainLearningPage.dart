@@ -1,17 +1,14 @@
 import 'dart:async';
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:handsfree/models/lessonCardModel.dart';
 import 'package:handsfree/models/lessonModel.dart';
 import 'package:handsfree/provider/lessonCardProvider.dart';
 import 'package:handsfree/provider/lessonProvider.dart';
 import 'package:handsfree/provider/subLessonProvider.dart';
-import 'package:handsfree/screens/learn/handSignPlayground.dart';
 import 'package:handsfree/screens/learn/testHandSignPhoto.dart';
 import 'package:handsfree/screens/learn/textForm.dart';
 import 'package:handsfree/services/database.dart';
 import 'package:handsfree/widgets/buildText.dart';
-import 'package:handsfree/widgets/HandSignPredictionView.dart';
 import 'package:handsfree/widgets/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/percent_indicator.dart';
@@ -90,9 +87,6 @@ class _MainLearningPageState extends State<MainLearningPage>
     // cancel timer if isn't practical
     if (!isPractical) {
       oneSecTimer.cancel();
-      context.read<LessonCardProvider?>()?.setCurrentTypeOfTest=-1;
-      debugPrint("type of test in init mainLearningPage");
-      debugPrint(context.read<LessonCardProvider?>()?.currentTypeOfTest.toString());
     }
     subLesson = context.read<SubLessonProvider>().getClickedSubLesson;
     syllabus = context.read<SubLessonProvider>().getSyllabus;
@@ -123,6 +117,7 @@ class _MainLearningPageState extends State<MainLearningPage>
     }
     user = context.read<NewUserData?>();
     provider = context.read<LessonCardProvider?>();
+    debugPrint("lesson: "+lesson+" heheh");
     // set here before using in future builder to prevent calling multiple times when textField is changed
     lessonListFromDB = getLessonListFromDB(user, syllabus, lesson);
   }
@@ -133,8 +128,6 @@ class _MainLearningPageState extends State<MainLearningPage>
     typeOfTest =
         Provider.of<LessonCardProvider?>(context)!.getCurrentTypeOfTest;
     debugPrint("type of test in mainLearningPage: " + typeOfTest.toString());
-    // use this widget
-    // return HandSignPlayground(width, height);
 
     return FutureBuilder<List<LessonCardModel>>(
         future: lessonListFromDB,
@@ -145,7 +138,6 @@ class _MainLearningPageState extends State<MainLearningPage>
               return Loading();
             case ConnectionState.done:
               List<LessonCardModel>? lessonCard = snapshot.data;
-
               if (lessonCard!.isNotEmpty && firstTime) {
                 if (isPractical) {
                   lessonCard.shuffle();

@@ -119,7 +119,6 @@ class LessonCardProvider with ChangeNotifier {
 
   void reset() {
     index = 0;
-    currentTypeOfTest = Random().nextInt(numTypeOfTest);
     notifyListeners();
   }
 

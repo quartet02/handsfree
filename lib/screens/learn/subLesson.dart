@@ -213,8 +213,7 @@ class SubLevel extends StatelessWidget {
                                         Provider.of<SubLessonProvider>(context,
                                                 listen: false)
                                             .setSyllabus(_syllabus);
-                                        Navigator.pushReplacementNamed(
-                                            context, "/mainLearningPage");
+                                        Navigator.pushNamed(context, "/mainLearningPage");
                                       },
                                       child:
                                           ColumnList(lesson: subLessons[index]),
