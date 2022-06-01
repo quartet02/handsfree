@@ -117,7 +117,7 @@ class _MainLearningPageState extends State<MainLearningPage>
     }
     user = context.read<NewUserData?>();
     provider = context.read<LessonCardProvider?>();
-    debugPrint("lesson: "+lesson+" heheh");
+    debugPrint("lesson: " + lesson + " heheh");
     // set here before using in future builder to prevent calling multiple times when textField is changed
     lessonListFromDB = getLessonListFromDB(user, syllabus, lesson);
   }
@@ -454,70 +454,71 @@ class _MainLearningPageState extends State<MainLearningPage>
   }
 
   Widget typeOfTestMiddleImage(int type) {
-    if (type != 2) {
-      return Stack(
-        alignment: AlignmentDirectional.center,
-        children: [
-          Container(
-            width: MediaQuery.of(context).size.width,
-            // change image container height if it's mcq
-            height: MediaQuery.of(context).size.height / 2.4,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(20)),
-              boxShadow: [
-                BoxShadow(
-                  color: kTextShadow,
-                  offset: Offset(10, 10),
-                  blurRadius: 20,
-                ),
-              ],
-              image: DecorationImage(
-                image: AssetImage('assets/image/learning_big_rect.png'),
+    if (type == 2) {
+      return TestHandSignPhoto(
+          title: provider.getCurrentLesson.lessonCardTitle);
+    }
+
+    return Stack(
+      alignment: AlignmentDirectional.center,
+      children: [
+        Container(
+          width: MediaQuery.of(context).size.width,
+          // change image container height if it's mcq
+          height: MediaQuery.of(context).size.height / 2.4,
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(20)),
+            boxShadow: [
+              BoxShadow(
+                color: kTextShadow,
+                offset: Offset(10, 10),
+                blurRadius: 20,
               ),
+            ],
+            image: DecorationImage(
+              image: AssetImage('assets/image/learning_big_rect.png'),
             ),
           ),
-          Container(
-            alignment: Alignment.bottomCenter,
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height / 2.45,
-            child: FutureBuilder(
-                future: FireStorageService.loadImage(
-                    provider.getCurrentLesson.lessonCardImage),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done) {
-                    return Container(
-                      width: MediaQuery.of(context).size.width / 1.2,
-                      height: MediaQuery.of(context).size.width / 1.2,
-                      child: ChangeColors(
-                          brightness: 0.1,
-                          saturation: 0.2,
-                          child: Container(
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    fit: BoxFit.cover,
-                                    image:
-                                        Image.network(snapshot.data as String)
-                                            .image,
-                                    scale: 16)),
-                          )),
-                    );
-                  }
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Container(
-                      width: MediaQuery.of(context).size.width / 1.2,
-                      height: MediaQuery.of(context).size.width / 1.2,
-                      child: const CircularProgressIndicator(),
-                    );
-                  } else {
-                    debugPrint('Connection Failed');
-                    return Container();
-                  }
-                }),
-          ),
-        ],
-      );
-    }
-    return TestHandSignPhoto(title: provider.getCurrentLesson.lessonCardTitle);
+        ),
+        Container(
+          alignment: Alignment.bottomCenter,
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height / 2.45,
+          child: FutureBuilder(
+              future: FireStorageService.loadImage(
+                  provider.getCurrentLesson.lessonCardImage),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  return Container(
+                    width: MediaQuery.of(context).size.width / 1.2,
+                    height: MediaQuery.of(context).size.width / 1.2,
+                    child: ChangeColors(
+                        brightness: 0.1,
+                        saturation: 0.2,
+                        child: Container(
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: Image.network(snapshot.data as String)
+                                      .image,
+                                  scale: 16)),
+                        )),
+                  );
+                }
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Container(
+                    width: MediaQuery.of(context).size.width / 1.2,
+                    height: MediaQuery.of(context).size.width / 1.2,
+                    child: const CircularProgressIndicator(),
+                  );
+                } else {
+                  debugPrint('Connection Failed');
+                  return Container();
+                }
+              }),
+        ),
+      ],
+    );
   }
 
   Widget typeOfTestBottomButton(int type) {
@@ -570,55 +571,6 @@ class _MainLearningPageState extends State<MainLearningPage>
         );
       case 1:
         return Container();
-      // case 2:
-      //   return Padding(
-      //     padding: const EdgeInsets.only(top: 20),
-      //     child: GestureDetector(
-      //         onTap: () {
-      //             provider.checkAns();
-      //         },
-      //         child: Stack(children: <Widget>[
-      //           Center(
-      //             child: Container(
-      //                 alignment: Alignment.center,
-      //                 width: 200,
-      //                 decoration:
-      //                 const BoxDecoration(
-      //                     borderRadius:
-      //                     BorderRadius
-      //                         .all(Radius
-      //                         .circular(
-      //                         20)),
-      //                     boxShadow: [
-      //                       BoxShadow(
-      //                         color:
-      //                         kButtonShadow,
-      //                         offset:
-      //                         Offset(6, 6),
-      //                         blurRadius: 6,
-      //                       ),
-      //                     ]),
-      //                 child: Image.asset(
-      //                   'assets/image/purple_button.png',
-      //                   scale: 4,
-      //                 )),
-      //           ),
-      //           Container(
-      //             height: 40,
-      //             alignment: Alignment.center,
-      //             padding: const EdgeInsets.only(
-      //                 top: 10),
-      //             child: Text(
-      //               'Take Photo',
-      //               style: GoogleFonts.montserrat(
-      //                 fontSize: 16,
-      //                 fontWeight: FontWeight.w600,
-      //                 color: kTextLight,
-      //               ),
-      //             ),
-      //           ),
-      //         ])),
-      //   );
       default:
         return Container();
     }
