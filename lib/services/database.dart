@@ -205,8 +205,6 @@ class DatabaseService {
 
     for (var doc in snapshots.docs) {
       Map<String, dynamic> temp = doc.data();
-      debugPrint("yayyy");
-      debugPrint(temp.toString());
 
       list.add(LessonCardModel(
           lessonCardId: temp["lessonCardId"],
