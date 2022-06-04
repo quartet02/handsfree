@@ -63,7 +63,7 @@ class _MainLearningPageState extends State<MainLearningPage>
   void initState() {
     super.initState();
     isPractical = context.read<LessonProvider>().getPractical;
-
+    debugPrint("Main learning page is practical:" +isPractical.toString());
     // 10 sec timer for practical
     oneSecTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
       _remainingTime.value = _remainingTime.value - 1;
@@ -537,8 +537,10 @@ class _MainLearningPageState extends State<MainLearningPage>
               onTap: () {
                 provider.currentIndexTypeOfTest();
                 if (isPractical) {
+
                   provider.checkAns();
                 } else {
+                  debugPrint("update db");
                   provider.updateDB();
                 }
               },

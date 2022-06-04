@@ -203,6 +203,10 @@ class LessonCardProvider with ChangeNotifier {
   }
 
   void currentIndexTypeOfTest(){
+    if(allTypeOfTest.isEmpty){
+      allTypeOfTest = List.filled(cardLessons.length, -1);
+    }
+
     allTypeOfTest[index] = currentTypeOfTest;
   }
 }
