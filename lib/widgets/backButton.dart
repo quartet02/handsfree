@@ -100,15 +100,16 @@ class Button extends StatelessWidget {
       top: MediaQuery.of(context).size.height / 2.5,
       child: GestureDetector(
         onTap: () {
-          Provider.of<LessonCardProvider>(context, listen: false).setQuesInput = title;
+          Provider.of<LessonCardProvider>(context, listen: false).setQuesInput =
+              title;
         },
         child: Container(
           height: 50,
           width: 50,
           decoration: const BoxDecoration(
             image: DecorationImage(
-              // alignment: Alignment.topLeft,
-                image: AssetImage('assets/image/party_horn.png'),
+                // alignment: Alignment.topLeft,
+                image: AssetImage('assets/image/report_button_new.png'),
                 fit: BoxFit.cover),
           ),
         ),
