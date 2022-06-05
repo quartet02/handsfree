@@ -203,10 +203,6 @@ class _MainLearningPageState extends State<MainLearningPage>
                                       .lessonId);
                           DatabaseService(uid: user.uid).updateExperience();
                           providerCardLesson.increment();
-                          if (providerCardLesson.index ==
-                              cardLesson.length - 1) {
-                            oneSecTimer.cancel();
-                          }
                         }
                       }
 
