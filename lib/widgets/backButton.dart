@@ -195,7 +195,7 @@ class Button extends StatelessWidget {
     );
   }
 
-  static Widget reportButton(BuildContext context, String title) {
+  static Widget reportButton(BuildContext context, String title, Function func) {
     return Positioned(
       right: 50,
       top: MediaQuery.of(context).size.height / 2.5,
@@ -226,6 +226,7 @@ class Button extends StatelessWidget {
                                   listen: false)
                               .setQuesInput = title;
                           Navigator.of(context).pop();
+                          func();
                         },
                         child: Stack(
                           children: <Widget>[

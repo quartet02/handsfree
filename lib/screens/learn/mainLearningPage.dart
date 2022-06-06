@@ -307,6 +307,16 @@ class _MainLearningPageState extends State<MainLearningPage>
                           }
                         }
 
+                        void backFunc(){
+                            provider.currentIndexTypeOfTest();
+                            if (isPractical) {
+                              provider.checkAns();
+                            } else {
+                              debugPrint("update db");
+                              provider.updateDB();
+                            }
+                        }
+
                         provider.updateDBFunction = updateDB;
                         provider.showMessageFunction = showMessage;
 
@@ -526,7 +536,7 @@ class _MainLearningPageState extends State<MainLearningPage>
                                 : Button.playgroundButton(context),
                             isPractical && typeOfTest == 2
                                 ? Button.reportButton(context,
-                                    provider.getCurrentLesson.lessonCardTitle)
+                                    provider.getCurrentLesson.lessonCardTitle, backFunc)
                                 : Container()
                           ],
                         );
