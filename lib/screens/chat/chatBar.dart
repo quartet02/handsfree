@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:handsfree/models/newUser.dart';
 import 'package:handsfree/services/database.dart';
 import 'package:handsfree/widgets/constants.dart';
-import 'package:handsfree/services/userPreference.dart';
 import 'package:provider/provider.dart';
 
 import '../../widgets/loading.dart';

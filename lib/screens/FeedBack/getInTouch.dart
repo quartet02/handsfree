@@ -3,10 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:handsfree/services/database.dart';
 import 'package:handsfree/widgets/breaker.dart';
 import 'package:handsfree/widgets/buildText.dart';
-import 'package:handsfree/widgets/buildTextBox.dart';
 import 'package:handsfree/widgets/constants.dart';
 import 'package:handsfree/widgets/dropDownList.dart';
-import 'package:handsfree/widgets/constants.dart';
 import 'package:provider/provider.dart';
 import '../../models/newUser.dart';
 

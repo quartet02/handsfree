@@ -63,7 +63,7 @@ class _MainLearningPageState extends State<MainLearningPage>
   void initState() {
     super.initState();
     isPractical = context.read<LessonProvider>().getPractical;
-    debugPrint("Main learning page is practical:" +isPractical.toString());
+    debugPrint("Main learning page is practical:" + isPractical.toString());
     // 10 sec timer for practical
     oneSecTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
       _remainingTime.value = _remainingTime.value - 1;
@@ -132,23 +132,7 @@ class _MainLearningPageState extends State<MainLearningPage>
     return WillPopScope(
       onWillPop: () async {
         bool willLeave = false;
-        await showDialog(
-            context: context,
-            builder: (_) => AlertDialog(
-              title: const Text('Are you sure?'),
-              content: const Text('Are you sure you want to stop learning?'),
-              actions: [
-                TextButton(
-                    onPressed: () {
-                      willLeave = true;
-                      Navigator.of(context).pop();
-                    },
-                    child: const Text('Leave')),
-                ElevatedButton(
-                    onPressed: () => Navigator.of(context).pop(),
-                    child: const Text('Stay'))
-              ],
-            ));
+        await showDialog(context: context, builder: (_) => alert(willLeave));
         return willLeave;
       },
       child: FutureBuilder<List<LessonCardModel>>(
@@ -181,7 +165,8 @@ class _MainLearningPageState extends State<MainLearningPage>
                     decoration: const BoxDecoration(
                       image: DecorationImage(
                           alignment: Alignment.topCenter,
-                          image: AssetImage('assets/image/white_background.png'),
+                          image:
+                              AssetImage('assets/image/white_background.png'),
                           fit: BoxFit.cover),
                     ),
                     child: SingleChildScrollView(
@@ -196,7 +181,8 @@ class _MainLearningPageState extends State<MainLearningPage>
                           stopwatch.stop();
                           provider.setStopwatch(stopwatch.elapsed);
 
-                          if (providerCardLesson.index == cardLesson.length - 1) {
+                          if (providerCardLesson.index ==
+                              cardLesson.length - 1) {
                             oneSecTimer.cancel();
                             DatabaseService(uid: user.uid)
                                 .updateIsCompletedSubLesson(
@@ -301,10 +287,12 @@ class _MainLearningPageState extends State<MainLearningPage>
                                                 child: FutureBuilder(
                                                     future: getImage(
                                                         subLesson.lessonImage),
-                                                    builder: (context, snapshot) {
+                                                    builder:
+                                                        (context, snapshot) {
                                                       if (snapshot
                                                               .connectionState ==
-                                                          ConnectionState.done) {
+                                                          ConnectionState
+                                                              .done) {
                                                         return Container(
                                                           width: MediaQuery.of(
                                                                       context)
@@ -354,14 +342,16 @@ class _MainLearningPageState extends State<MainLearningPage>
                                                   const Padding(
                                                       padding: EdgeInsets.only(
                                                           top: 28)),
-                                                  buildText.learningHeading2Text(
-                                                      subLesson.lessonName),
+                                                  buildText
+                                                      .learningHeading2Text(
+                                                          subLesson.lessonName),
                                                   const Padding(
                                                     padding: EdgeInsets.only(
                                                         bottom: 7),
                                                   ),
-                                                  buildText.learningHeading3Text(
-                                                      subLesson.lessonDesc),
+                                                  buildText
+                                                      .learningHeading3Text(
+                                                          subLesson.lessonDesc),
                                                 ],
                                               ),
                                             ],
@@ -408,8 +398,9 @@ class _MainLearningPageState extends State<MainLearningPage>
                                   ),
                                   if (isPractical)
                                     Container(
-                                        width: MediaQuery.of(context).size.width /
-                                            0.8,
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                0.8,
                                         // height: MediaQuery.of(context).size.height / 12,
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 10),
@@ -440,10 +431,10 @@ class _MainLearningPageState extends State<MainLearningPage>
                             isPractical
                                 ? Container()
                                 : Button.playgroundButton(context),
-                            isPractical && typeOfTest == 2?
-                                Button.reportButton(context, provider
-                                    .getCurrentLesson.lessonCardTitle)
-                                :Container()
+                            isPractical && typeOfTest == 2
+                                ? Button.reportButton(context,
+                                    provider.getCurrentLesson.lessonCardTitle)
+                                : Container()
                           ],
                         );
                       }),
@@ -601,6 +592,101 @@ class _MainLearningPageState extends State<MainLearningPage>
       default:
         return Container();
     }
+  }
+
+  Widget alert(bool willLeave) {
+    return AlertDialog(
+      actionsAlignment: MainAxisAlignment.center,
+      backgroundColor: kBackgroundColour,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+      elevation: 100,
+      title: buildText.heading2Text("Stop learning.."),
+      content: SingleChildScrollView(
+        child: ListBody(
+          children: [
+            buildText.heading3Text("Are you sure you want to stop learning?"),
+          ],
+        ),
+      ),
+      actions: [
+        //=====================================Yes=========================
+        GestureDetector(
+          onTap: () {
+            willLeave = true;
+            Navigator.of(context).pop();
+          },
+          child: Stack(
+            children: <Widget>[
+              Center(
+                child: Container(
+                  alignment: Alignment.center,
+                  width: 200,
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                  ),
+                ),
+              ),
+              Container(
+                height: 40,
+                alignment: Alignment.center,
+                padding: const EdgeInsets.only(top: 10),
+                child: Text(
+                  "Exit",
+                  style: GoogleFonts.montserrat(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: kPurpleDeep,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        const Padding(padding: EdgeInsets.only(bottom: 10)),
+        //=================================No==========================
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).pop();
+          },
+          child: Stack(
+            children: <Widget>[
+              Center(
+                child: Container(
+                    alignment: Alignment.center,
+                    width: 200,
+                    decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        boxShadow: [
+                          BoxShadow(
+                            color: kPurpleDeep,
+                            offset: Offset(6, 6),
+                            blurRadius: 6,
+                          ),
+                        ]),
+                    child: Image.asset(
+                      'assets/image/purple_button.png',
+                      scale: 4,
+                    )),
+              ),
+              Container(
+                height: 40,
+                alignment: Alignment.center,
+                padding: const EdgeInsets.only(top: 10),
+                child: Text(
+                  "No",
+                  style: GoogleFonts.montserrat(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: kTextLight,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        const Padding(padding: EdgeInsets.only(bottom: 20)),
+      ],
+    );
   }
 }
 

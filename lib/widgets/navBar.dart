@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:handsfree/models/newUser.dart';
 import 'package:handsfree/models/userProfile.dart';
-import 'package:handsfree/services/database.dart';
 import 'package:handsfree/widgets/constants.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:provider/provider.dart';
 
 class NavBar extends StatelessWidget {
   const NavBar({Key? key}) : super(key: key);

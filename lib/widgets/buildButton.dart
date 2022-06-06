@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:handsfree/services/auth.dart';
+import 'package:handsfree/widgets/buildText.dart';
 import 'package:handsfree/widgets/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 class buildButton extends StatelessWidget {
   final String text;
@@ -28,28 +28,99 @@ class buildButton extends StatelessWidget {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: const Text('Are you sure?'),
+              actionsAlignment: MainAxisAlignment.center,
+              backgroundColor: kBackgroundColour,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(25)),
+              elevation: 100,
+              title: buildText.heading2Text("Please don't go.."),
               content: SingleChildScrollView(
                 child: ListBody(
-                  children: const [
-                    Text('Are you sure you want to log out?'),
+                  children: [
+                    buildText.heading3Text("Are you sure you want to log out?"),
                   ],
                 ),
               ),
               actions: [
-                TextButton(
-                    onPressed: () {
-                      Navigator.pushNamedAndRemoveUntil(
-                          context, "/auth", (route) => false);
-                      final AuthService _auth = AuthService();
-                      _auth.signOut();
-                    },
-                    child: const Text('Log out')),
-                ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: const Text('Keep Signing')),
+                //===========================Yes=========================
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, "/auth", (route) => false);
+                    final AuthService _auth = AuthService();
+                    _auth.signOut();
+                  },
+                  child: Stack(
+                    children: <Widget>[
+                      Center(
+                        child: Container(
+                          alignment: Alignment.center,
+                          width: 200,
+                          decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        height: 40,
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.only(top: 10),
+                        child: Text(
+                          "Sign out",
+                          style: GoogleFonts.montserrat(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: kPurpleDeep,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const Padding(padding: EdgeInsets.only(bottom: 10)),
+                //===============================No===========================
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Stack(
+                    children: <Widget>[
+                      Center(
+                        child: Container(
+                            alignment: Alignment.center,
+                            width: 200,
+                            decoration: const BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20)),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: kPurpleDeep,
+                                    offset: Offset(6, 6),
+                                    blurRadius: 6,
+                                  ),
+                                ]),
+                            child: Image.asset(
+                              'assets/image/purple_button.png',
+                              scale: 4,
+                            )),
+                      ),
+                      Container(
+                        height: 40,
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.only(top: 10),
+                        child: Text(
+                          "No",
+                          style: GoogleFonts.montserrat(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: kTextLight,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const Padding(padding: EdgeInsets.only(bottom: 20)),
               ],
             );
           });

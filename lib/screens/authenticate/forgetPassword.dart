@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:handsfree/services/auth.dart';
 import 'package:handsfree/widgets/backButton.dart';
-import 'package:handsfree/widgets/buildButton.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:handsfree/widgets/constants.dart';
 import 'package:handsfree/widgets/buildText.dart';
 import 'package:handsfree/widgets/buildTextBox.dart';
-
 import '../../widgets/backButton.dart';
-import '../learn/learn.dart';
 
 class ForgetPassword extends StatefulWidget {
   const ForgetPassword({Key? key}) : super(key: key);

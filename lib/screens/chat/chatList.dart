@@ -4,7 +4,6 @@ import 'package:handsfree/models/newUser.dart';
 import 'package:handsfree/models/userProfile.dart';
 import 'package:handsfree/screens/chat/chatContactCard.dart';
 import 'package:handsfree/services/database.dart';
-import 'package:handsfree/services/userPreference.dart';
 import 'package:handsfree/widgets/buildText.dart';
 import 'package:provider/provider.dart';
 

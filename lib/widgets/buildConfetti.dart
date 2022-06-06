@@ -1,8 +1,6 @@
 import 'dart:math';
-
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
-import 'package:confetti/src/enums/confetti_controller_state.dart';
 
 class AllConfettiWidget extends StatefulWidget {
   final Widget child;
@@ -54,25 +52,25 @@ class _AllConfettiWidgetState extends State<AllConfettiWidget> {
   }
 
   Widget buildConfetti() => Align(
-    alignment: Alignment.topCenter,
-    child: ConfettiWidget(
-      confettiController: controller,
-      colors: [
-        Colors.red,
-        Colors.blue,
-        Colors.orange,
-        Colors.purple,
-        Colors.lightBlue,
-      ],
-      //blastDirection: blastDirection,
-      blastDirectionality: BlastDirectionality.explosive,
-      shouldLoop: true,
-      emissionFrequency: 0.05,
-      numberOfParticles: 10,
-      gravity: 0.2,
-      maxBlastForce: 2,
-      minBlastForce: 1,
-      particleDrag: 0.1,
-    ),
-  );
+        alignment: Alignment.topCenter,
+        child: ConfettiWidget(
+          confettiController: controller,
+          colors: [
+            Colors.red,
+            Colors.blue,
+            Colors.orange,
+            Colors.purple,
+            Colors.lightBlue,
+          ],
+          //blastDirection: blastDirection,
+          blastDirectionality: BlastDirectionality.explosive,
+          shouldLoop: true,
+          emissionFrequency: 0.05,
+          numberOfParticles: 10,
+          gravity: 0.2,
+          maxBlastForce: 2,
+          minBlastForce: 1,
+          particleDrag: 0.1,
+        ),
+      );
 }

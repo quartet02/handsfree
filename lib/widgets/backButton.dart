@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:handsfree/provider/lessonCardProvider.dart';
 import 'package:provider/provider.dart';
+import 'package:handsfree/widgets/buildText.dart';
+
+import 'constants.dart';
 
 class Button extends StatelessWidget {
   const Button({Key? key}) : super(key: key);
@@ -103,22 +107,101 @@ class Button extends StatelessWidget {
           await showDialog(
               context: context,
               builder: (_) => AlertDialog(
-            title: const Text('Report'),
-            content: const Text('Do you want to report?'),
-            actions: [
-
-              TextButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  child: const Text('Cancel')),
-              ElevatedButton(
-                  onPressed: () {
-                    Provider.of<LessonCardProvider>(context, listen: false).setQuesInput = title;
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text('Report')),
-            ],
-          ));
-
+                    actionsAlignment: MainAxisAlignment.center,
+                    backgroundColor: kBackgroundColour,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25)),
+                    elevation: 100,
+                    title: buildText.heading2Text("Report"),
+                    content: SingleChildScrollView(
+                      child: ListBody(
+                        children: [
+                          buildText
+                              .heading3Text("Do you want to report this page?"),
+                        ],
+                      ),
+                    ),
+                    actions: [
+                      //========================Yes======================
+                      GestureDetector(
+                        onTap: () {
+                          Provider.of<LessonCardProvider>(context,
+                                  listen: false)
+                              .setQuesInput = title;
+                          Navigator.of(context).pop();
+                        },
+                        child: Stack(
+                          children: <Widget>[
+                            Center(
+                              child: Container(
+                                alignment: Alignment.center,
+                                width: 200,
+                                decoration: const BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20)),
+                                ),
+                              ),
+                            ),
+                            Container(
+                              height: 40,
+                              alignment: Alignment.center,
+                              padding: const EdgeInsets.only(top: 10),
+                              child: Text(
+                                "Report",
+                                style: GoogleFonts.montserrat(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                  color: kMagentaDeep,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const Padding(padding: EdgeInsets.only(bottom: 10)),
+                      //===============================No======================
+                      GestureDetector(
+                        onTap: () => Navigator.of(context).pop(),
+                        child: Stack(
+                          children: <Widget>[
+                            Center(
+                              child: Container(
+                                  alignment: Alignment.center,
+                                  width: 200,
+                                  decoration: const BoxDecoration(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(20)),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: kMagentaDeep,
+                                          offset: Offset(6, 6),
+                                          blurRadius: 6,
+                                        ),
+                                      ]),
+                                  child: Image.asset(
+                                    'assets/image/magenta_button.png',
+                                    scale: 4,
+                                  )),
+                            ),
+                            Container(
+                              height: 40,
+                              alignment: Alignment.center,
+                              padding: const EdgeInsets.only(top: 10),
+                              child: Text(
+                                "No",
+                                style: GoogleFonts.montserrat(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                  color: kTextLight,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const Padding(padding: EdgeInsets.only(bottom: 20)),
+                    ],
+                  ));
         },
         child: Container(
           height: 50,

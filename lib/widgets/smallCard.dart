@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:handsfree/models/newsFeedModel.dart';
-import 'package:handsfree/widgets/overlay.dart';
-import 'package:handsfree/widgets/buildButton.dart';
 import 'package:handsfree/widgets/buildText.dart';
 
 import '../services/medialoader.dart';

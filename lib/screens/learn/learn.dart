@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:handsfree/provider/lessonCardProvider.dart';
-import 'package:handsfree/provider/subLessonProvider.dart';
+// import 'package:handsfree/provider/subLessonProvider.dart';
 import 'package:handsfree/screens/learn/subLesson.dart';
 import 'package:handsfree/services/database.dart';
 import 'package:handsfree/widgets/constants.dart';
@@ -50,7 +50,7 @@ class _LearnState extends State<Learn> {
         timeBackPressed = DateTime.now();
 
         if (isExitWarning) {
-          final message = 'Press back again to exit';
+          const message = 'Press back again to exit';
           Fluttertoast.showToast(msg: message, fontSize: 18);
 
           return false;
@@ -96,67 +96,65 @@ class _LearnState extends State<Learn> {
                   child: ListView(
                     physics: const NeverScrollableScrollPhysics(),
                     children: [
-                      Container(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Basic Text',
-                                  style: GoogleFonts.montserrat(
-                                    fontSize: 25,
-                                    fontWeight: FontWeight.w800,
-                                    color: kTextLight,
-                                  ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Basic Text',
+                                style: GoogleFonts.montserrat(
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.w800,
+                                  color: kTextLight,
                                 ),
-                                const Padding(
-                                  padding: EdgeInsets.only(bottom: 5),
+                              ),
+                              const Padding(
+                                padding: EdgeInsets.only(bottom: 5),
+                              ),
+                              Text(
+                                (progress * 100).toString() + '% completed',
+                                style: GoogleFonts.montserrat(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600,
+                                  color: kTextLight,
                                 ),
-                                Text(
-                                  (progress * 100).toString() + '% completed',
-                                  style: GoogleFonts.montserrat(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w600,
-                                    color: kTextLight,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            progress == 0
-                                ? Container()
-                                : Container(
-                                    alignment: Alignment.centerRight,
-                                    width: 60,
-                                    height: 60,
-                                    child: Stack(children: <Widget>[
-                                      Image.asset(
-                                        'assets/image/large_progress_bar.png',
+                              ),
+                            ],
+                          ),
+                          progress == 0
+                              ? Container()
+                              : Container(
+                                  alignment: Alignment.centerRight,
+                                  width: 60,
+                                  height: 60,
+                                  child: Stack(children: <Widget>[
+                                    Image.asset(
+                                      'assets/image/large_progress_bar.png',
+                                      scale: 4,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(7),
+                                      child: CircularPercentIndicator(
+                                        radius: 22.0,
+                                        lineWidth: 5.0,
+                                        percent: progress,
+                                        // center: new Text("100%"),
+                                        progressColor: kOrangeMid,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(13.0),
+                                      child: Image.asset(
+                                        'assets/image/small_progress_bar.png',
                                         scale: 4,
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(7),
-                                        child: CircularPercentIndicator(
-                                          radius: 22.0,
-                                          lineWidth: 5.0,
-                                          percent: progress,
-                                          // center: new Text("100%"),
-                                          progressColor: kOrangeMid,
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(13.0),
-                                        child: Image.asset(
-                                          'assets/image/small_progress_bar.png',
-                                          scale: 4,
-                                        ),
-                                      ),
-                                    ]),
-                                  ),
-                          ],
-                        ),
+                                    ),
+                                  ]),
+                                ),
+                        ],
                       ),
                       const Padding(
                         padding: EdgeInsets.only(bottom: 60),
@@ -230,7 +228,7 @@ class _LearnState extends State<Learn> {
                                             .setPractical = false;
                                         debugPrint("is not Practical");
                                         Provider.of<LessonCardProvider>(context,
-                                            listen: false)
+                                                listen: false)
                                             .setCurrentTypeOfTest = -1;
                                         Navigator.pushNamed(
                                             context, "/sublevel");
@@ -248,8 +246,9 @@ class _LearnState extends State<Learn> {
                                                 listen: false)
                                             .setPractical = true;
                                         Provider.of<LessonCardProvider>(context,
-                                            listen: false)
-                                            .setCurrentTypeOfTest = Random().nextInt(3);
+                                                    listen: false)
+                                                .setCurrentTypeOfTest =
+                                            Random().nextInt(3);
                                         debugPrint("isPractical");
                                         Navigator.pushNamed(
                                             context, "/sublevel");

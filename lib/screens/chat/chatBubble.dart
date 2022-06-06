@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:handsfree/models/messageModel.dart';
-import 'package:handsfree/models/newUser.dart';
 import 'package:handsfree/models/userProfile.dart';
 import 'package:handsfree/services/database.dart';
 import 'package:handsfree/widgets/constants.dart';

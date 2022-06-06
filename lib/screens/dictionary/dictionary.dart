@@ -5,7 +5,6 @@ import 'package:handsfree/screens/dictionary/searchBar.dart';
 import 'package:handsfree/screens/dictionary/searchGroup.dart';
 import 'package:handsfree/services/database.dart';
 import 'package:handsfree/services/predictImage.dart';
-import 'package:handsfree/widgets/buildButton.dart';
 import 'package:handsfree/widgets/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
