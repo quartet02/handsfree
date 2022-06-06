@@ -1,6 +1,8 @@
+![Handsfree Banner](https://github.com/quartet02/handsfree/blob/master/assets/image/banner.png)
 # Handsfree 
-
-A new Flutter project that specialize in teaching American Sign Language. This project is aimed to solve 2 [United Nations SDGs](https://developers.google.com/community/gdsc-solution-challenge/UN-goals), namely **Quality Education** and **Reduced Inequalities**. In this project, we integrated ML Kit and Firebase( Authentication, Cloud Firestore, Functions, Cloud Messaging, Cloud Storage). There are five main pages, namely **Home**, **Dictionary**, **Learning**, **Social** and **Profile**. 
+A new Flutter project that specialize in teaching American Sign Language. This project is aimed to solve 2 [United Nations SDGs](https://developers.google.com/community/gdsc-solution-challenge/UN-goals), namely **Quality Education** and **Reduced Inequalities**. 
+In this project, we integrated ML Kit and Firebase(Authentication, Cloud Firestore, Functions, Cloud Messaging, Cloud Storage). There are five main pages, namely **Home**, **Dictionary**, **Learning**, **Social** and **Profile**.  
+ [Demonstration video](https://youtu.be/HPf20P4IBVU)
 
 Widget Tree:
 <pre>
@@ -77,8 +79,8 @@ Next step of our projects is to: <br />
 ## Architecture
 - Firebase Firestore (NoSQL)
 - Firebase Storage
+- Google ML Kit
 - Flutter (Dart)
-- Mediapipe
 
 ## Library Used
 - async
