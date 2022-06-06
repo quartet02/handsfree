@@ -43,7 +43,7 @@ Handsfree
 </pre> 
 
 ## Installation
-You can either download the testing version from [Google Play Store](https://play.google.com/apps/internaltest/4701593700339110422) or pull this version to you local machine and run it in the android emulator.
+You can either download the testing version from [Google Play Store](https://play.google.com/store/apps/details?id=com.umquartet02.handsfree) or pull this version to you local machine and run it in the android emulator.
 
 ## Collaborators
 We are first year student from University of Malaya, Malaysia who commit ourselves in Google Solution 2022 and aims to achieve [United Nations SDGs](https://developers.google.com/community/gdsc-solution-challenge/UN-goals) 4 and 10 which are Quality Education and Reduced Inequalities respectively. 
