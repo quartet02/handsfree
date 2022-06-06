@@ -1,10 +1,10 @@
-# handsfree 
+# Handsfree 
 
-A new Flutter project that specialize in teaching American Sign Language. Machine learning model built using Mediapipe is planned to be integrated with this Flutter project to create effective assessment method for American Sign Language shown by user. In this project, there are five main pages, namely home, dictionary, learning, social and profile. 
+A new Flutter project that specialize in teaching American Sign Language. This project is aimed to solve 2 [United Nations SDGs](https://developers.google.com/community/gdsc-solution-challenge/UN-goals), namely **Quality Education** and **Reduced Inequalities**. In this project, we integrated ML Kit and Firebase( Authentication, Cloud Firestore, Functions, Cloud Messaging, Cloud Storage). There are five main pages, namely **Home**, **Dictionary**, **Learning**, **Social** and **Profile**. 
 
 Widget Tree:
 <pre>
-handsfree
+Handsfree
 └── Authenticate
     ├── Sign In
     │   ├── Home
@@ -45,13 +45,13 @@ handsfree
 ## Installation
 You can either download the testing version from [Google Play Store](https://play.google.com/apps/internaltest/4701593700339110422) or pull this version to you local machine and run it in the android emulator.
 
-## Collaborator
-We are first year student from University of Malaya, Malaysia who commit ourselves in Google Solution 2022 and aims to achieve United Nation's SGD 4 and 10 which are Quality Education and Reduced Inequalities respectively. 
+## Collaborators
+We are first year student from University of Malaya, Malaysia who commit ourselves in Google Solution 2022 and aims to achieve [United Nations SDGs](https://developers.google.com/community/gdsc-solution-challenge/UN-goals) 4 and 10 which are Quality Education and Reduced Inequalities respectively. 
 
-- Nah Wan Jun &emsp;&nbsp;(nwjun)
-- Ng Gih Ming &emsp;&ensp;(mingng18)
-- Kuck Swee Nien (KuckSN)
-- Lim Wei Xin &emsp;&emsp;(Programmer420-1)
+- Nah Wan Jun [(nwjun)](https://github.com/nwjun)
+- Ng Gih Ming [(mingng18)](https://github.com/mingng18)
+- Kuck Swee Nien [(KuckSN)](https://github.com/KuckSN)
+- Lim Wei Xin [(Programmer420-1)](https://github.com/Programmer420-1)
 
 ## Future Plan
 Next step of our projects is to: <br />
@@ -119,3 +119,14 @@ Next step of our projects is to: <br />
 - shared_preferences
 - simple_shadow
 - video_player
+
+## Dataset
+- [ASL Alphabet by Akash](https://www.kaggle.com/datasets/grassknoted/asl-alphabet)
+
+## Limitation
+- The tflite model is trained on 4 alphabets(A, B, C and D) with one epoch only due to hardware limitaion, so the recognition of hand signs might not be very accurate.
+
+## Special Thanks
+- **Dr Chan Chee Seng** for giving advices throughout the preparation for the second submission.
+- **Google Communities**
+- **Kwan Yang** from Universiti Malaya for helping in the early stage of Flutter app development.
