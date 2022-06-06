@@ -131,8 +131,101 @@ class _MainLearningPageState extends State<MainLearningPage>
 
     return WillPopScope(
       onWillPop: () async {
-        bool willLeave = false;
-        await showDialog(context: context, builder: (_) => alert(willLeave));
+        bool willLeave=false;
+        await showDialog(
+          context: context,
+          builder: (_)=> AlertDialog(
+          actionsAlignment: MainAxisAlignment.center,
+          backgroundColor: kBackgroundColour,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+          elevation: 100,
+          title: buildText.heading2Text("Stop learning.."),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: [
+                buildText.heading3Text("Are you sure you want to stop learning?"),
+              ],
+            ),
+          ),
+          actions: [
+            //=====================================Yes=========================
+            GestureDetector(
+              onTap: () {
+                willLeave = true;
+                Navigator.of(context).pop();
+              },
+              child: Stack(
+                children: <Widget>[
+                  Center(
+                    child: Container(
+                      alignment: Alignment.center,
+                      width: 200,
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    height: 40,
+                    alignment: Alignment.center,
+                    padding: const EdgeInsets.only(top: 10),
+                    child: Text(
+                      "Exit",
+                      style: GoogleFonts.montserrat(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: kPurpleDeep,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const Padding(padding: EdgeInsets.only(bottom: 10)),
+            //=================================No==========================
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).pop();
+              },
+              child: Stack(
+                children: <Widget>[
+                  Center(
+                    child: Container(
+                        alignment: Alignment.center,
+                        width: 200,
+                        decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                            boxShadow: [
+                              BoxShadow(
+                                color: kPurpleDeep,
+                                offset: Offset(6, 6),
+                                blurRadius: 6,
+                              ),
+                            ]),
+                        child: Image.asset(
+                          'assets/image/purple_button.png',
+                          scale: 4,
+                        )),
+                  ),
+                  Container(
+                    height: 40,
+                    alignment: Alignment.center,
+                    padding: const EdgeInsets.only(top: 10),
+                    child: Text(
+                      "No",
+                      style: GoogleFonts.montserrat(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: kTextLight,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const Padding(padding: EdgeInsets.only(bottom: 20)),
+          ],
+        ));
         return willLeave;
       },
       child: FutureBuilder<List<LessonCardModel>>(
@@ -594,100 +687,6 @@ class _MainLearningPageState extends State<MainLearningPage>
     }
   }
 
-  Widget alert(bool willLeave) {
-    return AlertDialog(
-      actionsAlignment: MainAxisAlignment.center,
-      backgroundColor: kBackgroundColour,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
-      elevation: 100,
-      title: buildText.heading2Text("Stop learning.."),
-      content: SingleChildScrollView(
-        child: ListBody(
-          children: [
-            buildText.heading3Text("Are you sure you want to stop learning?"),
-          ],
-        ),
-      ),
-      actions: [
-        //=====================================Yes=========================
-        GestureDetector(
-          onTap: () {
-            willLeave = true;
-            Navigator.of(context).pop();
-          },
-          child: Stack(
-            children: <Widget>[
-              Center(
-                child: Container(
-                  alignment: Alignment.center,
-                  width: 200,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                  ),
-                ),
-              ),
-              Container(
-                height: 40,
-                alignment: Alignment.center,
-                padding: const EdgeInsets.only(top: 10),
-                child: Text(
-                  "Exit",
-                  style: GoogleFonts.montserrat(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: kPurpleDeep,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-        const Padding(padding: EdgeInsets.only(bottom: 10)),
-        //=================================No==========================
-        GestureDetector(
-          onTap: () {
-            Navigator.of(context).pop();
-          },
-          child: Stack(
-            children: <Widget>[
-              Center(
-                child: Container(
-                    alignment: Alignment.center,
-                    width: 200,
-                    decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                        boxShadow: [
-                          BoxShadow(
-                            color: kPurpleDeep,
-                            offset: Offset(6, 6),
-                            blurRadius: 6,
-                          ),
-                        ]),
-                    child: Image.asset(
-                      'assets/image/purple_button.png',
-                      scale: 4,
-                    )),
-              ),
-              Container(
-                height: 40,
-                alignment: Alignment.center,
-                padding: const EdgeInsets.only(top: 10),
-                child: Text(
-                  "No",
-                  style: GoogleFonts.montserrat(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: kTextLight,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-        const Padding(padding: EdgeInsets.only(bottom: 20)),
-      ],
-    );
-  }
 }
 
 Future<List<LessonCardModel>> getLessonListFromDB(user, syllabus, lesson) {
