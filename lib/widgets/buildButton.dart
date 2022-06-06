@@ -11,9 +11,11 @@ class buildButton extends StatelessWidget {
   String buttonColor;
   Color buttonShadow;
   late final bool isSignOut;
+  final BuildContext context;
 
   buildButton(
-      {required this.text,
+      {required this.context,
+      required this.text,
       required this.word,
       required this.buttonColor,
       this.buttonShadow = kButtonShadow,
@@ -22,9 +24,35 @@ class buildButton extends StatelessWidget {
 
   void navigate(BuildContext context, String word, bool isReplaced) {
     if (isSignOut) {
-      Navigator.pushNamedAndRemoveUntil(context, "/auth", (route) => false);
-      final AuthService _auth = AuthService();
-      _auth.signOut();
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('Are you sure?'),
+              content: SingleChildScrollView(
+                child: ListBody(
+                  children: const [
+                    Text('Are you sure you want to log out?'),
+                  ],
+                ),
+              ),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, "/auth", (route) => false);
+                      final AuthService _auth = AuthService();
+                      _auth.signOut();
+                    },
+                    child: const Text('Log out')),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text('Keep Signing')),
+              ],
+            );
+          });
     } else {
       isReplaced
           ? Navigator.pushNamedAndRemoveUntil(

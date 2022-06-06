@@ -76,9 +76,12 @@ class PrepSendImage extends StatelessWidget {
                             isMedia: true);
                   } else {
                     PredictImage();
-                    String result = await PredictImage.classifyImage(
+
+                    String? result = await PredictImage.classifyImage(
                         cast<XFile>(imagePath[2])!, true);
-                    debugPrint(result);
+
+                    debugPrint("Prediction result in prepSendImage: " + result.toString());
+
                     List? wordData = await DatabaseService().getWordData();
                     for (Map each in wordData) {
                       if (each['word'] == result) {

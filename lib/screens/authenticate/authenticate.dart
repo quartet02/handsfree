@@ -30,6 +30,7 @@ class Authenticate extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 10),
                   child: buildButton(
+                      context: context,
                       text: 'Sign in',
                       word: '/auth/signIn',
                       buttonColor: 'white'),
@@ -38,6 +39,7 @@ class Authenticate extends StatelessWidget {
                   padding: EdgeInsets.only(
                       bottom: MediaQuery.of(context).size.height / 40),
                   child: buildButton(
+                      context: context,
                       text: 'Sign up',
                       word: '/auth/signUp',
                       buttonColor: 'purple'),

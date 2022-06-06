@@ -101,7 +101,7 @@ class LessonCardProvider with ChangeNotifier {
   void initTest() {
     // if (index==0) return;
     numOfWrong = List.filled(cardLessons.length, 0);
-    allTypeOfTest = List.filled(cardLessons.length, 0);
+    allTypeOfTest = List.filled(cardLessons.length, -2);
     if (currentTypeOfTest == 1) {
       initMcqOptions();
     }

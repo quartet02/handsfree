@@ -132,7 +132,7 @@ class MyApp extends StatelessWidget {
         "/showNews": (context) => const NewsPage(),
         "/timerOut": (context) => const TimerOut(),
         "/levelForm": (context) => const LevelForm(),
-        "/handsignPlayground": (context) => HandSignPlayground(),
+        "/handsignPlayground": (context) => const HandSignPlayground(),
       },
     );
   }

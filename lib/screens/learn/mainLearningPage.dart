@@ -81,7 +81,7 @@ class _MainLearningPageState extends State<MainLearningPage>
         debugPrint(Provider.of<LessonCardProvider?>(context, listen: false)
             ?.testResult
             .toString());
-        Navigator.pushNamed(context, "/timerOut");
+        Navigator.pushReplacementNamed(context, "/timerOut");
       }
     });
     // cancel timer if isn't practical
@@ -129,310 +129,333 @@ class _MainLearningPageState extends State<MainLearningPage>
         Provider.of<LessonCardProvider?>(context)!.getCurrentTypeOfTest;
     debugPrint("type of test in mainLearningPage: " + typeOfTest.toString());
 
-    return FutureBuilder<List<LessonCardModel>>(
-        future: lessonListFromDB,
-        builder: (BuildContext context,
-            AsyncSnapshot<List<LessonCardModel>> snapshot) {
-          switch (snapshot.connectionState) {
-            case ConnectionState.waiting:
-              return Loading();
-            case ConnectionState.done:
-              List<LessonCardModel>? lessonCard = snapshot.data;
-              if (lessonCard!.isNotEmpty && firstTime) {
-                if (isPractical) {
-                  lessonCard.shuffle();
-                  provider.setCardLessons(lessonCard);
-                  provider.initTest();
-                } else {
-                  provider.setCardLessons(lessonCard);
+    return WillPopScope(
+      onWillPop: () async {
+        bool willLeave = false;
+        await showDialog(
+            context: context,
+            builder: (_) => AlertDialog(
+              title: const Text('Are you sure?'),
+              content: const Text('Are you sure you want to stop learning?'),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      willLeave = true;
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text('Leave')),
+                ElevatedButton(
+                    onPressed: () => Navigator.of(context).pop(),
+                    child: const Text('Stay'))
+              ],
+            ));
+        return willLeave;
+      },
+      child: FutureBuilder<List<LessonCardModel>>(
+          future: lessonListFromDB,
+          builder: (BuildContext context,
+              AsyncSnapshot<List<LessonCardModel>> snapshot) {
+            switch (snapshot.connectionState) {
+              case ConnectionState.waiting:
+                return Loading();
+              case ConnectionState.done:
+                List<LessonCardModel>? lessonCard = snapshot.data;
+                if (lessonCard!.isNotEmpty && firstTime) {
+                  if (isPractical) {
+                    lessonCard.shuffle();
+                    provider.setCardLessons(lessonCard);
+                    provider.initTest();
+                  } else {
+                    provider.setCardLessons(lessonCard);
+                  }
+                  firstTime = false;
+                  provider.initTime();
                 }
-                firstTime = false;
-                provider.initTime();
-              }
 
-              stopwatch.reset();
-              stopwatch.start();
+                stopwatch.reset();
+                stopwatch.start();
 
-              return Scaffold(
-                body: Container(
-                  height: double.infinity,
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                        alignment: Alignment.topCenter,
-                        image: AssetImage('assets/image/white_background.png'),
-                        fit: BoxFit.cover),
-                  ),
-                  child: SingleChildScrollView(
-                    child: Consumer<LessonCardProvider?>(
-                        builder: (context, providerCardLesson, child) {
-                      var cardLesson = providerCardLesson!.cardLessons;
-                      double progress =
-                          (providerCardLesson.index) / cardLesson.length;
+                return Scaffold(
+                  body: Container(
+                    height: double.infinity,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                          alignment: Alignment.topCenter,
+                          image: AssetImage('assets/image/white_background.png'),
+                          fit: BoxFit.cover),
+                    ),
+                    child: SingleChildScrollView(
+                      child: Consumer<LessonCardProvider?>(
+                          builder: (context, providerCardLesson, child) {
+                        var cardLesson = providerCardLesson!.cardLessons;
+                        double progress =
+                            (providerCardLesson.index) / cardLesson.length;
 
-                      void updateDB() {
-                        _remainingTime.value = countDownTime;
-                        stopwatch.stop();
-                        provider.setStopwatch(stopwatch.elapsed);
+                        void updateDB() {
+                          _remainingTime.value = countDownTime;
+                          stopwatch.stop();
+                          provider.setStopwatch(stopwatch.elapsed);
 
-                        if (providerCardLesson.index == cardLesson.length - 1) {
-                          oneSecTimer.cancel();
-                          DatabaseService(uid: user.uid)
-                              .updateIsCompletedSubLesson(
-                                  syllabus,
-                                  lesson,
-                                  cardLesson[providerCardLesson.index]
-                                      .lessonId);
-                          DatabaseService(uid: user.uid).updateExperience();
-                          DatabaseService(uid: user.uid)
-                              .updateIsCompletedLesson(syllabus, lesson);
-                          DatabaseService(uid: user.uid).updateTestResult(
-                              syllabus,
-                              lesson,
-                              provider.testResult['lessonsId'],
-                              provider.testResult['allTypeOfTest'],
-                              provider.testResult['numOfWrong'],
-                              provider.testResult['elapsedTime']);
-                          debugPrint(provider.testResult.toString());
-                          Navigator.pushNamed(context, "/congratulation");
-                        } else {
-                          DatabaseService(uid: user.uid)
-                              .updateIsCompletedSubLesson(
-                                  syllabus,
-                                  lesson,
-                                  cardLesson[providerCardLesson.index]
-                                      .lessonId);
-                          DatabaseService(uid: user.uid).updateExperience();
-                          providerCardLesson.increment();
+                          if (providerCardLesson.index == cardLesson.length - 1) {
+                            oneSecTimer.cancel();
+                            DatabaseService(uid: user.uid)
+                                .updateIsCompletedSubLesson(
+                                    syllabus,
+                                    lesson,
+                                    cardLesson[providerCardLesson.index]
+                                        .lessonId);
+                            DatabaseService(uid: user.uid).updateExperience();
+                            DatabaseService(uid: user.uid)
+                                .updateIsCompletedLesson(syllabus, lesson);
+                            DatabaseService(uid: user.uid).updateTestResult(
+                                syllabus,
+                                lesson,
+                                provider.testResult['lessonsId'],
+                                provider.testResult['allTypeOfTest'],
+                                provider.testResult['numOfWrong'],
+                                provider.testResult['elapsedTime']);
+                            debugPrint(provider.testResult.toString());
+                            Navigator.pushNamed(context, "/congratulation");
+                          } else {
+                            DatabaseService(uid: user.uid)
+                                .updateIsCompletedSubLesson(
+                                    syllabus,
+                                    lesson,
+                                    cardLesson[providerCardLesson.index]
+                                        .lessonId);
+                            DatabaseService(uid: user.uid).updateExperience();
+                            providerCardLesson.increment();
+                          }
                         }
-                      }
 
-                      provider.updateDBFunction = updateDB;
-                      provider.showMessageFunction = showMessage;
+                        provider.updateDBFunction = updateDB;
+                        provider.showMessageFunction = showMessage;
 
-                      return Stack(
-                        children: [
-                          Container(
-                            alignment: Alignment.center,
-                            padding: const EdgeInsets.only(
-                                left: 40, bottom: 5, right: 40),
-                            margin: EdgeInsets.only(
-                                top: MediaQuery.of(context).size.height / 15),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                isPractical && typeOfTest != 2
-                                    ? ValueListenableBuilder(
-                                        valueListenable: _remainingTime,
-                                        builder: (context, value, child) {
-                                          return Text(
-                                            "Timer: " + value.toString(),
-                                            style: GoogleFonts.montserrat(
-                                              letterSpacing: 0,
-                                              fontSize: 16,
-                                              fontWeight: (value == 3 ||
-                                                      value == 2 ||
-                                                      value == 1)
-                                                  ? FontWeight.w700
-                                                  : FontWeight.w400,
-                                              color: (value == 3 ||
-                                                      value == 2 ||
-                                                      value == 1)
-                                                  ? Colors.red
-                                                  : kText,
-                                            ),
-                                          );
-                                        })
-                                    : Container(),
-                                const Padding(
-                                  padding: EdgeInsets.only(bottom: 10),
-                                ),
-                                Container(
-                                  height: 130,
-                                  decoration: const BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20)),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: kTextShadow,
-                                        offset: Offset(10, 10),
-                                        blurRadius: 20,
+                        return Stack(
+                          children: [
+                            Container(
+                              alignment: Alignment.center,
+                              padding: const EdgeInsets.only(
+                                  left: 40, bottom: 5, right: 40),
+                              margin: EdgeInsets.only(
+                                  top: MediaQuery.of(context).size.height / 15),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  isPractical && typeOfTest != 2
+                                      ? ValueListenableBuilder(
+                                          valueListenable: _remainingTime,
+                                          builder: (context, value, child) {
+                                            return Text(
+                                              "Timer: " + value.toString(),
+                                              style: GoogleFonts.montserrat(
+                                                letterSpacing: 0,
+                                                fontSize: 16,
+                                                fontWeight: (value == 3 ||
+                                                        value == 2 ||
+                                                        value == 1)
+                                                    ? FontWeight.w700
+                                                    : FontWeight.w400,
+                                                color: (value == 3 ||
+                                                        value == 2 ||
+                                                        value == 1)
+                                                    ? Colors.red
+                                                    : kText,
+                                              ),
+                                            );
+                                          })
+                                      : Container(),
+                                  const Padding(
+                                    padding: EdgeInsets.only(bottom: 10),
+                                  ),
+                                  Container(
+                                    height: 130,
+                                    decoration: const BoxDecoration(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(20)),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: kTextShadow,
+                                          offset: Offset(10, 10),
+                                          blurRadius: 20,
+                                        ),
+                                      ],
+                                      image: DecorationImage(
+                                        alignment: Alignment.topCenter,
+                                        image: AssetImage(
+                                            'assets/image/learning_small_rect.png'),
                                       ),
-                                    ],
-                                    image: DecorationImage(
-                                      alignment: Alignment.topCenter,
-                                      image: AssetImage(
-                                          'assets/image/learning_small_rect.png'),
+                                    ),
+                                    child: Stack(
+                                      children: [
+                                        Container(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 20),
+                                          margin: const EdgeInsets.only(top: 8),
+                                          child: Row(
+                                            children: <Widget>[
+                                              Container(
+                                                width: 130,
+                                                height: 200,
+                                                alignment: Alignment.center,
+                                                child: FutureBuilder(
+                                                    future: getImage(
+                                                        subLesson.lessonImage),
+                                                    builder: (context, snapshot) {
+                                                      if (snapshot
+                                                              .connectionState ==
+                                                          ConnectionState.done) {
+                                                        return Container(
+                                                          width: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .width /
+                                                              1.2,
+                                                          height: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .width /
+                                                              1.2,
+                                                          child: snapshot.data
+                                                              as Widget,
+                                                        );
+                                                      }
+                                                      if (snapshot
+                                                              .connectionState ==
+                                                          ConnectionState
+                                                              .waiting) {
+                                                        return Container(
+                                                          width: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .width /
+                                                              1.2,
+                                                          height: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .width /
+                                                              1.2,
+                                                          child:
+                                                              const CircularProgressIndicator(),
+                                                        );
+                                                      } else {
+                                                        debugPrint(
+                                                            'Connection Failed');
+                                                        return Container();
+                                                      }
+                                                    }),
+                                              ),
+                                              Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  const Padding(
+                                                      padding: EdgeInsets.only(
+                                                          top: 28)),
+                                                  buildText.learningHeading2Text(
+                                                      subLesson.lessonName),
+                                                  const Padding(
+                                                    padding: EdgeInsets.only(
+                                                        bottom: 7),
+                                                  ),
+                                                  buildText.learningHeading3Text(
+                                                      subLesson.lessonDesc),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Container(
+                                          alignment: Alignment.bottomCenter,
+                                          margin:
+                                              const EdgeInsets.only(bottom: 15),
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 20),
+                                          child: LinearPercentIndicator(
+                                            barRadius: Radius.circular(20),
+                                            percent: progress,
+                                            lineHeight: 8,
+                                            progressColor: kOrangeDeep,
+                                            animation: true,
+                                            animateFromLastPercent: true,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                  child: Stack(
-                                    children: [
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 20),
-                                        margin: const EdgeInsets.only(top: 8),
-                                        child: Row(
-                                          children: <Widget>[
-                                            Container(
-                                              width: 130,
-                                              height: 200,
-                                              alignment: Alignment.center,
-                                              child: FutureBuilder(
-                                                  future: getImage(
-                                                      subLesson.lessonImage),
-                                                  builder: (context, snapshot) {
-                                                    if (snapshot
-                                                            .connectionState ==
-                                                        ConnectionState.done) {
-                                                      return Container(
-                                                        width: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .width /
-                                                            1.2,
-                                                        height: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .width /
-                                                            1.2,
-                                                        child: snapshot.data
-                                                            as Widget,
-                                                      );
-                                                    }
-                                                    if (snapshot
-                                                            .connectionState ==
-                                                        ConnectionState
-                                                            .waiting) {
-                                                      return Container(
-                                                        width: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .width /
-                                                            1.2,
-                                                        height: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .width /
-                                                            1.2,
-                                                        child:
-                                                            const CircularProgressIndicator(),
-                                                      );
-                                                    } else {
-                                                      debugPrint(
-                                                          'Connection Failed');
-                                                      return Container();
-                                                    }
-                                                  }),
-                                            ),
-                                            Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                const Padding(
-                                                    padding: EdgeInsets.only(
-                                                        top: 28)),
-                                                buildText.learningHeading2Text(
-                                                    subLesson.lessonName),
-                                                const Padding(
-                                                  padding: EdgeInsets.only(
-                                                      bottom: 7),
-                                                ),
-                                                buildText.learningHeading3Text(
-                                                    subLesson.lessonDesc),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Container(
-                                        alignment: Alignment.bottomCenter,
-                                        margin:
-                                            const EdgeInsets.only(bottom: 15),
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 20),
-                                        child: LinearPercentIndicator(
-                                          barRadius: Radius.circular(20),
-                                          percent: progress,
-                                          lineHeight: 8,
-                                          progressColor: kOrangeDeep,
-                                          animation: true,
-                                          animateFromLastPercent: true,
-                                        ),
-                                      ),
-                                    ],
+                                  const Padding(
+                                    padding: EdgeInsets.only(bottom: 10),
                                   ),
-                                ),
-                                const Padding(
-                                  padding: EdgeInsets.only(bottom: 10),
-                                ),
-                                isPractical && typeOfTest != 2
-                                    ? Container()
-                                    : buildText.learningText(provider
-                                        .getCurrentLesson.lessonCardTitle),
-                                const Padding(
-                                  padding: EdgeInsets.only(bottom: 5),
-                                ),
-                                typeOfTestMiddleImage(typeOfTest),
-                                const Padding(
-                                  padding: EdgeInsets.only(bottom: 20),
-                                ),
-                                isPractical
-                                    ? Container()
-                                    : buildText.heading2Text(provider
-                                        .getCurrentLesson.lessonCardDesc),
-                                const Padding(
-                                  padding: EdgeInsets.only(bottom: 13),
-                                ),
-                                if (isPractical)
-                                  Container(
-                                      width: MediaQuery.of(context).size.width /
-                                          0.8,
-                                      // height: MediaQuery.of(context).size.height / 12,
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 10),
-                                      decoration: BoxDecoration(
-                                          color: Colors.transparent,
-                                          image: const DecorationImage(
-                                            image: AssetImage(
-                                                'assets/image/text_field.png'),
-                                            fit: BoxFit.cover,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(25),
-                                          boxShadow: const [
-                                            BoxShadow(
-                                              color: kTextShadow,
-                                              offset: Offset(6, 6),
-                                              blurRadius: 6,
+                                  isPractical && typeOfTest != 2
+                                      ? Container()
+                                      : buildText.learningText(provider
+                                          .getCurrentLesson.lessonCardTitle),
+                                  const Padding(
+                                    padding: EdgeInsets.only(bottom: 5),
+                                  ),
+                                  typeOfTestMiddleImage(typeOfTest),
+                                  const Padding(
+                                    padding: EdgeInsets.only(bottom: 20),
+                                  ),
+                                  isPractical
+                                      ? Container()
+                                      : buildText.heading2Text(provider
+                                          .getCurrentLesson.lessonCardDesc),
+                                  const Padding(
+                                    padding: EdgeInsets.only(bottom: 13),
+                                  ),
+                                  if (isPractical)
+                                    Container(
+                                        width: MediaQuery.of(context).size.width /
+                                            0.8,
+                                        // height: MediaQuery.of(context).size.height / 12,
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 10),
+                                        decoration: BoxDecoration(
+                                            color: Colors.transparent,
+                                            image: const DecorationImage(
+                                              image: AssetImage(
+                                                  'assets/image/text_field.png'),
+                                              fit: BoxFit.cover,
                                             ),
-                                          ]),
-                                      child: typeOfTestWidget(typeOfTest)),
-                                isPractical
-                                    ? typeOfTestBottomButton(typeOfTest)
-                                    : typeOfTestBottomButton(0)
-                              ],
+                                            borderRadius:
+                                                BorderRadius.circular(25),
+                                            boxShadow: const [
+                                              BoxShadow(
+                                                color: kTextShadow,
+                                                offset: Offset(6, 6),
+                                                blurRadius: 6,
+                                              ),
+                                            ]),
+                                        child: typeOfTestWidget(typeOfTest)),
+                                  isPractical
+                                      ? typeOfTestBottomButton(typeOfTest)
+                                      : typeOfTestBottomButton(0)
+                                ],
+                              ),
                             ),
-                          ),
-                          Button.blackBackButton(context, 15, 7),
-                          isPractical
-                              ? Container()
-                              : Button.playgroundButton(context),
-                          isPractical && typeOfTest == 2?
-                              Button.reportButton(context, provider
-                                  .getCurrentLesson.lessonCardTitle)
-                              :Container()
-                        ],
-                      );
-                    }),
+                            Button.blackBackButton(context, 15, 7),
+                            isPractical
+                                ? Container()
+                                : Button.playgroundButton(context),
+                            isPractical && typeOfTest == 2?
+                                Button.reportButton(context, provider
+                                    .getCurrentLesson.lessonCardTitle)
+                                :Container()
+                          ],
+                        );
+                      }),
+                    ),
                   ),
-                ),
-              );
+                );
 
-            default:
-              return Loading();
-          }
-        });
+              default:
+                return Loading();
+            }
+          }),
+    );
   }
 
   void showMessage(bool isCrt) {
@@ -533,7 +556,6 @@ class _MainLearningPageState extends State<MainLearningPage>
               onTap: () {
                 provider.currentIndexTypeOfTest();
                 if (isPractical) {
-
                   provider.checkAns();
                 } else {
                   debugPrint("update db");

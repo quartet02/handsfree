@@ -99,9 +99,26 @@ class Button extends StatelessWidget {
       right: 50,
       top: MediaQuery.of(context).size.height / 2.5,
       child: GestureDetector(
-        onTap: () {
-          Provider.of<LessonCardProvider>(context, listen: false).setQuesInput =
-              title;
+        onTap: () async {
+          await showDialog(
+              context: context,
+              builder: (_) => AlertDialog(
+            title: const Text('Report'),
+            content: const Text('Do you want to report?'),
+            actions: [
+
+              TextButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: const Text('Cancel')),
+              ElevatedButton(
+                  onPressed: () {
+                    Provider.of<LessonCardProvider>(context, listen: false).setQuesInput = title;
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('Report')),
+            ],
+          ));
+
         },
         child: Container(
           height: 50,

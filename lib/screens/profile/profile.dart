@@ -105,7 +105,10 @@ class Profile extends StatelessWidget {
                         profile: ProfileDetails(
                             imageUrl:
                                 'assets/image/character.png' /*userData.picture!*/,
-                            username: profile.username,
+                            username: snapshot3.data!
+                                .firstWhere(
+                                    (element) => element.uid == profile.uid)
+                                .name,
                             email: "",
                             experience: snapshot3.data!
                                 .firstWhere(

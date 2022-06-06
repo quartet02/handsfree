@@ -313,11 +313,13 @@ class _SettingsState extends State<Settings> {
                             ),
                             breaker(20),
                             buildButton(
+                                context: context,
                                 text: "Helpdesk",
                                 word: "/helpCenter",
                                 buttonColor: "purple"),
                             breaker(10),
                             buildButton(
+                                context: context,
                                 text: "Feedback",
                                 word: "/feedback",
                                 buttonColor: "purple"),
@@ -478,16 +480,19 @@ class _SettingsState extends State<Settings> {
                             // ),
                             breaker(20),
                             buildButton(
+                                context: context,
                                 text: "Terms",
                                 word: "/terms",
                                 buttonColor: "purple"),
                             breaker(20),
                             buildButton(
+                                context: context,
                                 text: "Acknowledgement",
                                 word: "/acknowledgement",
                                 buttonColor: "purple"),
                             breaker(20),
                             buildButton(
+                              context: context,
                               text: "Sign Out",
                               word: "/home",
                               buttonColor: "purple",
