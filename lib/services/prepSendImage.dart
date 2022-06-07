@@ -95,7 +95,7 @@ class PrepSendImage extends StatelessWidget {
                             maintainState: false));
                         break;
                       } else {
-                        Navigator.of(context).push(MaterialPageRoute(
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
                             builder: (context) => const Translator(
                                 'Unknown', 'Unknown', 'Unknown', 'Unknown'),
                             maintainState: false));
