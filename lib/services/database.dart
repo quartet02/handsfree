@@ -89,12 +89,18 @@ class DatabaseService {
       'isCompleted': true,
     });
   }
-  
-  Future updateTestResult(String syllabus, String lesson, List<String> lessonId, List<int> allTypeOfTest, List<int> numOfWrong, List<Duration> elapsedTime){
+
+  Future updateTestResult(
+      String syllabus,
+      String lesson,
+      List<String> lessonId,
+      List<int> allTypeOfTest,
+      List<int> numOfWrong,
+      List<Duration> elapsedTime) {
     debugPrint(numOfWrong.toString());
     debugPrint(elapsedTime.toString());
     List<int> time = [];
-    for(Duration each in elapsedTime){
+    for (Duration each in elapsedTime) {
       time.add(each.inMicroseconds);
     }
     return userCollection
@@ -201,7 +207,11 @@ class DatabaseService {
         .collection(lesson)
         .get();
 
-    debugPrint("FirebaseGetSelectedLessonCardList: "+syllabus+" "+lesson+ "sfsf");
+    debugPrint("FirebaseGetSelectedLessonCardList: " +
+        syllabus +
+        " " +
+        lesson +
+        "sfsf");
 
     for (var doc in snapshots.docs) {
       Map<String, dynamic> temp = doc.data();
@@ -213,7 +223,6 @@ class DatabaseService {
           lessonCardImage: temp["lessonCardImage"],
           lessonId: temp["lessonId"],
           isCompleted: temp["isCompleted"]));
-
     }
 
     return list;
@@ -254,7 +263,6 @@ class DatabaseService {
   }
 
   Future updateActivityLog(List? activityLog, Timestamp? time) {
-
     DateTime now = DateTime.now();
     DateTime last = DateTime.parse(time!.toDate().toString());
     double days = daysBetween(last, now);
@@ -915,7 +923,7 @@ class DatabaseService {
       "lessonCardId": 027,
       "lessonCardTitle": "Hello",
       "lessonCardDesc": "Sign of 'Hello'",
-      "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonCardImage": "assets/word/hello.gif",
       "lessonId": 'hello',
       "isCompleted": false,
     });
@@ -930,7 +938,7 @@ class DatabaseService {
       "lessonCardId": 028,
       "lessonCardTitle": "Hey",
       "lessonCardDesc": "Sign of 'Hey'",
-      "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonCardImage": "assets/word/hey.gif",
       "lessonId": 'hey',
       "isCompleted": false,
     });
@@ -945,7 +953,7 @@ class DatabaseService {
       "lessonCardId": 029,
       "lessonCardTitle": "What's up",
       "lessonCardDesc": "Sign of 'What's up'",
-      "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonCardImage": "assets/word/whatsupp.gif",
       "lessonId": 'whatsup',
       "isCompleted": false,
     });
@@ -1344,7 +1352,7 @@ class DatabaseService {
       "lessonCardId": 055,
       "lessonCardTitle": "Goodbye",
       "lessonCardDesc": "Sign of 'Goodbye'",
-      "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonCardImage": "assets/word/goodbye.gif",
       "lessonId": 'goodbye',
       "isCompleted": false,
     });
@@ -1804,7 +1812,7 @@ class DatabaseService {
       "lessonCardId": 027,
       "lessonCardTitle": "Hello",
       "lessonCardDesc": "Sign of 'Hello'",
-      "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonCardImage": "assets/word/hello.gif",
       "lessonId": 'hello',
       "isCompleted": false,
     });
@@ -1819,7 +1827,7 @@ class DatabaseService {
       "lessonCardId": 028,
       "lessonCardTitle": "Hey",
       "lessonCardDesc": "Sign of 'Hey'",
-      "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonCardImage": "assets/word/hey.gif",
       "lessonId": 'hey',
       "isCompleted": false,
     });
@@ -1834,7 +1842,7 @@ class DatabaseService {
       "lessonCardId": 029,
       "lessonCardTitle": "What's up",
       "lessonCardDesc": "Sign of 'What's up'",
-      "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonCardImage": "assets/word/whatsupp.gif",
       "lessonId": 'whatsup',
       "isCompleted": false,
     });
@@ -2233,7 +2241,7 @@ class DatabaseService {
       "lessonCardId": 055,
       "lessonCardTitle": "Goodbye",
       "lessonCardDesc": "Sign of 'Goodbye'",
-      "lessonCardImage": "assets/image/lesson_1_thumbnail.png",
+      "lessonCardImage": "assets/word/goodbye.gif",
       "lessonId": 'goodbye',
       "isCompleted": false,
     });
