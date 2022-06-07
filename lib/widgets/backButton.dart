@@ -15,16 +15,21 @@ class Button extends StatelessWidget {
     return Container();
   }
 
-  static Widget backButton(BuildContext context, double left, double height) {
+  static Widget backButton(BuildContext context, double left, double height,
+      {Function? popFunc}) {
     return Positioned(
       left: left,
       top: MediaQuery.of(context).size.height / height,
       child: GestureDetector(
         onTap: () {
-          Navigator.pop(context, true);
-          Clipboard.setData(const ClipboardData());
-          HapticFeedback.mediumImpact();
-          Feedback.forTap(context);
+          if (popFunc == null) {
+            Navigator.pop(context, true);
+            Clipboard.setData(const ClipboardData());
+            HapticFeedback.mediumImpact();
+            Feedback.forTap(context);
+          } else {
+            popFunc();
+          }
         },
         child: Container(
           padding: EdgeInsets.all(5),
@@ -195,7 +200,8 @@ class Button extends StatelessWidget {
     );
   }
 
-  static Widget reportButton(BuildContext context, String title, Function func) {
+  static Widget reportButton(
+      BuildContext context, String title, Function func) {
     return Positioned(
       right: 50,
       top: MediaQuery.of(context).size.height / 2.5,

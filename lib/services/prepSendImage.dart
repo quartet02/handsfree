@@ -80,7 +80,8 @@ class PrepSendImage extends StatelessWidget {
                     String? result = await PredictImage.classifyImage(
                         cast<XFile>(imagePath[2])!, true);
 
-                    debugPrint("Prediction result in prepSendImage: " + result.toString());
+                    debugPrint("Prediction result in prepSendImage: " +
+                        result.toString());
 
                     List? wordData = await DatabaseService().getWordData();
                     for (Map each in wordData) {
@@ -94,7 +95,7 @@ class PrepSendImage extends StatelessWidget {
                             maintainState: false));
                         break;
                       } else {
-                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => const Translator(
                                 'Unknown', 'Unknown', 'Unknown', 'Unknown'),
                             maintainState: false));

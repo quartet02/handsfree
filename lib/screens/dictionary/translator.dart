@@ -42,7 +42,11 @@ class _TranslatorState extends State<Translator> {
           ),
           child: Stack(
             children: [
-              Button.backButton(context, 30, 9.5),
+              Button.backButton(context, 30, 9.5,
+                  popFunc: () => {
+                        Navigator.of(context)
+                            .popAndPushNamed('/dictionary', result: true)
+                      }),
               Container(
                 width: MediaQuery.of(context).size.width,
                 padding: const EdgeInsets.only(left: 40, bottom: 5, right: 50),
