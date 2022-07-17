@@ -69,11 +69,7 @@ Next step of our projects is to: <br />
 &emsp;&emsp;- Able to learn sign language even without Internet connection <br />
 &emsp;&emsp;- Able to access dictionary to emergency use <br />
 <br />
-    4) Integrate Mediapipe with Flutter <br />
-&emsp;&emsp;- Develop more precise assessment method using Machine Learning Model and record accuracy of sign by users <br />
-&emsp;&emsp;- Recognize sign easily and able to translate directly from sign into words <br />
-<br />
-    5) Implement Sign Language Processing <br />
+    4) Implement Sign Language Processing <br />
 &emsp;&emsp;- Since the grammar of sign language is different from English, we have to use sign language processing in order to arrange the translated words from signs in the order that people can understand. <br />
 
 ## Architecture
