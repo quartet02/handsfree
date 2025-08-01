@@ -53,7 +53,7 @@ We are first year student from University of Malaya, Malaysia who commit ourselv
 - Nah Wan Jun [(nwjun)](https://github.com/nwjun)
 - Ng Gih Ming [(mingng18)](https://github.com/mingng18)
 - Kuck Swee Nien [(KuckSN)](https://github.com/KuckSN)
-- Lim Wei Xin [(Programmer420-1)](https://github.com/Programmer420-1)
+- Lim Wei Xin [(Programmer420-1)](https://github.com/realdavian)
 
 ## Future Plan
 Next step of our projects is to: <br />
